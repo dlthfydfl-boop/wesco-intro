@@ -1,5 +1,5 @@
 /* ============================================================
-   WESCO v4 - Refined Premium
+   WESCO v5 - script
    ============================================================ */
 
 const main = document.querySelector('.main');
@@ -14,7 +14,6 @@ function updateActiveSection() {
   navItems.forEach(item => { item.classList.toggle('active', item.getAttribute('href') === '#' + current); });
   const docH = main.scrollHeight - window.innerHeight;
   progressFill.style.width = `${Math.min((main.scrollTop / docH) * 100, 100)}%`;
-
   const currentEl = document.getElementById(current);
   document.body.classList.toggle('cursor-active', currentEl?.dataset.dark !== undefined);
 }
@@ -28,9 +27,7 @@ navItems.forEach(a => {
     const id = a.getAttribute('href').slice(1);
     const target = document.getElementById(id);
     if (!target) return;
-    const doScroll = () => main.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
-    if (document.startViewTransition) document.startViewTransition(doScroll);
-    else doScroll();
+    main.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
     sidebar.classList.remove('open');
   });
 });
@@ -92,12 +89,12 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
 
-/* 막대 + 점 */
+/* SAG dots reveal */
 const barObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
 }, { root: main, threshold: 0.3 });
 
-document.querySelectorAll('.bar-fill, #sagDots').forEach(el => barObserver.observe(el));
+document.querySelectorAll('#sagDots').forEach(el => barObserver.observe(el));
 
 /* Hero 파형 */
 function drawHeroWaveform() {
@@ -114,7 +111,7 @@ function drawHeroWaveform() {
 drawHeroWaveform();
 
 /* ============================================================
-   03. 작동 원리 - 회로 토글 (천천히/고급스럽게)
+   03. 작동 원리 - 회로 토글
    ============================================================ */
 const toggleBtns = document.querySelectorAll('.toggle-btn');
 const howStage = document.getElementById('howStage');
@@ -144,10 +141,13 @@ const modes = {
     apply() {
       howStage.classList.remove('storm');
       howInfo.classList.remove('comp');
+      // 평상시 - 메인 흐름 (녹색 실선)
       setLineStyle('line-1', '#4F926D', 3);
       setLineStyle('line-2', '#4F926D', 3);
+      // 충전 (점선)
       setLineStyle('line-3', '#5B7AA8', 1.8, '5 4');
       setLineStyle('line-4', '#5B7AA8', 1.8, '5 4');
+      // 인버터→부하 (대기, 흐릿)
       const l5 = document.getElementById('line-5');
       if (l5) {
         l5.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
@@ -155,6 +155,14 @@ const modes = {
         l5.setAttribute('stroke-width', 1.5);
         l5.setAttribute('opacity', 0.4);
         l5.removeAttribute('stroke-dasharray');
+      }
+      // 출력 라인 (항상 실선)
+      const lo = document.getElementById('line-output');
+      if (lo) {
+        lo.style.transition = 'stroke 0.6s ease';
+        lo.setAttribute('stroke', '#4F926D');
+        lo.setAttribute('stroke-width', 2.5);
+        lo.removeAttribute('stroke-dasharray');
       }
       document.getElementById('scrIndicator')?.setAttribute('fill', '#4F926D');
       document.getElementById('edlcLevel')?.setAttribute('fill', '#4F926D');
@@ -172,9 +180,20 @@ const modes = {
     apply() {
       howStage.classList.add('storm');
       howInfo.classList.add('comp');
+      // 계통 차단 (희미)
       setLineStyle('line-1', '#A8A29E', 1.5, '5 4');
-      setLineStyle('line-2', '#A8A29E', 1.5, '5 4');
-      setLineStyle('line-3', '#A8A29E', 1.5, '5 4');
+      // SCR 첫 부분 차단
+      const l2 = document.getElementById('line-2');
+      if (l2) {
+        l2.style.transition = 'stroke 0.6s ease, stroke-width 0.6s ease';
+        // 사고시: SCR(300) → 분기점(380) 까지는 차단(점선), 380 → 부하(600)는 인버터 보상 흐름(실선)
+        // 실제로는 분기점 이후는 인버터 출력이므로 line-2 전체를 빨간 실선 처리 (인버터 → 부하 흐름)
+        l2.setAttribute('stroke', '#C13816');
+        l2.setAttribute('stroke-width', 3);
+        l2.removeAttribute('stroke-dasharray');
+      }
+      // 인버터 → EDLC → 인버터 → 부하 우회 흐름 (모두 빨간 실선)
+      setLineStyle('line-3', '#A8A29E', 1.5, '5 4');  // SCR-인버터 분기 (사용 안함)
       setLineStyle('line-4', '#C13816', 3);
       const l5 = document.getElementById('line-5');
       if (l5) {
@@ -183,6 +202,14 @@ const modes = {
         l5.setAttribute('stroke-width', 3);
         l5.setAttribute('opacity', 1);
         l5.removeAttribute('stroke-dasharray');
+      }
+      // 출력 라인 (인버터에서 보상 전원이 부하로 - 빨간 실선)
+      const lo = document.getElementById('line-output');
+      if (lo) {
+        lo.style.transition = 'stroke 0.6s ease, stroke-width 0.6s ease';
+        lo.setAttribute('stroke', '#C13816');
+        lo.setAttribute('stroke-width', 3);
+        lo.removeAttribute('stroke-dasharray');
       }
       document.getElementById('scrIndicator')?.setAttribute('fill', '#C13816');
       document.getElementById('edlcLevel')?.setAttribute('fill', '#C13816');
@@ -200,6 +227,9 @@ function animateFlow(mode) {
   const dot3 = document.getElementById('flowDot3');
   if (!dot1 || !dot2 || !dot3) return;
 
+  // bypass 메인: 계통(50,160) → SCR(260,160) → 부하(610,160)
+  // bypass 충전: SCR(380,160) → 인버터(380,243) → EDLC(510,243)
+  // comp: EDLC(510,243) → 인버터(380,243) → line-5(380→160) → line-2(380→600) → 부하(610,160)
   const bypassMain = [[10,160],[90,160],[190,160],[300,160],[600,160],[610,160]];
   const bypassCharge = [[380,160],[380,220],[420,243],[470,243],[510,243]];
   const compFlow = [[510,243],[470,243],[420,243],[380,243],[380,220],[380,160],[600,160],[610,160]];
@@ -230,7 +260,7 @@ function animateFlow(mode) {
   }
 
   function step() {
-    // 천천히, 고급스럽게 — 산업 안정감
+    // 천천히 고급스럽게
     const speed = mode === 'bypass' ? 0.0028 : 0.005;
     t1 += speed; if (t1 > 1) t1 = 0;
     t2 += speed; if (t2 > 1) t2 = 0;
@@ -286,34 +316,35 @@ const howObserver = new IntersectionObserver((entries) => {
 if (howStage) howObserver.observe(howStage);
 
 /* ============================================================
-   05. Sag-VIEWER - 메뉴 클릭 인터랙션
+   05. Sag-VIEWER - 메뉴 클릭 (매뉴얼 정확 매핑)
    ============================================================ */
 const vfItems = document.querySelectorAll('.vf-item');
 const screenImg = document.getElementById('screenImg');
 const screenTitle = document.getElementById('screenTitle');
+const screenCap = document.getElementById('screenCap');
 
 vfItems.forEach(item => {
   item.addEventListener('click', () => {
     const img = item.dataset.img;
     const title = item.dataset.title;
+    const cap = item.dataset.cap;
     if (!img || !screenImg) return;
 
-    // 이전 활성 제거
     vfItems.forEach(i => i.classList.remove('active'));
     item.classList.add('active');
 
-    // 화면 페이드 전환
     screenImg.classList.add('fading');
     setTimeout(() => {
       screenImg.src = img;
-      if (screenTitle) screenTitle.textContent = `Sag-VIEWER™ HMI · ${title}`;
+      if (screenTitle) screenTitle.textContent = `Sag-VIEWER™ · ${title}`;
+      if (screenCap && cap) screenCap.textContent = cap;
       screenImg.classList.remove('fading');
-    }, 250);
+    }, 280);
   });
 });
 
-/* 키보드 단축키 (11 섹션) */
-const sectionIds = ['hero','about','need','how','products','viewer','cases','report','qa','network','contact'];
+/* 키보드 (11 섹션) */
+const sectionIds = ['hero','about','need','how','products','viewer','cases','network','report','qa','contact'];
 
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
