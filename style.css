@@ -50,8 +50,8 @@ html {
 
 body {
   font-family: var(--font-ko);
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 15.5px;
+  line-height: 1.7;
   color: var(--c-text);
   background: var(--c-bg);
   -webkit-font-smoothing: antialiased;
@@ -304,18 +304,18 @@ body.cursor-active .cursor-glow { opacity: 1; }
 }
 
 .section-title {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
   color: var(--c-head);
   line-height: 1.2;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   letter-spacing: -0.025em;
 }
 
 .section-sub {
-  font-size: 14.5px;
+  font-size: 16px;
   color: var(--c-gray);
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 .section-sub strong { color: var(--c-head); font-weight: 600; }
@@ -537,21 +537,23 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .kw-card-em .kw-tag { color: var(--c-red); }
 
 .kw-num {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--c-head);
   line-height: 1.1;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
   letter-spacing: -0.01em;
 }
 
-.kw-label { font-size: 11.5px; color: var(--c-text); line-height: 1.4; }
+.kw-label { font-size: 12.5px; color: var(--c-text); line-height: 1.4; }
 
 .about-photos {
   display: grid;
-  grid-template-rows: 1.3fr 1fr;
+  grid-template-rows: 1.6fr 1fr;
   gap: 10px;
 }
+
+.photo-sub { display: grid; grid-template-columns: 1fr; gap: 10px; }
 
 .photo-main, .photo-item {
   position: relative;
@@ -583,7 +585,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
 
 .photo-cap-sm { padding: 10px 12px 8px; font-size: 11px; }
 
-.photo-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+/* photo-sub overridden above to single column */
 
 /* ============================================================
    02. 왜 필요한가
