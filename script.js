@@ -2,9 +2,6 @@
    WESCO 사업소개 v2 - script
    ============================================================ */
 
-// ────────────────────────────────────────────
-// 사이드바 활성 섹션 + 진행률
-// ────────────────────────────────────────────
 const sections = document.querySelectorAll('.section');
 const navItems = document.querySelectorAll('.nav-item');
 const progressFill = document.getElementById('progressFill');
@@ -12,16 +9,12 @@ const progressFill = document.getElementById('progressFill');
 function updateActiveSection() {
   let current = 'hero';
   const scrollY = window.scrollY + window.innerHeight * 0.3;
-
   sections.forEach(sec => {
     if (sec.offsetTop <= scrollY) current = sec.id;
   });
-
   navItems.forEach(item => {
     item.classList.toggle('active', item.getAttribute('href') === '#' + current);
   });
-
-  // 진행률
   const docH = document.documentElement.scrollHeight - window.innerHeight;
   const pct = (window.scrollY / docH) * 100;
   progressFill.style.width = `${Math.min(pct, 100)}%`;
@@ -30,32 +23,17 @@ function updateActiveSection() {
 window.addEventListener('scroll', updateActiveSection, { passive: true });
 window.addEventListener('load', updateActiveSection);
 
-// ────────────────────────────────────────────
-// 모바일 햄버거
-// ────────────────────────────────────────────
 const sidebar = document.getElementById('sidebar');
-const mobileToggle = document.getElementById('mobileToggle');
+document.getElementById('mobileToggle')?.addEventListener('click', () => sidebar.classList.toggle('open'));
+document.querySelectorAll('.nav-item').forEach(a => a.addEventListener('click', () => sidebar.classList.remove('open')));
 
-mobileToggle?.addEventListener('click', () => {
-  sidebar.classList.toggle('open');
-});
-
-document.querySelectorAll('.nav-item').forEach(a => {
-  a.addEventListener('click', () => sidebar.classList.remove('open'));
-});
-
-// ────────────────────────────────────────────
-// 카운터 애니메이션
-// ────────────────────────────────────────────
+/* 카운터 */
 function animateCounter(el, target, duration = 1600) {
   const start = performance.now();
-  const startVal = 0;
   function tick(now) {
-    const elapsed = now - start;
-    const t = Math.min(elapsed / duration, 1);
+    const t = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - t, 3);
-    const val = Math.floor(startVal + (target - startVal) * eased);
-    el.textContent = val.toLocaleString();
+    el.textContent = Math.floor(target * eased).toLocaleString();
     if (t < 1) requestAnimationFrame(tick);
     else el.textContent = target.toLocaleString();
   }
@@ -66,30 +44,23 @@ const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !entry.target.dataset.animated) {
       entry.target.dataset.animated = '1';
-      const target = parseInt(entry.target.dataset.count, 10);
-      animateCounter(entry.target, target);
+      animateCounter(entry.target, parseInt(entry.target.dataset.count, 10));
     }
   });
 }, { threshold: 0.4 });
 
 document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
 
-// ────────────────────────────────────────────
-// 막대 그래프 애니메이션 (산업별 + vs UPS)
-// ────────────────────────────────────────────
+/* 막대 그래프 */
 const barObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('in-view');
   });
 }, { threshold: 0.3 });
 
-document.querySelectorAll('.bar-fill, .vs-row-fill').forEach(el => barObserver.observe(el));
+document.querySelectorAll('.bar-fill').forEach(el => barObserver.observe(el));
 
-// ────────────────────────────────────────────
-// Hero 배경 파형 SVG (잔잔한 사인파)
-// ────────────────────────────────────────────
+/* Hero 배경 파형 */
 function drawHeroWaveform() {
   const path = document.getElementById('wavePath');
   if (!path) return;
@@ -103,150 +74,152 @@ function drawHeroWaveform() {
 }
 drawHeroWaveform();
 
-// ────────────────────────────────────────────
-// SAG 파형 애니메이션 (01. 왜 필요한가)
-// ────────────────────────────────────────────
-function drawSagWaves() {
-  const w = 600, h = 240;
-  const sagPath = document.getElementById('sagWaveNoTSP');
-  const tspPath = document.getElementById('sagWaveTSP');
-  if (!sagPath || !tspPath) return;
-
-  // TSP 미설치: 정상 → SAG 발생 → 강하 → 회복
-  let d1 = `M 0 ${h/2}`;
-  for (let x = 0; x <= w; x += 3) {
-    let y;
-    if (x < w * 0.35) {
-      // 정상
-      y = h/2 + Math.sin((x / w) * Math.PI * 16) * 50;
-    } else if (x < w * 0.65) {
-      // SAG (전압 강하)
-      y = h/2 + Math.sin((x / w) * Math.PI * 16) * 12;
-    } else {
-      // 회복
-      y = h/2 + Math.sin((x / w) * Math.PI * 16) * 50;
-    }
-    d1 += ` L ${x} ${y}`;
-  }
-  sagPath.setAttribute('d', d1);
-
-  // TSP 적용: 항상 정상 (안정 정현파)
-  let d2 = `M 0 ${h/2}`;
-  for (let x = 0; x <= w; x += 3) {
-    const y = h/2 + Math.sin((x / w) * Math.PI * 16) * 50;
-    d2 += ` L ${x} ${y}`;
-  }
-  tspPath.setAttribute('d', d2);
-
-  // path animation: stroke-dasharray
-  const totalLen = sagPath.getTotalLength();
-  sagPath.style.strokeDasharray = totalLen;
-  sagPath.style.strokeDashoffset = totalLen;
-
-  const tspLen = tspPath.getTotalLength();
-  tspPath.style.strokeDasharray = tspLen;
-  tspPath.style.strokeDashoffset = tspLen;
-}
-drawSagWaves();
-
-// SAG 파형 애니메이션 트리거
-const sagObserver = new IntersectionObserver((entries) => {
+/* 도미노 효과 */
+const dominoRow = document.getElementById('dominoRow');
+const dominoObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.dataset.played) {
-      entry.target.dataset.played = '1';
-      const sagPath = document.getElementById('sagWaveNoTSP');
-      const tspPath = document.getElementById('sagWaveTSP');
-      if (sagPath) {
-        sagPath.style.transition = 'stroke-dashoffset 2.5s ease-out';
-        sagPath.style.strokeDashoffset = '0';
-      }
-      if (tspPath) {
-        setTimeout(() => {
-          tspPath.style.transition = 'stroke-dashoffset 2.5s ease-out';
-          tspPath.style.strokeDashoffset = '0';
-        }, 800);
-      }
+    if (entry.isIntersecting && !entry.target.dataset.fell) {
+      entry.target.dataset.fell = '1';
+      setTimeout(() => entry.target.classList.add('fall'), 300);
     }
   });
 }, { threshold: 0.4 });
 
-const sagWave = document.querySelector('.sag-wave');
-if (sagWave) sagObserver.observe(sagWave);
+if (dominoRow) dominoObserver.observe(dominoRow);
 
-// ────────────────────────────────────────────
-// 02. TSP 회로 다이어그램 토글
-// ────────────────────────────────────────────
+/* SAG 산점도 점 */
+const sagDots = document.getElementById('sagDots');
+const sagObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('in-view');
+  });
+}, { threshold: 0.3 });
+
+if (sagDots) sagObserver.observe(sagDots);
+
+/* ============================================================
+   02. 작동 원리 - 토글
+   ============================================================ */
 const toggleBtns = document.querySelectorAll('.toggle-btn');
-const diagramInfo = document.getElementById('diagramInfo');
-const pathBypass = document.getElementById('pathBypass');
-const pathComp = document.getElementById('pathComp');
-const flowDot = document.getElementById('flowDot');
+const howStage = document.getElementById('howStage');
+const infoMode = document.getElementById('infoMode');
+const infoBody = document.getElementById('infoBody');
+const howInfo = document.querySelector('.how-info');
 
-const modeData = {
+const lineIds = ['line-1', 'line-2', 'line-3', 'line-4', 'line-5', 'line-6'];
+
+function setLineStyle(id, color, width, dash) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.setAttribute('stroke', color);
+  el.setAttribute('stroke-width', width);
+  if (dash) el.setAttribute('stroke-dasharray', dash);
+  else el.removeAttribute('stroke-dasharray');
+}
+
+const modes = {
   bypass: {
-    title: '평상시 운전 모드',
-    body: '입력 전원이 <strong>By-Pass SCR을 통해 부하로 직결</strong>됩니다.<br>전력 소비 ≈ 2%, 자체 손실 최소화. <strong>98% 고효율</strong> 운전.',
-    bypassColor: '#4F926D', bypassWidth: 3, bypassDash: 'none',
-    compColor: '#A8A29E', compWidth: 2, compDash: '6 4'
+    title: '평상시 대기 모드',
+    body: [
+      ['1', '계통 전원 → SCR 스위치 → 부하 설비로 직접 공급'],
+      ['2', '일부 전력으로 EDLC 충전 유지 (대기 상태)'],
+      ['3', '자체 손실 최소, <strong>98% 고효율</strong> 운전']
+    ],
+    apply() {
+      howStage.classList.remove('storm');
+      howInfo.classList.remove('comp');
+      // 계통 → SCR → 부하 (활성)
+      setLineStyle('line-1', '#4F926D', 3);
+      setLineStyle('line-2', '#4F926D', 3);
+      // SCR → EDLC (느린 충전)
+      setLineStyle('line-3', '#5B7AA8', 1.5, '4 4');
+      setLineStyle('line-4', '#A8A29E', 1.5, '4 4');
+      setLineStyle('line-5', '#A8A29E', 1.5, '4 4');
+      setLineStyle('line-6', '#A8A29E', 1.5, '4 4');
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#4F926D');
+      document.getElementById('comp-overlay')?.setAttribute('opacity', '0');
+      animateFlow('bypass');
+    }
   },
   comp: {
-    title: '사고 시 보상 동작 (2ms 이내)',
-    body: 'SAG 발생 감지 → <strong>By-Pass 차단 → EDLC 에너지 방전 → 인버터 보상</strong>.<br>2ms 이내 보상 완료, 부하 측 무중단 가동.',
-    bypassColor: '#A8A29E', bypassWidth: 2, bypassDash: '6 4',
-    compColor: '#E1431B', compWidth: 3, compDash: 'none'
+    title: '사고시 보상 모드 (2 ms 이내)',
+    body: [
+      ['1', 'SAG 감지 → SCR 스위치가 <strong>계통 전원 차단</strong>'],
+      ['2', 'EDLC 저장 에너지 → <strong>인버터 인버팅 동작</strong> → 부하 공급'],
+      ['3', '동시에 계통 감시 → 복구 시 <strong>계통 재공급 절체</strong>'],
+      ['4', '모든 동작 <strong style="color:#E1431B">2 ms 이내 완료</strong>']
+    ],
+    apply() {
+      howStage.classList.add('storm');
+      howInfo.classList.add('comp');
+      // 계통 → SCR (차단)
+      setLineStyle('line-1', '#A8A29E', 1.5, '4 4');
+      setLineStyle('line-2', '#A8A29E', 1.5, '4 4');
+      // SCR → EDLC → 인버터 → 부하 (활성)
+      setLineStyle('line-3', '#E1431B', 3);
+      setLineStyle('line-4', '#E1431B', 3);
+      setLineStyle('line-5', '#E1431B', 3);
+      setLineStyle('line-6', '#E1431B', 3);
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#E1431B');
+      document.getElementById('comp-overlay')?.setAttribute('opacity', '1');
+      animateFlow('comp');
+    }
   }
 };
 
-let flowAnimId = null;
+let flowAnim;
 
-function setMode(mode) {
-  const data = modeData[mode];
-  diagramInfo.innerHTML = `<div class="info-mode">${data.title}</div><p>${data.body}</p>`;
+function animateFlow(mode) {
+  if (flowAnim) cancelAnimationFrame(flowAnim);
+  const dot1 = document.getElementById('flowDot1');
+  const dot2 = document.getElementById('flowDot2');
+  if (!dot1 || !dot2) return;
 
-  if (pathBypass) {
-    pathBypass.setAttribute('stroke', data.bypassColor);
-    pathBypass.setAttribute('stroke-width', data.bypassWidth);
-    if (data.bypassDash === 'none') {
-      pathBypass.removeAttribute('stroke-dasharray');
-    } else {
-      pathBypass.setAttribute('stroke-dasharray', data.bypassDash);
-    }
-  }
-  if (pathComp) {
-    pathComp.setAttribute('stroke', data.compColor);
-    pathComp.setAttribute('stroke-width', data.compWidth);
-    if (data.compDash === 'none') {
-      pathComp.removeAttribute('stroke-dasharray');
-    } else {
-      pathComp.setAttribute('stroke-dasharray', data.compDash);
-    }
-  }
+  // bypass: 계통 → SCR → 부하 (위쪽 라인)
+  // comp: SCR → EDLC → 인버터 → 부하 (아래쪽 우회)
+  const bypassPath = [[20,180],[140,180],[280,180],[400,180],[700,180]];
+  const compPath = [[280,180],[340,210],[340,270],[400,300],[510,300],[600,300],[600,180],[700,180]];
 
-  // 흐름 점 애니메이션
-  if (flowAnimId) cancelAnimationFrame(flowAnimId);
-  if (flowDot) {
-    flowDot.style.opacity = '1';
-    let t = 0;
-    const path = mode === 'bypass'
-      ? [[100,180],[180,180],[180,80],[400,80],[600,80],[600,180],[700,180]]
-      : [[100,180],[180,180],[180,280],[260,280],[360,280],[460,280],[600,280],[600,180],[700,180]];
+  const path = mode === 'bypass' ? bypassPath : compPath;
+  const color = mode === 'bypass' ? '#4F926D' : '#E1431B';
 
-    function animate() {
-      t += 0.008;
-      if (t > 1) t = 0;
+  dot1.setAttribute('fill', color);
+  dot2.setAttribute('fill', color);
+  dot1.setAttribute('opacity', '1');
+  dot2.setAttribute('opacity', '0.6');
+
+  let t1 = 0, t2 = 0.5;
+
+  function step() {
+    t1 += 0.006; if (t1 > 1) t1 = 0;
+    t2 += 0.006; if (t2 > 1) t2 = 0;
+
+    function pos(t) {
       const idx = Math.floor(t * (path.length - 1));
       const lt = (t * (path.length - 1)) - idx;
       const p0 = path[idx];
       const p1 = path[Math.min(idx + 1, path.length - 1)];
-      const x = p0[0] + (p1[0] - p0[0]) * lt;
-      const y = p0[1] + (p1[1] - p0[1]) * lt;
-      flowDot.setAttribute('cx', x);
-      flowDot.setAttribute('cy', y);
-      flowDot.setAttribute('fill', mode === 'bypass' ? '#4F926D' : '#E1431B');
-      flowAnimId = requestAnimationFrame(animate);
+      return [p0[0] + (p1[0] - p0[0]) * lt, p0[1] + (p1[1] - p0[1]) * lt];
     }
-    animate();
+
+    const [x1, y1] = pos(t1);
+    const [x2, y2] = pos(t2);
+    dot1.setAttribute('cx', x1); dot1.setAttribute('cy', y1);
+    dot2.setAttribute('cx', x2); dot2.setAttribute('cy', y2);
+
+    flowAnim = requestAnimationFrame(step);
   }
+  step();
+}
+
+function setMode(mode) {
+  const data = modes[mode];
+  if (!data) return;
+  infoMode.textContent = data.title;
+  infoBody.innerHTML = data.body.map(([n, t]) =>
+    `<div class="seq-step"><span class="seq-no">${n}</span><span>${t}</span></div>`
+  ).join('');
+  data.apply();
 }
 
 toggleBtns.forEach(btn => {
@@ -257,8 +230,8 @@ toggleBtns.forEach(btn => {
   });
 });
 
-// 초기 모드 + 다이어그램 진입 시 애니메이션 시작
-const diagObserver = new IntersectionObserver((entries) => {
+// 다이어그램 진입 시 초기 모드 설정
+const howObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !entry.target.dataset.init) {
       entry.target.dataset.init = '1';
@@ -267,41 +240,32 @@ const diagObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 
-const diagStage = document.getElementById('diagramStage');
-if (diagStage) diagObserver.observe(diagStage);
+if (howStage) howObserver.observe(howStage);
 
-// ────────────────────────────────────────────
-// 키보드 네비게이션 (1~9 + ↑↓)
-// ────────────────────────────────────────────
-const sectionIds = ['hero','need','how','products','tech','cases','industry','network','roi','contact'];
+/* 키보드 단축키 */
+const sectionIds = ['hero','need','how','products','viewer','why','cases','network','report','contact'];
 
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
   const num = parseInt(e.key);
   if (!isNaN(num) && num >= 0 && num <= 9) {
-    const target = document.getElementById(sectionIds[num]);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(sectionIds[num])?.scrollIntoView({ behavior: 'smooth' });
   }
-
   if (e.key === 'ArrowDown' || e.key === 'j') {
     e.preventDefault();
-    const current = sectionIds.findIndex(id =>
-      document.getElementById(id)?.getBoundingClientRect().top > -100 &&
-      document.getElementById(id)?.getBoundingClientRect().top < window.innerHeight * 0.5
-    );
-    const next = sectionIds[Math.min(current + 1, sectionIds.length - 1)];
-    document.getElementById(next)?.scrollIntoView({ behavior: 'smooth' });
+    const cur = sectionIds.findIndex(id => {
+      const r = document.getElementById(id)?.getBoundingClientRect();
+      return r && r.top > -100 && r.top < window.innerHeight * 0.5;
+    });
+    document.getElementById(sectionIds[Math.min(cur + 1, sectionIds.length - 1)])?.scrollIntoView({ behavior: 'smooth' });
   }
-
   if (e.key === 'ArrowUp' || e.key === 'k') {
     e.preventDefault();
-    const current = sectionIds.findIndex(id =>
-      document.getElementById(id)?.getBoundingClientRect().top > -100 &&
-      document.getElementById(id)?.getBoundingClientRect().top < window.innerHeight * 0.5
-    );
-    const prev = sectionIds[Math.max(current - 1, 0)];
-    document.getElementById(prev)?.scrollIntoView({ behavior: 'smooth' });
+    const cur = sectionIds.findIndex(id => {
+      const r = document.getElementById(id)?.getBoundingClientRect();
+      return r && r.top > -100 && r.top < window.innerHeight * 0.5;
+    });
+    document.getElementById(sectionIds[Math.max(cur - 1, 0)])?.scrollIntoView({ behavior: 'smooth' });
   }
 });
 
