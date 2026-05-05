@@ -145,15 +145,18 @@ function drawCircuitWaves(phase, mode) {
   const amp = 12;        // 진폭 (px)
   const baseY = 185;
 
-  // ▣ wave-1 (계통 → SCR, x: 100~220)
-  // bypass: 정상 사인파 / comp: SAG (찌그러진 파형)
+  // ▣ wave-1 (계통 → SCR, x: 100~220) — 5단계 모드별
   let d1 = '';
   for (let x = 100; x <= 220; x += 2) {
     let curAmp;
-    if (mode === 'comp') {
-      // SAG 발생 — 진폭 줄고 약간 왜곡
-      curAmp = 4 + Math.sin((x - 100) * 0.08 + phase * 0.5) * 1.5;
+    if (mode === 'detect') {
+      // 감지 — 진폭 절반, 약간 왜곡
+      curAmp = 7 + Math.sin((x - 100) * 0.1 + phase * 0.5) * 2;
+    } else if (mode === 'switch' || mode === 'compensate') {
+      // 절체/보상 — 거의 끊긴 상태
+      curAmp = 2.5 + Math.sin((x - 100) * 0.12 + phase * 0.4) * 1;
     } else {
+      // standby / recovery — 정상
       curAmp = amp;
     }
     const y = baseY + Math.sin((x - 100) * (Math.PI * 2 / period) + phase) * curAmp;
@@ -189,61 +192,107 @@ function startWaveLoop() {
   loop();
 }
 
+// ▣ 5단계 동작 시퀀스
+function setLine5(stroke, width, opacity = 1, dash = null) {
+  const l = document.getElementById('line-5');
+  if (!l) return;
+  l.style.transition = 'stroke 0.6s ease, opacity 0.6s ease, stroke-width 0.6s ease';
+  l.setAttribute('stroke', stroke);
+  l.setAttribute('stroke-width', width);
+  l.setAttribute('opacity', opacity);
+  if (dash) l.setAttribute('stroke-dasharray', dash);
+  else l.removeAttribute('stroke-dasharray');
+}
+
 const modes = {
-  bypass: {
-    title: 'STANDBY · 평상시 정상 운전',
+  standby: {
+    title: '① STANDBY · 평상시',
     body: [
-      ['1', '계통 → SCR → <strong>부하 직접 공급</strong> (정상 사인파)'],
+      ['1', '계통전원 → <strong>BYPASS (SCR)</strong> → 부하 공급'],
       ['2', '일부 전력으로 <strong>EDLC 충전 유지</strong>'],
       ['3', '자체 손실 최소, <strong>98% 고효율</strong> 운전']
     ],
     apply() {
       howStage.classList.remove('storm');
       howInfo.classList.remove('comp');
-      waveMode = 'bypass';
-      // 충전 라인 (블루 점선, EDLC로 일부 흐름)
+      waveMode = 'standby';
       setLineStyle('line-3', '#0d9488', 1.8, '5 4');
       setLineStyle('line-4', '#0d9488', 1.8, '5 4');
-      // 인버터→부하 라인 (대기, 흐릿)
-      const l5 = document.getElementById('line-5');
-      if (l5) {
-        l5.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
-        l5.setAttribute('stroke', '#475569');
-        l5.setAttribute('stroke-width', 1.5);
-        l5.setAttribute('opacity', 0.3);
-        l5.removeAttribute('stroke-dasharray');
-      }
+      setLine5('#475569', 1.5, 0.3);
       document.getElementById('scrIndicator')?.setAttribute('fill', '#22d3ee');
       document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
-      animateFlow('bypass');
     }
   },
-  comp: {
-    title: 'COMPENSATION · 사고시 — 계통 흔들려도 부하는 정상',
+  detect: {
+    title: '② DETECT · 순간정전 감지',
     body: [
-      ['1', '<strong>계통 측 사인파 왜곡</strong> → SCR 즉시 차단'],
-      ['2', '<strong>EDLC → 인버터 → 부하</strong> 정상 사인파 공급 (≤ 2ms)'],
-      ['3', '계통 감시 → 복구 시 <strong>재절체</strong>'],
-      ['4', '<strong style="color:#22d3ee">계통은 흔들렸지만, 부하는 정상</strong>']
+      ['1', '<strong>계통 측 전압 강하 (SAG)</strong> 발생'],
+      ['2', 'TSP 내부 검출 회로 — <strong>μs 단위 즉시 감지</strong>'],
+      ['3', '계통 입력 사인파 <strong>왜곡 시작</strong>']
+    ],
+    apply() {
+      howStage.classList.add('storm');
+      howInfo.classList.remove('comp');
+      waveMode = 'detect';
+      setLineStyle('line-3', '#0d9488', 1.8, '5 4');
+      setLineStyle('line-4', '#0d9488', 1.8, '5 4');
+      setLine5('#475569', 1.5, 0.3);
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#fbbf24');
+      document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
+    }
+  },
+  switch: {
+    title: '③ SWITCH · 절체 (SCR 차단)',
+    body: [
+      ['1', '<strong>SCR 즉시 차단</strong> — 계통 측 격리'],
+      ['2', '부하는 EDLC 보상 회로로 <strong>전환 준비</strong>'],
+      ['3', '전환 시간 <strong style="color:#22d3ee">≤ 2 ms</strong>']
     ],
     apply() {
       howStage.classList.add('storm');
       howInfo.classList.add('comp');
-      waveMode = 'comp';
-      // 사고 시 — SCR-인버터 분기 비활성, EDLC→인버터→부하 활성 (블루)
-      setLineStyle('line-3', '#475569', 1.5, '5 4');  // SCR→인버터 분기 비활성
-      setLineStyle('line-4', '#22d3ee', 2.5);  // EDLC ↔ 인버터 활성
-      const l5 = document.getElementById('line-5');
-      if (l5) {
-        l5.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
-        l5.setAttribute('stroke', '#22d3ee');
-        l5.setAttribute('stroke-width', 2.5);
-        l5.setAttribute('opacity', 1);
-        l5.removeAttribute('stroke-dasharray');
-      }
+      waveMode = 'switch';
+      setLineStyle('line-3', '#475569', 1.5, '5 4');
+      setLineStyle('line-4', '#22d3ee', 2.5);
+      setLine5('#22d3ee', 2.5, 1);
       document.getElementById('scrIndicator')?.setAttribute('fill', '#dc2626');
       document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
-      animateFlow('comp');
+    }
+  },
+  compensate: {
+    title: '④ COMPENSATE · 보상 공급',
+    body: [
+      ['1', '<strong>EDLC → 양방향 인버터 (DC→AC)</strong>'],
+      ['2', '<strong>인버터 → 부하</strong> 정상 사인파 공급'],
+      ['3', '<strong style="color:#22d3ee">부하는 끊김 없이 정상 운전 지속</strong>']
+    ],
+    apply() {
+      howStage.classList.add('storm');
+      howInfo.classList.add('comp');
+      waveMode = 'compensate';
+      setLineStyle('line-3', '#475569', 1.5, '5 4');
+      setLineStyle('line-4', '#22d3ee', 3);
+      setLine5('#22d3ee', 3, 1);
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#dc2626');
+      document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
+    }
+  },
+  recovery: {
+    title: '⑤ RECOVERY · 계통 복귀 + EDLC 재충전',
+    body: [
+      ['1', '계통 정상화 감지 → <strong>BYPASS 재절체</strong>'],
+      ['2', '계통 → 부하 직접 공급 복귀'],
+      ['3', '동시에 <strong>EDLC 재충전</strong> — 다음 사고 대비']
+    ],
+    apply() {
+      howStage.classList.remove('storm');
+      howInfo.classList.remove('comp');
+      waveMode = 'recovery';
+      setLineStyle('line-3', '#0d9488', 2, '4 3');  // 재충전 중 - 약간 두껍게
+      setLineStyle('line-4', '#0d9488', 2, '4 3');
+      setLine5('#475569', 1.5, 0.3);
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#22d3ee');
+      document.getElementById('edlcLevel')?.setAttribute('fill', '#fbbf24');  // 충전 중
     }
   }
 };
@@ -344,7 +393,7 @@ const howObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !entry.target.dataset.init) {
       entry.target.dataset.init = '1';
-      setMode('bypass');
+      setMode('standby');
     }
   });
 }, { root: main, threshold: 0.3 });

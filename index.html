@@ -176,38 +176,43 @@
         </div>
       </div>
 
-      <!-- 산업현장 리스크 예시 — 헤드라인 카드 -->
+      <!-- 손실 구조 — 직접 / 간접 분리 -->
       <div class="impact-block" data-reveal>
         <div class="impact-block-head">
-          <div class="news-badge">예시 헤드라인 · 산업현장 리스크 시나리오</div>
-          <h3 class="block-h">실제 현장에서 일어나는 일</h3>
+          <h3 class="block-h">손실 구조 — 직접 손실 vs 간접 손실</h3>
+          <p class="block-p">한 번의 순간정전이 두 가지 경로로 손실을 발생시킵니다.</p>
         </div>
 
-        <div class="news-grid" data-reveal-stagger>
-          <article class="news-card">
-            <div class="news-source">▮ 제조 / 반도체</div>
-            <h4 class="news-title">"0.1초 전력품질 이상에도 반도체 공정 설비 멈춤"</h4>
-            <p class="news-meta">단 100ms의 전압 강하만으로 핵심 장비가 즉시 셧다운 — 웨이퍼 폐기 + 재가동 시간</p>
-          </article>
-          <article class="news-card">
-            <div class="news-source">▮ 자동차 / 디스플레이</div>
-            <h4 class="news-title">"순간 전압강하로 생산라인 일시 정지… 수억 원대 손실 우려"</h4>
-            <p class="news-meta">조립 라인 1회 정지 = 일평균 수억원 손실 + 납기 지연 리스크 동반</p>
-          </article>
-          <article class="news-card">
-            <div class="news-source">▮ 자동화 / 화학</div>
-            <h4 class="news-title">"공장 자동화 설비, 순간정전 이후 재가동까지 수 시간 소요"</h4>
-            <p class="news-meta">PLC·로봇·인버터의 시퀀스 복귀에 평균 2~6시간 — 손실은 정전 시간의 수백 배</p>
-          </article>
-          <article class="news-card news-card-em">
-            <div class="news-source">▮ 산업 전반 · 핵심 메시지</div>
-            <h4 class="news-title">"전력은 돌아왔지만 설비는 멈췄다 — 산업현장의 숨은 리스크"</h4>
-            <p class="news-meta">한 번의 SAG가 며칠~몇 달의 직간접 손실로 이어지는 구조</p>
-          </article>
-        </div>
+        <div class="loss-split">
+          <div class="loss-col loss-col-direct">
+            <div class="loss-col-head">
+              <span class="loss-col-tag">DIRECT LOSS</span>
+              <h4 class="loss-col-title">직접 손실</h4>
+              <p class="loss-col-desc">설비/제품에 즉시 발생하는 손실</p>
+            </div>
+            <ul class="loss-list">
+              <li><span class="loss-num">01</span><span class="loss-text">설비 정지</span></li>
+              <li><span class="loss-num">02</span><span class="loss-text">생산 중단</span></li>
+              <li><span class="loss-num">03</span><span class="loss-text">제품 불량</span></li>
+            </ul>
+          </div>
 
-        <div class="news-disclaimer">
-          ※ 본 헤드라인은 산업현장에서 빈번하게 발생하는 리스크 시나리오를 예시로 구성한 것입니다.
+          <div class="loss-vs">VS</div>
+
+          <div class="loss-col loss-col-indirect">
+            <div class="loss-col-head">
+              <span class="loss-col-tag">INDIRECT LOSS</span>
+              <h4 class="loss-col-title">간접 손실</h4>
+              <p class="loss-col-desc">시간이 지날수록 누적되는 손실</p>
+            </div>
+            <ul class="loss-list">
+              <li><span class="loss-num">01</span><span class="loss-text">재가동 시간 손실</span></li>
+              <li><span class="loss-num">02</span><span class="loss-text">납기 지연</span></li>
+              <li><span class="loss-num">03</span><span class="loss-text">고객 신뢰 하락</span></li>
+              <li><span class="loss-num">04</span><span class="loss-text">생산 계획 차질</span></li>
+              <li><span class="loss-num">05</span><span class="loss-text">추가 인건비</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -231,9 +236,12 @@
       </div>
 
       <div class="how-inside">
-        <div class="how-toggle">
-          <button class="toggle-btn active" data-mode="bypass" data-magnetic>평상시</button>
-          <button class="toggle-btn" data-mode="comp" data-magnetic>사고시</button>
+        <div class="how-toggle how-toggle-5">
+          <button class="toggle-btn active" data-mode="standby" data-magnetic>① 평상시</button>
+          <button class="toggle-btn" data-mode="detect" data-magnetic>② 감지</button>
+          <button class="toggle-btn" data-mode="switch" data-magnetic>③ 절체</button>
+          <button class="toggle-btn" data-mode="compensate" data-magnetic>④ 보상</button>
+          <button class="toggle-btn" data-mode="recovery" data-magnetic>⑤ 복귀</button>
         </div>
         <div class="how-stage" id="howStage">
           <div class="storm-fx" id="stormFx">
@@ -484,78 +492,65 @@
         <div class="cert-marks-title">PRODUCT CERTIFICATION</div>
         <div class="cert-marks-sub">국제 안전·전자파·반도체 산업 규격 대응</div>
       </div>
-      <div class="cert-marks-grid">
-        <!-- CE -->
+      <div class="cert-marks-grid cert-marks-grid-4">
+        <!-- CE — 공식 마크 비율 (가로 2:1, 두 글자 형태) -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 60 60" width="48" height="48">
-              <path d="M22 15 a15 15 0 1 0 0 30 a13 13 0 0 1 0 -30" fill="none" stroke="#1a2332" stroke-width="3"/>
-              <path d="M48 15 a15 15 0 1 0 0 30 a13 13 0 0 1 0 -30" fill="none" stroke="#1a2332" stroke-width="3"/>
+            <svg viewBox="0 0 100 70" width="80" height="56">
+              <!-- C -->
+              <path d="M 40 8 a 27 27 0 1 0 0 54 a 23 23 0 0 1 0 -54 z" fill="#000" fill-rule="evenodd"/>
+              <path d="M 40 18 a 17 17 0 1 0 0 34 a 15 15 0 0 1 0 -34 z" fill="#FFF" fill-rule="evenodd"/>
+              <!-- E -->
+              <path d="M 92 8 a 27 27 0 1 0 0 54 a 23 23 0 0 1 0 -54 z" fill="#000" fill-rule="evenodd"/>
+              <path d="M 92 18 a 17 17 0 1 0 0 34 a 15 15 0 0 1 0 -34 z" fill="#FFF" fill-rule="evenodd"/>
+              <rect x="76" y="32" width="14" height="6" fill="#000"/>
             </svg>
           </div>
           <div class="cert-mark-name">CE</div>
-          <div class="cert-mark-desc">유럽 안전 인증</div>
+          <div class="cert-mark-desc">Conformité Européenne · 유럽 안전</div>
         </div>
-        <!-- KC -->
+
+        <!-- KC — 공식 마크 형태 (둥근 사각 + KC) -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 60 60" width="48" height="48">
-              <text x="30" y="38" text-anchor="middle" font-size="22" font-weight="900" fill="#1a2332" font-family="Arial">KC</text>
+            <svg viewBox="0 0 80 56" width="72" height="50">
+              <rect x="2" y="2" width="76" height="52" rx="8" fill="none" stroke="#000" stroke-width="2.5"/>
+              <text x="40" y="38" text-anchor="middle" font-size="28" font-weight="900" fill="#000" font-family="Arial, sans-serif" letter-spacing="-1">KC</text>
             </svg>
           </div>
           <div class="cert-mark-name">KC</div>
-          <div class="cert-mark-desc">국가통합 · 전자파</div>
+          <div class="cert-mark-desc">국가통합인증 · 전자파</div>
         </div>
-        <!-- S-MARK -->
+
+        <!-- UL — 공식 원형 마크 -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 60 60" width="48" height="48">
-              <circle cx="30" cy="30" r="22" fill="none" stroke="#1a2332" stroke-width="2.5"/>
-              <text x="30" y="38" text-anchor="middle" font-size="20" font-weight="900" fill="#1a2332" font-family="Arial">S</text>
-            </svg>
-          </div>
-          <div class="cert-mark-name">S-MARK</div>
-          <div class="cert-mark-desc">전기 안전 인증</div>
-        </div>
-        <!-- NRTL -->
-        <div class="cert-mark-card">
-          <div class="cert-mark-svg">
-            <svg viewBox="0 0 60 60" width="48" height="48">
-              <text x="30" y="32" text-anchor="middle" font-size="14" font-weight="800" fill="#1a2332" font-family="Arial">NRTL</text>
-              <text x="30" y="44" text-anchor="middle" font-size="6" fill="#64748b" font-family="Arial">RECOGNIZED</text>
-            </svg>
-          </div>
-          <div class="cert-mark-name">NRTL</div>
-          <div class="cert-mark-desc">북미 안전 등재</div>
-        </div>
-        <!-- UL -->
-        <div class="cert-mark-card cert-mark-card-rel">
-          <div class="cert-mark-svg">
-            <svg viewBox="0 0 60 60" width="48" height="48">
-              <circle cx="30" cy="30" r="22" fill="none" stroke="#1a2332" stroke-width="2.5"/>
-              <text x="30" y="36" text-anchor="middle" font-size="14" font-weight="900" fill="#1a2332" font-family="Arial">UL</text>
+            <svg viewBox="0 0 80 80" width="56" height="56">
+              <circle cx="40" cy="40" r="36" fill="none" stroke="#000" stroke-width="3.5"/>
+              <text x="40" y="40" text-anchor="middle" font-size="22" font-weight="900" fill="#000" font-family="Arial, sans-serif" font-style="italic" letter-spacing="-1">UL</text>
+              <path d="M 12 50 Q 40 60 68 50" fill="none" stroke="#000" stroke-width="1" opacity="0.35"/>
+              <text x="40" y="64" text-anchor="middle" font-size="6" font-weight="700" fill="#000" font-family="Arial">LISTED</text>
             </svg>
           </div>
           <div class="cert-mark-name">UL Listed</div>
-          <div class="cert-mark-desc">관련 인증</div>
+          <div class="cert-mark-desc">Underwriters Laboratories</div>
         </div>
-        <!-- SEMI F47 -->
-        <div class="cert-mark-card cert-mark-card-rel">
+
+        <!-- NRTL — 공식 마크 (Recognized) -->
+        <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 60 60" width="48" height="48">
-              <rect x="8" y="16" width="44" height="28" rx="2" fill="none" stroke="#1a2332" stroke-width="2"/>
-              <text x="30" y="30" text-anchor="middle" font-size="9" font-weight="800" fill="#1a2332" font-family="Arial">SEMI</text>
-              <text x="30" y="40" text-anchor="middle" font-size="9" font-weight="800" fill="#dc2626" font-family="Arial">F47</text>
+            <svg viewBox="0 0 80 80" width="56" height="56">
+              <!-- 거꾸로 된 NRTL 마크 형태 (UR 마크 변형) -->
+              <path d="M 40 8 L 72 60 L 8 60 Z" fill="none" stroke="#000" stroke-width="3"/>
+              <text x="40" y="48" text-anchor="middle" font-size="14" font-weight="900" fill="#000" font-family="Arial">NRTL</text>
             </svg>
           </div>
-          <div class="cert-mark-name">SEMI F47</div>
-          <div class="cert-mark-desc">반도체 대응 규격</div>
+          <div class="cert-mark-name">NRTL</div>
+          <div class="cert-mark-desc">북미 시험기관 인증</div>
         </div>
       </div>
       <div class="cert-marks-foot">
-        <span class="cert-foot-tag">실제 보유 인증</span> CE · KC · S-MARK · NRTL · 국내 특허 다수
-        <span class="cert-foot-divider">|</span>
-        <span class="cert-foot-tag cert-foot-tag-rel">대응 / 관련 규격</span> UL Listed · SEMI F47
+        <span class="cert-foot-tag">실제 보유 인증</span> CE · KC · UL · NRTL · S-MARK · 국내 특허 다수
         <a href="https://www.youtube.com/@WESCOTSP/videos" target="_blank" rel="noopener" class="cert-yt" data-magnetic>
           <svg width="14" height="14"><use href="#ico-play"/></svg> 제품 영상 보기
         </a>
@@ -611,9 +606,9 @@
           </div>
         </div>
         <div class="vf-item" data-menu="03"
-             data-img="images/hmi/slide15_03.png"
+             data-img="images/hmi/slide16_03.png"
              data-title="M3 · SAG EVENT"
-             data-cap="SAG EVENT — 발생한 모든 Sag 이벤트 시계열 목록. 우측 상단 GRAPH 버튼 클릭 시 보상 파형 분석 화면 오픈"
+             data-cap="SAG EVENT — Source(원본) vs Load(보상) 파형 비교. GRAPH 클릭 시 상세 분석 모달 오픈"
              data-graph="true">
           <div class="vf-no">03</div>
           <div class="vf-content">
@@ -940,9 +935,9 @@
       <div class="mc-block">
         <div class="mc-tag">SEMICONDUCTOR · 3,000+ 대</div>
         <div class="mc-list">
-          <span class="mc-name mc-name-em">Samsung</span>
-          <span class="mc-name mc-name-em">SK Hynix</span>
-          <span class="mc-name mc-name-em">TSMC</span>
+          <span class="mc-name">Samsung</span>
+          <span class="mc-name">SK Hynix</span>
+          <span class="mc-name">TSMC</span>
           <span class="mc-name">Sony</span>
           <span class="mc-name">WD</span>
           <span class="mc-name">NXP</span>
@@ -958,9 +953,9 @@
       <div class="mc-block">
         <div class="mc-tag">DISPLAY · 2,400+ 대</div>
         <div class="mc-list">
-          <span class="mc-name mc-name-em">Samsung Display</span>
-          <span class="mc-name mc-name-em">LG Display</span>
-          <span class="mc-name mc-name-em">BOE</span>
+          <span class="mc-name">Samsung Display</span>
+          <span class="mc-name">LG Display</span>
+          <span class="mc-name">BOE</span>
           <span class="mc-name">Innolux</span>
           <span class="mc-name">VISIONOX</span>
         </div>
@@ -969,8 +964,8 @@
       <div class="mc-block">
         <div class="mc-tag">AUTOMOTIVE · 3,000+ 대</div>
         <div class="mc-list">
-          <span class="mc-name mc-name-em">Hyundai Motor</span>
-          <span class="mc-name mc-name-em">Kia</span>
+          <span class="mc-name">Hyundai Motor</span>
+          <span class="mc-name">Kia</span>
           <span class="mc-name">Hankook</span>
           <span class="mc-name">Hyundai Kefico</span>
         </div>
@@ -1016,11 +1011,24 @@
     </div>
 
     <div class="region-strip">
-      <div class="region-h">SERVICE COVERAGE — 16 COUNTRIES</div>
+      <div class="region-h">글로벌 서비스 네트워크 — 16개국</div>
       <div class="region-tags">
-        <span>대한민국</span><span>중국</span><span>베트남</span><span>인도네시아</span><span>말레이시아</span>
-        <span>인도</span><span>일본</span><span>대만</span><span>미국</span><span>독일</span><span>폴란드</span>
-        <span>헝가리</span><span>체코</span><span>슬로바키아</span><span>터키</span><span>멕시코</span>
+        <span><i class="flag">🇰🇷</i>대한민국</span>
+        <span><i class="flag">🇨🇳</i>중국</span>
+        <span><i class="flag">🇻🇳</i>베트남</span>
+        <span><i class="flag">🇮🇩</i>인도네시아</span>
+        <span><i class="flag">🇲🇾</i>말레이시아</span>
+        <span><i class="flag">🇮🇳</i>인도</span>
+        <span><i class="flag">🇯🇵</i>일본</span>
+        <span><i class="flag">🇹🇼</i>대만</span>
+        <span><i class="flag">🇺🇸</i>미국</span>
+        <span><i class="flag">🇩🇪</i>독일</span>
+        <span><i class="flag">🇵🇱</i>폴란드</span>
+        <span><i class="flag">🇭🇺</i>헝가리</span>
+        <span><i class="flag">🇨🇿</i>체코</span>
+        <span><i class="flag">🇸🇰</i>슬로바키아</span>
+        <span><i class="flag">🇹🇷</i>터키</span>
+        <span><i class="flag">🇲🇽</i>멕시코</span>
       </div>
     </div>
   </section>
