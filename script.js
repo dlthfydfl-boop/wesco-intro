@@ -395,65 +395,6 @@ function animateFlow(mode) {
     flowAnim = requestAnimationFrame(step);
   }
   step();
-  return;
-
-  // (이하 기존 코드는 사용 안 함 - 위에서 return 처리)
-
-  // bypass 메인: 계통(50,160) → SCR(260,160) → 부하(610,160)
-  // bypass 충전: SCR(380,160) → 인버터(380,243) → EDLC(510,243)
-  // comp: EDLC(510,243) → 인버터(380,243) → line-5(380→160) → line-2(380→600) → 부하(610,160)
-  const bypassMain = [[10,160],[90,160],[190,160],[300,160],[600,160],[610,160]];
-  const bypassCharge = [[380,160],[380,220],[420,243],[470,243],[510,243]];
-  const compFlow = [[510,243],[470,243],[420,243],[380,243],[380,220],[380,160],[600,160],[610,160]];
-
-  if (mode === 'bypass') {
-    dot1.setAttribute('fill', '#4F926D');
-    dot2.setAttribute('fill', '#4F926D');
-    dot3.setAttribute('fill', '#5B7AA8');
-    dot1.setAttribute('opacity', 1);
-    dot2.setAttribute('opacity', 0.6);
-    dot3.setAttribute('opacity', 0.6);
-  } else {
-    dot1.setAttribute('fill', '#C13816');
-    dot2.setAttribute('fill', '#C13816');
-    dot3.setAttribute('opacity', 0);
-    dot1.setAttribute('opacity', 1);
-    dot2.setAttribute('opacity', 0.65);
-  }
-
-  let t1 = 0, t2 = 0.4, tc = 0;
-
-  function pos(path, t) {
-    const idx = Math.floor(t * (path.length - 1));
-    const lt = (t * (path.length - 1)) - idx;
-    const p0 = path[idx];
-    const p1 = path[Math.min(idx + 1, path.length - 1)];
-    return [p0[0] + (p1[0] - p0[0]) * lt, p0[1] + (p1[1] - p0[1]) * lt];
-  }
-
-  function step() {
-    // 천천히 고급스럽게
-    const speed = mode === 'bypass' ? 0.0028 : 0.005;
-    t1 += speed; if (t1 > 1) t1 = 0;
-    t2 += speed; if (t2 > 1) t2 = 0;
-    tc += 0.0018; if (tc > 1) tc = 0;
-
-    if (mode === 'bypass') {
-      const [x1, y1] = pos(bypassMain, t1);
-      const [x2, y2] = pos(bypassMain, t2);
-      const [xc, yc] = pos(bypassCharge, tc);
-      dot1.setAttribute('cx', x1); dot1.setAttribute('cy', y1);
-      dot2.setAttribute('cx', x2); dot2.setAttribute('cy', y2);
-      dot3.setAttribute('cx', xc); dot3.setAttribute('cy', yc);
-    } else {
-      const [x1, y1] = pos(compFlow, t1);
-      const [x2, y2] = pos(compFlow, t2);
-      dot1.setAttribute('cx', x1); dot1.setAttribute('cy', y1);
-      dot2.setAttribute('cx', x2); dot2.setAttribute('cy', y2);
-    }
-    flowAnim = requestAnimationFrame(step);
-  }
-  step();
 }
 
 function setMode(mode) {
@@ -542,10 +483,10 @@ vfItems.forEach(item => {
 
     // GRAPH 또는 REPORT 메뉴면 액션 버튼 표시
     if (screenActionBtn) {
-      if (isGraph || isReport) {
+      if (isReport) {
         screenActionBtn.style.display = 'inline-flex';
-        screenActionBtn.dataset.target = isGraph ? 'graphModal' : 'reportModal';
-        screenActionBtn.firstElementChild.nextSibling.textContent = isReport ? ' REPORT' : ' GRAPH';
+        screenActionBtn.dataset.target = 'reportModal';
+        screenActionBtn.firstElementChild.nextSibling.textContent = ' REPORT';
       } else {
         screenActionBtn.style.display = 'none';
       }
