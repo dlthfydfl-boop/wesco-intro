@@ -1613,3 +1613,100 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .loss-vs { transform: rotate(90deg); margin: 4px auto; }
   .how-toggle-5 .toggle-btn { padding: 7px 10px; font-size: 11px; }
 }
+
+/* ============================================================
+   v6.4 — Flag images + Light REPORT Modal (페이지 톤)
+   ============================================================ */
+
+/* 국기 이미지 */
+.flag-img {
+  width: 22px;
+  height: 14px;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+.region-tags span img.flag-img {
+  margin-right: 2px;
+}
+
+/* REPORT 모달 — Light 테마 (페이지 톤 통일) */
+.vf-modal-frame-light {
+  background: var(--c-bg) !important;
+  border: 1px solid var(--c-divider) !important;
+  box-shadow: 0 24px 60px rgba(44, 41, 36, 0.25) !important;
+}
+
+.vf-modal-header-light {
+  background: var(--c-bg-soft) !important;
+  border-bottom: 1px solid var(--c-divider) !important;
+}
+
+.vf-modal-frame-light .vf-modal-title {
+  color: var(--c-red) !important;
+  font-weight: 700;
+}
+
+.vf-modal-close-light {
+  background: transparent !important;
+  border: 1px solid var(--c-divider) !important;
+  color: var(--c-gray) !important;
+}
+
+.vf-modal-close-light:hover {
+  background: var(--c-red) !important;
+  color: var(--c-bg) !important;
+  border-color: var(--c-red) !important;
+}
+
+.vf-modal-body-light {
+  color: var(--c-text) !important;
+  background: var(--c-bg) !important;
+}
+
+.vf-modal-meta-light {
+  background: var(--c-bg-soft) !important;
+  color: var(--c-text) !important;
+}
+
+.vf-modal-meta-light strong {
+  color: var(--c-gray) !important;
+}
+
+.vf-modal-chart-light {
+  background: var(--c-bg) !important;
+  border: 1px solid var(--c-divider) !important;
+}
+
+.vf-modal-finding-light {
+  background: var(--c-red-lt) !important;
+  border-left: 3px solid var(--c-red) !important;
+  color: var(--c-text) !important;
+}
+
+.vf-modal-finding-light strong {
+  color: var(--c-red) !important;
+}
+
+.vf-export-btn-light {
+  background: var(--c-red) !important;
+  color: var(--c-bg) !important;
+}
+
+.vf-export-btn-light:hover {
+  background: var(--c-red-dk) !important;
+}
+
+.vf-export-btn-secondary-light {
+  background: transparent !important;
+  color: var(--c-red) !important;
+  border: 1px solid var(--c-red) !important;
+}
+
+.vf-export-btn-secondary-light:hover {
+  background: var(--c-red-lt) !important;
+}

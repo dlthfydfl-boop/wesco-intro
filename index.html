@@ -611,13 +611,12 @@
         <div class="vf-item" data-menu="03"
              data-img="images/hmi/slide16_03.png"
              data-title="M3 · SAG EVENT"
-             data-cap="SAG EVENT — Source(원본) vs Load(보상) 파형 비교. GRAPH 클릭 시 상세 분석 모달 오픈"
-             data-graph="true">
+             data-cap="SAG EVENT — Source(원본) vs Load(보상) 파형 비교 화면. 발생시각·Sag V·Duration 자동 기록">
           <div class="vf-no">03</div>
           <div class="vf-content">
             <div class="vf-module">M3 · SAG EVENT</div>
             <h4>사고 데이터 자동 기록</h4>
-            <p>발생 시각 · Tool ID · DRT · Sag V · 보상 결과 — <strong style="color:#22d3ee">[GRAPH] 클릭으로 파형 분석 화면 오픈</strong></p>
+            <p>발생 시각 · Tool ID · DRT · Sag V · 보상 결과 (Recovered / Failed) 자동 저장</p>
           </div>
         </div>
         <div class="vf-item" data-menu="04"
@@ -646,163 +645,102 @@
       </div>
     </div>
 
-    <!-- ▶ GRAPH 모달 (M3 · SAG EVENT용) -->
-    <div class="vf-modal" id="graphModal">
-      <div class="vf-modal-bg" data-close-modal></div>
-      <div class="vf-modal-frame">
-        <div class="vf-modal-header">
-          <span class="vf-modal-title">SAG EVENT 상세 — 보상 파형 분석</span>
-          <button class="vf-modal-close" data-close-modal>×</button>
-        </div>
-        <div class="vf-modal-body">
-          <div class="vf-modal-meta">
-            <div><strong>Event Time:</strong> 2025-08-14 14:23:47.182</div>
-            <div><strong>Tool ID:</strong> EPI-300mm-A03</div>
-            <div><strong>Sag Voltage:</strong> 58% Drop (잔여 전압 42%)</div>
-            <div><strong>Duration:</strong> 0.18 s</div>
-            <div><strong>Result:</strong> <span style="color:#22d3ee;font-weight:700">Recovered (정상 보상)</span></div>
-          </div>
-          <div class="vf-modal-chart">
-            <svg viewBox="0 0 720 320" class="event-graph-svg">
-              <defs>
-                <linearGradient id="srcWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#22d3ee"/>
-                  <stop offset="35%" stop-color="#22d3ee"/>
-                  <stop offset="40%" stop-color="#dc2626"/>
-                  <stop offset="60%" stop-color="#dc2626"/>
-                  <stop offset="65%" stop-color="#22d3ee"/>
-                  <stop offset="100%" stop-color="#22d3ee"/>
-                </linearGradient>
-              </defs>
-
-              <!-- 상단 Source -->
-              <text x="20" y="22" font-size="11" fill="#cbd5e1" font-weight="700" font-family="Inter">SOURCE (계통 측 입력)</text>
-              <line x1="20" y1="80" x2="700" y2="80" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="2 2"/>
-              <line x1="20" y1="50" x2="20" y2="130" stroke="#475569" stroke-width="1"/>
-              <line x1="20" y1="130" x2="700" y2="130" stroke="#475569" stroke-width="1"/>
-
-              <!-- Source 사인파 (SAG 발생) -->
-              <path id="eventSrcWave" d="" fill="none" stroke="url(#srcWaveGrad)" stroke-width="2"/>
-
-              <!-- SAG 영역 표시 -->
-              <rect x="290" y="50" width="160" height="80" fill="rgba(220,38,38,0.12)" stroke="#dc2626" stroke-width="0.8" stroke-dasharray="3 2"/>
-              <text x="370" y="65" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700" font-family="Inter">SAG (180ms)</text>
-
-              <!-- 하단 Load -->
-              <text x="20" y="172" font-size="11" fill="#22d3ee" font-weight="700" font-family="Inter">LOAD (TSP 보상 후 부하 측 출력)</text>
-              <line x1="20" y1="230" x2="700" y2="230" stroke="#1e293b" stroke-width="0.5" stroke-dasharray="2 2"/>
-              <line x1="20" y1="200" x2="20" y2="280" stroke="#475569" stroke-width="1"/>
-              <line x1="20" y1="280" x2="700" y2="280" stroke="#475569" stroke-width="1"/>
-
-              <!-- Load 사인파 (정상 유지) -->
-              <path id="eventLoadWave" d="" fill="none" stroke="#22d3ee" stroke-width="2"/>
-
-              <text x="360" y="305" text-anchor="middle" font-size="10" fill="#94a3b8" font-family="Inter" font-weight="600">Time (ms)</text>
-            </svg>
-          </div>
-          <div class="vf-modal-finding">
-            <strong>분석:</strong> 계통 입력에서 180ms간 58% Drop 발생, TSP가 즉시 보상하여 부하 측 전압은 정상 유지 (Recovered).
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ▶ REPORT 모달 (M3 · REPORT용) -->
+    <!-- ▶ REPORT 모달 (M3 · REPORT용) — 페이지 톤으로 통일 -->
     <div class="vf-modal" id="reportModal">
       <div class="vf-modal-bg" data-close-modal></div>
-      <div class="vf-modal-frame">
-        <div class="vf-modal-header">
+      <div class="vf-modal-frame vf-modal-frame-light">
+        <div class="vf-modal-header vf-modal-header-light">
           <span class="vf-modal-title">PERFORMANCE REPORT — SEMI F47 / Power Vaccine 비교 차트</span>
-          <button class="vf-modal-close" data-close-modal>×</button>
+          <button class="vf-modal-close vf-modal-close-light" data-close-modal>×</button>
         </div>
-        <div class="vf-modal-body">
-          <div class="vf-modal-meta">
+        <div class="vf-modal-body vf-modal-body-light">
+          <div class="vf-modal-meta vf-modal-meta-light">
             <div><strong>측정 기간:</strong> 12 months · 2025</div>
             <div><strong>고객사:</strong> Sample Plant (식별 비공개)</div>
             <div><strong>총 SAG 이벤트:</strong> 21건</div>
-            <div><strong>TSP® 보상 성공률:</strong> <span style="color:#22d3ee;font-weight:700">100%</span></div>
+            <div><strong>TSP® 보상 성공률:</strong> <span style="color:var(--c-red);font-weight:700">100%</span></div>
           </div>
-          <div class="vf-modal-chart">
+          <div class="vf-modal-chart vf-modal-chart-light">
             <svg viewBox="0 0 720 360" class="report-graph-svg">
               <defs>
                 <pattern id="rgrid" width="60" height="32" patternUnits="userSpaceOnUse">
-                  <path d="M 60 0 L 0 0 0 32" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+                  <path d="M 60 0 L 0 0 0 32" fill="none" stroke="#E0DBD3" stroke-width="0.5"/>
                 </pattern>
               </defs>
               <rect x="60" y="20" width="600" height="280" fill="url(#rgrid)"/>
 
-              <!-- Y축 (Voltage Remaining %) -->
-              <text x="55" y="30" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter">100%</text>
-              <text x="55" y="86" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter">80%</text>
-              <text x="55" y="142" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter">60%</text>
-              <text x="55" y="198" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter">40%</text>
-              <text x="55" y="254" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter">20%</text>
-              <text x="55" y="306" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter">0%</text>
+              <!-- Y축 (잔여 전압 %) -->
+              <text x="55" y="30" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">100%</text>
+              <text x="55" y="86" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">80%</text>
+              <text x="55" y="142" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">60%</text>
+              <text x="55" y="198" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">40%</text>
+              <text x="55" y="254" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">20%</text>
+              <text x="55" y="306" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">0%</text>
 
               <!-- X축 -->
-              <text x="60" y="320" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter">0.001s</text>
-              <text x="180" y="320" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter">0.01s</text>
-              <text x="360" y="320" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter">0.1s</text>
-              <text x="540" y="320" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter">1s</text>
-              <text x="660" y="320" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter">10s</text>
+              <text x="60" y="320" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.001s</text>
+              <text x="180" y="320" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.01s</text>
+              <text x="360" y="320" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.1s</text>
+              <text x="540" y="320" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">1s</text>
+              <text x="660" y="320" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">10s</text>
 
-              <line x1="60" y1="300" x2="660" y2="300" stroke="#475569" stroke-width="1"/>
-              <line x1="60" y1="20" x2="60" y2="300" stroke="#475569" stroke-width="1"/>
-              <text x="20" y="160" text-anchor="middle" font-size="11" fill="#cbd5e1" font-weight="700" font-family="Inter" transform="rotate(-90 20 160)">Voltage Remaining (%)</text>
-              <text x="360" y="345" text-anchor="middle" font-size="11" fill="#cbd5e1" font-weight="700" font-family="Inter">SAG Duration (Seconds)</text>
+              <line x1="60" y1="300" x2="660" y2="300" stroke="#44403C" stroke-width="1.2"/>
+              <line x1="60" y1="20" x2="60" y2="300" stroke="#44403C" stroke-width="1.2"/>
+              <text x="20" y="160" text-anchor="middle" font-size="11" fill="#44403C" font-weight="700" font-family="Inter" transform="rotate(-90 20 160)">잔여 전압 (Voltage Remaining %)</text>
+              <text x="360" y="345" text-anchor="middle" font-size="11" fill="#44403C" font-weight="700" font-family="Inter">SAG 지속시간 (Duration)</text>
 
-              <!-- Power Vaccine 곡선 (가장 엄격, TSP 보상 영역) -->
-              <path d="M 60 300 L 540 300 L 540 20 L 660 20" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
-              <text x="320" y="55" font-size="11" fill="#22d3ee" font-weight="700" font-family="Inter">Power Vaccine™ (TSP®)</text>
+              <!-- Power Vaccine (TSP) 곡선 — 페이지 메인 빨강 -->
+              <path d="M 60 300 L 540 300 L 540 20 L 660 20" fill="none" stroke="#C13816" stroke-width="2.5"/>
+              <text x="320" y="55" font-size="11" fill="#C13816" font-weight="700" font-family="Inter">Power Vaccine™ (TSP®)</text>
 
-              <!-- SEMI F47 곡선 -->
-              <path d="M 60 200 L 180 200 L 180 142 L 360 142 L 360 86 L 540 86 L 540 20" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6 3"/>
-              <text x="320" y="160" font-size="11" fill="#fbbf24" font-weight="700" font-family="Inter">SEMI F47</text>
+              <!-- SEMI F47 곡선 — 절제된 다크 그레이 (파란색 제거) -->
+              <path d="M 60 200 L 180 200 L 180 142 L 360 142 L 360 86 L 540 86 L 540 20" fill="none" stroke="#78716C" stroke-width="2" stroke-dasharray="6 3"/>
+              <text x="320" y="160" font-size="11" fill="#78716C" font-weight="700" font-family="Inter">SEMI F47</text>
 
               <!-- 1초 라인 -->
-              <line x1="540" y1="20" x2="540" y2="300" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
-              <text x="544" y="14" font-size="9" fill="#22d3ee" font-weight="700" font-family="Inter">1s</text>
+              <line x1="540" y1="20" x2="540" y2="300" stroke="#C13816" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+              <text x="544" y="14" font-size="9" fill="#C13816" font-weight="700" font-family="Inter">1s</text>
 
               <!-- TSP 보상 영역 음영 -->
-              <rect x="60" y="20" width="480" height="280" fill="rgba(34,211,238,0.05)"/>
+              <rect x="60" y="20" width="480" height="280" fill="rgba(193,56,22,0.04)"/>
 
-              <!-- SAG 이벤트 점들 (모두 TSP 보상 영역 안) -->
+              <!-- SAG 이벤트 점들 (모두 TSP 보상 영역 안) — 빨간색 -->
               <g id="reportDots">
-                <circle cx="280" cy="180" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="320" cy="240" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="290" cy="220" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="340" cy="195" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="380" cy="260" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="400" cy="275" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="310" cy="155" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="270" cy="140" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="250" cy="200" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="430" cy="280" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="200" cy="225" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="450" cy="290" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="360" cy="220" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="220" cy="175" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="290" cy="100" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="160" cy="220" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="240" cy="160" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="475" cy="285" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="190" cy="270" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="350" cy="245" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
-                <circle cx="305" cy="235" r="4" fill="#22d3ee" stroke="#0e7490" stroke-width="1"/>
+                <circle cx="280" cy="180" r="4" fill="#C13816"/>
+                <circle cx="320" cy="240" r="4" fill="#C13816"/>
+                <circle cx="290" cy="220" r="4" fill="#C13816"/>
+                <circle cx="340" cy="195" r="4" fill="#C13816"/>
+                <circle cx="380" cy="260" r="4" fill="#C13816"/>
+                <circle cx="400" cy="275" r="4" fill="#C13816"/>
+                <circle cx="310" cy="155" r="4" fill="#C13816"/>
+                <circle cx="270" cy="140" r="4" fill="#C13816"/>
+                <circle cx="250" cy="200" r="4" fill="#C13816"/>
+                <circle cx="430" cy="280" r="4" fill="#C13816"/>
+                <circle cx="200" cy="225" r="4" fill="#C13816"/>
+                <circle cx="450" cy="290" r="4" fill="#C13816"/>
+                <circle cx="360" cy="220" r="4" fill="#C13816"/>
+                <circle cx="220" cy="175" r="4" fill="#C13816"/>
+                <circle cx="290" cy="100" r="4" fill="#C13816"/>
+                <circle cx="160" cy="220" r="4" fill="#C13816"/>
+                <circle cx="240" cy="160" r="4" fill="#C13816"/>
+                <circle cx="475" cy="285" r="4" fill="#C13816"/>
+                <circle cx="190" cy="270" r="4" fill="#C13816"/>
+                <circle cx="350" cy="245" r="4" fill="#C13816"/>
+                <circle cx="305" cy="235" r="4" fill="#C13816"/>
               </g>
             </svg>
           </div>
           <div class="vf-modal-actions">
-            <button class="vf-export-btn">
+            <button class="vf-export-btn vf-export-btn-light">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               PDF 보고서 출력
             </button>
-            <button class="vf-export-btn vf-export-btn-secondary">
+            <button class="vf-export-btn vf-export-btn-secondary vf-export-btn-secondary-light">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
               CSV / Excel Export
             </button>
           </div>
-          <div class="vf-modal-finding">
+          <div class="vf-modal-finding vf-modal-finding-light">
             <strong>분석:</strong> 측정된 21건 모두 TSP® 보상 영역 내. SEMI F47 한계를 초과하는 SAG도 100% 보상하여 라인 정지 0건.
           </div>
         </div>
@@ -1016,22 +954,22 @@
     <div class="region-strip">
       <div class="region-h">글로벌 서비스 네트워크 — 16개국</div>
       <div class="region-tags">
-        <span><i class="flag">🇰🇷</i>대한민국</span>
-        <span><i class="flag">🇨🇳</i>중국</span>
-        <span><i class="flag">🇻🇳</i>베트남</span>
-        <span><i class="flag">🇮🇩</i>인도네시아</span>
-        <span><i class="flag">🇲🇾</i>말레이시아</span>
-        <span><i class="flag">🇮🇳</i>인도</span>
-        <span><i class="flag">🇯🇵</i>일본</span>
-        <span><i class="flag">🇹🇼</i>대만</span>
-        <span><i class="flag">🇺🇸</i>미국</span>
-        <span><i class="flag">🇩🇪</i>독일</span>
-        <span><i class="flag">🇵🇱</i>폴란드</span>
-        <span><i class="flag">🇭🇺</i>헝가리</span>
-        <span><i class="flag">🇨🇿</i>체코</span>
-        <span><i class="flag">🇸🇰</i>슬로바키아</span>
-        <span><i class="flag">🇹🇷</i>터키</span>
-        <span><i class="flag">🇲🇽</i>멕시코</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/kr.png" alt="KR" loading="lazy">대한민국</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/cn.png" alt="CN" loading="lazy">중국</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/vn.png" alt="VN" loading="lazy">베트남</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/id.png" alt="ID" loading="lazy">인도네시아</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/my.png" alt="MY" loading="lazy">말레이시아</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/in.png" alt="IN" loading="lazy">인도</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/jp.png" alt="JP" loading="lazy">일본</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/tw.png" alt="TW" loading="lazy">대만</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/us.png" alt="US" loading="lazy">미국</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/de.png" alt="DE" loading="lazy">독일</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/pl.png" alt="PL" loading="lazy">폴란드</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/hu.png" alt="HU" loading="lazy">헝가리</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/cz.png" alt="CZ" loading="lazy">체코</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/sk.png" alt="SK" loading="lazy">슬로바키아</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/tr.png" alt="TR" loading="lazy">터키</span>
+        <span><img class="flag-img" src="https://flagcdn.com/w40/mx.png" alt="MX" loading="lazy">멕시코</span>
       </div>
     </div>
   </section>
