@@ -130,89 +130,119 @@ function setLineStyle(id, color, width, dash) {
   else el.removeAttribute('stroke-dasharray');
 }
 
+/* ======= 사인파 모션 — 회로 라인에 살아있는 전력 흐름 표현 ======= */
+let waveAnim = null;
+let wavePhase = 0;
+let waveMode = 'bypass';
+
+function drawCircuitWaves(phase, mode) {
+  const w1 = document.getElementById('wave-1');   // 계통 → SCR
+  const w2 = document.getElementById('wave-2');   // SCR → 부하
+  const wOut = document.getElementById('wave-out'); // TSP 출력
+  if (!w1 || !w2 || !wOut) return;
+
+  const period = 30;     // 한 주기 길이 (px)
+  const amp = 12;        // 진폭 (px)
+  const baseY = 185;
+
+  // ▣ wave-1 (계통 → SCR, x: 100~220)
+  // bypass: 정상 사인파 / comp: SAG (찌그러진 파형)
+  let d1 = '';
+  for (let x = 100; x <= 220; x += 2) {
+    let curAmp;
+    if (mode === 'comp') {
+      // SAG 발생 — 진폭 줄고 약간 왜곡
+      curAmp = 4 + Math.sin((x - 100) * 0.08 + phase * 0.5) * 1.5;
+    } else {
+      curAmp = amp;
+    }
+    const y = baseY + Math.sin((x - 100) * (Math.PI * 2 / period) + phase) * curAmp;
+    d1 += (x === 100 ? 'M' : 'L') + ` ${x} ${y} `;
+  }
+  w1.setAttribute('d', d1);
+
+  // ▣ wave-2 (SCR → 부하, x: 350~640)
+  // bypass: 정상 / comp: 정상 (TSP가 보상하므로 부하 측은 정상)
+  let d2 = '';
+  for (let x = 350; x <= 640; x += 2) {
+    const y = baseY + Math.sin((x - 350) * (Math.PI * 2 / period) + phase) * amp;
+    d2 += (x === 350 ? 'M' : 'L') + ` ${x} ${y} `;
+  }
+  w2.setAttribute('d', d2);
+
+  // ▣ wave-out (TSP 출력 → 부하 외부, x: 620~700)
+  let dO = '';
+  for (let x = 620; x <= 700; x += 2) {
+    const y = baseY + Math.sin((x - 620) * (Math.PI * 2 / period) + phase) * amp;
+    dO += (x === 620 ? 'M' : 'L') + ` ${x} ${y} `;
+  }
+  wOut.setAttribute('d', dO);
+}
+
+function startWaveLoop() {
+  if (waveAnim) cancelAnimationFrame(waveAnim);
+  function loop() {
+    wavePhase -= 0.08;  // 흐르는 방향
+    drawCircuitWaves(wavePhase, waveMode);
+    waveAnim = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
 const modes = {
   bypass: {
-    title: 'STANDBY · 평상시 대기 모드',
+    title: 'STANDBY · 평상시 정상 운전',
     body: [
-      ['1', '계통 → SCR → <strong>부하 직접 공급</strong>'],
+      ['1', '계통 → SCR → <strong>부하 직접 공급</strong> (정상 사인파)'],
       ['2', '일부 전력으로 <strong>EDLC 충전 유지</strong>'],
       ['3', '자체 손실 최소, <strong>98% 고효율</strong> 운전']
     ],
     apply() {
       howStage.classList.remove('storm');
       howInfo.classList.remove('comp');
-      // 평상시 - 메인 흐름 (녹색 실선)
-      setLineStyle('line-1', '#4F926D', 3);
-      setLineStyle('line-2', '#4F926D', 3);
-      // 충전 (점선)
-      setLineStyle('line-3', '#5B7AA8', 1.8, '5 4');
-      setLineStyle('line-4', '#5B7AA8', 1.8, '5 4');
-      // 인버터→부하 (대기, 흐릿)
+      waveMode = 'bypass';
+      // 충전 라인 (블루 점선, EDLC로 일부 흐름)
+      setLineStyle('line-3', '#0d9488', 1.8, '5 4');
+      setLineStyle('line-4', '#0d9488', 1.8, '5 4');
+      // 인버터→부하 라인 (대기, 흐릿)
       const l5 = document.getElementById('line-5');
       if (l5) {
         l5.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
-        l5.setAttribute('stroke', '#A8A29E');
+        l5.setAttribute('stroke', '#475569');
         l5.setAttribute('stroke-width', 1.5);
-        l5.setAttribute('opacity', 0.4);
+        l5.setAttribute('opacity', 0.3);
         l5.removeAttribute('stroke-dasharray');
       }
-      // 출력 라인 (항상 실선)
-      const lo = document.getElementById('line-output');
-      if (lo) {
-        lo.style.transition = 'stroke 0.6s ease';
-        lo.setAttribute('stroke', '#4F926D');
-        lo.setAttribute('stroke-width', 2.5);
-        lo.removeAttribute('stroke-dasharray');
-      }
-      document.getElementById('scrIndicator')?.setAttribute('fill', '#4F926D');
-      document.getElementById('edlcLevel')?.setAttribute('fill', '#4F926D');
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#22d3ee');
+      document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
       animateFlow('bypass');
     }
   },
   comp: {
-    title: 'COMPENSATION · 사고시 보상 모드 (≤ 2 ms)',
+    title: 'COMPENSATION · 사고시 — 계통 흔들려도 부하는 정상',
     body: [
-      ['1', 'SAG 감지 → <strong>SCR 계통 차단</strong>'],
-      ['2', '<strong>EDLC 에너지</strong> → 양방향 인버터(DC→AC) → 부하'],
-      ['3', '동시에 계통 감시 → 복구 시 <strong>재절체</strong>'],
-      ['4', '모든 동작 <strong style="color:#C13816">2 ms 이내</strong>']
+      ['1', '<strong>계통 측 사인파 왜곡</strong> → SCR 즉시 차단'],
+      ['2', '<strong>EDLC → 인버터 → 부하</strong> 정상 사인파 공급 (≤ 2ms)'],
+      ['3', '계통 감시 → 복구 시 <strong>재절체</strong>'],
+      ['4', '<strong style="color:#22d3ee">계통은 흔들렸지만, 부하는 정상</strong>']
     ],
     apply() {
       howStage.classList.add('storm');
       howInfo.classList.add('comp');
-      // 계통 차단 (희미)
-      setLineStyle('line-1', '#A8A29E', 1.5, '5 4');
-      // SCR 첫 부분 차단
-      const l2 = document.getElementById('line-2');
-      if (l2) {
-        l2.style.transition = 'stroke 0.6s ease, stroke-width 0.6s ease';
-        // 사고시: SCR(300) → 분기점(380) 까지는 차단(점선), 380 → 부하(600)는 인버터 보상 흐름(실선)
-        // 실제로는 분기점 이후는 인버터 출력이므로 line-2 전체를 빨간 실선 처리 (인버터 → 부하 흐름)
-        l2.setAttribute('stroke', '#C13816');
-        l2.setAttribute('stroke-width', 3);
-        l2.removeAttribute('stroke-dasharray');
-      }
-      // 인버터 → EDLC → 인버터 → 부하 우회 흐름 (모두 빨간 실선)
-      setLineStyle('line-3', '#A8A29E', 1.5, '5 4');  // SCR-인버터 분기 (사용 안함)
-      setLineStyle('line-4', '#C13816', 3);
+      waveMode = 'comp';
+      // 사고 시 — SCR-인버터 분기 비활성, EDLC→인버터→부하 활성 (블루)
+      setLineStyle('line-3', '#475569', 1.5, '5 4');  // SCR→인버터 분기 비활성
+      setLineStyle('line-4', '#22d3ee', 2.5);  // EDLC ↔ 인버터 활성
       const l5 = document.getElementById('line-5');
       if (l5) {
         l5.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
-        l5.setAttribute('stroke', '#C13816');
-        l5.setAttribute('stroke-width', 3);
+        l5.setAttribute('stroke', '#22d3ee');
+        l5.setAttribute('stroke-width', 2.5);
         l5.setAttribute('opacity', 1);
         l5.removeAttribute('stroke-dasharray');
       }
-      // 출력 라인 (인버터에서 보상 전원이 부하로 - 빨간 실선)
-      const lo = document.getElementById('line-output');
-      if (lo) {
-        lo.style.transition = 'stroke 0.6s ease, stroke-width 0.6s ease';
-        lo.setAttribute('stroke', '#C13816');
-        lo.setAttribute('stroke-width', 3);
-        lo.removeAttribute('stroke-dasharray');
-      }
-      document.getElementById('scrIndicator')?.setAttribute('fill', '#C13816');
-      document.getElementById('edlcLevel')?.setAttribute('fill', '#C13816');
+      document.getElementById('scrIndicator')?.setAttribute('fill', '#dc2626');
+      document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
       animateFlow('comp');
     }
   }
@@ -222,6 +252,12 @@ let flowAnim;
 
 function animateFlow(mode) {
   if (flowAnim) cancelAnimationFrame(flowAnim);
+  // 사인파로 표현하므로 점 흐름 비활성화
+  ['flowDot1', 'flowDot2', 'flowDot3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('opacity', 0);
+  });
+  return;
   const dot1 = document.getElementById('flowDot1');
   const dot2 = document.getElementById('flowDot2');
   const dot3 = document.getElementById('flowDot3');
@@ -315,23 +351,50 @@ const howObserver = new IntersectionObserver((entries) => {
 
 if (howStage) howObserver.observe(howStage);
 
+// 사인파 애니메이션 시작
+startWaveLoop();
+
 /* ============================================================
-   05. Sag-VIEWER - 메뉴 클릭 (매뉴얼 정확 매핑)
+   05. Sag-VIEWER - 메뉴 클릭 + GRAPH/REPORT/SCADA 모달
    ============================================================ */
 const vfItems = document.querySelectorAll('.vf-item');
 const screenImg = document.getElementById('screenImg');
 const screenTitle = document.getElementById('screenTitle');
 const screenCap = document.getElementById('screenCap');
+const screenActionBtn = document.getElementById('screenActionBtn');
+const scadaScreen = document.getElementById('scadaScreen');
+const screenFrame = document.querySelector('.screen-frame');
 
 vfItems.forEach(item => {
   item.addEventListener('click', () => {
     const img = item.dataset.img;
     const title = item.dataset.title;
     const cap = item.dataset.cap;
-    if (!img || !screenImg) return;
+    const isGraph = item.dataset.graph === 'true';
+    const isReport = item.dataset.report === 'true';
+    const isScada = item.dataset.scada === 'true';
 
     vfItems.forEach(i => i.classList.remove('active'));
     item.classList.add('active');
+
+    // SCADA 메뉴 — SVG SCADA 화면 표시 (이미지 대신)
+    if (isScada && scadaScreen && screenImg) {
+      screenImg.style.display = 'none';
+      scadaScreen.style.display = 'block';
+      // 스크린 프레임 안에 SCADA SVG 삽입
+      if (!screenFrame.contains(scadaScreen)) {
+        screenFrame.appendChild(scadaScreen);
+      }
+      if (screenTitle) screenTitle.textContent = `Sag-VIEWER™ · ${title}`;
+      if (screenCap && cap) screenCap.textContent = cap;
+      if (screenActionBtn) screenActionBtn.style.display = 'none';
+      return;
+    } else if (scadaScreen) {
+      scadaScreen.style.display = 'none';
+      if (screenImg) screenImg.style.display = '';
+    }
+
+    if (!img || !screenImg) return;
 
     screenImg.classList.add('fading');
     setTimeout(() => {
@@ -340,8 +403,70 @@ vfItems.forEach(item => {
       if (screenCap && cap) screenCap.textContent = cap;
       screenImg.classList.remove('fading');
     }, 280);
+
+    // GRAPH 또는 REPORT 메뉴면 액션 버튼 표시
+    if (screenActionBtn) {
+      if (isGraph || isReport) {
+        screenActionBtn.style.display = 'inline-flex';
+        screenActionBtn.dataset.target = isGraph ? 'graphModal' : 'reportModal';
+        screenActionBtn.firstElementChild.nextSibling.textContent = isReport ? ' REPORT' : ' GRAPH';
+      } else {
+        screenActionBtn.style.display = 'none';
+      }
+    }
   });
 });
+
+// GRAPH/REPORT 버튼 클릭 → 모달 오픈
+if (screenActionBtn) {
+  screenActionBtn.addEventListener('click', () => {
+    const target = screenActionBtn.dataset.target;
+    const modal = document.getElementById(target);
+    if (modal) modal.classList.add('open');
+  });
+}
+
+// 모달 닫기
+document.querySelectorAll('[data-close-modal]').forEach(el => {
+  el.addEventListener('click', () => {
+    el.closest('.vf-modal')?.classList.remove('open');
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.vf-modal.open').forEach(m => m.classList.remove('open'));
+  }
+});
+
+// Event Modal — Source/Load 사인파 그리기
+function drawEventWaves() {
+  const src = document.getElementById('eventSrcWave');
+  const load = document.getElementById('eventLoadWave');
+  if (!src || !load) return;
+
+  // Source: 정상 → SAG (35-65%) → 정상
+  let d1 = '';
+  for (let x = 20; x <= 700; x += 2) {
+    const tx = (x - 20) / 680;
+    let amp;
+    if (tx < 0.35) amp = 30;
+    else if (tx < 0.65) amp = 12;  // SAG (전압 강하)
+    else amp = 30;
+    const y = 90 + Math.sin((x - 20) * 0.18) * amp;
+    d1 += (x === 20 ? 'M' : 'L') + ` ${x} ${y} `;
+  }
+  src.setAttribute('d', d1);
+
+  // Load: 시종일관 정상 (TSP가 보상)
+  let d2 = '';
+  for (let x = 20; x <= 700; x += 2) {
+    const y = 240 + Math.sin((x - 20) * 0.18) * 30;
+    d2 += (x === 20 ? 'M' : 'L') + ` ${x} ${y} `;
+  }
+  load.setAttribute('d', d2);
+}
+drawEventWaves();
 
 /* 키보드 (11 섹션) */
 const sectionIds = ['hero','about','need','how','products','viewer','cases','network','report','qa','contact'];
