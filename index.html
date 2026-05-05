@@ -493,29 +493,27 @@
         <div class="cert-marks-sub">국제 안전·전자파·반도체 산업 규격 대응</div>
       </div>
       <div class="cert-marks-grid cert-marks-grid-4">
-        <!-- CE — 공식 마크 비율 (가로 2:1, 두 글자 형태) -->
+        <!-- CE — 공식 마크 (Conformité Européenne) -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 100 70" width="80" height="56">
+            <svg viewBox="0 0 110 80" width="100" height="72">
               <!-- C -->
-              <path d="M 40 8 a 27 27 0 1 0 0 54 a 23 23 0 0 1 0 -54 z" fill="#000" fill-rule="evenodd"/>
-              <path d="M 40 18 a 17 17 0 1 0 0 34 a 15 15 0 0 1 0 -34 z" fill="#FFF" fill-rule="evenodd"/>
-              <!-- E -->
-              <path d="M 92 8 a 27 27 0 1 0 0 54 a 23 23 0 0 1 0 -54 z" fill="#000" fill-rule="evenodd"/>
-              <path d="M 92 18 a 17 17 0 1 0 0 34 a 15 15 0 0 1 0 -34 z" fill="#FFF" fill-rule="evenodd"/>
-              <rect x="76" y="32" width="14" height="6" fill="#000"/>
+              <path d="M 50 8 A 32 32 0 1 0 50 72 A 32 32 0 0 1 50 8 Z M 50 22 A 18 18 0 1 1 50 58 A 18 18 0 0 0 50 22 Z" fill="#0f172a" fill-rule="evenodd"/>
+              <!-- E (가로선 포함) -->
+              <path d="M 102 8 A 32 32 0 1 0 102 72 A 32 32 0 0 1 102 8 Z M 102 22 A 18 18 0 1 1 102 58 A 18 18 0 0 0 102 22 Z" fill="#0f172a" fill-rule="evenodd"/>
+              <rect x="80" y="36" width="20" height="8" fill="#0f172a"/>
             </svg>
           </div>
           <div class="cert-mark-name">CE</div>
           <div class="cert-mark-desc">Conformité Européenne · 유럽 안전</div>
         </div>
 
-        <!-- KC — 공식 마크 형태 (둥근 사각 + KC) -->
+        <!-- KC — 공식 마크 (둥근 사각 외곽 + KC 글자) -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 80 56" width="72" height="50">
-              <rect x="2" y="2" width="76" height="52" rx="8" fill="none" stroke="#000" stroke-width="2.5"/>
-              <text x="40" y="38" text-anchor="middle" font-size="28" font-weight="900" fill="#000" font-family="Arial, sans-serif" letter-spacing="-1">KC</text>
+            <svg viewBox="0 0 100 64" width="92" height="60">
+              <rect x="3" y="3" width="94" height="58" rx="6" fill="none" stroke="#0f172a" stroke-width="3.5"/>
+              <text x="50" y="45" text-anchor="middle" font-size="34" font-weight="900" fill="#0f172a" font-family="Arial, sans-serif" letter-spacing="-2">KC</text>
             </svg>
           </div>
           <div class="cert-mark-name">KC</div>
@@ -525,24 +523,29 @@
         <!-- UL — 공식 원형 마크 -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 80 80" width="56" height="56">
-              <circle cx="40" cy="40" r="36" fill="none" stroke="#000" stroke-width="3.5"/>
-              <text x="40" y="40" text-anchor="middle" font-size="22" font-weight="900" fill="#000" font-family="Arial, sans-serif" font-style="italic" letter-spacing="-1">UL</text>
-              <path d="M 12 50 Q 40 60 68 50" fill="none" stroke="#000" stroke-width="1" opacity="0.35"/>
-              <text x="40" y="64" text-anchor="middle" font-size="6" font-weight="700" fill="#000" font-family="Arial">LISTED</text>
+            <svg viewBox="0 0 90 90" width="68" height="68">
+              <!-- 외곽 원 -->
+              <circle cx="45" cy="45" r="42" fill="none" stroke="#0f172a" stroke-width="4"/>
+              <!-- UL 글자 (정중앙 배치, Italic, R 등록상표 표시) -->
+              <text x="45" y="50" text-anchor="middle" font-size="30" font-weight="900" fill="#0f172a" font-family="Arial Black, Arial, sans-serif" font-style="italic" letter-spacing="-2">UL</text>
+              <!-- ® 표시 (오른쪽 위) -->
+              <text x="68" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#0f172a" font-family="Arial">®</text>
             </svg>
           </div>
           <div class="cert-mark-name">UL Listed</div>
           <div class="cert-mark-desc">Underwriters Laboratories</div>
         </div>
 
-        <!-- NRTL — 공식 마크 (Recognized) -->
+        <!-- NRTL — 일반적 NRTL Recognized 마크 (역삼각형 NRTL) -->
         <div class="cert-mark-card">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 80 80" width="56" height="56">
-              <!-- 거꾸로 된 NRTL 마크 형태 (UR 마크 변형) -->
-              <path d="M 40 8 L 72 60 L 8 60 Z" fill="none" stroke="#000" stroke-width="3"/>
-              <text x="40" y="48" text-anchor="middle" font-size="14" font-weight="900" fill="#000" font-family="Arial">NRTL</text>
+            <svg viewBox="0 0 90 80" width="68" height="60">
+              <!-- 역삼각형 외곽 -->
+              <path d="M 6 14 L 84 14 L 45 74 Z" fill="none" stroke="#0f172a" stroke-width="3.5" stroke-linejoin="round"/>
+              <!-- NRTL 텍스트 (윗부분에 가로로) -->
+              <text x="45" y="38" text-anchor="middle" font-size="14" font-weight="900" fill="#0f172a" font-family="Arial Black, Arial, sans-serif" letter-spacing="0.5">NRTL</text>
+              <!-- Recognized 작은 글씨 -->
+              <text x="45" y="52" text-anchor="middle" font-size="6.5" font-weight="700" fill="#0f172a" font-family="Arial">RECOGNIZED</text>
             </svg>
           </div>
           <div class="cert-mark-name">NRTL</div>

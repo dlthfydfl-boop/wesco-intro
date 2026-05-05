@@ -165,11 +165,13 @@ function drawCircuitWaves(phase, mode) {
   w1.setAttribute('d', d1);
 
   // ▣ wave-2 (SCR → 부하, x: 350~640)
-  // bypass: 정상 / comp: 정상 (TSP가 보상하므로 부하 측은 정상)
+  // 사고시(switch/compensate)에는 분기점(430)부터만 그림 → SCR에서 안 가는 것 표현
+  // EDLC → 인버터 → 분기점 → 부하 흐름을 시각화
+  const startX = (mode === 'switch' || mode === 'compensate') ? 430 : 350;
   let d2 = '';
-  for (let x = 350; x <= 640; x += 2) {
-    const y = baseY + Math.sin((x - 350) * (Math.PI * 2 / period) + phase) * amp;
-    d2 += (x === 350 ? 'M' : 'L') + ` ${x} ${y} `;
+  for (let x = startX; x <= 640; x += 2) {
+    const y = baseY + Math.sin((x - startX) * (Math.PI * 2 / period) + phase) * amp;
+    d2 += (x === startX ? 'M' : 'L') + ` ${x} ${y} `;
   }
   w2.setAttribute('d', d2);
 
@@ -229,6 +231,7 @@ const modes = {
       setLine5('#475569', 1.5, 0.3);
       document.getElementById('scrIndicator')?.setAttribute('fill', '#22d3ee');
       document.getElementById('edlcLevel')?.setAttribute('fill', '#22d3ee');
+      animateFlow('standby');
     }
   },
   detect: {
@@ -340,16 +343,61 @@ let flowAnim;
 
 function animateFlow(mode) {
   if (flowAnim) cancelAnimationFrame(flowAnim);
-  // 사인파로 표현하므로 점 흐름 비활성화
-  ['flowDot1', 'flowDot2', 'flowDot3'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.setAttribute('opacity', 0);
-  });
-  return;
+
   const dot1 = document.getElementById('flowDot1');
   const dot2 = document.getElementById('flowDot2');
   const dot3 = document.getElementById('flowDot3');
   if (!dot1 || !dot2 || !dot3) return;
+
+  // 사고시(switch/compensate)만 EDLC → 인버터 → 분기점 흐름 표시
+  if (mode !== 'switch' && mode !== 'compensate') {
+    [dot1, dot2, dot3].forEach(d => d.setAttribute('opacity', 0));
+    return;
+  }
+
+  // EDLC(575, 267) → 인버터(430, 267) → 분기점(430, 185)
+  // SVG 좌표: EDLC 박스 575,267 / 인버터 430,267 / line-5 위 끝 430, 185
+  const compPath = [[575, 267], [525, 267], [480, 267], [430, 267], [430, 220], [430, 185]];
+
+  dot1.setAttribute('fill', '#22d3ee');
+  dot2.setAttribute('fill', '#22d3ee');
+  dot3.setAttribute('fill', '#22d3ee');
+  dot1.setAttribute('opacity', 1);
+  dot2.setAttribute('opacity', 0.7);
+  dot3.setAttribute('opacity', 0.5);
+  dot1.setAttribute('r', 5);
+  dot2.setAttribute('r', 4);
+  dot3.setAttribute('r', 3.5);
+
+  let t1 = 0, t2 = 0.33, t3 = 0.66;
+
+  function pos(path, t) {
+    const idx = Math.floor(t * (path.length - 1));
+    const lt = (t * (path.length - 1)) - idx;
+    const p0 = path[idx];
+    const p1 = path[Math.min(idx + 1, path.length - 1)];
+    return [p0[0] + (p1[0] - p0[0]) * lt, p0[1] + (p1[1] - p0[1]) * lt];
+  }
+
+  function step() {
+    const speed = 0.006;
+    t1 += speed; if (t1 > 1) t1 = 0;
+    t2 += speed; if (t2 > 1) t2 = 0;
+    t3 += speed; if (t3 > 1) t3 = 0;
+
+    const [x1, y1] = pos(compPath, t1);
+    const [x2, y2] = pos(compPath, t2);
+    const [x3, y3] = pos(compPath, t3);
+    dot1.setAttribute('cx', x1); dot1.setAttribute('cy', y1);
+    dot2.setAttribute('cx', x2); dot2.setAttribute('cy', y2);
+    dot3.setAttribute('cx', x3); dot3.setAttribute('cy', y3);
+
+    flowAnim = requestAnimationFrame(step);
+  }
+  step();
+  return;
+
+  // (이하 기존 코드는 사용 안 함 - 위에서 return 처리)
 
   // bypass 메인: 계통(50,160) → SCR(260,160) → 부하(610,160)
   // bypass 충전: SCR(380,160) → 인버터(380,243) → EDLC(510,243)
