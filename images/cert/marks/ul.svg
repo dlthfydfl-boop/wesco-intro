@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <circle cx="40" cy="40" r="36" fill="none" stroke="#000" stroke-width="3.5"/>
+  <text x="40" y="44" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="22" font-weight="900" fill="#000" font-style="italic" letter-spacing="-1">UL</text>
+  <text x="60" y="34" text-anchor="middle" font-family="Arial" font-size="9" font-weight="700" fill="#000">®</text>
+</svg>

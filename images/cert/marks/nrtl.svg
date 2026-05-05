@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 70">
+  <polygon points="6,10 74,10 40,64" fill="none" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+  <text x="40" y="32" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="14" font-weight="900" fill="#000" letter-spacing="0.5">NRTL</text>
+  <text x="40" y="46" text-anchor="middle" font-family="Arial" font-size="6.5" font-weight="700" fill="#000">RECOGNIZED</text>
+</svg>

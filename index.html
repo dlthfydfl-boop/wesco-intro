@@ -74,8 +74,8 @@
       </h1>
       <p class="hero-tagline" data-reveal>
         <strong>0.1초의 전압강하</strong>로 라인 전체가 멈추고, 재가동까지 수 시간이 소요됩니다.<br>
-        WESCO는 25년간 한 가지 문제만 해결해 왔습니다 — <em>Samsung · SK Hynix · TSMC · Hyundai · LG Display</em>
-        가 같은 답을 선택한 이유입니다.
+        WESCO는 25년간 한 가지 문제만 해결해 — <em>국내 주요 대기업과 글로벌 제조사</em>의
+        반도체·자동차·디스플레이 라인에서 이미 검증된 솔루션입니다.
       </p>
 
       <div class="hero-metrics" data-reveal>
@@ -249,34 +249,6 @@
             <span id="playBtnText">자동 재생</span>
           </button>
         </div>
-
-        <!-- 진행 바 -->
-        <div class="seq-progress" id="seqProgress">
-          <div class="seq-progress-step active" data-step="standby">
-            <div class="seq-dot"></div>
-            <span class="seq-label">STANDBY</span>
-          </div>
-          <div class="seq-progress-line"></div>
-          <div class="seq-progress-step" data-step="detect">
-            <div class="seq-dot"></div>
-            <span class="seq-label">DETECT</span>
-          </div>
-          <div class="seq-progress-line"></div>
-          <div class="seq-progress-step" data-step="switch">
-            <div class="seq-dot"></div>
-            <span class="seq-label">SWITCH</span>
-          </div>
-          <div class="seq-progress-line"></div>
-          <div class="seq-progress-step" data-step="compensate">
-            <div class="seq-dot"></div>
-            <span class="seq-label">COMPENSATE</span>
-          </div>
-          <div class="seq-progress-line"></div>
-          <div class="seq-progress-step" data-step="recovery">
-            <div class="seq-dot"></div>
-            <span class="seq-label">RECOVERY</span>
-          </div>
-        </div>
         <div class="how-stage" id="howStage">
           <div class="storm-fx" id="stormFx">
             <div class="lightning"></div>
@@ -318,8 +290,7 @@
               <!-- ▣ 계통 전원 -->
               <g id="grid-input">
                 <rect x="10" y="155" width="90" height="60" rx="6" fill="url(#boxGrad)" stroke="#0d9488" stroke-width="1.5"/>
-                <text x="55" y="180" text-anchor="middle" font-size="12" fill="#FFF" font-weight="700">계통 전원</text>
-                <text x="55" y="198" text-anchor="middle" font-size="9" fill="#a7f3d0" font-family="Inter">Grid Power</text>
+                <text x="55" y="190" text-anchor="middle" font-size="13" fill="#FFF" font-weight="700">계통 전원</text>
               </g>
 
               <!-- ▣ 라인 1: 계통 → SCR (사인파 표현) -->
@@ -328,13 +299,13 @@
 
               <!-- ▣ TSP 내부 박스 -->
               <rect x="225" y="60" width="395" height="240" rx="10" fill="rgba(37,99,235,0.04)" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="8 4"/>
-              <text x="240" y="82" font-size="11" fill="#2563eb" font-weight="700" font-family="Inter" letter-spacing="2">TSP® INTERNAL CIRCUIT</text>
+              <text x="240" y="82" font-size="11" fill="#2563eb" font-weight="700" font-family="Inter" letter-spacing="2">TSP® 내부 회로</text>
 
               <!-- ▣ SCR 스위치 -->
               <g id="scr-switch">
                 <rect x="250" y="155" width="100" height="60" rx="6" fill="url(#boxGrad)" stroke="#2563eb" stroke-width="1.5"/>
-                <text x="300" y="180" text-anchor="middle" font-size="12" fill="#FFF" font-weight="700">SCR Switch</text>
-                <text x="300" y="198" text-anchor="middle" font-size="9" fill="#bfdbfe" font-family="Inter">Static Switch</text>
+                <text x="300" y="180" text-anchor="middle" font-size="12" fill="#FFF" font-weight="700">SCR 스위치</text>
+                <text x="300" y="198" text-anchor="middle" font-size="9" fill="#bfdbfe" font-family="Noto Sans KR">계통 차단 장치</text>
                 <circle id="scrIndicator" cx="340" cy="165" r="4" fill="#22d3ee" filter="url(#glowBlue)"/>
               </g>
 
@@ -348,9 +319,8 @@
               <!-- ▣ 양방향 인버터 -->
               <g id="inv-block">
                 <rect x="380" y="240" width="100" height="55" rx="6" fill="url(#boxGrad)" stroke="#2563eb" stroke-width="1.5"/>
-                <text x="430" y="262" text-anchor="middle" font-size="11" fill="#FFF" font-weight="700">양방향 인버터</text>
-                <text x="430" y="278" text-anchor="middle" font-size="9" fill="#bfdbfe" font-family="Inter">DC ⇄ AC</text>
-                <text x="430" y="290" text-anchor="middle" font-size="8" fill="#22d3ee" font-family="Inter">Bi-directional</text>
+                <text x="430" y="265" text-anchor="middle" font-size="12" fill="#FFF" font-weight="700">양방향 인버터</text>
+                <text x="430" y="282" text-anchor="middle" font-size="9" fill="#bfdbfe" font-family="Noto Sans KR">직류 ⇄ 교류 변환</text>
               </g>
 
               <!-- ▣ 라인 4: 인버터 → EDLC -->
@@ -359,30 +329,46 @@
               <!-- ▣ EDLC (충/방전 시각화 강화) -->
               <g id="edlc-block">
                 <rect x="525" y="240" width="95" height="55" rx="6" fill="url(#edlcGrad)" stroke="#0d9488" stroke-width="1.5"/>
-                <text x="572" y="258" text-anchor="middle" font-size="12" fill="#FFF" font-weight="700">EDLC</text>
-                <text x="572" y="271" text-anchor="middle" font-size="9" fill="#a7f3d0" font-family="Inter">Ultra-Capacitor</text>
-                <text id="edlcPercent" x="572" y="284" text-anchor="middle" font-size="10" fill="#22d3ee" font-weight="700" font-family="Inter">100%</text>
+                <text x="572" y="260" text-anchor="middle" font-size="12" fill="#FFF" font-weight="700">EDLC</text>
+                <text x="572" y="274" text-anchor="middle" font-size="9" fill="#a7f3d0" font-family="Noto Sans KR">에너지 저장 장치</text>
+                <text id="edlcPercent" x="572" y="285" text-anchor="middle" font-size="10" fill="#22d3ee" font-weight="700" font-family="Inter">100%</text>
                 <!-- 충전 레벨 바 -->
-                <rect x="528" y="287" width="89" height="4" fill="#0f172a" rx="1"/>
-                <rect id="edlcLevel" x="528" y="287" width="89" height="4" fill="#22d3ee" rx="1"/>
+                <rect x="528" y="288" width="89" height="4" fill="#0f172a" rx="1"/>
+                <rect id="edlcLevel" x="528" y="288" width="89" height="4" fill="#22d3ee" rx="1"/>
+              </g>
+
+              <!-- ▣ EDLC 방전 화살표 (사고 시) -->
+              <g id="edlcDischargeArrow" opacity="0">
+                <!-- EDLC에서 인버터로 큰 화살표 -->
+                <path d="M 520 257 L 488 257" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 495 251 L 485 257 L 495 263" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="505" y="246" text-anchor="middle" font-size="10" fill="#fbbf24" font-weight="700" font-family="Noto Sans KR">방전</text>
+                <!-- 펄스 효과 -->
+                <circle cx="572" cy="267" r="0" fill="none" stroke="#fbbf24" stroke-width="2">
+                  <animate attributeName="r" values="8;28;8" dur="1.4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="1.4s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+
+              <!-- ▣ 인버터 → 부하 보상 출력 화살표 (사고 시) -->
+              <g id="invToLoadArrow" opacity="0">
+                <!-- 인버터에서 위로 (line-5 따라) -->
+                <path d="M 430 235 L 430 215" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 424 222 L 430 212 L 436 222" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="450" y="227" font-size="10" fill="#22d3ee" font-weight="700" font-family="Noto Sans KR">보상 공급</text>
               </g>
 
               <!-- ▣ SCR 절체 모멘트 splash -->
               <g id="scrSplash" opacity="0">
-                <circle cx="300" cy="185" r="0" fill="none" stroke="#dc2626" stroke-width="2.5">
-                  <animate attributeName="r" from="5" to="40" dur="0.6s" begin="indefinite" id="splashAnim"/>
-                  <animate attributeName="opacity" from="1" to="0" dur="0.6s" begin="indefinite"/>
+                <circle cx="300" cy="185" r="0" fill="none" stroke="#dc2626" stroke-width="3">
+                  <animate attributeName="r" from="5" to="60" dur="1s" begin="indefinite"/>
+                  <animate attributeName="opacity" from="1" to="0" dur="1s" begin="indefinite"/>
                 </circle>
-                <circle cx="300" cy="185" r="0" fill="none" stroke="#fbbf24" stroke-width="1.5">
-                  <animate attributeName="r" from="3" to="30" dur="0.6s" begin="indefinite"/>
-                  <animate attributeName="opacity" from="1" to="0" dur="0.6s" begin="indefinite"/>
+                <circle cx="300" cy="185" r="0" fill="none" stroke="#fbbf24" stroke-width="2">
+                  <animate attributeName="r" from="3" to="40" dur="1s" begin="indefinite"/>
+                  <animate attributeName="opacity" from="1" to="0" dur="1s" begin="indefinite"/>
                 </circle>
-              </g>
-
-              <!-- ▣ 상태 인디케이터 (좌측 상단) -->
-              <g id="statusIndicator" transform="translate(225, 35)">
-                <rect id="statusBg" width="180" height="22" rx="11" fill="#0d9488" opacity="0.95"/>
-                <text id="statusText" x="90" y="16" text-anchor="middle" font-size="11" fill="#FFF" font-weight="700" font-family="Inter" letter-spacing="0.05em">STANDBY · NORMAL</text>
+                <text x="300" y="135" text-anchor="middle" font-size="11" font-weight="800" fill="#dc2626" font-family="Noto Sans KR" opacity="0.95">계통 차단</text>
               </g>
 
               <!-- ▣ 라인 5: 인버터 → 부하 (사고 시 활성) -->
@@ -540,74 +526,72 @@
       </div>
     </div>
 
-    <!-- 인증 마크 — 시각화 강화 -->
+    <!-- 인증 마크 — 취득 / 대응 분리 -->
     <div class="cert-marks-block">
       <div class="cert-marks-head">
         <div class="cert-marks-title">PRODUCT CERTIFICATION</div>
-        <div class="cert-marks-sub">국제 안전·전자파·반도체 산업 규격 대응</div>
+        <div class="cert-marks-sub">국제 안전·전자파·반도체 산업 규격 인증 보유</div>
+      </div>
+
+      <!-- 취득 인증 -->
+      <div class="cert-section-label">
+        <span class="cert-section-tag cert-section-tag-em">인증 취득</span>
+        <span class="cert-section-text">KC · CE · S-MARK · NRTL</span>
       </div>
       <div class="cert-marks-grid cert-marks-grid-4">
-        <!-- CE — 공식 마크 (Conformité Européenne) -->
         <div class="cert-mark-card">
-          <div class="cert-mark-svg">
-            <svg viewBox="0 0 110 80" width="100" height="72">
-              <!-- C -->
-              <path d="M 50 8 A 32 32 0 1 0 50 72 A 32 32 0 0 1 50 8 Z M 50 22 A 18 18 0 1 1 50 58 A 18 18 0 0 0 50 22 Z" fill="#0f172a" fill-rule="evenodd"/>
-              <!-- E (가로선 포함) -->
-              <path d="M 102 8 A 32 32 0 1 0 102 72 A 32 32 0 0 1 102 8 Z M 102 22 A 18 18 0 1 1 102 58 A 18 18 0 0 0 102 22 Z" fill="#0f172a" fill-rule="evenodd"/>
-              <rect x="80" y="36" width="20" height="8" fill="#0f172a"/>
-            </svg>
-          </div>
-          <div class="cert-mark-name">CE</div>
-          <div class="cert-mark-desc">Conformité Européenne · 유럽 안전</div>
+          <div class="cert-mark-svg"><img src="images/cert/marks/kc.svg" alt="KC" class="cert-mark-img"></div>
+          <div class="cert-mark-name">KC 인증</div>
+          <div class="cert-mark-desc">국가통합 안전 · 전자파</div>
         </div>
-
-        <!-- KC — 공식 마크 (둥근 사각 외곽 + KC 글자) -->
         <div class="cert-mark-card">
-          <div class="cert-mark-svg">
-            <svg viewBox="0 0 100 64" width="92" height="60">
-              <rect x="3" y="3" width="94" height="58" rx="6" fill="none" stroke="#0f172a" stroke-width="3.5"/>
-              <text x="50" y="45" text-anchor="middle" font-size="34" font-weight="900" fill="#0f172a" font-family="Arial, sans-serif" letter-spacing="-2">KC</text>
-            </svg>
-          </div>
-          <div class="cert-mark-name">KC</div>
-          <div class="cert-mark-desc">국가통합인증 · 전자파</div>
+          <div class="cert-mark-svg"><img src="images/cert/marks/ce.svg" alt="CE" class="cert-mark-img"></div>
+          <div class="cert-mark-name">CE 인증</div>
+          <div class="cert-mark-desc">유럽 적합성 인증</div>
         </div>
-
-        <!-- UL — 공식 원형 마크 -->
         <div class="cert-mark-card">
-          <div class="cert-mark-svg">
-            <svg viewBox="0 0 90 90" width="68" height="68">
-              <!-- 외곽 원 -->
-              <circle cx="45" cy="45" r="42" fill="none" stroke="#0f172a" stroke-width="4"/>
-              <!-- UL 글자 (정중앙 배치, Italic, R 등록상표 표시) -->
-              <text x="45" y="50" text-anchor="middle" font-size="30" font-weight="900" fill="#0f172a" font-family="Arial Black, Arial, sans-serif" font-style="italic" letter-spacing="-2">UL</text>
-              <!-- ® 표시 (오른쪽 위) -->
-              <text x="68" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#0f172a" font-family="Arial">®</text>
-            </svg>
-          </div>
+          <div class="cert-mark-svg"><img src="images/cert/marks/smark.svg" alt="S-Mark" class="cert-mark-img"></div>
+          <div class="cert-mark-name">S-MARK 인증</div>
+          <div class="cert-mark-desc">한국 전기 안전 인증</div>
+        </div>
+        <div class="cert-mark-card">
+          <div class="cert-mark-svg"><img src="images/cert/marks/nrtl.svg" alt="NRTL" class="cert-mark-img"></div>
+          <div class="cert-mark-name">NRTL 인증</div>
+          <div class="cert-mark-desc">북미 안전 시험기관 등재</div>
+        </div>
+      </div>
+
+      <!-- 대응 규격 -->
+      <div class="cert-section-label cert-section-label-mt">
+        <span class="cert-section-tag">대응 규격</span>
+        <span class="cert-section-text">UL Listed · SEMI F47 · SEMI S2</span>
+      </div>
+
+      <div class="cert-marks-grid cert-marks-grid-3">
+        <div class="cert-mark-card cert-mark-card-rel">
+          <div class="cert-mark-svg"><img src="images/cert/marks/ul.svg" alt="UL Listed" class="cert-mark-img"></div>
           <div class="cert-mark-name">UL Listed</div>
           <div class="cert-mark-desc">Underwriters Laboratories</div>
         </div>
-
-        <!-- NRTL — 일반적 NRTL Recognized 마크 (역삼각형 NRTL) -->
-        <div class="cert-mark-card">
+        <div class="cert-mark-card cert-mark-card-rel">
           <div class="cert-mark-svg">
-            <svg viewBox="0 0 90 80" width="68" height="60">
-              <!-- 역삼각형 외곽 -->
-              <path d="M 6 14 L 84 14 L 45 74 Z" fill="none" stroke="#0f172a" stroke-width="3.5" stroke-linejoin="round"/>
-              <!-- NRTL 텍스트 (윗부분에 가로로) -->
-              <text x="45" y="38" text-anchor="middle" font-size="14" font-weight="900" fill="#0f172a" font-family="Arial Black, Arial, sans-serif" letter-spacing="0.5">NRTL</text>
-              <!-- Recognized 작은 글씨 -->
-              <text x="45" y="52" text-anchor="middle" font-size="6.5" font-weight="700" fill="#0f172a" font-family="Arial">RECOGNIZED</text>
-            </svg>
+            <img src="images/cert/marks/semi.svg" alt="SEMI F47" class="cert-mark-img">
+            <span class="cert-mark-badge">F47</span>
           </div>
-          <div class="cert-mark-name">NRTL</div>
-          <div class="cert-mark-desc">북미 시험기관 인증</div>
+          <div class="cert-mark-name">SEMI F47</div>
+          <div class="cert-mark-desc">반도체 전압 강하 내성 규격</div>
+        </div>
+        <div class="cert-mark-card cert-mark-card-rel">
+          <div class="cert-mark-svg">
+            <img src="images/cert/marks/semi.svg" alt="SEMI S2" class="cert-mark-img">
+            <span class="cert-mark-badge">S2</span>
+          </div>
+          <div class="cert-mark-name">SEMI S2</div>
+          <div class="cert-mark-desc">반도체 장비 안전 가이드라인</div>
         </div>
       </div>
+
       <div class="cert-marks-foot">
-        <span class="cert-foot-tag">실제 보유 인증</span> CE · KC · UL · NRTL · S-MARK · 국내 특허 다수
         <a href="https://www.youtube.com/@WESCOTSP/videos" target="_blank" rel="noopener" class="cert-yt" data-magnetic>
           <svg width="14" height="14"><use href="#ico-play"/></svg> 제품 영상 보기
         </a>

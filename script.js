@@ -397,13 +397,13 @@ function animateFlow(mode) {
   step();
 }
 
-// ▣ 모드별 시각적 메타 (상태 라벨 + EDLC 레벨 + 색상)
+// ▣ 모드별 시각적 메타 (EDLC 레벨 + 화살표)
 const modeMeta = {
-  standby:    { label: 'STANDBY · NORMAL',         color: '#0d9488', edlc: 100, ring: 'normal' },
-  detect:     { label: 'DETECT · SAG DETECTED',    color: '#fbbf24', edlc: 100, ring: 'alert' },
-  switch:     { label: 'SWITCH · SCR ISOLATED',    color: '#dc2626', edlc: 95,  ring: 'alert' },
-  compensate: { label: 'COMPENSATING · LOAD SAFE', color: '#22d3ee', edlc: 70,  ring: 'comp' },
-  recovery:   { label: 'RECOVERY · RECHARGING',    color: '#0d9488', edlc: 100, ring: 'normal', recharging: true }
+  standby:    { edlc: 100, recharging: false, dischargeArrow: false, compArrow: false },
+  detect:     { edlc: 100, recharging: false, dischargeArrow: false, compArrow: false },
+  switch:     { edlc: 92,  recharging: false, dischargeArrow: true,  compArrow: true  },
+  compensate: { edlc: 65,  recharging: false, dischargeArrow: true,  compArrow: true  },
+  recovery:   { edlc: 100, recharging: true,  dischargeArrow: false, compArrow: false }
 };
 
 function setEDLCLevel(percent, recharging = false) {
@@ -411,8 +411,8 @@ function setEDLCLevel(percent, recharging = false) {
   const pc = document.getElementById('edlcPercent');
   if (lv) {
     lv.style.transition = 'width 1.4s cubic-bezier(0.4,0,0.2,1), fill 0.4s ease';
-    lv.setAttribute('width', 0.89 * percent);  // 89px = 100%
-    lv.setAttribute('fill', recharging ? '#fbbf24' : (percent < 90 ? '#22d3ee' : '#22d3ee'));
+    lv.setAttribute('width', 0.89 * percent);
+    lv.setAttribute('fill', recharging ? '#fbbf24' : '#22d3ee');
   }
   if (pc) {
     pc.textContent = percent + '%';
@@ -420,14 +420,12 @@ function setEDLCLevel(percent, recharging = false) {
   }
 }
 
-function setStatusIndicator(label, color) {
-  const bg = document.getElementById('statusBg');
-  const tx = document.getElementById('statusText');
-  if (bg) {
-    bg.style.transition = 'fill 0.4s ease';
-    bg.setAttribute('fill', color);
+function setArrowVisible(id, visible) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.style.transition = 'opacity 0.5s ease';
+    el.setAttribute('opacity', visible ? 1 : 0);
   }
-  if (tx) tx.textContent = label;
 }
 
 function triggerSCRSplash() {
@@ -455,8 +453,9 @@ function setMode(mode) {
   // 메타 정보 적용
   const meta = modeMeta[mode];
   if (meta) {
-    setStatusIndicator(meta.label, meta.color);
-    setEDLCLevel(meta.edlc, !!meta.recharging);
+    setEDLCLevel(meta.edlc, meta.recharging);
+    setArrowVisible('edlcDischargeArrow', meta.dischargeArrow);
+    setArrowVisible('invToLoadArrow', meta.compArrow);
   }
 
   // 절체 순간 splash

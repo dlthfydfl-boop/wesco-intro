@@ -473,28 +473,53 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .how-stage.storm .storm-fx { opacity: 1; }
 
 .lightning {
-  position: absolute; top: 5%; left: 5%; width: 60%; height: 90%;
-  background: linear-gradient(135deg,
-    transparent 49.5%, rgba(255, 215, 0, 0.6) 49.7%, rgba(255, 255, 255, 0.85) 50%,
-    rgba(255, 215, 0, 0.6) 50.3%, transparent 50.5%);
-  filter: blur(0.5px) drop-shadow(0 0 16px rgba(255, 215, 0, 0.6));
-  opacity: 0; animation: lightningFlash 6s ease-in-out infinite;
+  position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+  background:
+    linear-gradient(125deg,
+      transparent 47%, rgba(255, 215, 0, 0.85) 48.5%, rgba(255, 255, 255, 1) 49.5%,
+      rgba(255, 215, 0, 0.85) 50.5%, transparent 52%),
+    linear-gradient(140deg,
+      transparent 51%, rgba(255, 215, 0, 0.6) 52.5%, rgba(255, 255, 255, 0.9) 53.5%,
+      rgba(255, 215, 0, 0.6) 54.5%, transparent 56%);
+  filter: blur(0.4px) drop-shadow(0 0 28px rgba(255, 215, 0, 0.95));
+  opacity: 0; animation: lightningFlash 2.4s ease-in-out infinite;
 }
 @keyframes lightningFlash {
-  0%, 95%, 100% { opacity: 0; }
-  96%, 97% { opacity: 0.55; }
-  98% { opacity: 0; }
+  0%, 8% { opacity: 0; }
+  10%, 14% { opacity: 0.95; }
+  15% { opacity: 0.4; }
+  16%, 19% { opacity: 0.9; }
+  20% { opacity: 0; }
+  44% { opacity: 0; }
+  46%, 50% { opacity: 0.9; }
+  51% { opacity: 0.3; }
+  52%, 55% { opacity: 0.95; }
+  56% { opacity: 0; }
+  78% { opacity: 0; }
+  80%, 83% { opacity: 0.7; }
+  84% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 .storm-flash {
   position: absolute; inset: 0;
-  background: rgba(255, 255, 255, 0.15);
-  opacity: 0; animation: stormFlash 6s ease-in-out infinite;
+  background: radial-gradient(ellipse at 25% 30%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 215, 0, 0.18) 35%, transparent 70%);
+  opacity: 0; animation: stormFlash 2.4s ease-in-out infinite;
+  pointer-events: none;
 }
 @keyframes stormFlash {
-  0%, 95%, 100% { opacity: 0; }
-  96% { opacity: 0.4; }
-  97% { opacity: 0; }
+  0%, 8% { opacity: 0; }
+  10%, 14% { opacity: 0.85; }
+  15% { opacity: 0.2; }
+  16%, 19% { opacity: 0.75; }
+  20% { opacity: 0; }
+  46%, 50% { opacity: 0.75; }
+  51% { opacity: 0.15; }
+  52%, 55% { opacity: 0.85; }
+  56% { opacity: 0; }
+  80%, 83% { opacity: 0.55; }
+  84% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 .how-stage.storm #grid-input { animation: gridShake 1.2s ease-in-out infinite; }
@@ -1826,4 +1851,66 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .seq-label { display: none; }
   .how-controls { flex-direction: column; align-items: stretch; }
   .play-btn { justify-content: center; }
+}
+
+/* ============================================================
+   v6.6 — 상태 인디케이터 숨김 + 인증 마크 SVG + 화살표
+   ============================================================ */
+
+/* 상단 상태 인디케이터 (중복 — 진행 바와 토글 버튼이 이미 있음) */
+#statusIndicator { display: none; }
+
+/* 인증 마크 SVG 이미지 */
+.cert-mark-img {
+  max-width: 90px;
+  max-height: 50px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.cert-section-label {
+  display: flex; align-items: center; gap: 12px;
+  margin: 14px 0 10px;
+}
+
+.cert-section-label-mt { margin-top: 22px; }
+
+.cert-section-tag {
+  font-family: var(--font-en); font-size: 10px; font-weight: 700;
+  color: var(--c-gray); background: var(--c-bg-soft);
+  padding: 4px 10px; border-radius: 2px; letter-spacing: 0.12em;
+}
+
+.cert-section-tag-em {
+  color: var(--c-bg); background: var(--c-red);
+}
+
+.cert-section-text {
+  font-size: 12px; color: var(--c-text); font-weight: 600;
+}
+
+.cert-marks-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 1024px) {
+  .cert-marks-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .cert-marks-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* SEMI 마크 옆 F47 / S2 배지 */
+.cert-mark-svg { position: relative; }
+
+.cert-mark-badge {
+  position: absolute;
+  bottom: -2px; right: 6px;
+  background: #dc2626; color: #fff;
+  font-family: var(--font-en); font-size: 10px; font-weight: 800;
+  padding: 2px 7px; border-radius: 2px;
+  letter-spacing: 0.05em;
 }
