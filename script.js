@@ -216,6 +216,14 @@ const modes = {
       howStage.classList.remove('storm');
       howInfo.classList.remove('comp');
       waveMode = 'standby';
+      // 메인 라인 정상 (계통 → SCR → 부하)
+      const l2s = document.getElementById('line-2');
+      if (l2s) {
+        l2s.style.transition = 'stroke 0.6s ease, opacity 0.6s ease, stroke-width 0.6s ease';
+        l2s.setAttribute('stroke', '#22d3ee');
+        l2s.setAttribute('stroke-width', 2.5);
+        l2s.setAttribute('opacity', 1);
+      }
       setLineStyle('line-3', '#0d9488', 1.8, '5 4');
       setLineStyle('line-4', '#0d9488', 1.8, '5 4');
       setLine5('#475569', 1.5, 0.3);
@@ -234,6 +242,14 @@ const modes = {
       howStage.classList.add('storm');
       howInfo.classList.remove('comp');
       waveMode = 'detect';
+      // 아직 SCR 활성, 부하 정상 공급 중
+      const l2d = document.getElementById('line-2');
+      if (l2d) {
+        l2d.style.transition = 'stroke 0.6s ease';
+        l2d.setAttribute('stroke', '#22d3ee');
+        l2d.setAttribute('stroke-width', 2.5);
+        l2d.setAttribute('opacity', 1);
+      }
       setLineStyle('line-3', '#0d9488', 1.8, '5 4');
       setLineStyle('line-4', '#0d9488', 1.8, '5 4');
       setLine5('#475569', 1.5, 0.3);
@@ -252,6 +268,13 @@ const modes = {
       howStage.classList.add('storm');
       howInfo.classList.add('comp');
       waveMode = 'switch';
+      // SCR 비활성, 인버터 측 활성화 시작
+      const l2 = document.getElementById('line-2');
+      if (l2) {
+        l2.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
+        l2.setAttribute('stroke', '#475569');
+        l2.setAttribute('opacity', 0.4);
+      }
       setLineStyle('line-3', '#475569', 1.5, '5 4');
       setLineStyle('line-4', '#22d3ee', 2.5);
       setLine5('#22d3ee', 2.5, 1);
@@ -270,6 +293,14 @@ const modes = {
       howStage.classList.add('storm');
       howInfo.classList.add('comp');
       waveMode = 'compensate';
+      // SCR 차단 상태, 인버터 → 부하 라인 강조
+      const l2 = document.getElementById('line-2');
+      if (l2) {
+        l2.style.transition = 'stroke 0.6s ease, opacity 0.6s ease';
+        l2.setAttribute('stroke', '#22d3ee');  // 보상 흐름 (분기점 이후)
+        l2.setAttribute('stroke-width', 3);
+        l2.setAttribute('opacity', 1);
+      }
       setLineStyle('line-3', '#475569', 1.5, '5 4');
       setLineStyle('line-4', '#22d3ee', 3);
       setLine5('#22d3ee', 3, 1);
@@ -288,6 +319,14 @@ const modes = {
       howStage.classList.remove('storm');
       howInfo.classList.remove('comp');
       waveMode = 'recovery';
+      // 메인 라인 복귀
+      const l2r = document.getElementById('line-2');
+      if (l2r) {
+        l2r.style.transition = 'stroke 0.6s ease, opacity 0.6s ease, stroke-width 0.6s ease';
+        l2r.setAttribute('stroke', '#22d3ee');
+        l2r.setAttribute('stroke-width', 2.5);
+        l2r.setAttribute('opacity', 1);
+      }
       setLineStyle('line-3', '#0d9488', 2, '4 3');  // 재충전 중 - 약간 두껍게
       setLineStyle('line-4', '#0d9488', 2, '4 3');
       setLine5('#475569', 1.5, 0.3);

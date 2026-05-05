@@ -655,7 +655,7 @@
           <div class="vf-modal-meta">
             <div><strong>Event Time:</strong> 2025-08-14 14:23:47.182</div>
             <div><strong>Tool ID:</strong> EPI-300mm-A03</div>
-            <div><strong>Sag Voltage:</strong> 0.42 p.u (58% Drop)</div>
+            <div><strong>Sag Voltage:</strong> 58% Drop (잔여 전압 42%)</div>
             <div><strong>Duration:</strong> 0.18 s</div>
             <div><strong>Result:</strong> <span style="color:#22d3ee;font-weight:700">Recovered (정상 보상)</span></div>
           </div>
@@ -1093,20 +1093,20 @@
           <svg viewBox="0 0 700 320" class="sag-scatter">
             <defs><pattern id="sgrid" width="50" height="32" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 32" fill="none" stroke="#E0DBD3" stroke-width="0.5"/></pattern></defs>
             <rect x="60" y="20" width="600" height="240" fill="url(#sgrid)"/>
-            <text x="55" y="30" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">1.0</text>
-            <text x="55" y="80" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">0.8</text>
-            <text x="55" y="130" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">0.6</text>
-            <text x="55" y="180" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">0.4</text>
-            <text x="55" y="230" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">0.2</text>
-            <text x="60" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.001</text>
-            <text x="180" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.01</text>
-            <text x="350" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.1</text>
-            <text x="490" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">1.0</text>
+            <text x="55" y="30" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">100%</text>
+            <text x="55" y="80" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">80%</text>
+            <text x="55" y="130" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">60%</text>
+            <text x="55" y="180" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">40%</text>
+            <text x="55" y="230" text-anchor="end" font-size="10" fill="#78716C" font-family="Inter">20%</text>
+            <text x="60" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.001s</text>
+            <text x="180" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.01s</text>
+            <text x="350" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">0.1s</text>
+            <text x="490" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">1.0s</text>
             <text x="640" y="278" text-anchor="middle" font-size="9" fill="#78716C" font-family="Inter">10s</text>
             <line x1="60" y1="260" x2="660" y2="260" stroke="#44403C" stroke-width="1.2"/>
             <line x1="60" y1="20" x2="60" y2="260" stroke="#44403C" stroke-width="1.2"/>
-            <text x="22" y="140" text-anchor="middle" font-size="10" fill="#44403C" font-family="Inter" font-weight="700" transform="rotate(-90 22 140)">Voltage (p.u)</text>
-            <text x="360" y="300" text-anchor="middle" font-size="10" fill="#44403C" font-family="Inter" font-weight="700">Duration (Seconds)</text>
+            <text x="22" y="140" text-anchor="middle" font-size="10" fill="#44403C" font-family="Inter" font-weight="700" transform="rotate(-90 22 140)">잔여 전압 (Voltage Remaining %)</text>
+            <text x="360" y="300" text-anchor="middle" font-size="10" fill="#44403C" font-family="Inter" font-weight="700">SAG 지속시간 (Duration)</text>
             <line x1="490" y1="20" x2="490" y2="260" stroke="#C13816" stroke-width="1.5" stroke-dasharray="6 4"/>
             <text x="495" y="35" font-size="11" fill="#C13816" font-weight="700" font-family="Inter">1초</text>
             <rect x="60" y="20" width="430" height="240" fill="rgba(193,56,22,0.04)"/>
@@ -1142,11 +1142,11 @@
 
         <table class="report-table">
           <tbody>
-            <tr><td class="rt-key">측정 기간</td><td class="rt-val">12 개월 (Continuous Monitoring)</td></tr>
+            <tr><td class="rt-key">측정 기간</td><td class="rt-val">12 개월 (연속 모니터링)</td></tr>
             <tr><td class="rt-key">총 SAG 이벤트</td><td class="rt-val">21 건</td></tr>
             <tr><td class="rt-key">1초 이내 비율</td><td class="rt-val rt-em">100 %</td></tr>
-            <tr><td class="rt-key">최저 전압 강하</td><td class="rt-val">0.10 p.u (90% Drop)</td></tr>
-            <tr><td class="rt-key">가장 빈번한 구간</td><td class="rt-val">0.05 ~ 0.1 초</td></tr>
+            <tr><td class="rt-key">최저 전압강하</td><td class="rt-val rt-em">90% Drop</td></tr>
+            <tr><td class="rt-key">가장 빈번한 구간</td><td class="rt-val">50 ~ 100 ms</td></tr>
             <tr><td class="rt-key">TSP<sup>®</sup> 보상 성공률</td><td class="rt-val rt-em">100 %</td></tr>
           </tbody>
         </table>
