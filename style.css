@@ -1710,3 +1710,120 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .vf-export-btn-secondary-light:hover {
   background: var(--c-red-lt) !important;
 }
+
+/* ============================================================
+   v6.5 — 자동 시퀀스 + 진행 바 + Play 버튼
+   ============================================================ */
+
+.how-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.play-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--c-head); color: var(--c-bg);
+  border: none; padding: 9px 18px;
+  border-radius: 4px;
+  font-family: var(--font-ko); font-size: 12.5px; font-weight: 700;
+  cursor: pointer; transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+
+.play-btn:hover {
+  background: var(--c-red);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--c-red) 30%, transparent);
+}
+
+.play-btn.playing {
+  background: var(--c-red);
+  animation: playPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes playPulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c-red) 50%, transparent); }
+  50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--c-red) 0%, transparent); }
+}
+
+.play-btn svg { transition: transform 0.3s; }
+.play-btn.playing svg {
+  /* Play 아이콘 → Stop 사각형으로 보이게 (동그란 테두리로) */
+  transform: scale(0.85);
+}
+
+/* 진행 바 */
+.seq-progress {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--c-bg-soft);
+  padding: 14px 22px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+  gap: 6px;
+}
+
+.seq-progress-step {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex-shrink: 0;
+  min-width: 70px;
+}
+
+.seq-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 2px solid var(--c-divider);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.seq-progress-step.done .seq-dot {
+  background: var(--c-gray-lt);
+  border-color: var(--c-gray-lt);
+}
+
+.seq-progress-step.active .seq-dot {
+  background: var(--c-red);
+  border-color: var(--c-red);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-red) 20%, transparent);
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-red) 20%, transparent); }
+  50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--c-red) 5%, transparent); }
+}
+
+.seq-label {
+  font-family: var(--font-en); font-size: 9.5px; font-weight: 700;
+  color: var(--c-gray); letter-spacing: 0.1em;
+  transition: color 0.3s;
+}
+
+.seq-progress-step.done .seq-label { color: var(--c-gray-lt); }
+.seq-progress-step.active .seq-label { color: var(--c-red); }
+
+.seq-progress-line {
+  flex: 1;
+  height: 1.5px;
+  background: var(--c-divider);
+  min-width: 12px;
+  transition: background 0.3s;
+}
+
+@media (max-width: 1024px) {
+  .seq-progress { padding: 10px 14px; gap: 4px; }
+  .seq-progress-step { min-width: 50px; }
+  .seq-label { font-size: 8.5px; }
+}
+
+@media (max-width: 600px) {
+  .seq-progress { overflow-x: auto; padding: 8px 10px; }
+  .seq-label { display: none; }
+  .how-controls { flex-direction: column; align-items: stretch; }
+  .play-btn { justify-content: center; }
+}

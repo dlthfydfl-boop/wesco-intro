@@ -397,6 +397,50 @@ function animateFlow(mode) {
   step();
 }
 
+// ▣ 모드별 시각적 메타 (상태 라벨 + EDLC 레벨 + 색상)
+const modeMeta = {
+  standby:    { label: 'STANDBY · NORMAL',         color: '#0d9488', edlc: 100, ring: 'normal' },
+  detect:     { label: 'DETECT · SAG DETECTED',    color: '#fbbf24', edlc: 100, ring: 'alert' },
+  switch:     { label: 'SWITCH · SCR ISOLATED',    color: '#dc2626', edlc: 95,  ring: 'alert' },
+  compensate: { label: 'COMPENSATING · LOAD SAFE', color: '#22d3ee', edlc: 70,  ring: 'comp' },
+  recovery:   { label: 'RECOVERY · RECHARGING',    color: '#0d9488', edlc: 100, ring: 'normal', recharging: true }
+};
+
+function setEDLCLevel(percent, recharging = false) {
+  const lv = document.getElementById('edlcLevel');
+  const pc = document.getElementById('edlcPercent');
+  if (lv) {
+    lv.style.transition = 'width 1.4s cubic-bezier(0.4,0,0.2,1), fill 0.4s ease';
+    lv.setAttribute('width', 0.89 * percent);  // 89px = 100%
+    lv.setAttribute('fill', recharging ? '#fbbf24' : (percent < 90 ? '#22d3ee' : '#22d3ee'));
+  }
+  if (pc) {
+    pc.textContent = percent + '%';
+    pc.setAttribute('fill', recharging ? '#fbbf24' : '#22d3ee');
+  }
+}
+
+function setStatusIndicator(label, color) {
+  const bg = document.getElementById('statusBg');
+  const tx = document.getElementById('statusText');
+  if (bg) {
+    bg.style.transition = 'fill 0.4s ease';
+    bg.setAttribute('fill', color);
+  }
+  if (tx) tx.textContent = label;
+}
+
+function triggerSCRSplash() {
+  const splash = document.getElementById('scrSplash');
+  if (!splash) return;
+  splash.setAttribute('opacity', '1');
+  // 모든 animate 재시작
+  splash.querySelectorAll('animate').forEach(a => {
+    try { a.beginElement(); } catch(e) {}
+  });
+  setTimeout(() => splash.setAttribute('opacity', '0'), 600);
+}
+
 function setMode(mode) {
   const data = modes[mode];
   if (!data) return;
@@ -407,7 +451,102 @@ function setMode(mode) {
     ).join('');
   }
   data.apply();
+
+  // 메타 정보 적용
+  const meta = modeMeta[mode];
+  if (meta) {
+    setStatusIndicator(meta.label, meta.color);
+    setEDLCLevel(meta.edlc, !!meta.recharging);
+  }
+
+  // 절체 순간 splash
+  if (mode === 'switch') triggerSCRSplash();
+
+  // 진행 바 업데이트
+  document.querySelectorAll('.seq-progress-step').forEach(el => {
+    el.classList.toggle('active', el.dataset.step === mode);
+  });
+  // 진행 단계 표시 (지나간 단계는 done)
+  const order = ['standby','detect','switch','compensate','recovery'];
+  const currentIdx = order.indexOf(mode);
+  document.querySelectorAll('.seq-progress-step').forEach(el => {
+    const idx = order.indexOf(el.dataset.step);
+    el.classList.toggle('done', idx < currentIdx);
+  });
 }
+
+/* ============================================================
+   자동 시퀀스 재생 — 5단계 자연스러운 타이밍
+   ============================================================ */
+let autoSeqTimer = null;
+let autoSeqRunning = false;
+const playSeqBtn = document.getElementById('playSeqBtn');
+const playBtnText = document.getElementById('playBtnText');
+
+const SEQ_TIMINGS = [
+  { mode: 'standby',    duration: 3000 },  // 평상시 3초
+  { mode: 'detect',     duration: 800  },  // 감지 0.8초
+  { mode: 'switch',     duration: 700  },  // 절체 0.7초
+  { mode: 'compensate', duration: 4000 },  // 보상 4초
+  { mode: 'recovery',   duration: 2500 }   // 복귀 2.5초
+];
+
+function playSequence(stepIdx = 0) {
+  if (!autoSeqRunning) return;
+  const step = SEQ_TIMINGS[stepIdx];
+  if (!step) {
+    // 완료 → 처음부터 반복
+    playSequence(0);
+    return;
+  }
+  setMode(step.mode);
+  // 토글 버튼도 업데이트
+  document.querySelectorAll('.toggle-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === step.mode);
+  });
+  autoSeqTimer = setTimeout(() => playSequence(stepIdx + 1), step.duration);
+}
+
+function stopSequence() {
+  autoSeqRunning = false;
+  if (autoSeqTimer) clearTimeout(autoSeqTimer);
+  autoSeqTimer = null;
+  if (playBtnText) playBtnText.textContent = '자동 재생';
+  playSeqBtn?.classList.remove('playing');
+}
+
+function startSequence() {
+  autoSeqRunning = true;
+  if (playBtnText) playBtnText.textContent = '정지';
+  playSeqBtn?.classList.add('playing');
+  playSequence(0);
+}
+
+if (playSeqBtn) {
+  playSeqBtn.addEventListener('click', () => {
+    if (autoSeqRunning) stopSequence();
+    else startSequence();
+  });
+}
+
+// 토글 버튼 수동 클릭 시 자동 시퀀스 정지
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (autoSeqRunning) stopSequence();
+  });
+});
+
+// 진행 바 클릭으로도 모드 전환
+document.querySelectorAll('.seq-progress-step').forEach(step => {
+  step.addEventListener('click', () => {
+    if (autoSeqRunning) stopSequence();
+    const mode = step.dataset.step;
+    document.querySelectorAll('.toggle-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.mode === mode);
+    });
+    setMode(mode);
+  });
+});
 
 toggleBtns.forEach(btn => {
   btn.addEventListener('click', () => {
