@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="WESCO TSP® - 순간정전보상장치 25년 전문기업. 단상 0.5kVA ~ 삼상 2400kVA. 반도체·자동차·디스플레이 8,455대+ 글로벌 적용.">
 <title>WESCO | 순간정전보상장치 TSP® - Smart POWER Vaccine™</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="WESCO | 순간정전보상장치 TSP® - 25년 한 분야 전문기업">
+<meta property="og:description" content="단상 0.5kVA ~ 삼상 2400kVA · 8,455대+ 글로벌 적용 · 반도체·자동차·디스플레이 Top-Tier 검증.">
+<meta property="og:url" content="https://dlthfydfl-boop.github.io/wesco-intro/">
+<meta property="og:image" content="https://dlthfydfl-boop.github.io/wesco-intro/images/company/factory.jpg">
+<meta property="og:site_name" content="WESCO Co., Ltd.">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WESCO | 순간정전보상장치 TSP®">
+<meta name="twitter:description" content="단상 0.5kVA ~ 삼상 2400kVA · 8,455대+ 글로벌 적용.">
+<meta name="twitter:image" content="https://dlthfydfl-boop.github.io/wesco-intro/images/company/factory.jpg">
+<link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -312,6 +324,7 @@
               <!-- ▣ 라인 2: SCR → 부하 (사인파) -->
               <path id="wave-2" d="" fill="none" stroke="url(#waveBlueGrad)" stroke-width="2.5" stroke-linecap="round"/>
               <line id="line-2-base" x1="350" y1="185" x2="640" y2="185" stroke="#1e40af" stroke-width="0.8" opacity="0.3"/>
+              <line id="line-2" x1="350" y1="185" x2="640" y2="185" stroke="#22d3ee" stroke-width="2.5" opacity="1"/>
 
               <!-- ▣ 라인 3: SCR → 인버터 분기 -->
               <line id="line-3" x1="430" y1="185" x2="430" y2="240" stroke="#2563eb" stroke-width="2"/>
@@ -357,6 +370,11 @@
                 <path d="M 424 222 L 430 212 L 436 222" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 <text x="450" y="227" font-size="10" fill="#22d3ee" font-weight="700" font-family="Noto Sans KR">보상 공급</text>
               </g>
+
+              <!-- ▣ EDLC → 인버터 → 부하 에너지 흐름 점 (사고 시 활성) -->
+              <circle id="flowDot1" cx="575" cy="267" r="5" fill="#22d3ee" opacity="0" filter="url(#glowBlue)"/>
+              <circle id="flowDot2" cx="575" cy="267" r="4" fill="#22d3ee" opacity="0" filter="url(#glowBlue)"/>
+              <circle id="flowDot3" cx="575" cy="267" r="3.5" fill="#22d3ee" opacity="0" filter="url(#glowBlue)"/>
 
               <!-- ▣ SCR 절체 모멘트 splash -->
               <g id="scrSplash" opacity="0">

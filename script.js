@@ -654,35 +654,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Event Modal — Source/Load 사인파 그리기
-function drawEventWaves() {
-  const src = document.getElementById('eventSrcWave');
-  const load = document.getElementById('eventLoadWave');
-  if (!src || !load) return;
-
-  // Source: 정상 → SAG (35-65%) → 정상
-  let d1 = '';
-  for (let x = 20; x <= 700; x += 2) {
-    const tx = (x - 20) / 680;
-    let amp;
-    if (tx < 0.35) amp = 30;
-    else if (tx < 0.65) amp = 12;  // SAG (전압 강하)
-    else amp = 30;
-    const y = 90 + Math.sin((x - 20) * 0.18) * amp;
-    d1 += (x === 20 ? 'M' : 'L') + ` ${x} ${y} `;
-  }
-  src.setAttribute('d', d1);
-
-  // Load: 시종일관 정상 (TSP가 보상)
-  let d2 = '';
-  for (let x = 20; x <= 700; x += 2) {
-    const y = 240 + Math.sin((x - 20) * 0.18) * 30;
-    d2 += (x === 20 ? 'M' : 'L') + ` ${x} ${y} `;
-  }
-  load.setAttribute('d', d2);
-}
-drawEventWaves();
-
 /* 키보드 (11 섹션) */
 const sectionIds = ['hero','about','need','how','products','viewer','cases','network','report','qa','contact'];
 
