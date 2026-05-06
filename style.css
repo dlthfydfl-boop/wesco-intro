@@ -603,54 +603,116 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .storm-fx { position: absolute; inset: 0; pointer-events: none; opacity: 0; z-index: 1; transition: opacity 0.5s; }
 .how-stage.storm .storm-fx { opacity: 1; }
 
-.lightning {
-  position: absolute; top: 0; left: 0; width: 50%; height: 100%;
-  background:
-    linear-gradient(125deg,
-      transparent 47%, rgba(255, 215, 0, 0.85) 48.5%, rgba(255, 255, 255, 1) 49.5%,
-      rgba(255, 215, 0, 0.85) 50.5%, transparent 52%),
-    linear-gradient(140deg,
-      transparent 51%, rgba(255, 215, 0, 0.6) 52.5%, rgba(255, 255, 255, 0.9) 53.5%,
-      rgba(255, 215, 0, 0.6) 54.5%, transparent 56%);
-  filter: blur(0.4px) drop-shadow(0 0 28px rgba(255, 215, 0, 0.95));
-  opacity: 0; animation: lightningFlash 2.4s ease-in-out infinite;
-}
-@keyframes lightningFlash {
-  0%, 8% { opacity: 0; }
-  10%, 14% { opacity: 0.95; }
-  15% { opacity: 0.4; }
-  16%, 19% { opacity: 0.9; }
-  20% { opacity: 0; }
-  44% { opacity: 0; }
-  46%, 50% { opacity: 0.9; }
-  51% { opacity: 0.3; }
-  52%, 55% { opacity: 0.95; }
-  56% { opacity: 0; }
-  78% { opacity: 0; }
-  80%, 83% { opacity: 0.7; }
-  84% { opacity: 0; }
-  100% { opacity: 0; }
+/* ═══════════════════ 사실감 있는 SVG 번개 ═══════════════════ */
+.lightning-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
 }
 
+/* 외곽 헤일로 — 노란 글로우 */
+.bolt-halo {
+  fill: none;
+  stroke: #fbbf24;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  filter: blur(3px);
+}
+
+/* 코어 — 흰색 중심 */
+.bolt-core {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+/* 분기 — 가는 곁가지 */
+.bolt-branch {
+  fill: none;
+  stroke: #fef3c7;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+/* 자연스러운 3-strike 패턴 (실제 번개 = 1차 strike + 잔열 + 2차 strike) */
+@keyframes boltFlicker {
+  0%, 100%      { opacity: 0; }
+  2%            { opacity: 0.95; }
+  3%, 4%        { opacity: 0.2; }
+  5%            { opacity: 1; }
+  7%            { opacity: 0.4; }
+  8%            { opacity: 0.85; }
+  10%           { opacity: 0; }
+}
+
+@keyframes haloFlicker {
+  0%, 100%      { opacity: 0; }
+  2%            { opacity: 0.7; }
+  3%, 4%        { opacity: 0.15; }
+  5%            { opacity: 0.85; }
+  7%            { opacity: 0.3; }
+  8%            { opacity: 0.65; }
+  10%           { opacity: 0; }
+}
+
+/* 3개 bolt를 시간차로 발사 */
+.bolt-1 .bolt-core, .bolt-1 .bolt-branch { animation: boltFlicker 4.5s ease-out infinite; }
+.bolt-1 .bolt-halo { animation: haloFlicker 4.5s ease-out infinite; }
+
+.bolt-2 .bolt-core, .bolt-2 .bolt-branch { animation: boltFlicker 4.5s ease-out infinite; animation-delay: 1.6s; }
+.bolt-2 .bolt-halo { animation: haloFlicker 4.5s ease-out infinite; animation-delay: 1.6s; }
+
+.bolt-3 .bolt-core, .bolt-3 .bolt-branch { animation: boltFlicker 4.5s ease-out infinite; animation-delay: 3.0s; }
+.bolt-3 .bolt-halo { animation: haloFlicker 4.5s ease-out infinite; animation-delay: 3.0s; }
+
+/* 배경 섬광 — 번개와 동기화 */
 .storm-flash {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 25% 30%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 215, 0, 0.18) 35%, transparent 70%);
-  opacity: 0; animation: stormFlash 2.4s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse at 18% 25%, rgba(255, 255, 255, 0.55) 0%, rgba(251, 191, 36, 0.18) 28%, transparent 60%),
+    radial-gradient(ellipse at 82% 35%, rgba(255, 255, 255, 0.40) 0%, rgba(251, 191, 36, 0.12) 28%, transparent 55%);
+  opacity: 0;
   pointer-events: none;
+  animation: stormFlash 4.5s ease-out infinite;
 }
+
 @keyframes stormFlash {
-  0%, 8% { opacity: 0; }
-  10%, 14% { opacity: 0.85; }
-  15% { opacity: 0.2; }
-  16%, 19% { opacity: 0.75; }
-  20% { opacity: 0; }
-  46%, 50% { opacity: 0.75; }
-  51% { opacity: 0.15; }
-  52%, 55% { opacity: 0.85; }
-  56% { opacity: 0; }
-  80%, 83% { opacity: 0.55; }
-  84% { opacity: 0; }
-  100% { opacity: 0; }
+  0%, 100%      { opacity: 0; }
+  2%            { opacity: 0.8; }
+  3%, 4%        { opacity: 0.2; }
+  5%            { opacity: 0.9; }
+  7%            { opacity: 0.3; }
+  8%            { opacity: 0.7; }
+  10%           { opacity: 0; }
+  35%           { opacity: 0; }
+  36%           { opacity: 0.7; }
+  37%, 38%      { opacity: 0.15; }
+  39%           { opacity: 0.85; }
+  41%           { opacity: 0.25; }
+  42%           { opacity: 0.6; }
+  44%           { opacity: 0; }
+  66%           { opacity: 0; }
+  67%           { opacity: 0.65; }
+  68%, 69%      { opacity: 0.15; }
+  70%           { opacity: 0.8; }
+  72%           { opacity: 0.2; }
+  73%           { opacity: 0.55; }
+  75%           { opacity: 0; }
+}
+
+/* 사용자가 모션 감소 선호 시 끔 */
+@media (prefers-reduced-motion: reduce) {
+  .bolt-core, .bolt-halo, .bolt-branch, .storm-flash { animation: none; opacity: 0.35; }
 }
 
 .how-stage.storm #grid-input { animation: gridShake 1.2s ease-in-out infinite; }

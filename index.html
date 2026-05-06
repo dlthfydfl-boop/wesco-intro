@@ -299,8 +299,41 @@
         </div>
         <div class="how-stage" id="howStage">
           <div class="storm-fx" id="stormFx">
-            <div class="lightning"></div>
             <div class="storm-flash"></div>
+            <svg class="lightning-svg" viewBox="0 0 400 360" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <filter id="boltGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="1.4" result="b1"/>
+                  <feGaussianBlur stdDeviation="4" result="b2"/>
+                  <feMerge>
+                    <feMergeNode in="b2"/>
+                    <feMergeNode in="b1"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <!-- Bolt 1 — main left -->
+              <g class="bolt bolt-1" filter="url(#boltGlow)">
+                <path class="bolt-halo" d="M 70 0 L 88 58 L 62 108 L 96 156 L 60 218 L 108 282 L 72 360"/>
+                <path class="bolt-core" d="M 70 0 L 88 58 L 62 108 L 96 156 L 60 218 L 108 282 L 72 360"/>
+                <path class="bolt-branch" d="M 96 156 L 132 178 L 122 214"/>
+                <path class="bolt-branch" d="M 108 282 L 144 296 L 138 322"/>
+              </g>
+              <!-- Bolt 2 — center -->
+              <g class="bolt bolt-2" filter="url(#boltGlow)">
+                <path class="bolt-halo" d="M 210 0 L 195 52 L 228 112 L 192 172 L 228 232 L 200 296 L 230 360"/>
+                <path class="bolt-core" d="M 210 0 L 195 52 L 228 112 L 192 172 L 228 232 L 200 296 L 230 360"/>
+                <path class="bolt-branch" d="M 228 112 L 264 132 L 256 168"/>
+                <path class="bolt-branch" d="M 200 296 L 168 308 L 174 336"/>
+              </g>
+              <!-- Bolt 3 — right -->
+              <g class="bolt bolt-3" filter="url(#boltGlow)">
+                <path class="bolt-halo" d="M 330 0 L 348 56 L 322 110 L 354 168 L 320 226 L 350 290 L 326 360"/>
+                <path class="bolt-core" d="M 330 0 L 348 56 L 322 110 L 354 168 L 320 226 L 350 290 L 326 360"/>
+                <path class="bolt-branch" d="M 354 168 L 384 184"/>
+                <path class="bolt-branch" d="M 320 226 L 290 240 L 296 264"/>
+              </g>
+            </svg>
           </div>
           <div class="tsp-frame">
             <div class="tsp-frame-label">TSP® INTERNAL CIRCUIT</div>
