@@ -261,6 +261,42 @@
             <span id="playBtnText">자동 재생</span>
           </button>
         </div>
+
+        <!-- 시간축 타임라인 — 단계별 소요 시간 명시 -->
+        <div class="seq-timeline">
+          <div class="seq-track"></div>
+          <div class="seq-progress-step active" data-step="standby">
+            <div class="seq-marker">①</div>
+            <div class="seq-name">평상시</div>
+            <div class="seq-time">대기</div>
+          </div>
+          <div class="seq-progress-step" data-step="detect">
+            <div class="seq-marker">②</div>
+            <div class="seq-name">감지</div>
+            <div class="seq-time">μs</div>
+          </div>
+          <div class="seq-progress-step" data-step="switch">
+            <div class="seq-marker">③</div>
+            <div class="seq-name">절체</div>
+            <div class="seq-time">≤ 2 ms</div>
+          </div>
+          <div class="seq-progress-step" data-step="compensate">
+            <div class="seq-marker">④</div>
+            <div class="seq-name">보상</div>
+            <div class="seq-time">~1 초</div>
+          </div>
+          <div class="seq-progress-step" data-step="recovery">
+            <div class="seq-marker">⑤</div>
+            <div class="seq-name">복귀</div>
+            <div class="seq-time">자동</div>
+          </div>
+        </div>
+
+        <!-- 핵심 메시지 배지 -->
+        <div class="load-running-badge" id="loadRunningBadge">
+          <span class="lrb-pulse"></span>
+          <span class="lrb-text">전 단계에 걸쳐 <strong>부하 설비는 정상 운전 지속</strong></span>
+        </div>
         <div class="how-stage" id="howStage">
           <div class="storm-fx" id="stormFx">
             <div class="lightning"></div>
@@ -460,9 +496,18 @@
                 <rect id="part2" x="60" y="184" width="8" height="6" rx="0.5" fill="#22d3ee"/>
                 <rect id="part3" x="100" y="184" width="8" height="6" rx="0.5" fill="#22d3ee"/>
 
-                <!-- 라벨 -->
+                <!-- 라벨 + 항상 정상 가동 배지 -->
                 <text x="65" y="216" text-anchor="middle" font-size="9.5" fill="#1a2332" font-weight="700">생산 설비 (LOAD)</text>
                 <text x="65" y="227" text-anchor="middle" font-size="8" fill="#64748b" font-family="Inter">PRODUCTION LINE</text>
+
+                <!-- ★ 항시 정상 운전 배지 (어떤 단계에서도 깜빡임/유지) -->
+                <g id="loadAlwaysOn">
+                  <rect x="-8" y="234" width="146" height="18" rx="9" fill="#10b981" opacity="0.95"/>
+                  <circle cx="4" cy="243" r="3" fill="#FFF">
+                    <animate attributeName="opacity" values="1;0.4;1" dur="1.6s" repeatCount="indefinite"/>
+                  </circle>
+                  <text x="74" y="247" text-anchor="middle" font-size="9" font-weight="800" fill="#FFF" font-family="Noto Sans KR" letter-spacing="0.5">정상 운전 지속</text>
+                </g>
 
                 <!-- 가동 상태 -->
                 <g transform="translate(115, 160)">
@@ -551,12 +596,12 @@
         <div class="cert-marks-sub">국제 안전·전자파·반도체 산업 규격 인증 보유</div>
       </div>
 
-      <!-- 취득 인증 -->
+      <!-- 보유 인증서 — 실물 사진만 -->
       <div class="cert-section-label">
-        <span class="cert-section-tag cert-section-tag-em">인증 취득</span>
-        <span class="cert-section-text">KC · CE · S-MARK · NRTL</span>
+        <span class="cert-section-tag cert-section-tag-em">보유 인증서</span>
+        <span class="cert-section-text">KC · CE · SEMI F47 · SEMI S2 — 실물 보유</span>
       </div>
-      <div class="cert-doc-grid">
+      <div class="cert-doc-grid cert-doc-grid-4">
         <div class="cert-doc-card">
           <div class="cert-doc-thumb"><img src="images/cert/thumbs/kc.png" alt="KC 인증서" loading="lazy"></div>
           <div class="cert-doc-info">
@@ -572,65 +617,38 @@
           </div>
         </div>
         <div class="cert-doc-card">
-          <div class="cert-doc-thumb cert-doc-thumb-mark">
-            <svg viewBox="0 0 70 70" width="100" height="100">
-              <polygon points="35,4 66,35 35,66 4,35" fill="none" stroke="#0f172a" stroke-width="3.5"/>
-              <text x="35" y="48" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="32" font-weight="900" fill="#e60000" font-style="italic">S</text>
-            </svg>
-          </div>
+          <div class="cert-doc-thumb"><img src="images/cert/thumbs/semif47.png" alt="SEMI F47 평가보고서" loading="lazy"></div>
           <div class="cert-doc-info">
-            <div class="cert-doc-name">S-MARK 인증</div>
-            <div class="cert-doc-desc">한국 전기 안전 인증</div>
+            <div class="cert-doc-name">SEMI F47 평가</div>
+            <div class="cert-doc-desc">반도체 전압강하 내성 평가 보고서</div>
           </div>
         </div>
         <div class="cert-doc-card">
-          <div class="cert-doc-thumb cert-doc-thumb-mark">
-            <svg viewBox="0 0 80 70" width="100" height="90">
-              <polygon points="6,10 74,10 40,64" fill="none" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
-              <text x="40" y="32" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="14" font-weight="900" fill="#0f172a" letter-spacing="0.5">NRTL</text>
-              <text x="40" y="46" text-anchor="middle" font-family="Arial" font-size="6.5" font-weight="700" fill="#0f172a">RECOGNIZED</text>
-            </svg>
-          </div>
-          <div class="cert-doc-info">
-            <div class="cert-doc-name">NRTL 인증</div>
-            <div class="cert-doc-desc">북미 안전 시험기관 등재 (진행 중)</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 대응 규격 -->
-      <div class="cert-section-label cert-section-label-mt">
-        <span class="cert-section-tag">대응 규격</span>
-        <span class="cert-section-text">UL Listed · SEMI F47 · SEMI S2</span>
-      </div>
-
-      <div class="cert-doc-grid cert-doc-grid-3">
-        <div class="cert-doc-card cert-doc-card-rel">
-          <div class="cert-doc-thumb cert-doc-thumb-mark">
-            <svg viewBox="0 0 80 80" width="100" height="100">
-              <circle cx="40" cy="40" r="36" fill="none" stroke="#0f172a" stroke-width="3.5"/>
-              <text x="40" y="44" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="22" font-weight="900" fill="#0f172a" font-style="italic" letter-spacing="-1">UL</text>
-              <text x="60" y="34" text-anchor="middle" font-family="Arial" font-size="9" font-weight="700" fill="#0f172a">®</text>
-            </svg>
-          </div>
-          <div class="cert-doc-info">
-            <div class="cert-doc-name">UL Listed</div>
-            <div class="cert-doc-desc">Underwriters Laboratories</div>
-          </div>
-        </div>
-        <div class="cert-doc-card cert-doc-card-rel">
-          <div class="cert-doc-thumb"><img src="images/cert/thumbs/semif47.png" alt="SEMI F47 평가보고서" loading="lazy"></div>
-          <div class="cert-doc-info">
-            <div class="cert-doc-name">SEMI F47</div>
-            <div class="cert-doc-desc">반도체 전압강하 내성 평가 완료</div>
-          </div>
-        </div>
-        <div class="cert-doc-card cert-doc-card-rel">
           <div class="cert-doc-thumb"><img src="images/cert/thumbs/semis2.png" alt="SEMI S2 평가보고서" loading="lazy"></div>
           <div class="cert-doc-info">
-            <div class="cert-doc-name">SEMI S2</div>
+            <div class="cert-doc-name">SEMI S2 평가</div>
             <div class="cert-doc-desc">반도체 장비 안전 가이드라인 평가</div>
           </div>
+        </div>
+      </div>
+
+      <!-- 대응 규격 — 텍스트 표기 -->
+      <div class="cert-section-label cert-section-label-mt">
+        <span class="cert-section-tag">대응 규격</span>
+        <span class="cert-section-text">국제 안전·전기 표준 충족</span>
+      </div>
+      <div class="cert-spec-row">
+        <div class="cert-spec-chip">
+          <div class="cert-spec-name">S-MARK</div>
+          <div class="cert-spec-desc">한국 전기 안전 표준</div>
+        </div>
+        <div class="cert-spec-chip">
+          <div class="cert-spec-name">UL Listed</div>
+          <div class="cert-spec-desc">북미 Underwriters Laboratories</div>
+        </div>
+        <div class="cert-spec-chip">
+          <div class="cert-spec-name">NRTL</div>
+          <div class="cert-spec-desc">북미 시험기관 등재 진행 중</div>
         </div>
       </div>
 

@@ -454,6 +454,137 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .toggle-btn.active { background: var(--c-head); color: var(--c-bg); }
 .toggle-btn[data-mode="comp"].active { background: var(--c-red); }
 
+/* ───────── 시간축 타임라인 ───────── */
+.seq-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin: 14px 0 10px;
+  padding: 16px 8px 8px;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+}
+
+.seq-track {
+  position: absolute;
+  top: 28px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: var(--c-divider);
+  z-index: 0;
+}
+
+.seq-progress-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+}
+
+.seq-marker {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 2px solid var(--c-divider);
+  color: var(--c-gray-lt);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  margin-bottom: 6px;
+}
+
+.seq-progress-step.done .seq-marker {
+  background: var(--c-head);
+  border-color: var(--c-head);
+  color: var(--c-bg);
+}
+
+.seq-progress-step.active .seq-marker {
+  background: var(--c-red);
+  border-color: var(--c-red);
+  color: var(--c-bg);
+  transform: scale(1.18);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-red) 22%, transparent);
+}
+
+.seq-name {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--c-gray);
+  margin-bottom: 2px;
+}
+
+.seq-progress-step.active .seq-name {
+  color: var(--c-red);
+}
+
+.seq-time {
+  font-family: var(--font-en);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--c-gray-lt);
+  letter-spacing: 0.02em;
+}
+
+.seq-progress-step.active .seq-time {
+  color: var(--c-head);
+}
+
+/* ───────── 부하 정상 운전 핵심 메시지 배지 ───────── */
+.load-running-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: linear-gradient(90deg, color-mix(in srgb, #10b981 12%, var(--c-bg)) 0%, var(--c-bg) 100%);
+  border: 1px solid color-mix(in srgb, #10b981 35%, var(--c-divider));
+  border-left: 3px solid #10b981;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  color: var(--c-head);
+}
+
+.load-running-badge strong {
+  color: #047857;
+  font-weight: 800;
+}
+
+.lrb-pulse {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  background: #10b981;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 0 0 #10b981;
+  animation: lrb-pulse 1.6s ease-out infinite;
+}
+
+@keyframes lrb-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, #10b981 70%, transparent); }
+  70%  { box-shadow: 0 0 0 10px color-mix(in srgb, #10b981 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, #10b981 0%, transparent); }
+}
+
+@media (max-width: 640px) {
+  .seq-timeline { padding: 14px 4px 6px; }
+  .seq-marker { width: 22px; height: 22px; font-size: 10px; }
+  .seq-name { font-size: 10px; }
+  .seq-time { font-size: 9.5px; }
+  .load-running-badge { font-size: 11.5px; padding: 10px 12px; }
+}
+
 .how-stage {
   position: relative; background: var(--c-bg);
   border: 1px solid var(--c-divider); border-radius: 4px;
@@ -1928,6 +2059,49 @@ body.cursor-active .cursor-glow { opacity: 1; }
 
 .cert-doc-grid-3 {
   grid-template-columns: repeat(3, 1fr);
+}
+
+.cert-doc-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 대응 규격 (보유 안 한 표준) — 텍스트 칩 */
+.cert-spec-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.cert-spec-chip {
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-divider);
+  border-radius: 4px;
+  padding: 14px 18px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.cert-spec-chip:hover {
+  border-color: var(--c-red);
+  background: var(--c-bg);
+}
+
+.cert-spec-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-head);
+  font-family: var(--font-en);
+  letter-spacing: 0.04em;
+}
+
+.cert-spec-desc {
+  font-size: 11.5px;
+  color: var(--c-gray);
+  margin-top: 4px;
+}
+
+@media (max-width: 760px) {
+  .cert-spec-row { grid-template-columns: 1fr; }
 }
 
 .cert-doc-card {
