@@ -352,59 +352,102 @@ const modes = {
   }
 };
 
-let flowAnim;
+// 흐름 점 — anime.js 기반 motion path + opacity/size 트윈
+let _flowAnims = [];
+let flowAnim; // legacy rAF fallback
 
 function animateFlow(mode) {
+  // 모든 기존 애니메이션 정리
+  _flowAnims.forEach(a => a.pause());
+  _flowAnims = [];
   if (flowAnim) cancelAnimationFrame(flowAnim);
 
-  const dot1 = document.getElementById('flowDot1');
-  const dot2 = document.getElementById('flowDot2');
-  const dot3 = document.getElementById('flowDot3');
-  if (!dot1 || !dot2 || !dot3) return;
+  const dots = ['flowDot1', 'flowDot2', 'flowDot3'].map(id => document.getElementById(id));
+  if (dots.some(d => !d)) return;
 
-  // 사고시(switch/compensate)만 EDLC → 인버터 → 분기점 흐름 표시
+  // 비활성 단계 — 부드럽게 페이드 아웃
   if (mode !== 'switch' && mode !== 'compensate') {
-    [dot1, dot2, dot3].forEach(d => d.setAttribute('opacity', 0));
+    if (window.anime) {
+      anime({
+        targets: dots,
+        opacity: 0,
+        duration: 350,
+        easing: 'easeOutQuad'
+      });
+    } else {
+      dots.forEach(d => d.setAttribute('opacity', 0));
+    }
     return;
   }
 
-  // EDLC(575, 267) → 인버터(430, 267) → 분기점(430, 185)
-  // SVG 좌표: EDLC 박스 575,267 / 인버터 430,267 / line-5 위 끝 430, 185
+  // 색상·크기 기본값
+  dots[0].setAttribute('fill', '#22d3ee'); dots[0].setAttribute('r', 5);
+  dots[1].setAttribute('fill', '#22d3ee'); dots[1].setAttribute('r', 4);
+  dots[2].setAttribute('fill', '#22d3ee'); dots[2].setAttribute('r', 3.5);
+
+  // 경로: EDLC(575, 267) → 인버터 우측(480, 267) → 인버터 좌측(430, 267) → line-5 끝(430, 185)
   const compPath = [[575, 267], [525, 267], [480, 267], [430, 267], [430, 220], [430, 185]];
 
-  dot1.setAttribute('fill', '#22d3ee');
-  dot2.setAttribute('fill', '#22d3ee');
-  dot3.setAttribute('fill', '#22d3ee');
-  dot1.setAttribute('opacity', 1);
-  dot2.setAttribute('opacity', 0.7);
-  dot3.setAttribute('opacity', 0.5);
-  dot1.setAttribute('r', 5);
-  dot2.setAttribute('r', 4);
-  dot3.setAttribute('r', 3.5);
-
-  let t1 = 0, t2 = 0.33, t3 = 0.66;
-
-  function pos(path, t) {
-    const idx = Math.floor(t * (path.length - 1));
-    const lt = (t * (path.length - 1)) - idx;
+  function posOnPath(path, t) {
+    const wt = ((t % 1) + 1) % 1;
+    const idx = Math.floor(wt * (path.length - 1));
+    const lt = (wt * (path.length - 1)) - idx;
     const p0 = path[idx];
     const p1 = path[Math.min(idx + 1, path.length - 1)];
     return [p0[0] + (p1[0] - p0[0]) * lt, p0[1] + (p1[1] - p0[1]) * lt];
   }
 
+  if (window.anime) {
+    // 페이드 인 — 점별로 다른 최종 opacity
+    [
+      [dots[0], 1.0],
+      [dots[1], 0.75],
+      [dots[2], 0.5]
+    ].forEach(([d, op]) => {
+      anime({
+        targets: d,
+        opacity: op,
+        duration: 320,
+        easing: 'easeOutQuad'
+      });
+    });
+
+    // 각 점 시간차로 motion path 따라 무한 루프
+    [0, 0.33, 0.66].forEach((startOffset, i) => {
+      const obj = { t: startOffset };
+      const anim = anime({
+        targets: obj,
+        t: startOffset + 1,
+        easing: 'linear',
+        duration: 1700,
+        loop: true,
+        update: () => {
+          const [x, y] = posOnPath(compPath, obj.t);
+          dots[i].setAttribute('cx', x);
+          dots[i].setAttribute('cy', y);
+        }
+      });
+      _flowAnims.push(anim);
+    });
+    return;
+  }
+
+  // Fallback — 기존 rAF 로직
+  dots[0].setAttribute('opacity', 1);
+  dots[1].setAttribute('opacity', 0.7);
+  dots[2].setAttribute('opacity', 0.5);
+  let t1 = 0, t2 = 0.33, t3 = 0.66;
   function step() {
     const speed = 0.006;
     t1 += speed; if (t1 > 1) t1 = 0;
     t2 += speed; if (t2 > 1) t2 = 0;
     t3 += speed; if (t3 > 1) t3 = 0;
-
-    const [x1, y1] = pos(compPath, t1);
-    const [x2, y2] = pos(compPath, t2);
-    const [x3, y3] = pos(compPath, t3);
-    dot1.setAttribute('cx', x1); dot1.setAttribute('cy', y1);
-    dot2.setAttribute('cx', x2); dot2.setAttribute('cy', y2);
-    dot3.setAttribute('cx', x3); dot3.setAttribute('cy', y3);
-
+    const [x1, y1] = posOnPath(compPath, t1);
+    const [x2, y2] = posOnPath(compPath, t2);
+    const [x3, y3] = posOnPath(compPath, t3);
+    dots[0].setAttribute('cx', x1); dots[0].setAttribute('cy', y1);
+    dots[1].setAttribute('cx', x2); dots[1].setAttribute('cy', y2);
+    dots[2].setAttribute('cx', x3); dots[2].setAttribute('cy', y3);
     flowAnim = requestAnimationFrame(step);
   }
   step();
@@ -419,18 +462,52 @@ const modeMeta = {
   recovery:   { edlc: 100, recharging: true,  dischargeArrow: false, compArrow: false }
 };
 
+// EDLC 현재값 — anime.js 카운터 기준점
+let _edlcCurrent = 100;
+let _edlcAnim = null;
+
 function setEDLCLevel(percent, recharging = false) {
   const lv = document.getElementById('edlcLevel');
   const pc = document.getElementById('edlcPercent');
+  const fillColor = recharging ? '#fbbf24' : '#22d3ee';
+
+  if (lv) lv.setAttribute('fill', fillColor);
+  if (pc) pc.setAttribute('fill', fillColor);
+
+  // anime.js 사용 가능 시 부드러운 트윈
+  if (window.anime && lv && pc) {
+    if (_edlcAnim) _edlcAnim.pause();
+
+    const fromVal = _edlcCurrent;
+    const obj = { val: fromVal };
+
+    _edlcAnim = anime({
+      targets: obj,
+      val: percent,
+      easing: recharging ? 'easeOutCubic' : 'easeOutQuart',
+      duration: recharging ? 1600 : 1100,
+      update: () => {
+        const v = obj.val;
+        pc.textContent = Math.round(v) + '%';
+        lv.setAttribute('width', 0.89 * v);
+      },
+      complete: () => {
+        pc.textContent = percent + '%';
+        lv.setAttribute('width', 0.89 * percent);
+        _edlcCurrent = percent;
+      }
+    });
+    _edlcCurrent = percent;
+    return;
+  }
+
+  // Fallback (anime.js 미로드 시)
   if (lv) {
     lv.style.transition = 'width 1.4s cubic-bezier(0.4,0,0.2,1), fill 0.4s ease';
     lv.setAttribute('width', 0.89 * percent);
-    lv.setAttribute('fill', recharging ? '#fbbf24' : '#22d3ee');
   }
-  if (pc) {
-    pc.textContent = percent + '%';
-    pc.setAttribute('fill', recharging ? '#fbbf24' : '#22d3ee');
-  }
+  if (pc) pc.textContent = percent + '%';
+  _edlcCurrent = percent;
 }
 
 function setArrowVisible(id, visible) {
@@ -441,15 +518,71 @@ function setArrowVisible(id, visible) {
   }
 }
 
+// SCR 절체 splash — anime.timeline 기반 3중 shockwave
+let _splashAnim = null;
 function triggerSCRSplash() {
   const splash = document.getElementById('scrSplash');
   if (!splash) return;
+
   splash.setAttribute('opacity', '1');
-  // 모든 animate 재시작
-  splash.querySelectorAll('animate').forEach(a => {
-    try { a.beginElement(); } catch(e) {}
-  });
-  setTimeout(() => splash.setAttribute('opacity', '0'), 600);
+
+  // anime.js 사용 가능 시 자연스러운 shockwave 시퀀스
+  if (window.anime) {
+    if (_splashAnim) _splashAnim.pause();
+
+    // 3개 shock circle 초기화
+    ['scrShock1', 'scrShock2', 'scrShock3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.setAttribute('r', 0); el.setAttribute('opacity', 0); }
+    });
+
+    const tl = anime.timeline({
+      easing: 'easeOutExpo',
+      complete: () => splash.setAttribute('opacity', '0')
+    });
+
+    // 1차 shockwave — 빨강 (가장 큼)
+    tl.add({
+      targets: '#scrShock1',
+      r: [{ value: 5, duration: 0 }, { value: 75, duration: 900 }],
+      opacity: [{ value: 1, duration: 0 }, { value: 0, duration: 900, easing: 'easeOutQuart' }]
+    }, 0);
+
+    // 2차 shockwave — 노랑 (중간) — 100ms 지연
+    tl.add({
+      targets: '#scrShock2',
+      r: [{ value: 3, duration: 0 }, { value: 50, duration: 800 }],
+      opacity: [{ value: 1, duration: 0 }, { value: 0, duration: 800, easing: 'easeOutQuart' }]
+    }, 100);
+
+    // 3차 shockwave — 흰색 코어 (작음) — 0ms (즉시)
+    tl.add({
+      targets: '#scrShock3',
+      r: [{ value: 2, duration: 0 }, { value: 30, duration: 600 }],
+      opacity: [{ value: 1, duration: 0 }, { value: 0, duration: 600, easing: 'easeOutQuart' }]
+    }, 0);
+
+    // "계통 차단" 라벨 — 페이드 in → hold → 페이드 out
+    tl.add({
+      targets: '#scrSplashLabel',
+      opacity: [
+        { value: 0.95, duration: 150 },
+        { value: 0.95, duration: 500 },
+        { value: 0, duration: 350 }
+      ],
+      translateY: [
+        { value: -4, duration: 150, easing: 'easeOutBack' },
+        { value: -4, duration: 500 },
+        { value: -10, duration: 350, easing: 'easeInQuad' }
+      ]
+    }, 0);
+
+    _splashAnim = tl;
+    return;
+  }
+
+  // Fallback — 단순 페이드
+  setTimeout(() => splash.setAttribute('opacity', '0'), 800);
 }
 
 function setMode(mode) {
