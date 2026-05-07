@@ -2,7 +2,20 @@
    WESCO v5 - script
    ============================================================ */
 
+// 페이지 진입 시 항상 Hero부터 (브라우저 스크롤 복원 끄기)
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 const main = document.querySelector('.main');
+
+// URL hash 없으면 강제로 최상단 Hero로 이동
+window.addEventListener('load', () => {
+  if (!location.hash || location.hash === '#hero') {
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+});
 const sections = document.querySelectorAll('.section');
 const navItems = document.querySelectorAll('.nav-item');
 const progressFill = document.getElementById('progressFill');
