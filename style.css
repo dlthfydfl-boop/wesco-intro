@@ -2127,6 +2127,124 @@ body.cursor-active .cursor-glow { opacity: 1; }
   grid-template-columns: repeat(4, 1fr);
 }
 
+.cert-doc-grid-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* ============================================================
+   보상 방식 개념도 — scheme-block (v6.14)
+   ============================================================ */
+.scheme-block {
+  margin: 32px 0 28px;
+  padding: 24px 22px;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+}
+
+.scheme-head {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.scheme-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--c-head);
+  letter-spacing: -0.01em;
+}
+
+.scheme-sub {
+  font-size: 12.5px;
+  color: var(--c-gray);
+  margin-top: 6px;
+}
+
+.scheme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.scheme-card {
+  background: var(--c-bg);
+  border: 1px solid var(--c-divider);
+  border-radius: 5px;
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.scheme-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-en);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+.scheme-tag-a {
+  color: var(--c-red);
+  background: var(--c-red-lt, #FDF2EE);
+  border: 1px solid var(--c-red);
+}
+
+.scheme-tag-b {
+  color: #2563EB;
+  background: #EEF2F8;
+  border: 1px solid #5B7AA8;
+}
+
+.scheme-card-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--c-head);
+  margin-bottom: 12px;
+}
+
+.scheme-svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  margin: 4px 0 12px;
+  background: var(--c-bg);
+  border-radius: 3px;
+}
+
+.scheme-feat {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.scheme-feat li {
+  position: relative;
+  padding: 4px 0 4px 16px;
+  font-size: 12.5px;
+  color: var(--c-text);
+  line-height: 1.55;
+}
+
+.scheme-feat li::before {
+  content: "";
+  position: absolute;
+  left: 4px; top: 12px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--c-red);
+}
+
+@media (max-width: 768px) {
+  .scheme-grid { grid-template-columns: 1fr; gap: 14px; }
+  .scheme-block { padding: 18px 14px; }
+  .scheme-title { font-size: 15.5px; }
+}
+
 /* 대응 규격 (보유 안 한 표준) — 텍스트 칩 */
 .cert-spec-row {
   display: grid;
@@ -2320,9 +2438,11 @@ body.cursor-active .cursor-glow { opacity: 1; }
 @media (max-width: 1024px) {
   .cert-doc-grid, .soc-grid { grid-template-columns: repeat(2, 1fr); }
   .cert-doc-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .cert-doc-grid-5 { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 600px) {
   .cert-doc-grid, .soc-grid, .cert-doc-grid-3 { grid-template-columns: 1fr; }
+  .cert-doc-grid-5 { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ============================================================
@@ -2451,7 +2571,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .cv-card { padding: 14px 12px; }
 
   /* 인증 단일 컬럼 */
-  .cert-doc-grid, .cert-doc-grid-3, .cert-doc-grid-4 {
+  .cert-doc-grid, .cert-doc-grid-3, .cert-doc-grid-4, .cert-doc-grid-5 {
     grid-template-columns: 1fr;
   }
 

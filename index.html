@@ -617,6 +617,126 @@
       </div>
     </div>
 
+    <!-- 보상 방식 개념도 — 개별 vs 중앙 -->
+    <div class="scheme-block">
+      <div class="scheme-head">
+        <div class="scheme-title">보상 방식 — 개별 분산 vs 중앙 일괄</div>
+        <div class="scheme-sub">설비 규모와 라인 구조에 맞춰 두 가지 방식 모두 지원</div>
+      </div>
+      <div class="scheme-grid">
+        <!-- 개별보상 (분산형) -->
+        <div class="scheme-card">
+          <div class="scheme-tag scheme-tag-a">A. 개별 보상</div>
+          <div class="scheme-card-name">설비별 1:1 분산 설치</div>
+          <svg class="scheme-svg" viewBox="0 0 360 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <!-- 좌측: 입력 -->
+            <line x1="20" y1="40"  x2="80" y2="40"  stroke="#A8A29E" stroke-width="1.2"/>
+            <line x1="20" y1="110" x2="80" y2="110" stroke="#A8A29E" stroke-width="1.2"/>
+            <line x1="20" y1="180" x2="80" y2="180" stroke="#A8A29E" stroke-width="1.2"/>
+            <text x="14" y="22" font-size="9" fill="#78716C" font-family="Inter">22.9kV</text>
+            <!-- TSP 박스 3개 -->
+            <g>
+              <rect x="80" y="22" width="58" height="36" rx="3" fill="#FDF2EE" stroke="#E1431B" stroke-width="1.4"/>
+              <text x="109" y="38" text-anchor="middle" font-size="10" font-weight="700" fill="#E1431B" font-family="Inter">TSP</text>
+              <text x="109" y="50" text-anchor="middle" font-size="8" fill="#57534E">소·중용량</text>
+            </g>
+            <g>
+              <rect x="80" y="92" width="58" height="36" rx="3" fill="#FDF2EE" stroke="#E1431B" stroke-width="1.4"/>
+              <text x="109" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#E1431B" font-family="Inter">TSP</text>
+              <text x="109" y="120" text-anchor="middle" font-size="8" fill="#57534E">소·중용량</text>
+            </g>
+            <g>
+              <rect x="80" y="162" width="58" height="36" rx="3" fill="#FDF2EE" stroke="#E1431B" stroke-width="1.4"/>
+              <text x="109" y="178" text-anchor="middle" font-size="10" font-weight="700" fill="#E1431B" font-family="Inter">TSP</text>
+              <text x="109" y="190" text-anchor="middle" font-size="8" fill="#57534E">소·중용량</text>
+            </g>
+            <!-- 화살표 → 부하 -->
+            <line x1="138" y1="40"  x2="200" y2="40"  stroke="#57534E" stroke-width="1.4" marker-end="url(#sch-arr-a)"/>
+            <line x1="138" y1="110" x2="200" y2="110" stroke="#57534E" stroke-width="1.4" marker-end="url(#sch-arr-a)"/>
+            <line x1="138" y1="180" x2="200" y2="180" stroke="#57534E" stroke-width="1.4" marker-end="url(#sch-arr-a)"/>
+            <!-- 부하 박스 3개 -->
+            <g>
+              <rect x="200" y="22" width="140" height="36" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="270" y="38" text-anchor="middle" font-size="10" font-weight="600" fill="#44403C">설비 1 (정밀장비)</text>
+              <text x="270" y="50" text-anchor="middle" font-size="8" fill="#78716C">반도체 STEPPER 등</text>
+            </g>
+            <g>
+              <rect x="200" y="92" width="140" height="36" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="270" y="108" text-anchor="middle" font-size="10" font-weight="600" fill="#44403C">설비 2 (정밀장비)</text>
+              <text x="270" y="120" text-anchor="middle" font-size="8" fill="#78716C">디스플레이 LASER 등</text>
+            </g>
+            <g>
+              <rect x="200" y="162" width="140" height="36" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="270" y="178" text-anchor="middle" font-size="10" font-weight="600" fill="#44403C">설비 3 (정밀장비)</text>
+              <text x="270" y="190" text-anchor="middle" font-size="8" fill="#78716C">자동차 도장 ROBOT 등</text>
+            </g>
+            <defs>
+              <marker id="sch-arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#57534E"/>
+              </marker>
+            </defs>
+          </svg>
+          <ul class="scheme-feat">
+            <li>핵심 설비만 선별 보호 — 도입 비용 효율</li>
+            <li>설비 단위로 점검 / 증설 자유</li>
+            <li>0.5 ~ 100 kVA 라인업 권장</li>
+          </ul>
+        </div>
+
+        <!-- 중앙보상 -->
+        <div class="scheme-card">
+          <div class="scheme-tag scheme-tag-b">B. 중앙 보상</div>
+          <div class="scheme-card-name">모(母) 단에서 라인 전체 일괄</div>
+          <svg class="scheme-svg" viewBox="0 0 360 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <!-- 좌측 입력 -->
+            <line x1="20" y1="110" x2="60" y2="110" stroke="#A8A29E" stroke-width="1.2"/>
+            <text x="14" y="92" font-size="9" fill="#78716C" font-family="Inter">22.9kV</text>
+            <!-- 중앙 TSP 1대 (대용량) -->
+            <rect x="60" y="80" width="80" height="60" rx="3" fill="#FDF2EE" stroke="#E1431B" stroke-width="1.6"/>
+            <text x="100" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#E1431B" font-family="Inter">TSP</text>
+            <text x="100" y="122" text-anchor="middle" font-size="9" fill="#57534E">대용량 / VSP</text>
+            <text x="100" y="135" text-anchor="middle" font-size="8" fill="#78716C">300~3,000kVA</text>
+            <!-- 모(母)단 -->
+            <line x1="140" y1="110" x2="200" y2="110" stroke="#57534E" stroke-width="1.4"/>
+            <line x1="200" y1="36"  x2="200" y2="184" stroke="#57534E" stroke-width="1.6"/>
+            <text x="206" y="32" font-size="9" font-weight="700" fill="#44403C" font-family="Inter">MAIN BUS</text>
+            <!-- 분기 4개 -->
+            <line x1="200" y1="46"  x2="240" y2="46"  stroke="#57534E" stroke-width="1.2" marker-end="url(#sch-arr-b)"/>
+            <line x1="200" y1="92"  x2="240" y2="92"  stroke="#57534E" stroke-width="1.2" marker-end="url(#sch-arr-b)"/>
+            <line x1="200" y1="138" x2="240" y2="138" stroke="#57534E" stroke-width="1.2" marker-end="url(#sch-arr-b)"/>
+            <line x1="200" y1="184" x2="240" y2="184" stroke="#57534E" stroke-width="1.2" marker-end="url(#sch-arr-b)"/>
+            <!-- 부하 4개 -->
+            <g>
+              <rect x="240" y="34" width="105" height="24" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="292" y="50" text-anchor="middle" font-size="9.5" font-weight="600" fill="#44403C">설비 1</text>
+            </g>
+            <g>
+              <rect x="240" y="80" width="105" height="24" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="292" y="96" text-anchor="middle" font-size="9.5" font-weight="600" fill="#44403C">설비 2</text>
+            </g>
+            <g>
+              <rect x="240" y="126" width="105" height="24" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="292" y="142" text-anchor="middle" font-size="9.5" font-weight="600" fill="#44403C">설비 3</text>
+            </g>
+            <g>
+              <rect x="240" y="172" width="105" height="24" rx="3" fill="#FFFFFF" stroke="#A8A29E" stroke-width="1.2"/>
+              <text x="292" y="188" text-anchor="middle" font-size="9.5" font-weight="600" fill="#44403C">설비 N (라인 전체)</text>
+            </g>
+            <defs>
+              <marker id="sch-arr-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#57534E"/>
+              </marker>
+            </defs>
+          </svg>
+          <ul class="scheme-feat">
+            <li>1차 측 모(母)단에서 라인 전체 일괄 보호</li>
+            <li>케이블·증설 단순화 — 전기실 단일 설치</li>
+            <li>300 ~ 3,000 kVA 대용량 / VSP 권장</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- 인증 마크 — 취득 / 대응 분리 -->
     <div class="cert-marks-block">
       <div class="cert-marks-head">
@@ -627,9 +747,9 @@
       <!-- 보유 인증서 — 실물 사진만 -->
       <div class="cert-section-label">
         <span class="cert-section-tag cert-section-tag-em">보유 인증서</span>
-        <span class="cert-section-text">KC · CE · SEMI F47 · SEMI S2 — 실물 보유</span>
+        <span class="cert-section-text">KC · CE · SEMI F47 · SEMI S2 · NRTL — 실물 보유</span>
       </div>
-      <div class="cert-doc-grid cert-doc-grid-4">
+      <div class="cert-doc-grid cert-doc-grid-5">
         <div class="cert-doc-card">
           <div class="cert-doc-thumb"><img src="images/cert/thumbs/kc.png" alt="KC 인증서" loading="lazy"></div>
           <div class="cert-doc-info">
@@ -658,6 +778,13 @@
             <div class="cert-doc-desc">반도체 장비 안전 가이드라인 평가</div>
           </div>
         </div>
+        <div class="cert-doc-card">
+          <div class="cert-doc-thumb"><img src="images/cert/thumbs/nrtl.png" alt="NRTL 인증서" loading="lazy"></div>
+          <div class="cert-doc-info">
+            <div class="cert-doc-name">NRTL 인증</div>
+            <div class="cert-doc-desc">북미 시험기관 등재 · ATM Report 발행 완료</div>
+          </div>
+        </div>
       </div>
 
       <!-- 대응 규격 — 텍스트 표기 -->
@@ -675,8 +802,8 @@
           <div class="cert-spec-desc">북미 Underwriters Laboratories</div>
         </div>
         <div class="cert-spec-chip">
-          <div class="cert-spec-name">NRTL</div>
-          <div class="cert-spec-desc">북미 시험기관 등재 진행 중</div>
+          <div class="cert-spec-name">IEC 61000-4-11</div>
+          <div class="cert-spec-desc">국제 전압강하 내성 표준</div>
         </div>
       </div>
 
