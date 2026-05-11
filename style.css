@@ -2477,10 +2477,109 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .nav-item { padding: 12px 22px; min-height: 44px; }
 }
 
-/* === 반응형 안전 — 가로/세로 스크롤 보호 === */
+/* === 반응형 안전 — 가로/세로 스크롤 보호 (v6.13) === */
 html, body { overflow-x: hidden; max-width: 100vw; }
 .section, .main { max-width: 100%; }
 img, svg { max-width: 100%; }
+
+/* Grid track 폭 폭주 방지: min-content 강제 → minmax(0, 1fr) */
+.how-container,
+.about-layout,
+.need-row,
+.viewer-layout,
+.kw-grid,
+.hero-metrics,
+.how-metrics,
+.cause-grid,
+.qa-grid,
+.contact-grid,
+.products-photo-grid,
+.cases-grid-compact,
+.network-grid,
+.news-grid,
+.seq-timeline,
+.ind-table,
+.report-meta-grid,
+.cert-marks-grid-4 {
+  min-width: 0;
+}
+.how-container > *,
+.about-layout > *,
+.need-row > *,
+.viewer-layout > *,
+.kw-grid > *,
+.hero-metrics > *,
+.how-metrics > *,
+.cause-grid > *,
+.qa-grid > *,
+.contact-grid > *,
+.products-photo-grid > *,
+.cases-grid-compact > *,
+.network-grid > *,
+.news-grid > *,
+.seq-timeline > *,
+.ind-table > *,
+.report-meta-grid > *,
+.cert-marks-grid-4 > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* SVG: 컨테이너 폭 절대 초과 금지 */
+.how-svg,
+.lightning-svg,
+.loss-svg,
+.sag-scatter,
+.hero-waveform,
+.tsp-frame > svg,
+.storm-fx > svg,
+.how-stage svg {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* product-img: object-fit contain 유지하면서 폭 초과 방지 */
+.product-img,
+.prod-photo img {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* === 480px 이하 (소형 모바일: 360 / 375) === */
+@media (max-width: 480px) {
+  :root { --pad-x: 16px; }
+  .section { padding: 40px 16px; }
+  .hero-title { font-size: 36px; line-height: 1.18; }
+  .section-title { font-size: 24px; }
+  .section-sub, .qa-head .section-sub { font-size: 13.5px; }
+
+  /* how 섹션: SVG 컨테이너 강제 축소 + 가로 스크롤 차단 */
+  .how-stage, .product-frame, .how-product, .how-inside, .how-info {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .product-img { height: 200px; }
+
+  /* 5단계 시퀀스: 가로폭 부족하면 폰트만 축소 */
+  .seq-marker { width: 20px; height: 20px; font-size: 9.5px; }
+  .seq-name { font-size: 9.5px; }
+  .seq-time { font-size: 9px; }
+
+  /* 표·카드 패딩 압축 */
+  .news-card, .cert-doc-card { padding: 12px 14px; }
+
+  /* 사이드바 풀폭으로 (드로어가 280 → 화면 폭에 맞게) */
+  .sidebar { width: 88vw; max-width: 320px; }
+}
+
+/* === 360px 초미세 폭 (옛 폰) === */
+@media (max-width: 360px) {
+  .section { padding: 36px 14px; }
+  .hero-title { font-size: 32px; }
+  .section-title { font-size: 22px; }
+}
 
 /* 터치 디바이스 최적화 */
 @media (hover: none) and (pointer: coarse) {
