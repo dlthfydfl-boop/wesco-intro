@@ -831,3 +831,580 @@ document.addEventListener('keydown', (e) => {
 });
 
 console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color:#FDFCF9;font-weight:bold;padding:6px 12px;font-size:13px;');
+
+
+/* ============================================================
+   ★ HOW MOTION JS — 작동원리 4씬 모션 (v6.19)
+   네임스페이스 'HowMotion' 으로 분리 (기존 startWaveLoop/setMode와 충돌 방지)
+   ============================================================ */
+
+const HowMotion = (() => {
+  'use strict';
+
+  /* ---- 상수 ---- */
+  const SCENES = ['normal', 'detection', 'compensation', 'return'];
+
+  const SCENE_TIMINGS = {
+    normal:       3000,
+    detection:    1500,
+    compensation: 3000,
+    return:       2500
+  };
+
+  const SCENE_META = {
+    normal: {
+      hudGrid:  { text: 'NORMAL',      color: '#10B981' },
+      hudTsp:   { text: 'STANDBY',     color: '#22D3EE' },
+      hudLoad:  { text: 'RUNNING',     color: '#10B981' },
+      hudTitle: 'NORMAL OPERATION',
+      caption:  'Normal Mode · <span class="accent">효율 98%</span> · 충전 유지',
+      capLevel: 100,
+      waveColor: '#22D3EE',
+      waveAmp:   11,
+      waveDash:  null,
+      swStatus:  'CLOSED · BYPASS',
+      swColor:   '#10B981',
+      swOpen:    false
+    },
+    detection: {
+      hudGrid:  { text: 'VOLTAGE SAG', color: '#EF4444' },
+      hudTsp:   { text: 'DETECTING',   color: '#F97316' },
+      hudLoad:  { text: 'RUNNING',     color: '#10B981' },
+      hudTitle: 'VOLTAGE SAG DETECTED',
+      caption:  '<span class="danger">Voltage Sag Detected</span> · Detection Time <span class="accent">&lt; 1ms</span>',
+      capLevel: 100,
+      waveColor: '#EF4444',
+      waveAmp:   5,
+      waveDash:  '6 3',
+      swStatus:  'DETECTING...',
+      swColor:   '#F97316',
+      swOpen:    false
+    },
+    compensation: {
+      hudGrid:  { text: 'DISCONNECTED',  color: '#475569' },
+      hudTsp:   { text: 'COMPENSATING',  color: '#8B5CF6' },
+      hudLoad:  { text: 'RUNNING',       color: '#10B981' },
+      hudTitle: 'ULTRA FAST COMPENSATION',
+      caption:  '<span class="plasma">Ultra Fast Compensation</span> · Battery-less Energy · Complete <span class="accent">&lt; 2ms</span>',
+      capLevel: 65,
+      waveColor: '#8B5CF6',
+      waveAmp:   11,
+      waveDash:  null,
+      swStatus:  'OPEN · ISOLATED',
+      swColor:   '#EF4444',
+      swOpen:    true
+    },
+    return: {
+      hudGrid:  { text: 'RESTORING',   color: '#F59E0B' },
+      hudTsp:   { text: 'SYNCING',     color: '#22D3EE' },
+      hudLoad:  { text: 'RUNNING',     color: '#10B981' },
+      hudTitle: 'PHASE SYNCHRONIZATION',
+      caption:  'Phase Synchronization · <span class="ok">Seamless Return</span> · Automatic Recovery',
+      capLevel: 100,
+      waveColor: '#22D3EE',
+      waveAmp:   11,
+      waveDash:  null,
+      swStatus:  'CLOSED · SYNC',
+      swColor:   '#10B981',
+      swOpen:    false
+    }
+  };
+
+  /* ---- 상태 ---- */
+  let currentScene  = 'normal';
+  let autoPlaying   = false;
+  let autoTimer     = null;
+  let wavePhase     = 0;
+  let waveRaf       = null;
+  let partOffsets   = [0, 90, 190, 280];  // 컨베이어 위 파트 x 오프셋
+  let partRaf       = null;
+  let capCurrentPct = 100;
+  let capAnimFrame  = null;
+
+  /* ---- DOM 참조 ---- */
+  const $ = id => document.getElementById(id);
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  const els = {
+    hudGridDot:    $('hud-grid-dot'),
+    hudGridText:   $('hud-grid-text'),
+    hudTspDot:     $('hud-tsp-dot'),
+    hudTspText:    $('hud-tsp-text'),
+    hudLoadDot:    $('hud-load-dot'),
+    hudLoadText:   $('hud-load-text'),
+    hudTitle:      $('hud-scene-title'),
+    waveGrid:      $('wave-grid'),
+    waveOut:       $('wave-out'),
+    syncA:         $('sync-wave-a'),
+    syncB:         $('sync-wave-b'),
+    plasmaInvSw:   $('plasma-inv-sw'),
+    plasmaCapInv:  $('plasma-cap-inv'),
+    plasmaOut:     $('plasma-out'),
+    capBar:        $('cap-level-bar'),
+    capPct:        $('cap-percent'),
+    dspScan:       $('dsp-scan'),
+    swBox:         $('sw-box'),
+    swBlade:       $('sw-blade'),
+    swIndicator:   $('sw-indicator'),
+    swStatus:      $('sw-status'),
+    svgCaption:    $('svg-caption'),
+    lightningFx:   $('lightning-fx'),
+    sceneDetOver:  $('scene-detection-overlay'),
+    sceneCompOver: $('scene-compensation-overlay'),
+    sceneRetOver:  $('scene-return-overlay'),
+    playBtn:       $('hmPlayBtn'),
+    playText:      $('hmPlayText'),
+    playIcon:      $('hmPlayIcon'),
+    ariaLive:      $('hmAriaLive'),
+    invSw:         $('inv-sw-line'),
+    invCap:        $('inv-cap-line'),
+    invIndicator:  $('inv-indicator'),
+    gridBox:       $('grid-box')
+  };
+
+  /* ---- 사인파 그리기 ---- */
+  function buildWavePath(x0, x1, baseY, amp, phase, period, dash) {
+    let d = '';
+    for (let x = x0; x <= x1; x += 2) {
+      const y = baseY + Math.sin((x - x0) * (Math.PI * 2 / period) + phase) * amp;
+      d += (x === x0 ? 'M' : 'L') + ` ${x} ${y} `;
+    }
+    return d;
+  }
+
+  function buildDistortedWavePath(x0, x1, baseY, amp, phase, period) {
+    // 감지 모드: 진폭이 불규칙하게 흔들림
+    let d = '';
+    for (let x = x0; x <= x1; x += 2) {
+      const distort = 0.4 + Math.sin((x - x0) * 0.15 + phase * 0.7) * 0.4;
+      const y = baseY + Math.sin((x - x0) * (Math.PI * 2 / period) + phase) * (amp * distort);
+      d += (x === x0 ? 'M' : 'L') + ` ${x} ${y} `;
+    }
+    return d;
+  }
+
+  function renderWaves() {
+    const meta = SCENE_META[currentScene];
+    const baseY = 243;
+    const period = 28;
+
+    if (!els.waveGrid || !els.waveOut) return;
+
+    // Grid 입력 사인파 (x: 120 → 185)
+    if (currentScene === 'detection') {
+      const d = buildDistortedWavePath(120, 185, baseY, 8, wavePhase, period);
+      els.waveGrid.setAttribute('d', d);
+      els.waveGrid.setAttribute('stroke', '#EF4444');
+      els.waveGrid.setAttribute('stroke-width', '2');
+      els.waveGrid.removeAttribute('stroke-dasharray');
+    } else if (currentScene === 'compensation') {
+      // 끊긴 상태
+      els.waveGrid.setAttribute('d', '');
+    } else if (currentScene === 'return') {
+      const d = buildWavePath(120, 185, baseY, 10, wavePhase, period, null);
+      els.waveGrid.setAttribute('d', d);
+      els.waveGrid.setAttribute('stroke', '#F59E0B');
+      els.waveGrid.setAttribute('stroke-width', '1.8');
+      els.waveGrid.setAttribute('stroke-dasharray', '8 4');
+    } else {
+      const d = buildWavePath(120, 185, baseY, 11, wavePhase, period, null);
+      els.waveGrid.setAttribute('d', d);
+      els.waveGrid.setAttribute('stroke', '#22D3EE');
+      els.waveGrid.setAttribute('stroke-width', '2');
+      els.waveGrid.removeAttribute('stroke-dasharray');
+    }
+
+    // 출력 사인파 (x: 405 → 420+)
+    if (currentScene === 'compensation') {
+      // 플라즈마 색상의 깨끗한 파형
+      const d = buildWavePath(405, 770, baseY, 11, wavePhase * 1.05, period, null);
+      els.waveOut.setAttribute('d', d);
+      els.waveOut.setAttribute('stroke', '#8B5CF6');
+      els.waveOut.setAttribute('stroke-width', '2.5');
+      els.waveOut.setAttribute('filter', 'url(#glow-plasma)');
+      els.waveOut.removeAttribute('stroke-dasharray');
+    } else if (currentScene === 'return') {
+      // 두 파형: sync-wave-a (grid), sync-wave-b (tsp) — 점점 겹침
+      const d = buildWavePath(405, 770, baseY, 11, wavePhase, period, null);
+      els.waveOut.setAttribute('d', d);
+      els.waveOut.setAttribute('stroke', '#22D3EE');
+      els.waveOut.setAttribute('stroke-width', '2.5');
+      els.waveOut.removeAttribute('filter');
+      els.waveOut.removeAttribute('stroke-dasharray');
+
+      if (els.syncA && els.syncB) {
+        const dA = buildWavePath(185, 405, baseY, 9, wavePhase * 0.95, period, null);
+        const dB = buildWavePath(185, 405, baseY, 9, wavePhase, period, null);
+        els.syncA.setAttribute('d', dA);
+        els.syncB.setAttribute('d', dB);
+        els.syncA.setAttribute('opacity', '0.7');
+        els.syncB.setAttribute('opacity', '0.5');
+      }
+    } else {
+      const d = buildWavePath(405, 770, baseY, 11, wavePhase, period, null);
+      els.waveOut.setAttribute('d', d);
+      els.waveOut.setAttribute('stroke', '#22D3EE');
+      els.waveOut.setAttribute('stroke-width', '2.5');
+      els.waveOut.removeAttribute('filter');
+      els.waveOut.removeAttribute('stroke-dasharray');
+
+      if (els.syncA && els.syncB) {
+        els.syncA.setAttribute('opacity', '0');
+        els.syncB.setAttribute('opacity', '0');
+      }
+    }
+  }
+
+  function startWaveLoop() {
+    if (waveRaf) cancelAnimationFrame(waveRaf);
+    function loop() {
+      wavePhase -= 0.07;
+      renderWaves();
+      waveRaf = requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  /* ---- 컨베이어 파트 이동 ---- */
+  function startConveyorLoop() {
+    if (partRaf) cancelAnimationFrame(partRaf);
+    const ids = ['part-a', 'part-b', 'part-c', 'part-d'];
+    const maxX = 380;
+
+    function loop() {
+      for (let i = 0; i < ids.length; i++) {
+        const el = document.getElementById(ids[i]);
+        if (!el) continue;
+        partOffsets[i] -= 0.5;
+        if (partOffsets[i] < -30) partOffsets[i] = maxX;
+        el.setAttribute('transform', `translate(${partOffsets[i]}, 0)`);
+      }
+      partRaf = requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  /* ---- 에너지 저장소 레벨 애니메이션 ---- */
+  function animateCapLevel(targetPct, isCharging) {
+    if (capAnimFrame) cancelAnimationFrame(capAnimFrame);
+
+    const startPct = capCurrentPct;
+    const startTime = performance.now();
+    const duration = isCharging ? 1800 : 1200;
+
+    function tick(now) {
+      const t = Math.min((now - startTime) / duration, 1);
+      const eased = isCharging
+        ? 1 - Math.pow(1 - t, 3)   // easeOutCubic
+        : 1 - Math.pow(1 - t, 4);  // easeOutQuart
+      const pct = startPct + (targetPct - startPct) * eased;
+
+      if (els.capBar) {
+        const w = (pct / 100) * 72;
+        els.capBar.setAttribute('width', Math.max(0, w));
+        const color = isCharging ? '#F59E0B' :
+                      (pct > 70 ? '#3B82F6' : pct > 40 ? '#8B5CF6' : '#EF4444');
+        els.capBar.setAttribute('fill', color);
+      }
+      if (els.capPct) {
+        const textColor = isCharging ? '#F59E0B' : '#22D3EE';
+        els.capPct.setAttribute('fill', textColor);
+        els.capPct.textContent = Math.round(pct) + '%';
+      }
+
+      if (t < 1) capAnimFrame = requestAnimationFrame(tick);
+      else capCurrentPct = targetPct;
+    }
+
+    capAnimFrame = requestAnimationFrame(tick);
+  }
+
+  /* ---- HUD 업데이트 ---- */
+  function updateHUD(meta) {
+    if (!meta) return;
+
+    // GRID
+    if (els.hudGridDot) {
+      els.hudGridDot.setAttribute('fill', meta.hudGrid.color);
+      els.hudGridDot.setAttribute('filter', meta.hudGrid.color === '#EF4444'
+        ? 'url(#glow-red)' : meta.hudGrid.color === '#10B981'
+        ? 'url(#glow-green)' : 'url(#glow-orange)');
+    }
+    if (els.hudGridText) {
+      els.hudGridText.textContent = meta.hudGrid.text;
+      els.hudGridText.setAttribute('fill', meta.hudGrid.color);
+    }
+
+    // TSP
+    if (els.hudTspDot) {
+      const tspFilter = meta.hudTsp.color === '#8B5CF6'
+        ? 'url(#glow-plasma)'
+        : meta.hudTsp.color === '#F97316'
+        ? 'url(#glow-orange)'
+        : 'url(#glow-blue)';
+      els.hudTspDot.setAttribute('fill', meta.hudTsp.color);
+      els.hudTspDot.setAttribute('filter', tspFilter);
+    }
+    if (els.hudTspText) {
+      els.hudTspText.textContent = meta.hudTsp.text;
+      els.hudTspText.setAttribute('fill', meta.hudTsp.color);
+    }
+
+    // LOAD
+    if (els.hudLoadDot) {
+      els.hudLoadDot.setAttribute('fill', meta.hudLoad.color);
+    }
+    if (els.hudLoadText) {
+      els.hudLoadText.textContent = meta.hudLoad.text;
+      els.hudLoadText.setAttribute('fill', meta.hudLoad.color);
+    }
+
+    // Scene title
+    if (els.hudTitle) els.hudTitle.textContent = meta.hudTitle;
+
+    // Caption
+    if (els.svgCaption) {
+      // SVG text 내에서 span을 쓸 수 없으므로 plain text로 변환
+      const plain = meta.caption.replace(/<[^>]+>/g, '');
+      els.svgCaption.textContent = plain;
+    }
+  }
+
+  /* ---- 스위치 박스 업데이트 ---- */
+  function updateSwitch(meta) {
+    if (!meta) return;
+    const color = meta.swColor;
+    if (els.swBox)       els.swBox.setAttribute('stroke', color);
+    if (els.swIndicator) {
+      els.swIndicator.setAttribute('fill', color);
+      els.swIndicator.setAttribute('filter',
+        color === '#10B981' ? 'url(#glow-green)' :
+        color === '#EF4444' ? 'url(#glow-red)' : 'url(#glow-orange)');
+    }
+    if (els.swStatus) {
+      els.swStatus.textContent = meta.swStatus;
+      els.swStatus.setAttribute('fill', color);
+    }
+    // 스위치 블레이드 (open/close)
+    if (els.swBlade) {
+      if (meta.swOpen) {
+        // 열린 상태 — 칼날이 위쪽으로 비스듬히
+        els.swBlade.setAttribute('x2', '44');
+        els.swBlade.setAttribute('y2', '6');
+        els.swBlade.setAttribute('stroke', '#EF4444');
+      } else {
+        // 닫힌 상태
+        els.swBlade.setAttribute('x2', '44');
+        els.swBlade.setAttribute('y2', '20');
+        els.swBlade.setAttribute('stroke', color);
+      }
+    }
+  }
+
+  /* ---- 씬별 오버레이 토글 ---- */
+  function updateOverlays(scene) {
+    // 번개 효과
+    const showLightning = (scene === 'detection' || scene === 'compensation');
+    if (els.lightningFx) {
+      els.lightningFx.style.display = showLightning ? 'block' : 'none';
+    }
+
+    // 씬별 오버레이
+    if (els.sceneDetOver)  els.sceneDetOver.style.display  = scene === 'detection'    ? 'block' : 'none';
+    if (els.sceneCompOver) els.sceneCompOver.style.display = scene === 'compensation' ? 'block' : 'none';
+    if (els.sceneRetOver)  els.sceneRetOver.style.display  = scene === 'return'       ? 'block' : 'none';
+
+    // 플라즈마 에너지 흐름
+    const showPlasma = scene === 'compensation';
+    const plasmaOpacity = showPlasma ? '1' : '0';
+    if (els.plasmaInvSw)  els.plasmaInvSw.setAttribute('opacity',  plasmaOpacity);
+    if (els.plasmaCapInv) els.plasmaCapInv.setAttribute('opacity', plasmaOpacity);
+    if (els.plasmaOut)    els.plasmaOut.setAttribute('opacity',    plasmaOpacity);
+
+    // 인버터 인디케이터
+    if (els.invIndicator) {
+      if (showPlasma) {
+        els.invIndicator.setAttribute('fill', '#8B5CF6');
+        els.invIndicator.setAttribute('opacity', '1');
+        els.invIndicator.setAttribute('filter', 'url(#glow-plasma)');
+      } else {
+        els.invIndicator.setAttribute('fill', '#3B82F6');
+        els.invIndicator.setAttribute('opacity', '0.5');
+        els.invIndicator.removeAttribute('filter');
+      }
+    }
+
+    // DSP 스캔 라인 (씬 2에서만)
+    if (els.dspScan) {
+      if (scene === 'detection') {
+        els.dspScan.style.animationPlayState = 'running';
+        els.dspScan.setAttribute('opacity', '0.9');
+      } else {
+        els.dspScan.style.animationPlayState = 'paused';
+        els.dspScan.setAttribute('opacity', '0');
+      }
+    }
+
+    // Grid 박스 강조
+    if (els.gridBox) {
+      if (scene === 'detection') {
+        els.gridBox.setAttribute('stroke', '#EF4444');
+        els.gridBox.setAttribute('filter', 'url(#glow-red)');
+      } else if (scene === 'compensation') {
+        els.gridBox.setAttribute('stroke', '#475569');
+        els.gridBox.removeAttribute('filter');
+      } else {
+        els.gridBox.setAttribute('stroke', '#22D3EE');
+        els.gridBox.removeAttribute('filter');
+      }
+    }
+  }
+
+  /* ---- 메인 씬 전환 ---- */
+  function setScene(scene) {
+    if (!SCENES.includes(scene)) return;
+    currentScene = scene;
+
+    const meta = SCENE_META[scene];
+
+    updateHUD(meta);
+    updateSwitch(meta);
+    updateOverlays(scene);
+
+    // 에너지 저장소 레벨
+    const isCharging = (scene === 'return' || scene === 'normal');
+    animateCapLevel(meta.capLevel, isCharging);
+
+    // 토글 버튼 업데이트
+    document.querySelectorAll('.hm-btn[data-scene]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.scene === scene);
+    });
+
+    // 진행 점 업데이트
+    document.querySelectorAll('.hm-dot').forEach(dot => {
+      dot.classList.toggle('active', dot.dataset.scene === scene);
+    });
+
+    // aria live
+    if (els.ariaLive) {
+      els.ariaLive.textContent = `씬 전환: ${meta.hudTitle}`;
+    }
+  }
+
+  /* ---- 자동 재생 ---- */
+  function stopAuto() {
+    autoPlaying = false;
+    if (autoTimer) clearTimeout(autoTimer);
+    autoTimer = null;
+    if (els.playText) els.playText.textContent = 'AUTO PLAY';
+    if (els.playBtn)  els.playBtn.classList.remove('playing');
+    if (els.playIcon) els.playIcon.innerHTML = '<polygon points="2,1 11,6 2,11"/>';
+  }
+
+  function playStep(idx) {
+    if (!autoPlaying) return;
+    const scene = SCENES[idx % SCENES.length];
+    setScene(scene);
+    const dur = SCENE_TIMINGS[scene] || 2000;
+    autoTimer = setTimeout(() => playStep(idx + 1), dur);
+  }
+
+  function startAuto() {
+    autoPlaying = true;
+    if (els.playText) els.playText.textContent = 'STOP';
+    if (els.playBtn)  els.playBtn.classList.add('playing');
+    if (els.playIcon) els.playIcon.innerHTML = '<rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/>';
+    playStep(0);
+  }
+
+  /* ---- 이벤트 바인딩 ---- */
+  function bindEvents() {
+    // 씬 버튼
+    document.querySelectorAll('.hm-btn[data-scene]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (autoPlaying) stopAuto();
+        setScene(btn.dataset.scene);
+      });
+    });
+
+    // 진행 점 클릭
+    document.querySelectorAll('.hm-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        if (autoPlaying) stopAuto();
+        setScene(dot.dataset.scene);
+      });
+    });
+
+    // 자동 재생 버튼
+    if (els.playBtn) {
+      els.playBtn.addEventListener('click', () => {
+        if (autoPlaying) stopAuto();
+        else startAuto();
+      });
+    }
+
+    // 키보드 ←/→
+    document.addEventListener('keydown', (e) => {
+      const container = document.getElementById('howMotion');
+      if (!container) return;
+      // how 섹션이 뷰포트에 있을 때만
+      const rect = container.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+      const idx = SCENES.indexOf(currentScene);
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (autoPlaying) stopAuto();
+        setScene(SCENES[(idx + 1) % SCENES.length]);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (autoPlaying) stopAuto();
+        setScene(SCENES[(idx - 1 + SCENES.length) % SCENES.length]);
+      }
+    });
+
+    // prefers-reduced-motion 감지
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches && waveRaf) {
+      cancelAnimationFrame(waveRaf);
+    }
+    mq.addEventListener('change', () => {
+      if (mq.matches) {
+        if (waveRaf)  cancelAnimationFrame(waveRaf);
+        if (partRaf)  cancelAnimationFrame(partRaf);
+        if (autoPlaying) stopAuto();
+      } else {
+        startWaveLoop();
+        startConveyorLoop();
+      }
+    });
+  }
+
+  /* ---- 초기화 ---- */
+  function init() {
+    // 초기 씬 설정
+    setScene('normal');
+    // 루프 시작
+    startWaveLoop();
+    startConveyorLoop();
+    // 이벤트
+    bindEvents();
+  }
+
+  /* ---- 공개 API ---- */
+  return { init, setScene, startAuto, stopAuto };
+
+})();
+
+/* 페이지 로드 시 초기화 */
+window.HowMotion = HowMotion;
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => HowMotion.init());
+} else {
+  HowMotion.init();
+}
+
+/* ============================================================
+   ★ MOTION JS — 블록 끝
+   ============================================================ */
