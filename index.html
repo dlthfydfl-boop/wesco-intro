@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=619">
+<link rel="stylesheet" href="style.css?v=620">
 </head>
 <body>
 
@@ -244,489 +244,247 @@
       <p class="section-sub">평소엔 전원 그대로 — 전력 이상 발생 즉시 <strong>2 ms 이내</strong>에 보상</p>
     </div>
 
-    <div class="how-motion" id="howMotion">
-      <!-- HUD 씬 라벨 -->
-      <div class="hm-scene-label" id="hmSceneLabel">PRODUCTION LINE PROTECTION SYSTEM</div>
-      <!-- ========== SVG 메인 캔버스 ========== -->
-      <div class="hm-svg-wrap">
-        <svg viewBox="0 0 800 480" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TSP 작동 원리 모션그래픽">
-          <defs>
-            <!-- 필터: 그린 글로우 -->
-            <filter id="glow-green" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="3" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <!-- 필터: 블루 글로우 -->
-            <filter id="glow-blue" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="3.5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <!-- 필터: 레드 글로우 -->
-            <filter id="glow-red" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <!-- 필터: 플라즈마 글로우 (강함) -->
-            <filter id="glow-plasma" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="6" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <!-- 필터: 오렌지 글로우 -->
-            <filter id="glow-orange" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <!-- 배경 그라디언트 -->
-            <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#1F2937"/>
-              <stop offset="100%" stop-color="#151C28"/>
-            </linearGradient>
-            <!-- Grid 전원 그라디언트 -->
-            <linearGradient id="grid-box-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="#1E3A5F"/>
-              <stop offset="100%" stop-color="#0F1F35"/>
-            </linearGradient>
-            <!-- 패널 그라디언트 -->
-            <linearGradient id="panel-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="#263245"/>
-              <stop offset="100%" stop-color="#1A2332"/>
-            </linearGradient>
-            <!-- 에너지 저장소 그라디언트 -->
-            <linearGradient id="cap-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="#1E3A5F"/>
-              <stop offset="100%" stop-color="#0F2034"/>
-            </linearGradient>
-            <!-- Plasma 그라디언트 (에너지 흐름) -->
-            <linearGradient id="plasma-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="#8B5CF6" stop-opacity="0.9"/>
-              <stop offset="50%"  stop-color="#3B82F6" stop-opacity="1"/>
-              <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.9"/>
-            </linearGradient>
-            <!-- 생산라인 바닥 그라디언트 -->
-            <linearGradient id="floor-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="#1E293B"/>
-              <stop offset="100%" stop-color="#0F172A"/>
-            </linearGradient>
-            <!-- 클리핑: 에너지 저장소 레벨 바 -->
-            <clipPath id="cap-clip">
-              <rect x="232" y="318" width="92" height="10" rx="2"/>
-            </clipPath>
-            <!-- 클리핑: 컨베이어 벨트 -->
-            <clipPath id="conv-clip">
-              <rect x="420" y="340" width="365" height="30"/>
-            </clipPath>
-            <!-- 생산라인 전체 클리핑 -->
-            <clipPath id="prod-clip">
-              <rect x="415" y="60" width="375" height="395"/>
-            </clipPath>
-          </defs>
-          <!-- ============================
-               배경
-               ============================ -->
-          <rect x="0" y="0" width="800" height="480" fill="url(#bg-grad)"/>
-          <!-- 격자선 (배경 텍스처) -->
-          <g opacity="0.04" stroke="#22D3EE" stroke-width="0.5">
-            <line x1="0" y1="120" x2="800" y2="120"/>
-            <line x1="0" y1="240" x2="800" y2="240"/>
-            <line x1="0" y1="360" x2="800" y2="360"/>
-            <line x1="200" y1="0" x2="200" y2="480"/>
-            <line x1="400" y1="0" x2="400" y2="480"/>
-            <line x1="600" y1="0" x2="600" y2="480"/>
+    <!-- 작동원리 v6.20 — 생산라인 중심 산업 솔루션 톤 -->
+    <div class="how-v2" id="howMotion">
+
+      <!-- 상단: 단순 상태 표시 (HUD 없음) -->
+      <div class="hv-status">
+        <div class="hv-status-cell">
+          <span class="hv-status-key">현재 상태</span>
+          <span class="hv-status-val" id="hvStateMain">정상 운전</span>
+        </div>
+        <div class="hv-status-cell hv-status-cell-em">
+          <span class="hv-status-key">생산 라인</span>
+          <span class="hv-status-val hv-status-val-ok" id="hvLineState">RUNNING</span>
+        </div>
+        <div class="hv-status-cell">
+          <span class="hv-status-key">TSP®</span>
+          <span class="hv-status-val" id="hvTspState">대기</span>
+        </div>
+      </div>
+
+      <!-- 메인: 생산라인 중심 시각 (TSP는 좌측 보디가드) -->
+      <div class="hv-stage">
+        <svg viewBox="0 0 900 360" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+          <!-- 배경 -->
+          <rect x="0" y="0" width="900" height="360" fill="#FAF8F4"/>
+
+          <!-- ─── 좌측: 입력 전원 라벨 (작게) ─── -->
+          <g transform="translate(20, 170)">
+            <text x="0" y="-6" font-size="9.5" font-weight="700" fill="#78716C" letter-spacing="0.14em">전력 입력</text>
+            <line x1="0" y1="4" x2="38" y2="4" stroke="#A8A29E" stroke-width="1"/>
+            <text x="0" y="20" font-size="8.5" fill="#A8A29E">한전 22.9kV</text>
           </g>
-          <!-- ============================
-               HUD 상단 (전체 폭)
-               ============================ -->
-          <g id="hud-bar">
-            <!-- 배경 바 -->
-            <rect x="10" y="10" width="780" height="38" rx="4" fill="rgba(0,0,0,0.45)" stroke="#354860" stroke-width="0.8"/>
-            <!-- GRID 상태 -->
-            <text x="30" y="23" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.18em" fill="#94A3B8">GRID</text>
-            <circle id="hud-grid-dot" cx="30" cy="35" r="4" fill="#10B981" filter="url(#glow-green)"/>
-            <text id="hud-grid-text" x="42" y="39" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="700" letter-spacing="0.1em" fill="#10B981">NORMAL</text>
-            <!-- TSP 상태 -->
-            <text x="230" y="23" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.18em" fill="#94A3B8">TSP</text>
-            <circle id="hud-tsp-dot" cx="230" cy="35" r="4" fill="#22D3EE" filter="url(#glow-blue)"/>
-            <text id="hud-tsp-text" x="242" y="39" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="700" letter-spacing="0.1em" fill="#22D3EE">STANDBY</text>
-            <!-- 가운데 씬 타이틀 -->
-            <text id="hud-scene-title" x="400" y="33" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="14" font-weight="900" letter-spacing="0.14em" fill="#FDFCF9" text-transform="uppercase">NORMAL OPERATION</text>
-            <!-- LOAD 상태 -->
-            <text x="600" y="23" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.18em" fill="#94A3B8">LOAD</text>
-            <circle id="hud-load-dot" cx="600" cy="35" r="4" fill="#10B981" filter="url(#glow-green)"/>
-            <text id="hud-load-text" x="612" y="39" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="700" letter-spacing="0.1em" fill="#10B981">RUNNING</text>
-            <!-- WESCO 브랜드 -->
-            <text x="762" y="33" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="800" letter-spacing="0.1em" fill="#E1431B">WESCO</text>
-            <text x="762" y="43" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-size="7.5" font-weight="600" letter-spacing="0.08em" fill="#94A3B8">TSP®</text>
+
+          <!-- ─── 좌측 중앙: TSP 박스 (단순) ─── -->
+          <g id="hv-tsp" transform="translate(80, 100)">
+            <rect x="0" y="0" width="180" height="160" rx="3" fill="#2C3645" stroke="#4F6886" stroke-width="1"/>
+            <!-- 미니 보호 아이콘 -->
+            <g transform="translate(90, 36)">
+              <path d="M 0 -16 L -16 -10 L -16 4 a 16 16 0 0 0 16 14 a 16 16 0 0 0 16 -14 L 16 -10 z" fill="none" stroke="#E1431B" stroke-width="1.5"/>
+              <path d="M -7 -2 L -2 4 L 8 -8" fill="none" stroke="#E1431B" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <text x="90" y="86" text-anchor="middle" fill="#FAF8F4" font-size="15" font-weight="700" letter-spacing="0.04em">WESCO TSP®</text>
+            <text x="90" y="104" text-anchor="middle" fill="#A8B5C8" font-size="9" font-weight="600" letter-spacing="0.16em">PROTECTION SYSTEM</text>
+            <text x="90" y="124" text-anchor="middle" fill="#7C8DA5" font-size="8.5" letter-spacing="0.04em">Sub-cycle Compensation</text>
+            <line x1="40" y1="138" x2="140" y2="138" stroke="#4F6886" stroke-width="0.5" opacity="0.5"/>
+            <text x="90" y="152" text-anchor="middle" fill="#7C8DA5" font-size="8" letter-spacing="0.06em">Since 2001 · 8,455+ Units</text>
+            <!-- 상태 인디케이터 (작게) -->
+            <circle id="hv-tsp-led" cx="166" cy="14" r="4" fill="#10B981"/>
           </g>
-          <!-- ============================
-               좌측: Grid (한전 송전탑)
-               ============================ -->
-          <g id="grid-zone" transform="translate(10, 60)">
-            <!-- 송전탑 아이콘 -->
-            <g transform="translate(30, 20)">
-              <!-- 탑 몸체 -->
-              <line x1="30" y1="0" x2="30" y2="120" stroke="#354860" stroke-width="2.5"/>
-              <!-- 탑 크로스 암 -->
-              <line x1="0"  y1="25" x2="60" y2="25" stroke="#354860" stroke-width="2"/>
-              <line x1="8"  y1="50" x2="52" y2="50" stroke="#354860" stroke-width="2"/>
-              <line x1="14" y1="75" x2="46" y2="75" stroke="#354860" stroke-width="2"/>
-              <!-- 대각 보강 -->
-              <line x1="0"  y1="25" x2="14" y2="75" stroke="#354860" stroke-width="1"/>
-              <line x1="60" y1="25" x2="46" y2="75" stroke="#354860" stroke-width="1"/>
-              <!-- 전선 (애자) -->
-              <circle cx="0"  cy="25" r="2.5" fill="#475569"/>
-              <circle cx="60" cy="25" r="2.5" fill="#475569"/>
-              <circle cx="8"  cy="50" r="2.5" fill="#475569"/>
-              <circle cx="52" cy="50" r="2.5" fill="#475569"/>
-              <!-- 전압 라벨 -->
-              <rect x="-2" y="128" width="64" height="18" rx="2" fill="rgba(0,0,0,0.5)" stroke="#354860" stroke-width="0.8"/>
-              <text x="30" y="141" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#94A3B8">22.9 kV</text>
-            </g>
-            <!-- 변압기 박스 -->
-            <rect x="10" y="170" width="100" height="50" rx="4" fill="url(#grid-box-grad)" stroke="#22D3EE" stroke-width="1.2" id="grid-box"/>
-            <text x="60" y="188" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="700" letter-spacing="0.12em" fill="#94A3B8">UTILITY</text>
-            <text x="60" y="202" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="11" font-weight="800" letter-spacing="0.06em" fill="#22D3EE">GRID</text>
-            <text x="60" y="214" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="600" fill="#94A3B8">AC 380V</text>
-            <!-- 번개 효과 (씬 2에서 활성) -->
-            <g id="lightning-fx" class="scene-group">
-              <!-- 플래시 오버레이 -->
-              <rect x="-10" y="-60" width="140" height="290" fill="#EF4444" opacity="0" class="flash-overlay"/>
-              <!-- 번개 볼트 -->
-              <g class="bolt-anim" filter="url(#glow-red)">
-                <path d="M 40 -50 L 55 -15 L 42 -15 L 65 20 L 50 20 L 72 55" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 40 -50 L 55 -15 L 42 -15 L 65 20 L 50 20 L 72 55" fill="none" stroke="#FBBF24" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
-              </g>
-              <!-- 사고 라벨 -->
-              <rect x="0" y="155" width="120" height="22" rx="3" fill="#EF4444" opacity="0.95"/>
-              <text x="60" y="170" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="800" letter-spacing="0.1em" fill="#fff">VOLTAGE SAG</text>
-            </g>
-          </g>
-          <!-- ============================
-               Grid → TSP 연결선 (사인파)
-               ============================ -->
-          <!-- 기준선 -->
-          <line x1="120" y1="243" x2="190" y2="243" stroke="#354860" stroke-width="1" opacity="0.5"/>
-          <!-- 사인파 경로 (JS로 렌더링) -->
-          <path id="wave-grid" d="" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/>
-          <!-- ============================
-               중앙 상단: TSP 박스
-               ============================ -->
-          <g id="tsp-zone" transform="translate(185, 95)">
-            <!-- TSP 외곽 프레임 -->
-            <rect x="0" y="0" width="220" height="270" rx="6" fill="url(#panel-grad)" stroke="#354860" stroke-width="1.2"/>
-            <text x="110" y="18" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="700" letter-spacing="0.2em" fill="#94A3B8">TSP® INTERNAL</text>
-            <!-- DSP 두뇌 (칩) -->
-            <g id="dsp-chip" transform="translate(62, 22)">
-              <rect x="0" y="0" width="96" height="58" rx="3" fill="rgba(0,0,0,0.4)" stroke="#3B82F6" stroke-width="1.5"/>
-              <rect x="4" y="4" width="88" height="50" rx="2" fill="rgba(59,130,246,0.08)"/>
-              <!-- 칩 핀 -->
-              <g stroke="#3B82F6" stroke-width="1" opacity="0.6">
-                <line x1="0" y1="12" x2="-5" y2="12"/>
-                <line x1="0" y1="22" x2="-5" y2="22"/>
-                <line x1="0" y1="32" x2="-5" y2="32"/>
-                <line x1="0" y1="42" x2="-5" y2="42"/>
-                <line x1="96" y1="12" x2="101" y2="12"/>
-                <line x1="96" y1="22" x2="101" y2="22"/>
-                <line x1="96" y1="32" x2="101" y2="32"/>
-                <line x1="96" y1="42" x2="101" y2="42"/>
-                <line x1="15" y1="0" x2="15" y2="-5"/>
-                <line x1="35" y1="0" x2="35" y2="-5"/>
-                <line x1="55" y1="0" x2="55" y2="-5"/>
-                <line x1="75" y1="0" x2="75" y2="-5"/>
-                <line x1="15" y1="58" x2="15" y2="63"/>
-                <line x1="35" y1="58" x2="35" y2="63"/>
-                <line x1="55" y1="58" x2="55" y2="63"/>
-                <line x1="75" y1="58" x2="75" y2="63"/>
-              </g>
-              <!-- 칩 라벨 -->
-              <text x="48" y="25" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="800" letter-spacing="0.15em" fill="#3B82F6">DSP</text>
-              <text x="48" y="37" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="7.5" font-weight="600" letter-spacing="0.08em" fill="#94A3B8">고속 제어 두뇌</text>
-              <text x="48" y="49" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="7" font-weight="600" letter-spacing="0.05em" fill="#475569">DETECTION ENGINE</text>
-              <!-- DSP 스캔 라인 (씬 2에서 활성) -->
-              <rect id="dsp-scan" x="4" y="6" width="88" height="2" rx="1" fill="#EF4444" opacity="0" class="dsp-scan-line"/>
-            </g>
-            <!-- 고속 스위치 박스 -->
-            <g id="fast-switch" transform="translate(14, 100)">
-              <rect id="sw-box" x="0" y="0" width="192" height="52" rx="4" fill="rgba(0,0,0,0.4)" stroke="#22D3EE" stroke-width="1.5"/>
-              <!-- 스위치 아이콘 (접점) -->
-              <circle cx="28" cy="20" r="5" fill="none" stroke="#22D3EE" stroke-width="1.5" id="sw-contact-left"/>
-              <circle cx="44" cy="20" r="5" fill="none" stroke="#22D3EE" stroke-width="1.5" id="sw-contact-right"/>
-              <line id="sw-blade" x1="28" y1="20" x2="44" y2="14" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="28" cy="20" r="2" fill="#22D3EE"/>
-              <circle cx="44" cy="20" r="2" fill="#22D3EE"/>
-              <text x="96" y="20" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="10.5" font-weight="800" letter-spacing="0.12em" fill="#FDFCF9">고속 스위치</text>
-              <text x="96" y="33" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="600" letter-spacing="0.08em" fill="#22D3EE">ULTRA FAST SWITCH</text>
-              <!-- 상태 인디케이터 -->
-              <circle id="sw-indicator" cx="175" cy="12" r="4" fill="#10B981" filter="url(#glow-green)"/>
-              <text id="sw-status" x="150" y="46" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#10B981">CLOSED · BYPASS</text>
-            </g>
-            <!-- 양방향 인버터 -->
-            <g id="inverter" transform="translate(14, 168)">
-              <rect x="0" y="0" width="88" height="58" rx="4" fill="rgba(0,0,0,0.4)" stroke="#3B82F6" stroke-width="1.2"/>
-              <text x="44" y="17" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" letter-spacing="0.12em" fill="#94A3B8">양방향 인버터</text>
-              <text x="44" y="29" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="800" letter-spacing="0.06em" fill="#3B82F6">DC ⇄ AC</text>
-              <!-- 사인파 아이콘 (미니) -->
-              <path d="M 8 45 Q 16 36 24 45 Q 32 54 40 45 Q 48 36 56 45 Q 64 54 72 45 Q 80 36 88 45" fill="none" stroke="#3B82F6" stroke-width="1.2" opacity="0.7"/>
-              <circle id="inv-indicator" cx="78" cy="8" r="3" fill="#3B82F6" opacity="0.5"/>
-            </g>
-            <!-- 에너지 저장소 (ULTRA CAP) -->
-            <g id="cap-unit" transform="translate(116, 168)">
-              <rect x="0" y="0" width="88" height="58" rx="4" fill="url(#cap-grad)" stroke="#3B82F6" stroke-width="1.2"/>
-              <text x="44" y="14" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="7.5" font-weight="700" letter-spacing="0.12em" fill="#94A3B8">에너지 저장소</text>
-              <text x="44" y="25" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="800" letter-spacing="0.05em" fill="#3B82F6">ULTRA CAP</text>
-              <!-- 레벨 바 배경 -->
-              <rect x="8" y="30" width="72" height="10" rx="2" fill="rgba(0,0,0,0.5)"/>
-              <!-- 레벨 바 (JS로 width 제어) -->
-              <rect id="cap-level-bar" x="8" y="30" width="72" height="10" rx="2" fill="#3B82F6" class="cap-level cap-glow"/>
-              <!-- 퍼센트 -->
-              <text id="cap-percent" x="44" y="53" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="10" font-weight="800" fill="#22D3EE">100%</text>
-            </g>
-            <!-- 커넥터 라인 (인버터 ↔ 에너지 저장소) -->
-            <line x1="116" y1="197" x2="116" y2="197" stroke="#354860" stroke-width="1" stroke-dasharray="4 3"/>
-            <!-- 실제 연결 (TSP 좌표로) 14+88=102, 116 -->
-            <line x1="102" y1="197" x2="116" y2="197" stroke="#354860" stroke-width="1.5" stroke-dasharray="4 3" id="inv-cap-line"/>
-            <!-- 인버터 → 스위치 수직선 -->
-            <line x1="58" y1="168" x2="58" y2="152" stroke="#354860" stroke-width="1.5" stroke-dasharray="4 3" id="inv-sw-line"/>
-          </g>
-          <!-- ============================
-               Grid → TSP 입력선
-               ============================ -->
-          <line x1="120" y1="243" x2="185" y2="243" stroke="#354860" stroke-width="1.5" opacity="0.6"/>
-          <!-- TSP → Load 출력선 -->
-          <line x1="405" y1="243" x2="420" y2="243" stroke="#354860" stroke-width="1.5" opacity="0.6" id="tsp-out-base"/>
-          <!-- TSP 출력 사인파 (JS 렌더링) -->
-          <path id="wave-out" d="" fill="none" stroke-linecap="round"/>
-          <!-- ============================
-               씬 3 플라즈마 에너지 흐름
-               (에너지 저장소 → 인버터 → 부하)
-               ============================ -->
-          <!-- 인버터 → 스위치 플라즈마 라인 -->
-          <path id="plasma-inv-sw" d="M 243 311 L 243 295" fill="none" stroke="url(#plasma-grad)" stroke-width="3" stroke-linecap="round" class="plasma-line" opacity="0"/>
-          <!-- 에너지 저장소 → 인버터 플라즈마 -->
-          <path id="plasma-cap-inv" d="M 345 300 L 287 300" fill="none" stroke="url(#plasma-grad)" stroke-width="3" stroke-linecap="round" class="plasma-line" opacity="0"/>
-          <!-- 스위치 → 부하 출력 플라즈마 -->
-          <path id="plasma-out" d="M 405 243 L 420 243" fill="none" stroke="url(#plasma-grad)" stroke-width="3.5" stroke-linecap="round" class="plasma-line" opacity="0"/>
-          <!-- ============================
-               씬 4 위상동기 파형 (TSP 출력)
-               ============================ -->
-          <path id="sync-wave-a" d="" fill="none" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round" class="sync-wave-anim" opacity="0"/>
-          <path id="sync-wave-b" d="" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" class="sync-wave-anim" opacity="0" style="animation-delay:-0.3s"/>
-          <!-- ============================
-               우측: 생산라인
-               ============================ -->
-          <g id="prod-zone" clip-path="url(#prod-clip)">
-            <!-- 생산라인 배경 패널 -->
-            <rect x="420" y="60" width="370" height="395" rx="4" fill="rgba(0,0,0,0.25)" stroke="#354860" stroke-width="0.8"/>
-            <text x="605" y="82" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="700" letter-spacing="0.2em" fill="#354860">PRODUCTION LINE · LOAD</text>
-            <!-- ── 설비 1: 로봇팔 ── -->
-            <g id="robot-unit" transform="translate(430, 95)">
-              <!-- 받침대 -->
-              <ellipse cx="40" cy="172" rx="32" ry="8" fill="#1E293B"/>
-              <rect x="24" y="155" width="32" height="18" rx="2" fill="#263245" stroke="#354860" stroke-width="0.8"/>
-              <circle cx="40" cy="155" r="6" fill="#1E293B" stroke="#3B82F6" stroke-width="1"/>
-              <circle cx="40" cy="155" r="2.5" fill="#22D3EE"/>
-              <!-- 팔 (어깨 → 팔꿈치 → 손목) -->
-              <g class="robot-arm-anim">
-                <!-- 어깨 -->
-                <rect x="36" y="100" width="8" height="58" rx="2" fill="#334155" stroke="#1E293B" stroke-width="0.5"/>
-                <circle cx="40" cy="155" r="5" fill="#1E293B"/>
-                <circle cx="40" cy="155" r="2" fill="#22D3EE"/>
-                <!-- 팔꿈치 -->
-                <circle cx="40" cy="102" r="6" fill="#1E293B" stroke="#3B82F6" stroke-width="1"/>
-                <g class="robot-wrist-anim">
-                  <!-- 아래팔 -->
-                  <rect x="37" y="62" width="6" height="42" rx="2" fill="#334155"/>
-                  <circle cx="40" cy="62" r="5" fill="#1E293B"/>
-                  <!-- 손목 -->
-                  <rect x="28" y="54" width="24" height="10" rx="2" fill="#263245" stroke="#354860" stroke-width="0.8"/>
-                  <!-- 그리퍼 -->
-                  <rect x="36" y="40" width="3" height="14" rx="1" fill="#22D3EE" opacity="0.9"/>
-                  <rect x="41" y="40" width="3" height="14" rx="1" fill="#22D3EE" opacity="0.9"/>
-                  <!-- 공작물 -->
-                  <rect x="33" y="33" width="14" height="10" rx="1.5" fill="#3B82F6"/>
-                  <rect x="35" y="35" width="10" height="6" rx="1" fill="#22D3EE" opacity="0.7"/>
-                </g>
-              </g>
-              <!-- 라벨 -->
-              <text x="40" y="188" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#475569">ROBOT</text>
-            </g>
-            <!-- ── 설비 2: 검사 설비 ── -->
-            <g id="inspect-unit" transform="translate(560, 95)">
+
+          <!-- 좌측→생산라인 연결선 (단순) -->
+          <line x1="260" y1="180" x2="298" y2="180" stroke="#A8A29E" stroke-width="1.2"/>
+          <!-- 보상 시 활성화될 컬러 라인 -->
+          <line id="hv-flow-line" x1="260" y1="180" x2="298" y2="180" stroke="#3B82F6" stroke-width="2.5" opacity="0"/>
+
+          <!-- ─── 우측: 생산라인 (메인 — 페이지의 주인공) ─── -->
+          <g id="hv-line" transform="translate(298, 60)">
+
+            <!-- 메인 패널 -->
+            <rect x="0" y="0" width="582" height="280" rx="4" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+
+            <!-- 라인 라벨 -->
+            <text x="20" y="26" font-size="9.5" font-weight="700" fill="#A8A29E" letter-spacing="0.18em">PRODUCTION LINE</text>
+            <text x="562" y="26" text-anchor="end" font-size="9" fill="#A8A29E" letter-spacing="0.05em" font-family="Inter">CELL A · B · C · D</text>
+            <line x1="20" y1="34" x2="562" y2="34" stroke="#E7E3DD" stroke-width="0.5"/>
+
+            <!-- 4개 설비 (단순 산업 실루엣) -->
+            <!-- CELL A: 정밀 가공 -->
+            <g transform="translate(40, 60)">
+              <!-- 베이스 -->
+              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
               <!-- 본체 -->
-              <rect x="0" y="80" width="80" height="92" rx="4" fill="#1E293B" stroke="#354860" stroke-width="1"/>
+              <rect x="6" y="20" width="88" height="65" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
               <!-- 디스플레이 -->
-              <rect x="8" y="88" width="64" height="42" rx="2" fill="#0F172A"/>
-              <rect x="10" y="90" width="60" height="38" rx="1" fill="#051118"/>
-              <!-- 디스플레이 파형 (미니) -->
-              <path d="M 12 109 Q 18 101 24 109 Q 30 117 36 109 Q 42 101 48 109 Q 54 117 60 109 Q 66 101 68 109" fill="none" stroke="#22D3EE" stroke-width="1" opacity="0.8"/>
-              <!-- LED 인디케이터 -->
-              <circle cx="20"  cy="140" r="4" fill="#10B981" class="inspect-led" filter="url(#glow-green)"/>
-              <circle cx="40"  cy="140" r="4" fill="#10B981" class="inspect-led" style="animation-delay:-0.6s" filter="url(#glow-green)"/>
-              <circle cx="60"  cy="140" r="4" fill="#10B981" class="inspect-led" style="animation-delay:-1.2s" filter="url(#glow-green)"/>
-              <!-- 버튼 -->
-              <rect x="12" y="152" width="56" height="8" rx="2" fill="#263245"/>
-              <rect x="14" y="154" width="12" height="4" rx="1" fill="#E1431B"/>
-              <rect x="30" y="154" width="12" height="4" rx="1" fill="#354860"/>
-              <rect x="46" y="154" width="12" height="4" rx="1" fill="#354860"/>
-              <!-- 상단 스캐너 -->
-              <rect x="24" y="60" width="32" height="22" rx="3" fill="#263245" stroke="#354860" stroke-width="0.8"/>
-              <rect x="28" y="64" width="24" height="3" rx="1" fill="#22D3EE" class="inspect-led-fast"/>
-              <line x1="40" y1="82" x2="40" y2="80" stroke="#354860" stroke-width="1"/>
+              <rect x="14" y="28" width="48" height="22" rx="1" fill="#1F2937"/>
+              <rect x="16" y="30" width="44" height="3" fill="#3B82F6" opacity="0.6"/>
+              <rect x="16" y="36" width="32" height="2.5" fill="#10B981" opacity="0.7"/>
+              <rect x="16" y="42" width="38" height="2.5" fill="#A8A29E" opacity="0.7"/>
+              <!-- 컨트롤 -->
+              <rect x="68" y="30" width="22" height="22" rx="1" fill="#404040"/>
+              <circle cx="73" cy="36" r="2" fill="#10B981" class="hv-led"/>
+              <circle cx="79" cy="36" r="2" fill="#525252"/>
+              <circle cx="85" cy="36" r="2" fill="#525252"/>
+              <rect x="71" y="42" width="16" height="3" rx="0.5" fill="#525252"/>
+              <rect x="71" y="46" width="16" height="3" rx="0.5" fill="#525252"/>
+              <!-- 베이스 팻 -->
+              <rect x="14" y="58" width="72" height="22" rx="1" fill="#D6D3CD" stroke="#A8A29E" stroke-width="0.5"/>
+              <rect x="22" y="64" width="56" height="10" fill="#A8A29E"/>
               <!-- 라벨 -->
-              <text x="40" y="186" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#475569">INSPECTOR</text>
+              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL A</text>
+              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">정밀 가공</text>
             </g>
-            <!-- ── 설비 연결 (공간 필러): 제어반 ── -->
-            <g id="ctrl-unit" transform="translate(680, 95)">
-              <rect x="0" y="55" width="50" height="120" rx="3" fill="#1E293B" stroke="#354860" stroke-width="1"/>
-              <!-- 디스플레이 -->
-              <rect x="6" y="62" width="38" height="26" rx="2" fill="#0F172A"/>
-              <text x="25" y="72" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="6.5" font-weight="700" fill="#22D3EE">STATUS</text>
-              <text x="25" y="83" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="800" fill="#10B981">OK</text>
-              <!-- 미터기 -->
-              <rect x="6" y="95" width="38" height="22" rx="2" fill="#111827"/>
-              <path d="M 10 112 Q 25 98 40 112" fill="none" stroke="#354860" stroke-width="1.5"/>
-              <line id="ctrl-needle" x1="25" y1="112" x2="32" y2="102" stroke="#E1431B" stroke-width="1.5" stroke-linecap="round"/>
-              <!-- LED -->
-              <circle cx="12" cy="128" r="3" fill="#10B981" class="inspect-led" filter="url(#glow-green)"/>
-              <circle cx="25" cy="128" r="3" fill="#10B981" class="inspect-led" style="animation-delay:-0.4s" filter="url(#glow-green)"/>
-              <circle cx="38" cy="128" r="3" fill="#10B981" class="inspect-led" style="animation-delay:-0.9s" filter="url(#glow-green)"/>
-              <!-- 버튼 패널 -->
-              <rect x="6" y="138" width="38" height="30" rx="2" fill="#263245"/>
-              <circle cx="16" cy="148" r="4" fill="#E1431B"/>
-              <circle cx="34" cy="148" r="4" fill="#10B981"/>
-              <rect x="10" y="158" width="30" height="5" rx="1" fill="#354860"/>
-              <!-- 라벨 -->
-              <text x="25" y="186" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#475569">CONTROL</text>
-            </g>
-            <!-- ── 컨베이어 벨트 (전체 생산라인 하단) ── -->
-            <g id="conveyor" transform="translate(425, 340)">
-              <!-- 벨트 프레임 -->
-              <rect x="0" y="0" width="355" height="28" rx="3" fill="#1E293B"/>
-              <rect x="0" y="0" width="355" height="28" rx="3" fill="none" stroke="#263245" stroke-width="1"/>
-              <!-- 벨트 텍스처 (움직임) — 클리핑으로 처리 -->
-              <g clip-path="url(#conv-clip)">
-                <!-- 스트라이프 패턴 — 클래스로 이동 애니메이션 -->
-                <g class="conv-belt-anim">
-                  <rect x="0"   y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="22"  y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="44"  y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="66"  y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="88"  y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="110" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="132" y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="154" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="176" y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="198" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="220" y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="242" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="264" y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="286" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="308" y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="330" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
-                  <rect x="352" y="4" width="18" height="20" rx="1" fill="#263245" opacity="0.7"/>
-                  <rect x="374" y="4" width="18" height="20" rx="1" fill="#1A2332" opacity="0.7"/>
+
+            <!-- CELL B: 자동화 로봇 -->
+            <g transform="translate(170, 60)">
+              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
+              <!-- 받침 -->
+              <rect x="34" y="74" width="32" height="10" rx="1" fill="#404040"/>
+              <!-- 로봇팔 베이스 -->
+              <circle cx="50" cy="74" r="6" fill="#525252"/>
+              <!-- 어깨 → 팔꿈치 → 손목 (애니메이션) -->
+              <g class="hv-robot-arm">
+                <line x1="50" y1="74" x2="50" y2="42" stroke="#404040" stroke-width="6" stroke-linecap="round"/>
+                <circle cx="50" cy="42" r="4" fill="#525252"/>
+                <g class="hv-robot-wrist">
+                  <line x1="50" y1="42" x2="64" y2="28" stroke="#404040" stroke-width="4.5" stroke-linecap="round"/>
+                  <rect x="60" y="22" width="10" height="8" rx="1" fill="#E1431B"/>
                 </g>
               </g>
-              <!-- 벨트 위 제품들 (JS로 x 좌표 이동) -->
-              <g id="prod-parts">
-                <g id="part-a">
-                  <rect x="30"  y="-12" width="24" height="14" rx="2" fill="#263245" stroke="#3B82F6" stroke-width="0.8"/>
-                  <rect x="33"  y="-9"  width="18" height="8"  rx="1" fill="#3B82F6" opacity="0.6"/>
-                </g>
-                <g id="part-b">
-                  <rect x="120" y="-12" width="24" height="14" rx="2" fill="#263245" stroke="#22D3EE" stroke-width="0.8"/>
-                  <rect x="123" y="-9"  width="18" height="8"  rx="1" fill="#22D3EE" opacity="0.5"/>
-                </g>
-                <g id="part-c">
-                  <rect x="220" y="-12" width="24" height="14" rx="2" fill="#263245" stroke="#3B82F6" stroke-width="0.8"/>
-                  <rect x="223" y="-9"  width="18" height="8"  rx="1" fill="#3B82F6" opacity="0.6"/>
-                </g>
-                <g id="part-d">
-                  <rect x="310" y="-12" width="24" height="14" rx="2" fill="#263245" stroke="#22D3EE" stroke-width="0.8"/>
-                  <rect x="313" y="-9"  width="18" height="8"  rx="1" fill="#22D3EE" opacity="0.5"/>
+              <!-- 컨트롤 박스 -->
+              <rect x="6" y="20" width="22" height="40" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
+              <circle cx="17" cy="28" r="2" fill="#10B981" class="hv-led"/>
+              <rect x="10" y="34" width="14" height="2" fill="#A8A29E"/>
+              <rect x="10" y="38" width="14" height="2" fill="#A8A29E"/>
+              <rect x="10" y="42" width="14" height="2" fill="#A8A29E"/>
+              <rect x="10" y="48" width="14" height="6" rx="0.5" fill="#404040"/>
+
+              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL B</text>
+              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">자동화 셀</text>
+            </g>
+
+            <!-- CELL C: 검사 -->
+            <g transform="translate(300, 60)">
+              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
+              <rect x="6" y="20" width="88" height="65" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
+              <!-- 큰 디스플레이 (검사 화면) -->
+              <rect x="14" y="28" width="72" height="38" rx="1" fill="#0F172A"/>
+              <!-- 그리드 -->
+              <line x1="14" y1="40" x2="86" y2="40" stroke="#1E293B" stroke-width="0.5"/>
+              <line x1="14" y1="52" x2="86" y2="52" stroke="#1E293B" stroke-width="0.5"/>
+              <line x1="38" y1="28" x2="38" y2="66" stroke="#1E293B" stroke-width="0.5"/>
+              <line x1="62" y1="28" x2="62" y2="66" stroke="#1E293B" stroke-width="0.5"/>
+              <!-- 파형 -->
+              <path d="M 14 50 Q 26 38 38 50 T 62 50 T 86 50" fill="none" stroke="#22D3EE" stroke-width="1.2" opacity="0.85"/>
+              <circle cx="50" cy="48" r="2" fill="#22D3EE" class="hv-blink"/>
+              <!-- 하단 LED -->
+              <circle cx="22" cy="76" r="2.5" fill="#10B981" class="hv-led"/>
+              <circle cx="34" cy="76" r="2.5" fill="#10B981" class="hv-led"/>
+              <circle cx="46" cy="76" r="2.5" fill="#A8A29E"/>
+              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL C</text>
+              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">측정 · 검사</text>
+            </g>
+
+            <!-- CELL D: 컨트롤 -->
+            <g transform="translate(430, 60)">
+              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
+              <rect x="6" y="20" width="88" height="65" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
+              <!-- HMI -->
+              <rect x="14" y="28" width="72" height="32" rx="1" fill="#1F2937"/>
+              <text x="50" y="40" text-anchor="middle" font-size="6.5" fill="#A8B5C8" letter-spacing="0.16em" font-family="Inter">STATUS</text>
+              <text x="50" y="52" text-anchor="middle" font-size="11" font-weight="800" fill="#10B981" font-family="Inter" id="hv-cell-d-text">OK</text>
+              <!-- 하단 그리드 -->
+              <rect x="14" y="64" width="22" height="14" rx="1" fill="#404040"/>
+              <rect x="40" y="64" width="22" height="14" rx="1" fill="#404040"/>
+              <rect x="66" y="64" width="20" height="14" rx="1" fill="#E1431B" opacity="0.85"/>
+              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL D</text>
+              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">제어 · 모니터</text>
+            </g>
+
+            <!-- 컨베이어 (라인 하단) -->
+            <g transform="translate(20, 200)">
+              <!-- 프레임 -->
+              <rect x="0" y="0" width="542" height="22" fill="#262625"/>
+              <!-- 벨트 클립 -->
+              <clipPath id="hv-conv-clip"><rect x="0" y="2" width="542" height="18"/></clipPath>
+              <g clip-path="url(#hv-conv-clip)">
+                <g class="hv-conv-anim">
+                  <rect x="0"   y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="28"  y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="56"  y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="84"  y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="112" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="140" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="168" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="196" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="224" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="252" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="280" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="308" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="336" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="364" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="392" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="420" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="448" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="476" y="4" width="22" height="14" fill="#525252"/>
+                  <rect x="504" y="4" width="22" height="14" fill="#3a3a3a"/>
+                  <rect x="532" y="4" width="22" height="14" fill="#525252"/>
                 </g>
               </g>
               <!-- 롤러 -->
-              <circle cx="14"  cy="14" r="10" fill="#1E293B" stroke="#263245" stroke-width="1.5"/>
-              <circle cx="14"  cy="14" r="4"  fill="#263245"/>
-              <circle cx="341" cy="14" r="10" fill="#1E293B" stroke="#263245" stroke-width="1.5"/>
-              <circle cx="341" cy="14" r="4"  fill="#263245"/>
+              <circle cx="11" cy="11" r="9" fill="#1f1f1f" stroke="#525252" stroke-width="1"/>
+              <circle cx="11" cy="11" r="3" fill="#404040"/>
+              <circle cx="531" cy="11" r="9" fill="#1f1f1f" stroke="#525252" stroke-width="1"/>
+              <circle cx="531" cy="11" r="3" fill="#404040"/>
+
+              <!-- 가공품 (벨트 위) -->
+              <g class="hv-parts-anim">
+                <rect x="50" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
+                <rect x="160" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
+                <rect x="280" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
+                <rect x="400" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
+              </g>
             </g>
-            <!-- 생산라인 항시 정상 배지 -->
-            <g id="load-running-badge" transform="translate(435, 375)">
-              <rect x="0" y="0" width="335" height="22" rx="11" fill="#10B981" opacity="0.95"/>
-              <circle cx="14" cy="11" r="4" fill="#fff">
-                <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
-              </circle>
-              <text x="170" y="15" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="10.5" font-weight="800" letter-spacing="0.12em" fill="#fff">PRODUCTION LINE · 정상 운전 지속</text>
+
+            <!-- 라인 진행 인디케이터 -->
+            <g transform="translate(20, 244)">
+              <text x="0" y="9" font-size="8" fill="#A8A29E" letter-spacing="0.1em" font-family="Inter">LINE STATUS</text>
+              <rect x="80" y="0" width="220" height="10" rx="2" fill="#E7E3DD"/>
+              <rect x="80" y="0" width="220" height="10" rx="2" fill="#10B981" id="hv-line-bar" style="transition: fill 0.6s"/>
+              <text x="312" y="9" font-size="8.5" font-weight="700" fill="#10B981" id="hv-line-bar-text" font-family="Inter">100% RUNNING</text>
+              <text x="562" y="9" text-anchor="end" font-size="8" fill="#A8A29E" font-family="Inter">UPTIME 99.97%</text>
             </g>
-          </g><!-- /prod-zone -->
-          <!-- ============================
-               하단 카피 영역 (SVG 안)
-               ============================ -->
-          <rect x="10" y="408" width="780" height="32" rx="4" fill="rgba(0,0,0,0.4)" stroke="#354860" stroke-width="0.6"/>
-          <text id="svg-caption" x="400" y="429" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="13" font-weight="700" letter-spacing="0.08em" fill="#94A3B8">Normal Mode · 효율 98% · 충전 유지</text>
-          <!-- ============================
-               씬별 전용 오버레이 그룹
-               (기본 hidden, JS로 토글)
-               ============================ -->
-          <!-- 씬 2: DETECTION 전용 오버레이 -->
-          <g id="scene-detection-overlay" class="scene-group">
-            <!-- Grid 입력 경고 표시 -->
-            <rect x="120" y="220" width="70" height="24" rx="3" fill="#EF4444" opacity="0.95"/>
-            <text x="155" y="236" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="800" letter-spacing="0.1em" fill="#fff">VOLTAGE SAG</text>
-            <!-- DSP 경보 -->
-            <rect x="225" y="127" width="110" height="20" rx="3" fill="rgba(239,68,68,0.15)" stroke="#EF4444" stroke-width="1"/>
-            <text x="280" y="141" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.12em" fill="#EF4444">DETECTING · &lt;1ms</text>
+
+          </g><!-- /hv-line -->
+
+          <!-- ─── 위기 시 표시 (씬 2 — 입력 측 작은 알림만) ─── -->
+          <g id="hv-grid-alert" opacity="0">
+            <rect x="20" y="216" width="40" height="14" rx="2" fill="#EF4444"/>
+            <text x="40" y="226" text-anchor="middle" font-size="7.5" font-weight="700" fill="#FFFFFF" letter-spacing="0.04em">SAG</text>
           </g>
-          <!-- 씬 3: COMPENSATION 전용 오버레이 -->
-          <g id="scene-compensation-overlay" class="scene-group">
-            <!-- 스위치 OPEN 표시 -->
-            <rect x="199" y="190" width="62" height="18" rx="3" fill="rgba(239,68,68,0.9)" class="switch-open-anim"/>
-            <text x="230" y="203" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="800" letter-spacing="0.1em" fill="#fff">OPEN</text>
-            <!-- 에너지 방향 표시 -->
-            <text x="275" y="295" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" fill="#8B5CF6">방전</text>
-            <!-- 인버터 출력 -->
-            <text x="243" y="275" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" fill="#3B82F6">출력</text>
-            <!-- 플라즈마 글로우 -->
-            <circle cx="243" cy="243" r="20" fill="none" stroke="#8B5CF6" stroke-width="1" opacity="0.4">
-              <animate attributeName="r" values="18;28;18" dur="1.2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="1.2s" repeatCount="indefinite"/>
-            </circle>
+
+          <!-- ─── 보상 시 표시 (씬 3 — TSP 박스 위 부드러운 글로우) ─── -->
+          <g id="hv-tsp-glow" opacity="0">
+            <rect x="74" y="94" width="192" height="172" rx="5" fill="none" stroke="#3B82F6" stroke-width="2"/>
           </g>
-          <!-- 씬 4: RETURN 전용 오버레이 -->
-          <g id="scene-return-overlay" class="scene-group">
-            <!-- 위상동기 라벨 -->
-            <rect x="185" y="215" width="100" height="20" rx="3" fill="rgba(34,211,238,0.1)" stroke="#22D3EE" stroke-width="0.8"/>
-            <text x="235" y="229" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#22D3EE">PHASE SYNC</text>
-            <!-- 스위치 CLOSED 복귀 -->
-            <rect x="199" y="190" width="72" height="18" rx="3" fill="rgba(16,185,129,0.8)"/>
-            <text x="235" y="203" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="800" letter-spacing="0.08em" fill="#fff">CLOSED · SYNC</text>
-          </g>
+
         </svg>
-      </div><!-- /hm-svg-wrap -->
-      <!-- ========== 진행 점 ========== -->
-      <div class="hm-progress" id="hmProgress">
-        <div class="hm-dot active" data-scene="normal"       title="Normal"></div>
-        <div class="hm-dot"        data-scene="detection"    title="Detection"></div>
-        <div class="hm-dot"        data-scene="compensation" title="Compensation"></div>
-        <div class="hm-dot"        data-scene="return"       title="Return"></div>
       </div>
-      <!-- ========== 컨트롤 바 ========== -->
-      <div class="hm-controls">
-        <div class="hm-toggle-group" id="hmToggleGroup">
-          <button class="hm-btn active" data-scene="normal">① Normal</button>
-          <button class="hm-btn"       data-scene="detection">② Detection</button>
-          <button class="hm-btn"       data-scene="compensation">③ Compensation</button>
-          <button class="hm-btn"       data-scene="return">④ Return</button>
+
+      <!-- 하단: 카피 + 씬 토글 -->
+      <div class="hv-bottom">
+        <p class="hv-copy" id="hvCopy">평상시 — 생산라인이 정상적으로 운전됩니다. TSP는 뒤에서 조용히 대기합니다.</p>
+        <div class="hv-tabs">
+          <button class="hv-tab active" data-scene="normal">① 평상시</button>
+          <button class="hv-tab" data-scene="detection">② 순간정전 발생</button>
+          <button class="hv-tab" data-scene="compensation">③ TSP 자동 보호</button>
+          <button class="hv-tab" data-scene="return">④ 정상 복귀</button>
         </div>
-        <button class="hm-play-btn" id="hmPlayBtn" aria-label="자동 재생">
-          <svg class="hm-play-icon" id="hmPlayIcon" viewBox="0 0 12 12" fill="currentColor">
-            <polygon points="2,1 11,6 2,11"/>
-          </svg>
-          <span id="hmPlayText">AUTO PLAY</span>
-        </button>
       </div>
-    </div><!-- /how-motion -->
+    </div>
+
 
 
     <div class="how-metrics" data-reveal-stagger>
@@ -1903,6 +1661,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=619"></script>
+<script src="script.js?v=620"></script>
 </body>
 </html>
