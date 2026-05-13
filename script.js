@@ -846,90 +846,126 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
   let current = 'normal';
 
   const els = {
-    statusMain:  () => document.getElementById('hvStateMain'),
-    lineState:   () => document.getElementById('hvLineState'),
-    tspState:    () => document.getElementById('hvTspState'),
-    copy:        () => document.getElementById('hvCopy'),
-    tspLed:      () => document.getElementById('hv-tsp-led'),
-    flowLine:    () => document.getElementById('hv-flow-line'),
-    gridAlert:   () => document.getElementById('hv-grid-alert'),
-    tspGlow:     () => document.getElementById('hv-tsp-glow'),
-    cellDText:   () => document.getElementById('hv-cell-d-text'),
-    lineBar:     () => document.getElementById('hv-line-bar'),
-    lineBarText: () => document.getElementById('hv-line-bar-text'),
-    tabs:        () => document.querySelectorAll('.hv-tab'),
+    statusMain:    () => document.getElementById('hvStateMain'),
+    lineState:     () => document.getElementById('hvLineState'),
+    tspState:      () => document.getElementById('hvTspState'),
+    copy:          () => document.getElementById('hvCopy'),
+    tspLed:        () => document.getElementById('hv-tsp-led'),
+    tspLedLabel:   () => document.getElementById('hv-tsp-led-label'),
+    flowLine:      () => document.getElementById('hv-flow-line'),
+    inputLine:     () => document.getElementById('hv-input-line'),
+    gridAlert:     () => document.getElementById('hv-grid-alert'),
+    tspGlow:       () => document.getElementById('hv-tsp-glow'),
+    cellDText:     () => document.getElementById('hv-cell-d-text'),
+    lineBar:       () => document.getElementById('hv-line-bar'),
+    lineBarText:   () => document.getElementById('hv-line-bar-text'),
+    gridWave:      () => document.getElementById('hv-grid-wave'),
+    gridWaveLabel: () => document.getElementById('hv-grid-wave-label'),
+    outWave:       () => document.getElementById('hv-out-wave'),
+    tabs:          () => document.querySelectorAll('.hv-tab'),
   };
 
+  // 씬별 정의 — 계통/TSP/생산라인 상태 + 카피
+  // gridWave: 계통 사인파 모양 정의 (amp/freq/jitter/color/style)
   const SCENES = {
     normal: {
       statusMain: '정상 운전',
-      lineState: 'RUNNING',
-      lineStateClass: 'hv-status-val-ok',
-      tspState: '대기',
-      tspStateClass: '',
-      copy: '평상시 — 생산라인이 정상적으로 운전됩니다. WESCO TSP는 전력을 그대로 통과시키며 뒤에서 조용히 대기합니다.',
-      tspLed: '#10B981',
-      flowOpacity: 0,
-      gridAlert: 0,
-      tspGlow: 0,
-      cellD: 'OK',
-      cellDColor: '#10B981',
-      lineBar: '#10B981',
-      lineBarText: '100% RUNNING',
-      lineBarTextColor: '#10B981',
+      lineState: 'RUNNING', lineStateClass: 'hv-status-val-ok',
+      tspState: '대기', tspStateClass: '',
+      copy: '평상시 — 계통 전원이 안정적으로 공급되고 생산라인이 정상 운전됩니다. WESCO TSP는 전력을 그대로 통과시키며 뒤에서 조용히 대기합니다.',
+      tspLed: '#10B981', tspLedLabel: 'STANDBY',
+      flowOpacity: 0, gridAlert: 0, tspGlow: 0,
+      inputLineColor: '#A8A29E',
+      cellD: 'OK', cellDColor: '#10B981',
+      lineBar: '#10B981', lineBarText: '100% RUNNING', lineBarTextColor: '#10B981',
+      gridWave:    { amp: 8, jitter: 0, color: '#10B981', dash: '', alpha: 1 },
+      gridWaveLabel: '안정',
+      outWaveOpacity: 0.7, outWaveColor: '#10B981',
     },
     detection: {
       statusMain: '순간정전 감지',
-      lineState: 'RUNNING',
-      lineStateClass: 'hv-status-val-ok',
-      tspState: '감지 · 1ms',
-      tspStateClass: 'hv-status-val-alert',
-      copy: '계통에서 순간정전이 발생했습니다. WESCO TSP가 1ms 이내에 감지하지만 — 생산라인은 멈추지 않습니다.',
-      tspLed: '#F97316',
-      flowOpacity: 0,
-      gridAlert: 1,
-      tspGlow: 0,
-      cellD: 'OK',
-      cellDColor: '#10B981',
-      lineBar: '#10B981',
-      lineBarText: '100% RUNNING',
-      lineBarTextColor: '#10B981',
+      lineState: 'RUNNING', lineStateClass: 'hv-status-val-ok',
+      tspState: '감지 · 1ms', tspStateClass: 'hv-status-val-alert',
+      copy: '계통 전원이 흔들리기 시작합니다. WESCO TSP가 1ms 이내에 이상을 감지하지만 — 생산라인은 멈추지 않습니다.',
+      tspLed: '#F97316', tspLedLabel: 'ALERT',
+      flowOpacity: 0, gridAlert: 1, tspGlow: 0,
+      inputLineColor: '#EF4444',
+      cellD: 'OK', cellDColor: '#10B981',
+      lineBar: '#10B981', lineBarText: '100% RUNNING', lineBarTextColor: '#10B981',
+      gridWave:    { amp: 5, jitter: 6, color: '#EF4444', dash: '', alpha: 1 },
+      gridWaveLabel: '흔들림',
+      outWaveOpacity: 0.7, outWaveColor: '#10B981',
     },
     compensation: {
       statusMain: 'TSP 자동 보호 작동',
-      lineState: 'RUNNING',
-      lineStateClass: 'hv-status-val-ok',
-      tspState: '보호 중 · <2ms',
-      tspStateClass: 'hv-status-val-active',
-      copy: 'TSP가 자동으로 전원을 우회 공급합니다. 생산설비는 영향 없이 계속 동작합니다 — 보호 동작 시간 2ms 이내.',
-      tspLed: '#3B82F6',
-      flowOpacity: 1,
-      gridAlert: 1,
-      tspGlow: 1,
-      cellD: 'OK',
-      cellDColor: '#10B981',
-      lineBar: '#3B82F6',
-      lineBarText: '100% PROTECTED',
-      lineBarTextColor: '#3B82F6',
+      lineState: 'RUNNING', lineStateClass: 'hv-status-val-ok',
+      tspState: '보호 중 · <2ms', tspStateClass: 'hv-status-val-active',
+      copy: 'TSP가 계통을 자동 차단하고 자체 전원을 우회 공급합니다. 생산설비는 전혀 영향 없이 계속 동작합니다 — 보호 동작 시간 2ms 이내.',
+      tspLed: '#3B82F6', tspLedLabel: 'PROTECT',
+      flowOpacity: 1, gridAlert: 1, tspGlow: 1,
+      inputLineColor: '#A8A29E',
+      cellD: 'OK', cellDColor: '#3B82F6',
+      lineBar: '#3B82F6', lineBarText: '100% PROTECTED', lineBarTextColor: '#3B82F6',
+      gridWave:    { amp: 2, jitter: 3, color: '#A8A29E', dash: '3 2', alpha: 0.45 },
+      gridWaveLabel: '차단',
+      outWaveOpacity: 1, outWaveColor: '#3B82F6',
     },
     return: {
       statusMain: '정상 복귀 완료',
-      lineState: 'RUNNING',
-      lineStateClass: 'hv-status-val-ok',
-      tspState: '대기 복귀',
-      tspStateClass: '',
+      lineState: 'RUNNING', lineStateClass: 'hv-status-val-ok',
+      tspState: '대기 복귀', tspStateClass: '',
       copy: '계통이 안정화되었습니다. TSP는 자동으로 정상 모드로 복귀합니다 — 생산은 한 번도 멈추지 않았습니다.',
-      tspLed: '#10B981',
-      flowOpacity: 0,
-      gridAlert: 0,
-      tspGlow: 0,
-      cellD: 'OK',
-      cellDColor: '#10B981',
-      lineBar: '#10B981',
-      lineBarText: '100% RUNNING',
-      lineBarTextColor: '#10B981',
+      tspLed: '#10B981', tspLedLabel: 'STANDBY',
+      flowOpacity: 0, gridAlert: 0, tspGlow: 0,
+      inputLineColor: '#A8A29E',
+      cellD: 'OK', cellDColor: '#10B981',
+      lineBar: '#10B981', lineBarText: '100% RUNNING', lineBarTextColor: '#10B981',
+      gridWave:    { amp: 8, jitter: 0, color: '#10B981', dash: '', alpha: 1 },
+      gridWaveLabel: '복귀',
+      outWaveOpacity: 0.7, outWaveColor: '#10B981',
     }
   };
+
+  // 사인파 path 그리기 (입력 / 출력 영역 동일 함수, 좌표만 다름)
+  function buildWavePath(opts) {
+    // opts: {x0, x1, baseY, amp, freq, phase, jitter}
+    const step = 1.5;
+    let d = '';
+    for (let x = opts.x0; x <= opts.x1; x += step) {
+      const noise = opts.jitter ? (Math.sin((x + opts.phase * 13) * 0.7) * opts.jitter) : 0;
+      const y = opts.baseY + Math.sin((x - opts.x0) * opts.freq + opts.phase) * opts.amp + noise;
+      d += (x === opts.x0 ? 'M' : 'L') + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+    }
+    return d;
+  }
+
+  let phase = 0;
+  let waveRAF = null;
+  function startWaveLoop() {
+    if (waveRAF) cancelAnimationFrame(waveRAF);
+    function tick() {
+      phase += 0.12;
+      const s = SCENES[current] || SCENES.normal;
+      // 입력 (계통) — group local: x: 4~52, baseY: 150 (rect 130~170)
+      const grid = els.gridWave();
+      if (grid) {
+        grid.setAttribute('d', buildWavePath({x0: 4, x1: 52, baseY: 150, amp: s.gridWave.amp, freq: 0.42, phase, jitter: s.gridWave.jitter}));
+        grid.setAttribute('stroke', s.gridWave.color);
+        grid.setAttribute('opacity', s.gridWave.alpha);
+        if (s.gridWave.dash) grid.setAttribute('stroke-dasharray', s.gridWave.dash);
+        else grid.removeAttribute('stroke-dasharray');
+      }
+      // 출력 (TSP→라인) — absolute SVG: x: 278~296, baseY: 158
+      const out = els.outWave();
+      if (out) {
+        out.setAttribute('d', buildWavePath({x0: 278, x1: 296, baseY: 158, amp: 4, freq: 0.55, phase: -phase, jitter: 0}));
+        out.setAttribute('stroke', s.outWaveColor);
+        out.setAttribute('opacity', s.outWaveOpacity);
+      }
+      waveRAF = requestAnimationFrame(tick);
+    }
+    tick();
+  }
 
   function setScene(name) {
     if (!SCENES[name]) return;
@@ -945,17 +981,23 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
       els.tspState().textContent = s.tspState;
       els.tspState().className = 'hv-status-val ' + s.tspStateClass;
     }
-    if (els.copy())        els.copy().textContent = s.copy;
-    if (els.tspLed())      els.tspLed().setAttribute('fill', s.tspLed);
-    if (els.flowLine())    els.flowLine().setAttribute('opacity', s.flowOpacity);
-    if (els.gridAlert())   els.gridAlert().setAttribute('opacity', s.gridAlert);
-    if (els.tspGlow())     els.tspGlow().setAttribute('opacity', s.tspGlow);
-    if (els.cellDText())   {
+    if (els.copy())          els.copy().textContent = s.copy;
+    if (els.tspLed())        els.tspLed().setAttribute('fill', s.tspLed);
+    if (els.tspLedLabel())   els.tspLedLabel().textContent = s.tspLedLabel;
+    if (els.flowLine())      els.flowLine().setAttribute('opacity', s.flowOpacity);
+    if (els.inputLine())     els.inputLine().setAttribute('stroke', s.inputLineColor);
+    if (els.gridAlert())     els.gridAlert().setAttribute('opacity', s.gridAlert);
+    if (els.tspGlow())       els.tspGlow().setAttribute('opacity', s.tspGlow);
+    if (els.gridWaveLabel()) {
+      els.gridWaveLabel().textContent = s.gridWaveLabel;
+      els.gridWaveLabel().setAttribute('fill', s.gridWave.color);
+    }
+    if (els.cellDText())     {
       els.cellDText().textContent = s.cellD;
       els.cellDText().setAttribute('fill', s.cellDColor);
     }
-    if (els.lineBar())     els.lineBar().setAttribute('fill', s.lineBar);
-    if (els.lineBarText()) {
+    if (els.lineBar())       els.lineBar().setAttribute('fill', s.lineBar);
+    if (els.lineBarText())   {
       els.lineBarText().textContent = s.lineBarText;
       els.lineBarText().setAttribute('fill', s.lineBarTextColor);
     }
@@ -970,6 +1012,9 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
     els.tabs().forEach(t => {
       t.addEventListener('click', () => setScene(t.dataset.scene));
     });
+    // prefers-reduced-motion 시 사인파 정지
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) startWaveLoop();
     setScene('normal');
   }
 
