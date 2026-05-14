@@ -853,7 +853,7 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
       gridStatus: '정상', gridStatusColor: '#5B926D',
       arrow1: 'normal', arrow2: 'normal',
       tspStatus: '감시 중', tspStatusColor: '#5B926D',
-      detectLed: '#5B926D',
+      detectLed: '#5B926D', detectLabel: '감지 대기',
       edlcLevel: 100, edlcColor: '#5B7AA8',
       flowDetectEdlc: 0, flowEdlcOut: 0,
       tspOutAmp: 4, tspOutColor: '#5B926D', tspOutAlpha: 0.7,
@@ -866,7 +866,7 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
       gridStatus: '흔들림', gridStatusColor: '#B83C2C',
       arrow1: 'broken', arrow2: 'normal',
       tspStatus: '감지', tspStatusColor: '#C97A3D',
-      detectLed: '#B83C2C',
+      detectLed: '#B83C2C', detectLabel: '이상 감지',
       edlcLevel: 100, edlcColor: '#5B7AA8',
       flowDetectEdlc: 0, flowEdlcOut: 0,
       tspOutAmp: 4, tspOutColor: '#5B926D', tspOutAlpha: 0.7,
@@ -879,7 +879,7 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
       gridStatus: '차단', gridStatusColor: '#B8B0A6',
       arrow1: 'broken', arrow2: 'active',
       tspStatus: '보상 중', tspStatusColor: '#5B7AA8',
-      detectLed: '#5B7AA8',
+      detectLed: '#5B7AA8', detectLabel: '보호 동작',
       edlcLevel: 70, edlcColor: '#5B7AA8',
       flowDetectEdlc: 1, flowEdlcOut: 1,
       tspOutAmp: 6, tspOutColor: '#5B7AA8', tspOutAlpha: 1,
@@ -892,7 +892,7 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
       gridStatus: '복귀', gridStatusColor: '#5B926D',
       arrow1: 'normal', arrow2: 'normal',
       tspStatus: '감시 중', tspStatusColor: '#5B926D',
-      detectLed: '#5B926D',
+      detectLed: '#5B926D', detectLabel: '감지 대기',
       edlcLevel: 90, edlcColor: '#C97A3D',  // 충전 중
       flowDetectEdlc: 0, flowEdlcOut: 0,
       tspOutAmp: 4, tspOutColor: '#5B926D', tspOutAlpha: 0.7,
@@ -944,17 +944,12 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
   }
 
   function setEdlcLevel(pct, color) {
-    // 4 bars, height 48 each. fill from bottom
-    const bars = ['hv-edlc-l1','hv-edlc-l2','hv-edlc-l3','hv-edlc-l4'];
-    const fillH = 48 * (pct / 100);
-    bars.forEach(id => {
-      const el = $(id);
-      if (el) {
-        el.setAttribute('y', 48 - fillH);
-        el.setAttribute('height', fillH);
-        el.setAttribute('fill', color);
-      }
-    });
+    // 가로형 게이지 (width 138 기준)
+    const gauge = $('hv-edlc-gauge');
+    if (gauge) {
+      gauge.setAttribute('width', 138 * (pct / 100));
+      gauge.setAttribute('fill', color);
+    }
     const pctText = $('hv-edlc-pct');
     if (pctText) { pctText.textContent = pct + '%'; pctText.setAttribute('fill', color); }
   }
@@ -993,9 +988,17 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
     const ts = $('hv-tsp-status');
     if (ts) { ts.textContent = s.tspStatus; ts.setAttribute('fill', s.tspStatusColor); }
 
-    // 감지 LED
+    // 감지 LED + 라벨
     const dl = $('hv-detect-led');
     if (dl) dl.setAttribute('fill', s.detectLed);
+    const dlb = $('hv-detect-label');
+    if (dlb) {
+      dlb.textContent = s.detectLabel || '감지 대기';
+      dlb.setAttribute('fill', s.detectLed === '#5B926D' ? '#A8B5C8' : s.detectLed);
+    }
+    // TSP 사진 글로우
+    const tspGroup = document.querySelector('g[transform="translate(310, 60)"]');
+    if (tspGroup) tspGroup.classList.toggle('hv-tsp-glow', s.flowEdlcOut > 0);
 
     // EDLC
     setEdlcLevel(s.edlcLevel, s.edlcColor);

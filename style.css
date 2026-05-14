@@ -3261,14 +3261,43 @@ img, svg { max-width: 100%; }
   border-color: var(--c-head);
 }
 
-/* 화살표 동적 색상 */
+/* 화살표 동적 색상 (톤 다운) */
 .hv-arrow-active line, .hv-arrow-active polyline {
-  stroke: #3B82F6 !important;
-  stroke-width: 2.5 !important;
+  stroke: #5B7AA8 !important;
+  stroke-width: 2 !important;
 }
 .hv-arrow-broken line, .hv-arrow-broken polyline {
-  stroke: #EF4444 !important;
+  stroke: #B83C2C !important;
   stroke-dasharray: 4 3;
+  opacity: 0.7;
+}
+
+/* 컨베이어 모션 — 부드럽게 */
+@keyframes hv-conv-belt-move {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-18px); }
+}
+.hv-conv-belt {
+  animation: hv-conv-belt-move 1.5s linear infinite;
+}
+
+/* 가공품 — 천천히 우→좌 이동 */
+@keyframes hv-conv-parts-move {
+  from { transform: translateX(180px); }
+  to   { transform: translateX(-30px); }
+}
+.hv-conv-parts {
+  animation: hv-conv-parts-move 9s linear infinite;
+}
+
+/* TSP 사진 글로우 (보상 시) */
+.hv-tsp-glow #hv-tsp-photo-glow {
+  opacity: 1 !important;
+  animation: hv-photo-glow 2s ease-in-out infinite;
+}
+@keyframes hv-photo-glow {
+  0%, 100% { stroke: #5B7AA8; opacity: 1; }
+  50%      { stroke: #7C95C0; opacity: 0.6; }
 }
 
 /* 낙뢰 깜빡임 */
@@ -3298,5 +3327,7 @@ img, svg { max-width: 100%; }
   .hv-copy { font-size: 13px; min-height: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #hv-bolt.active, .hv-flow-active { animation: none !important; }
+  #hv-bolt.active, .hv-flow-active, .hv-conv-belt, .hv-conv-parts {
+    animation: none !important;
+  }
 }
