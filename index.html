@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=621">
+<link rel="stylesheet" href="style.css?v=625">
 </head>
 <body>
 
@@ -245,290 +245,159 @@
     </div>
 
     <!-- 작동원리 v6.20 — 생산라인 중심 산업 솔루션 톤 -->
+    <!-- 작동원리 v6.22 — 사진 기반 미니멀 흐름 (한전 → TSP → 생산라인) -->
+    <!-- 작동원리 v6.23 — 매우 단순 3박스 + EDLC 보상 흐름 -->
     <div class="how-v2" id="howMotion">
 
-      <!-- 상단: 단순 상태 표시 (HUD 없음) -->
-      <div class="hv-status">
-        <div class="hv-status-cell">
-          <span class="hv-status-key">현재 상태</span>
-          <span class="hv-status-val" id="hvStateMain">정상 운전</span>
-        </div>
-        <div class="hv-status-cell hv-status-cell-em">
-          <span class="hv-status-key">생산 라인</span>
-          <span class="hv-status-val hv-status-val-ok" id="hvLineState">RUNNING</span>
-        </div>
-        <div class="hv-status-cell">
-          <span class="hv-status-key">TSP®</span>
-          <span class="hv-status-val" id="hvTspState">대기</span>
-        </div>
-      </div>
-
-      <!-- 메인: 생산라인 중심 시각 (TSP는 좌측 보디가드) -->
       <div class="hv-stage">
-        <svg viewBox="0 0 900 360" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg viewBox="0 0 900 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 
           <!-- 배경 -->
-          <rect x="0" y="0" width="900" height="360" fill="#FAF8F4"/>
+          <rect x="0" y="0" width="900" height="320" fill="#FBFAF7"/>
 
-          <!-- ─── 좌측: 입력 전원 (한전) — 사인파 흔들림 표현 ─── -->
-          <g id="hv-grid-zone" transform="translate(20, 80)">
-            <!-- 송전탑 단순 라인 아이콘 -->
-            <g transform="translate(8, 8)" stroke="#A8A29E" stroke-width="1" fill="none">
-              <line x1="20" y1="0" x2="20" y2="80"/>
-              <line x1="6"  y1="14" x2="34" y2="14"/>
-              <line x1="10" y1="28" x2="30" y2="28"/>
-              <line x1="14" y1="42" x2="26" y2="42"/>
-              <line x1="6"  y1="14" x2="14" y2="42"/>
-              <line x1="34" y1="14" x2="26" y2="42"/>
-              <circle cx="6"  cy="14" r="1.5" fill="#A8A29E" stroke="none"/>
-              <circle cx="34" cy="14" r="1.5" fill="#A8A29E" stroke="none"/>
+          <!-- ═══ 좌측: 계통전원 ═══ -->
+          <g transform="translate(40, 60)">
+            <rect x="0" y="0" width="200" height="200" rx="6" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="0.8"/>
+            <text x="100" y="32" text-anchor="middle" font-size="11.5" font-weight="600" fill="#44403C" letter-spacing="0.16em">계통전원</text>
+            
+
+            <!-- 송전탑 미니 아이콘 -->
+            <g transform="translate(80, 62)" stroke="#C0BBB3" stroke-width="0.8" fill="none">
+              <line x1="20" y1="0" x2="20" y2="44"/>
+              <line x1="8"  y1="8"  x2="32" y2="8"/>
+              <line x1="12" y1="20" x2="28" y2="20"/>
+              <line x1="8"  y1="8"  x2="12" y2="20"/>
+              <line x1="32" y1="8"  x2="28" y2="20"/>
+              <circle cx="8"  cy="8" r="1.2" fill="#C0BBB3" stroke="none"/>
+              <circle cx="32" cy="8" r="1.2" fill="#C0BBB3" stroke="none"/>
             </g>
-            <text x="28" y="106" text-anchor="middle" font-size="9" font-weight="700" fill="#78716C" letter-spacing="0.1em">계통 전원</text>
-            <text x="28" y="118" text-anchor="middle" font-size="8" fill="#A8A29E">한전 22.9kV</text>
 
-            <!-- 입력 사인파 영역 (씬에 따라 모양 변화) -->
-            <rect x="0" y="130" width="56" height="40" rx="2" fill="#FFFFFF" stroke="#E0DBD3" stroke-width="0.8"/>
-            <line x1="4" y1="150" x2="52" y2="150" stroke="#E7E3DD" stroke-width="0.5"/>
-            <path id="hv-grid-wave" d="" fill="none" stroke="#10B981" stroke-width="1.6" stroke-linecap="round"/>
-            <text x="28" y="180" text-anchor="middle" font-size="7" font-weight="600" fill="#A8A29E" letter-spacing="0.1em" id="hv-grid-wave-label">정상</text>
+            <!-- 낙뢰 (위기 씬에서만 활성) -->
+            <g id="hv-bolt" transform="translate(106, 56)" opacity="0">
+              <path d="M 0 0 L -8 14 L 2 14 L -4 28 L 6 12 L -2 12 Z" fill="#D97757" stroke="#A8451A" stroke-width="0.8" opacity="0.85"/>
+            </g>
+
+            <!-- 사인파 영역 -->
+            <rect x="14" y="116" width="172" height="58" rx="3" fill="#FBFAF6" stroke="#E7E3DD" stroke-width="0.8"/>
+            <line x1="14" y1="145" x2="186" y2="145" stroke="#E7E3DD" stroke-width="0.5" stroke-dasharray="2 2"/>
+            <path id="hv-grid-wave" d="" fill="none" stroke="#5B926D" stroke-width="1.6" stroke-linecap="round"/>
+
+            <!-- 상태 라벨 -->
+            <rect x="14" y="184" width="172" height="1" fill="#5B926D" id="hv-grid-status-bar"/>
+            <text id="hv-grid-status" x="100" y="180" text-anchor="middle" font-size="10.5" font-weight="600" fill="#5B926D" letter-spacing="0.08em">정상</text>
           </g>
 
-          <!-- ─── 좌측에서 TSP로 가는 입력선 ─── -->
-          <line x1="76" y1="158" x2="98" y2="158" stroke="#A8A29E" stroke-width="1.2" id="hv-input-line"/>
-
-          <!-- ─── 좌측 중앙: TSP 박스 — 실제 제품 사진 + 라벨 ─── -->
-          <g id="hv-tsp" transform="translate(98, 80)">
-            <!-- 외곽 패널 -->
-            <rect x="0" y="0" width="180" height="200" rx="4" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
-            <!-- 상단 헤더 -->
-            <rect x="0" y="0" width="180" height="26" rx="4" fill="#2C3645"/>
-            <rect x="0" y="22" width="180" height="6" fill="#2C3645"/>
-            <text x="14" y="17" font-size="10" font-weight="800" fill="#FAF8F4" letter-spacing="0.04em">WESCO TSP®</text>
-            <text x="166" y="17" text-anchor="end" font-size="7.5" fill="#A8B5C8" letter-spacing="0.18em">3-PHASE</text>
-
-            <!-- 실제 제품 사진 (3상 50kVA) -->
-            <image href="images/product/three_phase_main.png" x="55" y="34" width="70" height="124" preserveAspectRatio="xMidYMid meet"/>
-
-            <!-- 측면 정보 (왼쪽) -->
-            <g transform="translate(8, 44)">
-              <text x="0" y="0" font-size="7" font-weight="700" fill="#A8A29E" letter-spacing="0.1em">CAPACITY</text>
-              <text x="0" y="12" font-size="11" font-weight="700" fill="#44403C">50 kVA</text>
-              <text x="0" y="32" font-size="7" font-weight="700" fill="#A8A29E" letter-spacing="0.1em">RESPONSE</text>
-              <text x="0" y="44" font-size="11" font-weight="700" fill="#44403C">&lt; 2 ms</text>
-              <text x="0" y="64" font-size="7" font-weight="700" fill="#A8A29E" letter-spacing="0.1em">DEPTH</text>
-              <text x="0" y="76" font-size="11" font-weight="700" fill="#44403C">100%</text>
-            </g>
-
-            <!-- 측면 정보 (오른쪽) — 보호 아이콘 + LED -->
-            <g transform="translate(132, 44)">
-              <!-- 보호 아이콘 (방패) -->
-              <g transform="translate(20, 6)">
-                <path d="M 0 -10 L -10 -6 L -10 4 a 10 10 0 0 0 10 8 a 10 10 0 0 0 10 -8 L 10 -6 z" fill="rgba(225,67,27,0.08)" stroke="#E1431B" stroke-width="1.2"/>
-                <path d="M -4 -1 L -1 3 L 5 -4" fill="none" stroke="#E1431B" stroke-width="1.4" stroke-linecap="round"/>
-              </g>
-              <text x="20" y="34" text-anchor="middle" font-size="6.5" font-weight="700" fill="#E1431B" letter-spacing="0.1em">PROTECT</text>
-              <!-- LED 상태 -->
-              <circle id="hv-tsp-led" cx="20" cy="62" r="5" fill="#10B981"/>
-              <text x="20" y="80" text-anchor="middle" font-size="6.5" font-weight="700" fill="#A8A29E" letter-spacing="0.1em" id="hv-tsp-led-label">STANDBY</text>
-            </g>
-
-            <!-- 하단 라벨 -->
-            <line x1="14" y1="170" x2="166" y2="170" stroke="#E7E3DD" stroke-width="0.5"/>
-            <text x="90" y="184" text-anchor="middle" font-size="8.5" font-weight="600" fill="#78716C" letter-spacing="0.04em">순간정전 보호 솔루션</text>
-            <text x="90" y="194" text-anchor="middle" font-size="7.5" fill="#A8A29E" letter-spacing="0.06em">Since 2001 · 8,455+ Units</text>
+          <!-- ═══ 화살표 1 (계통→TSP) ═══ -->
+          <g id="hv-arrow-1" transform="translate(240, 158)">
+            <line x1="0" y1="0" x2="64" y2="0" stroke="#C0BBB3" stroke-width="1"/>
+            <polyline points="56,-5 68,0 56,5" fill="none" stroke="#C0BBB3" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
 
-          <!-- TSP → 생산라인 연결선 + 보상 흐름 -->
-          <line x1="278" y1="158" x2="298" y2="158" stroke="#A8A29E" stroke-width="1.2"/>
-          <line id="hv-flow-line" x1="278" y1="158" x2="298" y2="158" stroke="#3B82F6" stroke-width="3" opacity="0"/>
-          <!-- 출력 사인파 (TSP가 보상 시 깨끗) -->
-          <path id="hv-out-wave" d="" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+          <!-- ═══ 중앙: TSP (EDLC 포함) ═══ -->
+          <g transform="translate(310, 60)">
+            <rect x="0" y="0" width="280" height="200" rx="6" fill="#3A4554" stroke="#525E70" stroke-width="0.8"/>
+            <text x="140" y="26" text-anchor="middle" font-size="11.5" font-weight="600" fill="#FAF8F4" letter-spacing="0.16em">WESCO TSP®</text>
+            <text x="140" y="42" text-anchor="middle" font-size="9.5" fill="#A8B5C8" letter-spacing="0.04em">순간정전 보호 시스템</text>
 
-          <!-- ─── 우측: 생산라인 (메인 — 페이지의 주인공) ─── -->
-          <g id="hv-line" transform="translate(298, 60)">
-
-            <!-- 메인 패널 -->
-            <rect x="0" y="0" width="582" height="280" rx="4" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
-
-            <!-- 라인 라벨 -->
-            <text x="20" y="26" font-size="9.5" font-weight="700" fill="#A8A29E" letter-spacing="0.18em">PRODUCTION LINE</text>
-            <text x="562" y="26" text-anchor="end" font-size="9" fill="#A8A29E" letter-spacing="0.05em" font-family="Inter">CELL A · B · C · D</text>
-            <line x1="20" y1="34" x2="562" y2="34" stroke="#E7E3DD" stroke-width="0.5"/>
-
-            <!-- 4개 설비 (단순 산업 실루엣) -->
-            <!-- CELL A: 정밀 가공 -->
-            <g transform="translate(40, 60)">
-              <!-- 베이스 -->
-              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
-              <!-- 본체 -->
-              <rect x="6" y="20" width="88" height="65" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
-              <!-- 디스플레이 -->
-              <rect x="14" y="28" width="48" height="22" rx="1" fill="#1F2937"/>
-              <rect x="16" y="30" width="44" height="3" fill="#3B82F6" opacity="0.6"/>
-              <rect x="16" y="36" width="32" height="2.5" fill="#10B981" opacity="0.7"/>
-              <rect x="16" y="42" width="38" height="2.5" fill="#A8A29E" opacity="0.7"/>
-              <!-- 컨트롤 -->
-              <rect x="68" y="30" width="22" height="22" rx="1" fill="#404040"/>
-              <circle cx="73" cy="36" r="2" fill="#10B981" class="hv-led"/>
-              <circle cx="79" cy="36" r="2" fill="#525252"/>
-              <circle cx="85" cy="36" r="2" fill="#525252"/>
-              <rect x="71" y="42" width="16" height="3" rx="0.5" fill="#525252"/>
-              <rect x="71" y="46" width="16" height="3" rx="0.5" fill="#525252"/>
-              <!-- 베이스 팻 -->
-              <rect x="14" y="58" width="72" height="22" rx="1" fill="#D6D3CD" stroke="#A8A29E" stroke-width="0.5"/>
-              <rect x="22" y="64" width="56" height="10" fill="#A8A29E"/>
-              <!-- 라벨 -->
-              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL A</text>
-              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">정밀 가공</text>
+            <!-- 내부 모듈: 감지 + EDLC + 출력 -->
+            <!-- 감지 모듈 -->
+            <g transform="translate(20, 60)">
+              <rect x="0" y="0" width="60" height="56" rx="4" fill="rgba(255,255,255,0.06)" stroke="#4F6886" stroke-width="0.8"/>
+              <text x="30" y="15" text-anchor="middle" font-size="8" font-weight="500" fill="#A8B5C8" letter-spacing="0.16em">감지</text>
+              <!-- 감지 LED -->
+              <circle id="hv-detect-led" cx="30" cy="34" r="7" fill="#5B926D"/>
+              
             </g>
 
-            <!-- CELL B: 자동화 로봇 -->
-            <g transform="translate(170, 60)">
-              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
-              <!-- 받침 -->
-              <rect x="34" y="74" width="32" height="10" rx="1" fill="#404040"/>
-              <!-- 로봇팔 베이스 -->
-              <circle cx="50" cy="74" r="6" fill="#525252"/>
-              <!-- 어깨 → 팔꿈치 → 손목 (애니메이션) -->
-              <g class="hv-robot-arm">
-                <line x1="50" y1="74" x2="50" y2="42" stroke="#404040" stroke-width="6" stroke-linecap="round"/>
-                <circle cx="50" cy="42" r="4" fill="#525252"/>
-                <g class="hv-robot-wrist">
-                  <line x1="50" y1="42" x2="64" y2="28" stroke="#404040" stroke-width="4.5" stroke-linecap="round"/>
-                  <rect x="60" y="22" width="10" height="8" rx="1" fill="#E1431B"/>
-                </g>
+            <!-- EDLC 에너지 저장소 (중앙) -->
+            <g transform="translate(100, 60)">
+              <rect x="0" y="0" width="80" height="100" rx="4" fill="rgba(91,122,168,0.08)" stroke="#5B7AA8" stroke-width="0.8"/>
+              <text x="40" y="16" text-anchor="middle" font-size="8.5" font-weight="500" fill="#A8B5C8" letter-spacing="0.12em">에너지 저장소</text>
+              
+              <!-- 배터리 막대 시각 -->
+              <g transform="translate(14, 36)">
+                <rect x="0" y="0" width="10" height="48" rx="1.5" fill="rgba(91,122,168,0.12)" stroke="#5B7AA8" stroke-width="0.5"/>
+                <rect x="14" y="0" width="10" height="48" rx="1.5" fill="rgba(91,122,168,0.12)" stroke="#5B7AA8" stroke-width="0.5"/>
+                <rect x="28" y="0" width="10" height="48" rx="1.5" fill="rgba(91,122,168,0.12)" stroke="#5B7AA8" stroke-width="0.5"/>
+                <rect x="42" y="0" width="10" height="48" rx="1.5" fill="rgba(91,122,168,0.12)" stroke="#5B7AA8" stroke-width="0.5"/>
+                <!-- 충전 레벨 (높이로 표시) -->
+                <rect id="hv-edlc-l1" x="0"  y="0" width="10" height="48" fill="#5B7AA8"/>
+                <rect id="hv-edlc-l2" x="14" y="0" width="10" height="48" fill="#5B7AA8"/>
+                <rect id="hv-edlc-l3" x="28" y="0" width="10" height="48" fill="#5B7AA8"/>
+                <rect id="hv-edlc-l4" x="42" y="0" width="10" height="48" fill="#5B7AA8"/>
               </g>
-              <!-- 컨트롤 박스 -->
-              <rect x="6" y="20" width="22" height="40" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
-              <circle cx="17" cy="28" r="2" fill="#10B981" class="hv-led"/>
-              <rect x="10" y="34" width="14" height="2" fill="#A8A29E"/>
-              <rect x="10" y="38" width="14" height="2" fill="#A8A29E"/>
-              <rect x="10" y="42" width="14" height="2" fill="#A8A29E"/>
-              <rect x="10" y="48" width="14" height="6" rx="0.5" fill="#404040"/>
-
-              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL B</text>
-              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">자동화 셀</text>
+              <text id="hv-edlc-pct" x="40" y="94" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5B7AA8" font-family="Inter">100%</text>
             </g>
 
-            <!-- CELL C: 검사 -->
-            <g transform="translate(300, 60)">
-              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
-              <rect x="6" y="20" width="88" height="65" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
-              <!-- 큰 디스플레이 (검사 화면) -->
-              <rect x="14" y="28" width="72" height="38" rx="1" fill="#0F172A"/>
-              <!-- 그리드 -->
-              <line x1="14" y1="40" x2="86" y2="40" stroke="#1E293B" stroke-width="0.5"/>
-              <line x1="14" y1="52" x2="86" y2="52" stroke="#1E293B" stroke-width="0.5"/>
-              <line x1="38" y1="28" x2="38" y2="66" stroke="#1E293B" stroke-width="0.5"/>
-              <line x1="62" y1="28" x2="62" y2="66" stroke="#1E293B" stroke-width="0.5"/>
-              <!-- 파형 -->
-              <path d="M 14 50 Q 26 38 38 50 T 62 50 T 86 50" fill="none" stroke="#22D3EE" stroke-width="1.2" opacity="0.85"/>
-              <circle cx="50" cy="48" r="2" fill="#22D3EE" class="hv-blink"/>
-              <!-- 하단 LED -->
-              <circle cx="22" cy="76" r="2.5" fill="#10B981" class="hv-led"/>
-              <circle cx="34" cy="76" r="2.5" fill="#10B981" class="hv-led"/>
-              <circle cx="46" cy="76" r="2.5" fill="#A8A29E"/>
-              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL C</text>
-              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">측정 · 검사</text>
+            <!-- 출력 모듈 -->
+            <g transform="translate(200, 60)">
+              <rect x="0" y="0" width="60" height="56" rx="4" fill="rgba(255,255,255,0.06)" stroke="#4F6886" stroke-width="0.8"/>
+              <text x="30" y="15" text-anchor="middle" font-size="8" font-weight="500" fill="#A8B5C8" letter-spacing="0.16em">출력</text>
+              <!-- 출력 사인파 -->
+              <path id="hv-tsp-out-wave" d="" fill="none" stroke="#5B926D" stroke-width="1.2" stroke-linecap="round"/>
+              
             </g>
 
-            <!-- CELL D: 컨트롤 -->
-            <g transform="translate(430, 60)">
-              <rect x="0" y="80" width="100" height="14" fill="#525252"/>
-              <rect x="6" y="20" width="88" height="65" rx="2" fill="#E5E1DA" stroke="#A8A29E" stroke-width="0.8"/>
-              <!-- HMI -->
-              <rect x="14" y="28" width="72" height="32" rx="1" fill="#1F2937"/>
-              <text x="50" y="40" text-anchor="middle" font-size="6.5" fill="#A8B5C8" letter-spacing="0.16em" font-family="Inter">STATUS</text>
-              <text x="50" y="52" text-anchor="middle" font-size="11" font-weight="800" fill="#10B981" font-family="Inter" id="hv-cell-d-text">OK</text>
-              <!-- 하단 그리드 -->
-              <rect x="14" y="64" width="22" height="14" rx="1" fill="#404040"/>
-              <rect x="40" y="64" width="22" height="14" rx="1" fill="#404040"/>
-              <rect x="66" y="64" width="20" height="14" rx="1" fill="#E1431B" opacity="0.85"/>
-              <text x="50" y="108" text-anchor="middle" font-size="8.5" font-weight="700" fill="#78716C" letter-spacing="0.06em">CELL D</text>
-              <text x="50" y="118" text-anchor="middle" font-size="7.5" fill="#A8A29E">제어 · 모니터</text>
-            </g>
+            <!-- EDLC → 출력 흐름선 (보상 시 활성) -->
+            <line id="hv-flow-edlc-out" x1="180" y1="85" x2="200" y2="85" stroke="#5B7AA8" stroke-width="2.4" opacity="0"/>
+            <!-- 감지 → EDLC 흐름선 (보상 시 활성) -->
+            <line id="hv-flow-detect-edlc" x1="80" y1="85" x2="100" y2="85" stroke="#5B7AA8" stroke-width="1.8" opacity="0"/>
 
-            <!-- 컨베이어 (라인 하단) -->
-            <g transform="translate(20, 200)">
-              <!-- 프레임 -->
-              <rect x="0" y="0" width="542" height="22" fill="#262625"/>
-              <!-- 벨트 클립 -->
-              <clipPath id="hv-conv-clip"><rect x="0" y="2" width="542" height="18"/></clipPath>
-              <g clip-path="url(#hv-conv-clip)">
-                <g class="hv-conv-anim">
-                  <rect x="0"   y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="28"  y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="56"  y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="84"  y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="112" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="140" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="168" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="196" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="224" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="252" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="280" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="308" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="336" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="364" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="392" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="420" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="448" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="476" y="4" width="22" height="14" fill="#525252"/>
-                  <rect x="504" y="4" width="22" height="14" fill="#3a3a3a"/>
-                  <rect x="532" y="4" width="22" height="14" fill="#525252"/>
-                </g>
-              </g>
-              <!-- 롤러 -->
-              <circle cx="11" cy="11" r="9" fill="#1f1f1f" stroke="#525252" stroke-width="1"/>
-              <circle cx="11" cy="11" r="3" fill="#404040"/>
-              <circle cx="531" cy="11" r="9" fill="#1f1f1f" stroke="#525252" stroke-width="1"/>
-              <circle cx="531" cy="11" r="3" fill="#404040"/>
-
-              <!-- 가공품 (벨트 위) -->
-              <g class="hv-parts-anim">
-                <rect x="50" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
-                <rect x="160" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
-                <rect x="280" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
-                <rect x="400" y="-10" width="14" height="10" rx="1" fill="#A8B5C8"/>
-              </g>
-            </g>
-
-            <!-- 라인 진행 인디케이터 -->
-            <g transform="translate(20, 244)">
-              <text x="0" y="9" font-size="8" fill="#A8A29E" letter-spacing="0.1em" font-family="Inter">LINE STATUS</text>
-              <rect x="80" y="0" width="220" height="10" rx="2" fill="#E7E3DD"/>
-              <rect x="80" y="0" width="220" height="10" rx="2" fill="#10B981" id="hv-line-bar" style="transition: fill 0.6s"/>
-              <text x="312" y="9" font-size="8.5" font-weight="700" fill="#10B981" id="hv-line-bar-text" font-family="Inter">100% RUNNING</text>
-              <text x="562" y="9" text-anchor="end" font-size="8" fill="#A8A29E" font-family="Inter">UPTIME 99.97%</text>
-            </g>
-
-          </g><!-- /hv-line -->
-
-          <!-- ─── 위기 시 표시 (씬 2 — 입력 측 작은 알림만) ─── -->
-          <g id="hv-grid-alert" opacity="0">
-            <rect x="20" y="216" width="40" height="14" rx="2" fill="#EF4444"/>
-            <text x="40" y="226" text-anchor="middle" font-size="7.5" font-weight="700" fill="#FFFFFF" letter-spacing="0.04em">SAG</text>
+            <!-- 하단 상태 -->
+            <line x1="20" y1="172" x2="260" y2="172" stroke="#4F6886" stroke-width="0.5" opacity="0.5"/>
+            <text id="hv-tsp-status" x="140" y="188" text-anchor="middle" font-size="10.5" font-weight="600" fill="#5B926D" letter-spacing="0.18em">감시 중</text>
           </g>
 
-          <!-- ─── 보상 시 표시 (씬 3 — TSP 박스 위 부드러운 글로우) ─── -->
-          <g id="hv-tsp-glow" opacity="0">
-            <rect x="74" y="94" width="192" height="172" rx="5" fill="none" stroke="#3B82F6" stroke-width="2"/>
+          <!-- ═══ 화살표 2 (TSP→생산라인) ═══ -->
+          <g id="hv-arrow-2" transform="translate(590, 158)">
+            <line x1="0" y1="0" x2="64" y2="0" stroke="#C0BBB3" stroke-width="1"/>
+            <polyline points="56,-5 68,0 56,5" fill="none" stroke="#C0BBB3" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <!-- ═══ 우측: 생산라인 ═══ -->
+          <g transform="translate(660, 60)">
+            <rect x="0" y="0" width="200" height="200" rx="6" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="0.8"/>
+            <text x="100" y="32" text-anchor="middle" font-size="11.5" font-weight="600" fill="#44403C" letter-spacing="0.16em">생산라인</text>
+            <text x="100" y="46" text-anchor="middle" font-size="9.5" fill="#A8A29E" letter-spacing="0.04em">반도체 · 자동차 · 디스플레이</text>
+
+            <!-- 공장 실루엣 (단순) -->
+            <g transform="translate(40, 62)" stroke="#A8A29E" stroke-width="0.8" fill="rgba(168,162,158,0.08)">
+              <path d="M 0 50 L 0 24 L 14 24 L 14 14 L 30 14 L 30 30 L 50 30 L 50 14 L 70 14 L 70 24 L 84 24 L 84 50 Z"/>
+              <line x1="14" y1="36" x2="20" y2="36" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
+              <line x1="34" y1="36" x2="40" y2="36" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
+              <line x1="54" y1="36" x2="60" y2="36" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
+              <line x1="74" y1="36" x2="80" y2="36" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
+              <!-- 굴뚝 -->
+              <rect x="6" y="8" width="6" height="16" fill="rgba(168,162,158,0.1)" stroke="#A8A29E" stroke-width="0.6"/>
+            </g>
+
+            <!-- 생산 펄스 LED -->
+            <circle cx="100" cy="138" r="5" fill="#5B926D" id="hv-line-pulse">
+              <animate attributeName="opacity" values="1;0.4;1" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <text x="100" y="158" text-anchor="middle" font-size="9.5" font-weight="500" fill="#5B926D" id="hv-line-status-text" letter-spacing="0.08em">정상 운전</text>
+
+            <!-- 상태바 -->
+            <rect x="14" y="172" width="172" height="1" fill="#5B926D" id="hv-line-status-bar"/>
+            <text x="100" y="188" text-anchor="middle" font-size="10.5" font-weight="600" fill="#5B926D" id="hv-line-status" letter-spacing="0.18em">정상 운전</text>
           </g>
 
         </svg>
       </div>
 
-      <!-- 하단: 카피 + 씬 토글 -->
+      <!-- 하단: 카피 + 토글 -->
       <div class="hv-bottom">
-        <p class="hv-copy" id="hvCopy">평상시 — 생산라인이 정상적으로 운전됩니다. TSP는 뒤에서 조용히 대기합니다.</p>
+        <p class="hv-copy" id="hvCopy">평상시 — 계통 전원이 안정적으로 공급되고 생산라인이 정상 운전됩니다. WESCO TSP는 전력을 그대로 통과시키며 뒤에서 조용히 대기합니다.</p>
         <div class="hv-tabs">
-          <button class="hv-tab active" data-scene="normal">① 평상시</button>
-          <button class="hv-tab" data-scene="detection">② 순간정전 발생</button>
-          <button class="hv-tab" data-scene="compensation">③ TSP 자동 보호</button>
+          <button class="hv-tab active" data-scene="normal">① 평시 감시</button>
+          <button class="hv-tab" data-scene="detection">② 낙뢰 · 계통 흔들림</button>
+          <button class="hv-tab" data-scene="compensation">③ TSP 보상</button>
           <button class="hv-tab" data-scene="return">④ 정상 복귀</button>
         </div>
       </div>
     </div>
+
+
 
 
 
@@ -1706,6 +1575,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=621"></script>
+<script src="script.js?v=625"></script>
 </body>
 </html>
