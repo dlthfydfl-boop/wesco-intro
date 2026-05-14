@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=626">
+<link rel="stylesheet" href="style.css?v=627">
 </head>
 <body>
 
@@ -346,59 +346,71 @@
             <polyline points="56,-5 68,0 56,5" fill="none" stroke="#C0BBB3" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
 
-          <!-- ═══ 우측: 생산라인 (공장 + 컨베이어 모션) ═══ -->
+          <!-- ═══ 우측: 생산라인 (공장 + 컨베이어 일체) ═══ -->
           <g transform="translate(660, 60)">
             <rect x="0" y="0" width="200" height="200" rx="6" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="0.8"/>
             <text x="100" y="32" text-anchor="middle" font-size="11.5" font-weight="600" fill="#44403C" letter-spacing="0.16em">생산라인</text>
             <text x="100" y="46" text-anchor="middle" font-size="9.5" fill="#A8A29E" letter-spacing="0.04em">반도체 · 자동차 · 디스플레이</text>
 
-            <!-- 공장 실루엣 (배경) -->
-            <g transform="translate(40, 60)" stroke="#A8A29E" stroke-width="0.8" fill="rgba(168,162,158,0.08)">
-              <path d="M 0 44 L 0 22 L 14 22 L 14 12 L 30 12 L 30 28 L 50 28 L 50 12 L 70 12 L 70 22 L 84 22 L 84 44 Z"/>
-              <!-- 창문 -->
-              <line x1="14" y1="32" x2="20" y2="32" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
-              <line x1="34" y1="32" x2="40" y2="32" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
-              <line x1="54" y1="32" x2="60" y2="32" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
-              <line x1="74" y1="32" x2="80" y2="32" stroke="#A8A29E" stroke-width="0.6" fill="none"/>
+            <!-- 공장 실루엣 (컨베이어 위) -->
+            <g transform="translate(50, 70)" stroke="#A8A29E" stroke-width="0.8" fill="rgba(168,162,158,0.08)">
+              <path d="M 0 42 L 0 22 L 14 22 L 14 12 L 30 12 L 30 28 L 50 28 L 50 12 L 70 12 L 70 22 L 84 22 L 84 42 Z"/>
+              <!-- 창문 (작은 LED 등 깜빡임) -->
+              <rect x="16" y="32" width="4" height="4" fill="rgba(91,146,109,0.5)" stroke="none" class="hv-factory-led"/>
+              <rect x="36" y="32" width="4" height="4" fill="rgba(91,146,109,0.4)" stroke="none" class="hv-factory-led" style="animation-delay:-0.6s"/>
+              <rect x="56" y="32" width="4" height="4" fill="rgba(91,146,109,0.5)" stroke="none" class="hv-factory-led" style="animation-delay:-1.2s"/>
+              <rect x="76" y="32" width="4" height="4" fill="rgba(91,146,109,0.4)" stroke="none" class="hv-factory-led" style="animation-delay:-1.8s"/>
               <!-- 굴뚝 -->
               <rect x="6" y="6" width="6" height="16" fill="rgba(168,162,158,0.1)" stroke="#A8A29E" stroke-width="0.6"/>
             </g>
 
-            <!-- 컨베이어 라인 (가동 중 모션) -->
-            <g transform="translate(14, 122)">
-              <!-- 벨트 프레임 -->
-              <rect x="0" y="0" width="172" height="20" rx="2" fill="#3F4858"/>
-              <!-- 벨트 텍스처 (이동 애니) -->
-              <clipPath id="hv-conv-clip"><rect x="0" y="2" width="172" height="16" rx="1"/></clipPath>
+            <!-- 공장→컨베이어 연결 그림자 -->
+            <ellipse cx="100" cy="116" rx="44" ry="3" fill="#000" opacity="0.05"/>
+
+            <!-- 컨베이어 라인 (공장 바로 아래) -->
+            <g transform="translate(20, 120)">
+              <!-- 벨트 프레임 (얇고 차분) -->
+              <rect x="6" y="0" width="148" height="14" rx="1.5" fill="#5A6473"/>
+              <rect x="6" y="0" width="148" height="14" rx="1.5" fill="none" stroke="#3F4858" stroke-width="0.4"/>
+
+              <!-- 벨트 텍스처 (이동 애니, 클리핑) -->
+              <clipPath id="hv-conv-clip"><rect x="6" y="1" width="148" height="12" rx="1"/></clipPath>
               <g clip-path="url(#hv-conv-clip)">
                 <g class="hv-conv-belt">
-                  <rect x="0"   y="4" width="14" height="12" fill="#525E70"/>
-                  <rect x="18"  y="4" width="14" height="12" fill="#3F4858"/>
-                  <rect x="36"  y="4" width="14" height="12" fill="#525E70"/>
-                  <rect x="54"  y="4" width="14" height="12" fill="#3F4858"/>
-                  <rect x="72"  y="4" width="14" height="12" fill="#525E70"/>
-                  <rect x="90"  y="4" width="14" height="12" fill="#3F4858"/>
-                  <rect x="108" y="4" width="14" height="12" fill="#525E70"/>
-                  <rect x="126" y="4" width="14" height="12" fill="#3F4858"/>
-                  <rect x="144" y="4" width="14" height="12" fill="#525E70"/>
-                  <rect x="162" y="4" width="14" height="12" fill="#3F4858"/>
-                  <rect x="180" y="4" width="14" height="12" fill="#525E70"/>
+                  <rect x="6"   y="3" width="11" height="8" fill="#6B7585"/>
+                  <rect x="20"  y="3" width="11" height="8" fill="#535D6C"/>
+                  <rect x="34"  y="3" width="11" height="8" fill="#6B7585"/>
+                  <rect x="48"  y="3" width="11" height="8" fill="#535D6C"/>
+                  <rect x="62"  y="3" width="11" height="8" fill="#6B7585"/>
+                  <rect x="76"  y="3" width="11" height="8" fill="#535D6C"/>
+                  <rect x="90"  y="3" width="11" height="8" fill="#6B7585"/>
+                  <rect x="104" y="3" width="11" height="8" fill="#535D6C"/>
+                  <rect x="118" y="3" width="11" height="8" fill="#6B7585"/>
+                  <rect x="132" y="3" width="11" height="8" fill="#535D6C"/>
+                  <rect x="146" y="3" width="11" height="8" fill="#6B7585"/>
+                  <rect x="160" y="3" width="11" height="8" fill="#535D6C"/>
                 </g>
               </g>
-              <!-- 가공품 (벨트 위, 천천히 이동) -->
-              <g class="hv-conv-parts">
-                <rect x="20"  y="-8" width="10" height="8" rx="1" fill="#A8B5C8"/>
-                <rect x="80"  y="-8" width="10" height="8" rx="1" fill="#A8B5C8"/>
-                <rect x="140" y="-8" width="10" height="8" rx="1" fill="#A8B5C8"/>
+
+              <!-- 가공품 (벨트 위에 자연스럽게, 클리핑 안에서만) -->
+              <clipPath id="hv-parts-clip"><rect x="6" y="-8" width="148" height="22"/></clipPath>
+              <g clip-path="url(#hv-parts-clip)">
+                <g class="hv-conv-parts">
+                  <rect x="20"  y="-5" width="9" height="6" rx="0.8" fill="#9DA8B8" stroke="#6B7585" stroke-width="0.3"/>
+                  <rect x="65"  y="-5" width="9" height="6" rx="0.8" fill="#9DA8B8" stroke="#6B7585" stroke-width="0.3"/>
+                  <rect x="110" y="-5" width="9" height="6" rx="0.8" fill="#9DA8B8" stroke="#6B7585" stroke-width="0.3"/>
+                  <rect x="155" y="-5" width="9" height="6" rx="0.8" fill="#9DA8B8" stroke="#6B7585" stroke-width="0.3"/>
+                </g>
               </g>
-              <!-- 롤러 -->
-              <circle cx="8"   cy="10" r="6" fill="#262625" stroke="#525E70" stroke-width="0.6"/>
-              <circle cx="8"   cy="10" r="2" fill="#525E70"/>
-              <circle cx="164" cy="10" r="6" fill="#262625" stroke="#525E70" stroke-width="0.6"/>
-              <circle cx="164" cy="10" r="2" fill="#525E70"/>
+
+              <!-- 롤러 (벨트와 정확히 정합) -->
+              <circle cx="6"   cy="7" r="6.5" fill="#3F4858" stroke="#5A6473" stroke-width="0.5"/>
+              <circle cx="6"   cy="7" r="2" fill="#5A6473"/>
+              <circle cx="154" cy="7" r="6.5" fill="#3F4858" stroke="#5A6473" stroke-width="0.5"/>
+              <circle cx="154" cy="7" r="2" fill="#5A6473"/>
             </g>
 
-            <!-- 생산 펄스 LED -->
+            <!-- 생산 펄스 LED + 상태 -->
             <circle cx="100" cy="158" r="4" fill="#5B926D" id="hv-line-pulse">
               <animate attributeName="opacity" values="1;0.4;1" dur="3.2s" repeatCount="indefinite"/>
             </circle>
@@ -1602,6 +1614,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=626"></script>
+<script src="script.js?v=627"></script>
 </body>
 </html>

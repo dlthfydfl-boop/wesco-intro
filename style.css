@@ -3272,22 +3272,32 @@ img, svg { max-width: 100%; }
   opacity: 0.7;
 }
 
-/* 컨베이어 모션 — 부드럽게 */
+/* 컨베이어 벨트 — 부드러운 무한 이동 (14px 패턴 단위) */
 @keyframes hv-conv-belt-move {
   from { transform: translateX(0); }
-  to   { transform: translateX(-18px); }
+  to   { transform: translateX(-14px); }
 }
 .hv-conv-belt {
-  animation: hv-conv-belt-move 1.5s linear infinite;
+  animation: hv-conv-belt-move 1.8s linear infinite;
 }
 
-/* 가공품 — 천천히 우→좌 이동 */
+/* 가공품 — 좌→우 (벨트 진행 방향과 일치) 천천히 */
 @keyframes hv-conv-parts-move {
-  from { transform: translateX(180px); }
-  to   { transform: translateX(-30px); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(45px); }
 }
 .hv-conv-parts {
-  animation: hv-conv-parts-move 9s linear infinite;
+  animation: hv-conv-parts-move 4s linear infinite;
+}
+
+/* 공장 창문 LED 깜빡임 (천천히, 자연스럽게) */
+@keyframes hv-factory-led-blink {
+  0%, 80%   { opacity: 1; }
+  85%, 95%  { opacity: 0.3; }
+  100%      { opacity: 1; }
+}
+.hv-factory-led {
+  animation: hv-factory-led-blink 4s ease-in-out infinite;
 }
 
 /* TSP 사진 글로우 (보상 시) */
@@ -3327,7 +3337,7 @@ img, svg { max-width: 100%; }
   .hv-copy { font-size: 13px; min-height: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #hv-bolt.active, .hv-flow-active, .hv-conv-belt, .hv-conv-parts {
+  #hv-bolt.active, .hv-flow-active, .hv-conv-belt, .hv-conv-parts, .hv-factory-led {
     animation: none !important;
   }
 }
