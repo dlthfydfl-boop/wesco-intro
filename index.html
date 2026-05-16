@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=630">
+<link rel="stylesheet" href="style.css?v=631">
 </head>
 <body>
 
@@ -160,6 +160,16 @@
       <p class="section-sub">단순한 전력 문제가 아니라 — <strong>비즈니스 연속성의 문제</strong></p>
     </div>
 
+    <!-- 예방 가능한 전기사고 강조 배너 (v6.31) -->
+    <div class="need-banner" data-reveal>
+      <div class="need-banner-tag">DEFINITION</div>
+      <div class="need-banner-text">
+        순간정전(SAG)은 <span class="nb-strike">불가항력적인 자연재해</span>가 아니라,<br>
+        <strong>예방 가능한 전기 사고</strong>입니다.
+      </div>
+      <div class="need-banner-sub">올바른 전압 안정화 솔루션 적용 시 <strong>100% 보호</strong> 가능</div>
+    </div>
+
     <!-- 손실 비용 시각화 — 시간×손실 -->
     <div class="cost-visual" data-reveal-stagger>
       <div class="cost-card">
@@ -232,6 +242,95 @@
             </ul>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 부하 분류에 따른 전압 안정화 솔루션 합리화 (v6.31) -->
+    <div class="load-matrix" data-reveal>
+      <div class="load-matrix-head">
+        <div class="load-matrix-eyebrow">LOAD CLASSIFICATION</div>
+        <h3 class="load-matrix-title">부하 분류에 따른 전압 안정화 솔루션</h3>
+        <p class="load-matrix-sub">
+          반도체 FAB의 모든 설비는 동일한 보호가 필요하지 않습니다.
+          <strong>부하 특성에 맞는 솔루션 조합</strong>이 가장 합리적입니다.
+        </p>
+      </div>
+
+      <div class="load-matrix-grid" data-reveal-stagger>
+        <!-- UPS -->
+        <article class="load-card load-card-ups">
+          <div class="load-card-head">
+            <span class="load-card-tag">UPS</span>
+            <span class="load-card-class">비상 부하</span>
+          </div>
+          <h4 class="load-card-title">정지 사고 손실이 막대한 부하</h4>
+          <ul class="load-card-feat">
+            <li>설비 정지 시 회복 불가능한 손실</li>
+            <li>장시간 정전 백업 필요</li>
+            <li>재기동에 초장시간 소요</li>
+          </ul>
+          <div class="load-card-apply">
+            <div class="lc-apply-label">반도체 FAB 적용 예</div>
+            <div class="lc-apply-list">
+              · CIM·MES·EAP 서버<br>
+              · 클린룸 모니터링·제어 시스템<br>
+              · 비상 조명·보안·통신 인프라
+            </div>
+          </div>
+        </article>
+
+        <!-- TSP — 강조 -->
+        <article class="load-card load-card-tsp">
+          <div class="load-card-head">
+            <span class="load-card-tag load-card-tag-em">TSP®</span>
+            <span class="load-card-class">주요 설비</span>
+          </div>
+          <h4 class="load-card-title">전압 품질 민감 + 연속 공정 설비</h4>
+          <ul class="load-card-feat">
+            <li>순간정전 시 라인 전체 정지</li>
+            <li>장시간 백업은 불필요 (1초 보상)</li>
+            <li>재기동 자체가 비용 (수율·재료 손실)</li>
+          </ul>
+          <div class="load-card-apply">
+            <div class="lc-apply-label">반도체 FAB 적용 예</div>
+            <div class="lc-apply-list">
+              · STEPPER · TRACK · ETCH · CVD · CMP<br>
+              · 디스플레이 LCD/OLED 코팅·증착 라인<br>
+              · 자동차 도장·용접·로봇 라인
+            </div>
+          </div>
+        </article>
+
+        <!-- N/A -->
+        <article class="load-card load-card-na">
+          <div class="load-card-head">
+            <span class="load-card-tag">N/A</span>
+            <span class="load-card-class">일반 부하</span>
+          </div>
+          <h4 class="load-card-title">사고 피해가 심각하지 않은 부하</h4>
+          <ul class="load-card-feat">
+            <li>정지 시 즉시 재기동 가능</li>
+            <li>품질·수율 영향 없음</li>
+            <li>별도 보호 솔루션 불필요</li>
+          </ul>
+          <div class="load-card-apply">
+            <div class="lc-apply-label">반도체 FAB 적용 예</div>
+            <div class="lc-apply-list">
+              · 일반 사무 / 조명 / HVAC<br>
+              · 비공정 영역 단순 모터<br>
+              · 일반 운반·물류 설비
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- 상호 보완 메시지 -->
+      <div class="load-matrix-note">
+        <span class="lmn-icon">◆</span>
+        <span class="lmn-text">
+          <strong>UPS와 TSP는 서로 대체재가 아닌 상호 보완적 솔루션</strong>입니다.
+          비상 부하는 UPS, 주요 공정 설비는 무배터리 TSP — 부하 특성별 적용이 가장 합리적입니다.
+        </span>
       </div>
     </div>
   </section>
@@ -1585,6 +1684,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=630"></script>
+<script src="script.js?v=631"></script>
 </body>
 </html>
