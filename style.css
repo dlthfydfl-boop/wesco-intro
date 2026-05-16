@@ -20,7 +20,7 @@
   --c-accent-lt: #EBF0F7;
   --c-green: #4F926D;
   --c-green-lt: #E5EFE9;
-  --c-dark: #1F1D1A;
+  --c-dark: #2E2826;  /* v6.32: 검정 → 웜 다크 (#1F1D1A → #2E2826, viewer 톤 통일) */
 
   --font-ko: 'Noto Sans KR', '맑은 고딕', sans-serif;
   --font-en: 'Inter', Arial, sans-serif;
