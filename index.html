@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=632">
+<link rel="stylesheet" href="style.css?v=633">
 </head>
 <body>
 
@@ -331,6 +331,70 @@
           <strong>UPS와 TSP는 서로 대체재가 아닌 상호 보완적 솔루션</strong>입니다.
           비상 부하는 UPS, 주요 공정 설비는 무배터리 TSP — 부하 특성별 적용이 가장 합리적입니다.
         </span>
+      </div>
+    </div>
+
+    <!-- FAB 공정별 보상 표준 매트릭스 (v6.33, 텍스트 최소화) -->
+    <div class="fab-matrix" data-reveal>
+      <div class="fab-matrix-head">
+        <div class="fab-matrix-eyebrow">SEMI F47-0706</div>
+        <h3 class="fab-matrix-title">반도체 FAB 공정별 보상 표준</h3>
+      </div>
+
+      <div class="fab-matrix-table">
+        <!-- 컬럼 헤더 -->
+        <div class="fm-row fm-row-head">
+          <div class="fm-cell fm-cell-rowlabel"></div>
+          <div class="fm-cell fm-col-tsp">
+            <div class="fm-col-tag">1초 보상</div>
+            <div class="fm-col-sub">무배터리 TSP</div>
+          </div>
+          <div class="fm-cell fm-col-ups">
+            <div class="fm-col-tag">30분 보상</div>
+            <div class="fm-col-sub">Battery UPS</div>
+          </div>
+          <div class="fm-cell fm-col-gen">
+            <div class="fm-col-tag">무한 보상</div>
+            <div class="fm-col-sub">UPS + 발전기</div>
+          </div>
+        </div>
+
+        <!-- 메인 장비 -->
+        <div class="fm-row">
+          <div class="fm-cell fm-cell-rowlabel">
+            <strong>메인 장비</strong>
+            <span>Process Tools</span>
+          </div>
+          <div class="fm-cell fm-cell-tsp">Etch · CVD · Sputter<br>Clean · Implanter · CMP · RTP</div>
+          <div class="fm-cell">Photo STEPPER</div>
+          <div class="fm-cell">Diffusion (KE · TEL)</div>
+        </div>
+
+        <!-- 컴퍼넌트 -->
+        <div class="fm-row">
+          <div class="fm-cell fm-cell-rowlabel">
+            <strong>컴퍼넌트</strong>
+            <span>Sub-systems</span>
+          </div>
+          <div class="fm-cell fm-cell-tsp">Vacuum · Chiller · H/EX<br>Hot DI · Gas Cabinet · CCSS</div>
+          <div class="fm-cell fm-cell-dim">—</div>
+          <div class="fm-cell">SCRUBBER <span class="fm-note">(권장)</span></div>
+        </div>
+
+        <!-- 유틸리티 -->
+        <div class="fm-row">
+          <div class="fm-cell fm-cell-rowlabel">
+            <strong>유틸리티</strong>
+            <span>Facility Utility</span>
+          </div>
+          <div class="fm-cell fm-cell-tsp">냉동기 · DI · Boiler<br>Gas Plant · AHU · Exhaust</div>
+          <div class="fm-cell">PCW</div>
+          <div class="fm-cell">Air Compressor (CDA)</div>
+        </div>
+      </div>
+
+      <div class="fab-matrix-foot">
+        <span>출처 · SEMI F47-0706 기반 WESCO 운영 가이드</span>
       </div>
     </div>
   </section>
@@ -1684,6 +1748,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=632"></script>
+<script src="script.js?v=633"></script>
 </body>
 </html>

@@ -3419,6 +3419,127 @@ img, svg { max-width: 100%; }
 }
 
 /* ============================================================
+   ★ FAB 보상 매트릭스 (v6.33) — 텍스트 최소화, 미니멀 톤
+   ============================================================ */
+.fab-matrix {
+  margin: 40px 0 8px;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--c-divider);
+}
+.fab-matrix-head { margin-bottom: 22px; }
+.fab-matrix-eyebrow {
+  font-family: var(--font-en);
+  font-size: 10.5px; font-weight: 700;
+  color: var(--c-red);
+  letter-spacing: 0.22em;
+  margin-bottom: 8px;
+}
+.fab-matrix-title {
+  font-size: 22px; font-weight: 600;
+  color: var(--c-head);
+  margin: 0;
+  letter-spacing: -0.018em;
+}
+
+.fab-matrix-table {
+  border: 1px solid var(--c-divider);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--c-bg);
+}
+.fm-row {
+  display: grid;
+  grid-template-columns: 140px 1.7fr 1fr 1fr;
+  align-items: stretch;
+  border-bottom: 1px solid var(--c-divider);
+}
+.fm-row:last-child { border-bottom: none; }
+
+.fm-row-head {
+  background: var(--c-bg-soft);
+  border-bottom: 1px solid var(--c-divider);
+}
+.fm-cell {
+  padding: 14px 16px;
+  font-size: 12.5px;
+  color: var(--c-text);
+  border-right: 1px solid var(--c-divider);
+  line-height: 1.55;
+  word-break: keep-all;
+}
+.fm-cell:last-child { border-right: none; }
+
+/* 행 라벨 (좌측 첫 컬럼) */
+.fm-cell-rowlabel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--c-bg-soft);
+  border-right: 1px solid var(--c-divider);
+}
+.fm-cell-rowlabel strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-head);
+  display: block;
+  margin-bottom: 2px;
+}
+.fm-cell-rowlabel span {
+  font-family: var(--font-en);
+  font-size: 9.5px;
+  color: var(--c-gray-lt);
+  letter-spacing: 0.06em;
+}
+
+/* 헤더 컬럼 태그 */
+.fm-col-tag {
+  font-family: var(--font-ko);
+  font-size: 12px; font-weight: 700;
+  color: var(--c-head);
+  letter-spacing: -0.01em;
+}
+.fm-col-sub {
+  font-size: 10.5px;
+  color: var(--c-gray);
+  margin-top: 2px;
+  letter-spacing: 0.04em;
+}
+.fm-col-tsp .fm-col-tag { color: var(--c-red); }
+.fm-col-tsp .fm-col-sub { color: var(--c-red); opacity: 0.7; }
+
+/* TSP 컬럼 강조 */
+.fm-cell-tsp {
+  background: rgba(225,67,27,0.04);
+  color: var(--c-head);
+  font-weight: 500;
+}
+.fm-cell-dim { color: var(--c-gray-lt); text-align: center; }
+.fm-note {
+  font-size: 10.5px;
+  color: var(--c-gray);
+  margin-left: 4px;
+}
+
+.fab-matrix-foot {
+  margin-top: 10px;
+  text-align: right;
+  font-family: var(--font-en);
+  font-size: 10.5px;
+  color: var(--c-gray-lt);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 1024px) {
+  .fm-row { grid-template-columns: 110px 1.5fr 0.9fr 1fr; }
+  .fm-cell { padding: 12px 12px; font-size: 11.5px; }
+  .fm-cell-rowlabel strong { font-size: 12px; }
+}
+@media (max-width: 768px) {
+  .fab-matrix-table { overflow-x: auto; }
+  .fm-row { grid-template-columns: 100px 1.4fr 0.8fr 1fr; min-width: 640px; }
+}
+
+/* ============================================================
    ★ HOW V2 — 매우 단순 3박스 + EDLC 보상 (v6.23)
    ============================================================ */
 .how-v2 {
