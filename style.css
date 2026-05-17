@@ -1318,73 +1318,26 @@ body.cursor-active .cursor-glow { opacity: 1; }
 #sagDots.in-view circle:nth-child(21) { transition-delay: 1.26s; }
 
 /* ============================================================
-   09. EXECUTIVE QA
+   Contact — 부가 채널 + 통합 푸터 (v6.36 통합)
    ============================================================ */
-.section-qa { background: var(--c-bg-soft); }
-
-.qa-head { margin-bottom: 56px; max-width: 880px; }
-.qa-head .section-no { letter-spacing: 0.22em; font-size: 11px; padding-bottom: 6px; margin-bottom: 18px; }
-.qa-head .section-title { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; }
-.qa-head .section-sub { font-size: 15px; color: var(--c-gray); margin-top: 14px; max-width: 720px; line-height: 1.65; }
-
-.qa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-.qa-card {
-  background: var(--c-bg); border: 1px solid var(--c-divider);
-  border-radius: 4px; padding: 38px 32px 34px;
-  transition: border-color 0.4s, transform 0.4s;
+.contact-channels {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 8px 28px; margin-top: 28px; padding: 18px 16px;
+  border-top: 1px solid var(--c-divider);
+  border-bottom: 1px solid var(--c-divider);
 }
-.qa-card:hover { border-color: var(--c-head); }
-
-.qa-tag {
-  display: inline-block;
-  font-family: var(--font-en); font-size: 11px; font-weight: 600;
-  color: var(--c-red); letter-spacing: 0.2em;
-  margin-bottom: 22px; padding-bottom: 6px;
-  border-bottom: 1px solid var(--c-red);
+.cc-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500; color: var(--c-sub);
+  text-decoration: none; transition: color 0.25s;
+  letter-spacing: 0.01em;
 }
+.cc-link svg { color: var(--c-gray-lt); transition: color 0.25s; }
+.cc-link:hover { color: var(--c-red); }
+.cc-link:hover svg { color: var(--c-red); }
 
-.qa-q {
-  font-size: 19px; font-weight: 700; color: var(--c-head);
-  line-height: 1.45; margin-bottom: 18px;
-  letter-spacing: -0.015em; min-height: 56px;
-}
-
-.qa-a {
-  font-size: 14.5px; line-height: 1.85;
-  color: var(--c-text); font-weight: 400;
-}
-.qa-a strong { color: var(--c-head); font-weight: 600; }
-
-/* ============================================================
-   10. Contact
-   ============================================================ */
-.section-contact { background: var(--c-bg); }
-.contact-inner { width: 100%; }
-
-.contact-head { text-align: center; margin-bottom: 36px; }
-.contact-head .section-no { display: inline-block; margin-bottom: 14px; }
-
-.contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px; }
-
-.contact-card {
-  background: var(--c-bg); border: 1px solid var(--c-divider);
-  border-radius: 4px; padding: 26px 22px;
-  text-decoration: none; text-align: center; transition: all 0.4s;
-}
-.contact-card:hover { border-color: var(--c-red); transform: translateY(-4px); box-shadow: 0 12px 28px color-mix(in srgb, var(--c-red) 14%, transparent); }
-.contact-card-yt:hover { border-color: #FF0000; box-shadow: 0 12px 28px color-mix(in srgb, #FF0000 22%, transparent); }
-.contact-card-yt:hover .contact-tag { color: #FF0000; }
-
-.contact-tag {
-  font-family: var(--font-en); font-size: 11px; font-weight: 600;
-  color: var(--c-red); letter-spacing: 0.18em; margin-bottom: 12px;
-}
-.contact-name { font-size: 17px; font-weight: 700; color: var(--c-head); margin-bottom: 8px; }
-.contact-val { font-family: var(--font-en); font-size: 13px; color: var(--c-gray); word-break: break-all; }
-
-.contact-footer { text-align: center; padding-top: 24px; border-top: 1px solid var(--c-divider); }
-.cf-logo { width: 100px; margin: 0 auto 10px; }
+.contact-footer { text-align: center; padding-top: 28px; }
+.cf-logo { width: 92px; margin: 0 auto 10px; }
 .cf-line { font-family: var(--font-en); font-size: 12.5px; color: var(--c-text); margin-bottom: 8px; letter-spacing: 0.05em; }
 .cf-meta { font-family: var(--font-ko); font-size: 11px; color: var(--c-gray-lt); }
 
@@ -1437,9 +1390,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
     grid-template-columns: 1fr;
   }
   .need-impact { grid-template-columns: 1fr; }
-  .qa-grid { grid-template-columns: 1fr; }
-  .products-photo-grid, .cases-grid-compact, .network-grid, .contact-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-photo-grid, .cases-grid-compact, .network-grid { grid-template-columns: 1fr; }
   .cases-grid-compact { grid-template-columns: repeat(2, 1fr); }
 
   .report-meta-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1451,7 +1402,6 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .section { padding: 40px 18px; }
   .kw-grid { grid-template-columns: 1fr; }
   .hero-metrics { grid-template-columns: 1fr; gap: 12px; }
-  .contact-grid { grid-template-columns: 1fr; }
   .ind-table { grid-template-columns: repeat(2, 1fr); }
   .ind-col-num { font-size: 17px; }
   .cases-grid-compact { grid-template-columns: 1fr; }
@@ -2739,14 +2689,6 @@ body.cursor-active .cursor-glow { opacity: 1; }
 
   /* 글로벌 네트워크 국기 */
   .region-tags span { padding: 6px 10px; font-size: 12px; }
-
-  /* QA 카드 */
-  .qa-card { padding: 16px 18px; }
-  .qa-q { font-size: 15px; }
-  .qa-a { font-size: 13px; }
-
-  /* 푸터 contact */
-  .contact-grid { gap: 12px; }
 }
 
 /* === 작은 모바일 (≤ 480px) — iPhone SE 등 === */
@@ -3097,8 +3039,6 @@ img, svg { max-width: 100%; }
 .hero-metrics,
 .how-metrics,
 .cause-grid,
-.qa-grid,
-.contact-grid,
 .products-photo-grid,
 .cases-grid-compact,
 .network-grid,
@@ -3117,8 +3057,6 @@ img, svg { max-width: 100%; }
 .hero-metrics > *,
 .how-metrics > *,
 .cause-grid > *,
-.qa-grid > *,
-.contact-grid > *,
 .products-photo-grid > *,
 .cases-grid-compact > *,
 .network-grid > *,
@@ -3159,7 +3097,7 @@ img, svg { max-width: 100%; }
   .section { padding: 40px 16px; }
   .hero-title { font-size: 36px; line-height: 1.18; }
   .section-title { font-size: 24px; }
-  .section-sub, .qa-head .section-sub { font-size: 13.5px; }
+  .section-sub { font-size: 13.5px; }
 
   /* how 섹션: SVG 컨테이너 강제 축소 + 가로 스크롤 차단 */
   .how-stage, .product-frame, .how-product, .how-inside, .how-info {
