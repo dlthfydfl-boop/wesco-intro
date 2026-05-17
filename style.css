@@ -1065,45 +1065,91 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .case-mini p { font-size: 12px; line-height: 1.5; color: var(--c-text); }
 
 /* ============================================================
-   07. 글로벌 네트워크
+   07. 글로벌 네트워크 — 세계지도 + 거점 (v6.37)
    ============================================================ */
-.network-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
-
-.network-card {
-  background: var(--c-bg); border: 1px solid var(--c-divider);
-  border-radius: 4px; padding: 26px 28px;
-  transition: all 0.4s;
+.net-metrics {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--c-divider);
+  border: 1px solid var(--c-divider); border-radius: 4px;
+  overflow: hidden; margin-bottom: 36px;
 }
-.network-card:hover { border-color: var(--c-red); transform: translateY(-3px); box-shadow: 0 10px 24px color-mix(in srgb, var(--c-head) 8%, transparent); }
-.network-card-em { background: var(--c-red-lt); border-color: var(--c-red); }
-
-.net-tag {
-  font-family: var(--font-en); font-size: 10.5px; font-weight: 600;
-  color: var(--c-gray); letter-spacing: 0.18em; margin-bottom: 10px;
+.nm-item {
+  background: var(--c-bg); padding: 22px 24px;
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  transition: background 0.25s;
 }
-.network-card-em .net-tag { color: var(--c-red); }
-
-.net-num {
-  font-family: var(--font-en); font-size: 40px; font-weight: 700;
-  color: var(--c-head); line-height: 1; margin-bottom: 12px;
-  letter-spacing: -0.03em;
+.nm-item:hover { background: var(--c-bg-soft); }
+.nm-item-em { background: var(--c-red-lt); }
+.nm-num {
+  font-family: var(--font-en); font-size: 34px; font-weight: 700;
+  color: var(--c-head); letter-spacing: -0.03em; line-height: 1;
 }
-.net-num span { font-size: 16px; color: var(--c-red); margin-left: 5px; font-weight: 500; }
+.nm-item-em .nm-num { color: var(--c-red); }
+.nm-unit { font-size: 14px; color: var(--c-red); font-weight: 500; margin-right: 12px; }
+.nm-label { font-size: 13px; color: var(--c-text); font-weight: 500; }
 
-.net-h { font-size: 14px; font-weight: 700; color: var(--c-head); margin-bottom: 6px; }
-.network-card p { font-size: 13px; color: var(--c-text); line-height: 1.55; }
+/* 세계지도 */
+.world-map-wrap { max-width: 920px; margin: 0 auto; }
+.world-map {
+  width: 100%; height: auto; display: block;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-divider); border-radius: 6px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.wm-continents path {
+  fill: #EAE6DF; stroke: #D6D1C7; stroke-width: 0.6;
+}
+.wm-dots circle {
+  fill: var(--c-red); opacity: 0.78;
+}
+.wm-dot-main {
+  fill: var(--c-red);
+  animation: wm-pulse 2.6s ease-in-out infinite;
+}
+.wm-ring {
+  fill: none; stroke: var(--c-red); stroke-width: 1.4;
+  opacity: 0.45;
+  transform-origin: center;
+  animation: wm-ring-pulse 2.6s ease-in-out infinite;
+}
+@keyframes wm-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@keyframes wm-ring-pulse {
+  0%, 100% { stroke-opacity: 0.45; r: 11; }
+  50% { stroke-opacity: 0.15; r: 16; }
+}
+.wm-label-main {
+  font-family: var(--font-en); font-size: 11px; font-weight: 700;
+  fill: var(--c-head); letter-spacing: 0.02em;
+}
 
-.region-strip { background: var(--c-bg-soft); border-radius: 4px; padding: 20px 24px; }
-.region-h {
-  font-family: var(--font-en); font-size: 11.5px; font-weight: 600;
-  color: var(--c-head); letter-spacing: 0.15em; margin-bottom: 12px;
+.wm-legend {
+  display: flex; justify-content: center; gap: 28px;
+  margin-top: 14px; font-size: 12px; color: var(--c-sub);
 }
-.region-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.region-tags span {
-  font-size: 12.5px; color: var(--c-text);
-  padding: 5px 13px; background: var(--c-bg);
-  border: 1px solid var(--c-divider); border-radius: 2px;
+.wml-item { display: inline-flex; align-items: center; gap: 7px; }
+.wml-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--c-red); opacity: 0.78;
 }
+.wml-dot-main {
+  width: 11px; height: 11px;
+  background: var(--c-red); opacity: 1;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-red) 25%, transparent);
+}
+
+.wm-countries {
+  margin-top: 18px; padding: 14px 18px;
+  background: var(--c-bg-soft);
+  border-radius: 4px;
+  font-size: 12.5px; color: var(--c-text); line-height: 1.8;
+  text-align: center;
+  word-break: keep-all;
+}
+.wm-countries strong { color: var(--c-red); font-weight: 700; margin-right: 6px; }
 
 /* ============================================================
    08. Performance Report — 실제 보고서 양식
@@ -1390,7 +1436,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
     grid-template-columns: 1fr;
   }
   .need-impact { grid-template-columns: 1fr; }
-  .products-photo-grid, .cases-grid-compact, .network-grid { grid-template-columns: 1fr; }
+  .products-photo-grid, .cases-grid-compact { grid-template-columns: 1fr; }
   .cases-grid-compact { grid-template-columns: repeat(2, 1fr); }
 
   .report-meta-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1805,18 +1851,6 @@ body.cursor-active .cursor-glow { opacity: 1; }
 
 .cert-mark-card { padding: 16px 12px; }
 
-/* 글로벌 네트워크 — 국기 */
-.region-tags span {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 6px 14px;
-}
-
-.flag {
-  font-style: normal;
-  font-size: 14px;
-  line-height: 1;
-}
-
 /* 1024 반응형 추가 */
 @media (max-width: 1024px) {
   .loss-split { grid-template-columns: 1fr; }
@@ -1825,24 +1859,8 @@ body.cursor-active .cursor-glow { opacity: 1; }
 }
 
 /* ============================================================
-   v6.4 — Flag images + Light REPORT Modal (페이지 톤)
+   v6.4 — Light REPORT Modal (페이지 톤)
    ============================================================ */
-
-/* 국기 이미지 */
-.flag-img {
-  width: 22px;
-  height: 14px;
-  object-fit: cover;
-  display: inline-block;
-  vertical-align: middle;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
-  flex-shrink: 0;
-}
-
-.region-tags span img.flag-img {
-  margin-right: 2px;
-}
 
 /* REPORT 모달 — Light 테마 (페이지 톤 통일) */
 .vf-modal-frame-light {
@@ -2687,8 +2705,6 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .mc-name { font-size: 13px; }
   .mc-name-em { font-size: 16px; }
 
-  /* 글로벌 네트워크 국기 */
-  .region-tags span { padding: 6px 10px; font-size: 12px; }
 }
 
 /* === 작은 모바일 (≤ 480px) — iPhone SE 등 === */
@@ -3041,7 +3057,6 @@ img, svg { max-width: 100%; }
 .cause-grid,
 .products-photo-grid,
 .cases-grid-compact,
-.network-grid,
 .news-grid,
 .seq-timeline,
 .ind-table,
@@ -3059,7 +3074,6 @@ img, svg { max-width: 100%; }
 .cause-grid > *,
 .products-photo-grid > *,
 .cases-grid-compact > *,
-.network-grid > *,
 .news-grid > *,
 .seq-timeline > *,
 .ind-table > *,

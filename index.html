@@ -17,13 +17,13 @@
 <meta name="twitter:description" content="0.1초의 전압 저하만으로 라인은 멈춥니다. 25년 검증된 TSP 솔루션.">
 <meta name="twitter:image" content="https://dlthfydfl-boop.github.io/wesco-intro/images/company/factory.jpg">
 <link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/">
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=636">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=636">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=636">
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=637">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=637">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=637">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=636">
+<link rel="stylesheet" href="style.css?v=637">
 </head>
 <body>
 
@@ -1480,46 +1480,59 @@
       <p class="section-sub">국내 5사 · 해외 7사 + 글로벌 기술지원센터 — <strong>현지 즉시 대응</strong></p>
     </div>
 
-    <div class="network-grid" data-reveal-stagger>
-      <div class="network-card">
-        <div class="net-tag">국내</div>
-        <div class="net-num">5 <span>개사</span></div>
-        <div class="net-h">국내 영업·기술망</div>
-        <p>전국 권역 커버리지 · A/S 통합 운영</p>
-      </div>
-      <div class="network-card network-card-em">
-        <div class="net-tag">해외</div>
-        <div class="net-num">7 <span>개사</span></div>
-        <div class="net-h">해외 영업·기술망</div>
-        <p>중국 · 동남아 · 유럽 · 미국 거점</p>
-      </div>
-      <div class="network-card">
-        <div class="net-tag">지원</div>
-        <div class="net-num">16 <span>개국</span></div>
-        <div class="net-h">글로벌 기술지원센터</div>
-        <p>한국 본사 + 해외 거점 연동 — 현지 즉시 대응</p>
-      </div>
+    <!-- 핵심 지표 한 줄 -->
+    <div class="net-metrics" data-reveal-stagger>
+      <div class="nm-item"><span class="nm-num">5</span><span class="nm-unit">개사</span><span class="nm-label">국내 영업·기술망</span></div>
+      <div class="nm-item nm-item-em"><span class="nm-num">7</span><span class="nm-unit">개사</span><span class="nm-label">해외 영업·기술망</span></div>
+      <div class="nm-item"><span class="nm-num">16</span><span class="nm-unit">개국</span><span class="nm-label">글로벌 기술지원센터</span></div>
     </div>
 
-    <div class="region-strip">
-      <div class="region-h">글로벌 서비스 네트워크 — 16개국</div>
-      <div class="region-tags">
-        <span><img class="flag-img" src="https://flagcdn.com/w40/kr.png" alt="KR" loading="lazy">대한민국</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/cn.png" alt="CN" loading="lazy">중국</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/vn.png" alt="VN" loading="lazy">베트남</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/id.png" alt="ID" loading="lazy">인도네시아</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/my.png" alt="MY" loading="lazy">말레이시아</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/in.png" alt="IN" loading="lazy">인도</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/jp.png" alt="JP" loading="lazy">일본</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/tw.png" alt="TW" loading="lazy">대만</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/us.png" alt="US" loading="lazy">미국</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/de.png" alt="DE" loading="lazy">독일</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/pl.png" alt="PL" loading="lazy">폴란드</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/hu.png" alt="HU" loading="lazy">헝가리</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/cz.png" alt="CZ" loading="lazy">체코</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/sk.png" alt="SK" loading="lazy">슬로바키아</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/tr.png" alt="TR" loading="lazy">터키</span>
-        <span><img class="flag-img" src="https://flagcdn.com/w40/mx.png" alt="MX" loading="lazy">멕시코</span>
+    <!-- 세계지도 — 16개국 거점 표시 -->
+    <div class="world-map-wrap" data-reveal>
+      <svg class="world-map" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" aria-label="WESCO 글로벌 네트워크 16개국 지도">
+        <!-- 대륙 윤곽 (단순화) -->
+        <g class="wm-continents">
+          <path d="M 110 60 Q 130 50 200 60 L 280 80 L 305 130 L 310 180 L 295 220 L 270 245 L 230 252 L 195 240 L 160 220 L 130 185 L 115 145 L 108 100 Z"/>
+          <path d="M 260 260 L 295 280 L 308 320 L 305 365 L 285 415 L 262 445 L 245 430 L 240 385 L 235 335 L 245 285 Z"/>
+          <path d="M 455 100 L 530 95 L 575 115 L 590 145 L 570 180 L 530 200 L 490 205 L 460 185 L 450 140 Z"/>
+          <path d="M 465 195 L 545 210 L 585 245 L 600 290 L 585 355 L 550 400 L 520 415 L 488 400 L 465 365 L 452 305 L 458 240 Z"/>
+          <path d="M 580 85 L 670 75 L 760 85 L 850 100 L 895 125 L 905 165 L 890 210 L 855 240 L 815 270 L 770 295 L 730 305 L 690 285 L 650 270 L 615 250 L 590 220 L 575 175 L 575 120 Z"/>
+          <path d="M 770 335 L 830 330 L 870 345 L 880 375 L 860 398 L 820 405 L 778 395 L 762 370 Z"/>
+        </g>
+
+        <!-- 메인 거점 (KR · CN · US · DE) — pulse ring -->
+        <g class="wm-mains">
+          <g><circle class="wm-ring" cx="853" cy="147" r="11"/><circle class="wm-dot wm-dot-main" cx="853" cy="147" r="5.5"/><text class="wm-label-main" x="862" y="143">대한민국 (본사)</text></g>
+          <g><circle class="wm-ring" cx="792" cy="153" r="11"/><circle class="wm-dot wm-dot-main" cx="792" cy="153" r="5.5"/><text class="wm-label-main" x="792" y="178" text-anchor="middle">중국</text></g>
+          <g><circle class="wm-ring" cx="228" cy="144" r="11"/><circle class="wm-dot wm-dot-main" cx="228" cy="144" r="5.5"/><text class="wm-label-main" x="218" y="132" text-anchor="end">미국</text></g>
+          <g><circle class="wm-ring" cx="528" cy="108" r="11"/><circle class="wm-dot wm-dot-main" cx="528" cy="108" r="5.5"/><text class="wm-label-main" x="528" y="92" text-anchor="middle">독일</text></g>
+        </g>
+
+        <!-- 보조 거점 (12) -->
+        <g class="wm-dots">
+          <circle cx="883" cy="150" r="3.6"/><!-- 일본 -->
+          <circle cx="836" cy="183" r="3.6"/><!-- 대만 -->
+          <circle cx="800" cy="211" r="3.6"/><!-- 베트남 -->
+          <circle cx="783" cy="242" r="3.6"/><!-- 말레이시아 -->
+          <circle cx="806" cy="264" r="3.6"/><!-- 인도네시아 -->
+          <circle cx="717" cy="189" r="3.6"/><!-- 인도 -->
+          <circle cx="553" cy="106" r="3.6"/><!-- 폴란드 -->
+          <circle cx="542" cy="111" r="3.6"/><!-- 체코 -->
+          <circle cx="558" cy="117" r="3.6"/><!-- 슬로바키아 -->
+          <circle cx="553" cy="119" r="3.6"/><!-- 헝가리 -->
+          <circle cx="597" cy="142" r="3.6"/><!-- 터키 -->
+          <circle cx="217" cy="186" r="3.6"/><!-- 멕시코 -->
+        </g>
+      </svg>
+
+      <div class="wm-legend">
+        <span class="wml-item"><span class="wml-dot wml-dot-main"></span>본사 · 메인 거점 (4)</span>
+        <span class="wml-item"><span class="wml-dot"></span>서비스 거점 (12)</span>
+      </div>
+
+      <!-- 16개국 보조 라벨 (한 줄) -->
+      <div class="wm-countries">
+        <strong>16개국</strong> · 대한민국 · 중국 · 일본 · 대만 · 베트남 · 말레이시아 · 인도네시아 · 인도 · 미국 · 멕시코 · 독일 · 폴란드 · 체코 · 슬로바키아 · 헝가리 · 터키
       </div>
     </div>
   </section>
@@ -1722,6 +1735,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=636"></script>
+<script src="script.js?v=637"></script>
 </body>
 </html>
