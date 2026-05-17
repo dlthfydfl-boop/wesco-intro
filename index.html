@@ -17,13 +17,13 @@
 <meta name="twitter:description" content="0.1초의 전압 저하만으로 라인은 멈춥니다. 25년 검증된 TSP 솔루션.">
 <meta name="twitter:image" content="https://dlthfydfl-boop.github.io/wesco-intro/images/company/factory.jpg">
 <link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/">
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=640">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=640">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=640">
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=641">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=641">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=641">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=640">
+<link rel="stylesheet" href="style.css?v=641">
 </head>
 <body>
 
@@ -395,6 +395,160 @@
       <p class="section-sub">평소엔 전원 그대로 — 전력 이상 발생 즉시 <strong>2 ms 이내</strong>에 보상</p>
     </div>
 
+    <!-- SLD 블록다이어그램 (v6.41 신설 · 단선도) -->
+    <div class="sld-block" data-reveal>
+      <div class="sld-eyebrow">SINGLE LINE DIAGRAM · 전기 구성</div>
+      <svg class="sld-svg" viewBox="0 0 900 250" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="TSP 단선도 블록다이어그램">
+        <!-- 배경 그리드 -->
+        <defs>
+          <pattern id="sld-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#EFEBE2" stroke-width="0.4"/>
+          </pattern>
+        </defs>
+        <rect width="900" height="250" fill="#FDFCF8"/>
+        <rect width="900" height="250" fill="url(#sld-grid)" opacity="0.45"/>
+
+        <!-- 좌: 계통전원 -->
+        <g transform="translate(30, 70)">
+          <rect x="0" y="0" width="160" height="110" rx="4" fill="#FFFFFF" stroke="#44403C" stroke-width="1.2"/>
+          <text x="80" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#44403C" letter-spacing="0.16em">계통전원</text>
+          <text x="80" y="36" text-anchor="middle" font-size="9.5" fill="#78716C" font-family="Inter">SOURCE · AC 380V</text>
+          <!-- 변압기 심볼 (두 원 겹친) -->
+          <g transform="translate(80, 70)" fill="none" stroke="#44403C" stroke-width="1.3">
+            <circle cx="-10" cy="0" r="11"/>
+            <circle cx="10"  cy="0" r="11"/>
+          </g>
+        </g>
+
+        <!-- 메인 라인 1: 계통 → TSP -->
+        <g stroke="#44403C" stroke-width="2" fill="none">
+          <line x1="190" y1="125" x2="270" y2="125"/>
+          <polyline points="262,118 274,125 262,132" stroke-linejoin="round"/>
+        </g>
+
+        <!-- 중앙: TSP 블록 -->
+        <g transform="translate(270, 35)">
+          <rect x="0" y="0" width="360" height="180" rx="6" fill="#FAF8F4" stroke="#E1431B" stroke-width="1.6"/>
+          <text x="180" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#E1431B" letter-spacing="0.2em">WESCO TSP®</text>
+
+          <!-- INPUT CB -->
+          <g transform="translate(20, 80)">
+            <rect x="0" y="0" width="60" height="40" rx="3" fill="#FFFFFF" stroke="#44403C" stroke-width="1"/>
+            <line x1="10" y1="20" x2="32" y2="8" stroke="#44403C" stroke-width="1.4"/>
+            <circle cx="10" cy="20" r="2" fill="#44403C"/>
+            <circle cx="50" cy="20" r="2" fill="#44403C"/>
+            <line x1="50" y1="20" x2="32" y2="8" stroke="#44403C" stroke-width="0.6" stroke-dasharray="2 2"/>
+            <text x="30" y="56" text-anchor="middle" font-size="9" fill="#57534E" font-weight="600">차단기</text>
+          </g>
+
+          <!-- DETECT (사인파 미니) -->
+          <g transform="translate(110, 50)">
+            <rect x="0" y="0" width="76" height="40" rx="3" fill="#FFFFFF" stroke="#5B7AA8" stroke-width="1.2"/>
+            <text x="38" y="14" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5B7AA8" letter-spacing="0.1em">DETECT</text>
+            <path d="M 8 30 Q 18 22 26 30 T 44 30 T 62 30 T 70 30" fill="none" stroke="#5B7AA8" stroke-width="1.3"/>
+            <text x="38" y="60" text-anchor="middle" font-size="9" fill="#57534E" font-weight="600">정전 감지부</text>
+          </g>
+
+          <!-- BYPASS SW (정상 패스) -->
+          <g transform="translate(220, 50)">
+            <rect x="0" y="0" width="76" height="40" rx="3" fill="#FFFFFF" stroke="#5B926D" stroke-width="1.2"/>
+            <text x="38" y="14" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5B926D" letter-spacing="0.1em">BYPASS</text>
+            <!-- 닫힌 스위치 -->
+            <circle cx="20" cy="28" r="2.4" fill="#5B926D"/>
+            <line x1="20" y1="28" x2="56" y2="28" stroke="#5B926D" stroke-width="1.6"/>
+            <circle cx="56" cy="28" r="2.4" fill="#5B926D"/>
+            <text x="38" y="60" text-anchor="middle" font-size="9" fill="#57534E" font-weight="600">고속 스위치</text>
+          </g>
+
+          <!-- EDLC + COMPENSATE (보상 패스, 하단) -->
+          <g transform="translate(110, 120)">
+            <rect x="0" y="0" width="76" height="40" rx="3" fill="#FFFFFF" stroke="#5B7AA8" stroke-width="1.2"/>
+            <text x="38" y="14" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5B7AA8" letter-spacing="0.08em">EDLC</text>
+            <!-- 캐패시터 심볼 -->
+            <g stroke="#5B7AA8" stroke-width="1.5" fill="none">
+              <line x1="28" y1="24" x2="28" y2="36"/>
+              <line x1="34" y1="22" x2="34" y2="38"/>
+              <line x1="48" y1="24" x2="48" y2="36"/>
+              <line x1="42" y1="22" x2="42" y2="38"/>
+            </g>
+          </g>
+
+          <g transform="translate(220, 120)">
+            <rect x="0" y="0" width="76" height="40" rx="3" fill="#FFFFFF" stroke="#E1431B" stroke-width="1.2"/>
+            <text x="38" y="14" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E1431B" letter-spacing="0.05em">COMPENSATE</text>
+            <text x="38" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#E1431B" font-family="Inter">⚡</text>
+          </g>
+
+          <!-- TSP 내부 SLD 라인 -->
+          <!-- INPUT CB 출력 → 분기점 -->
+          <line x1="80" y1="100" x2="100" y2="100" stroke="#44403C" stroke-width="1.6"/>
+          <!-- 분기점 위쪽 (Detect로) -->
+          <line x1="100" y1="100" x2="100" y2="70" stroke="#44403C" stroke-width="1.6"/>
+          <line x1="100" y1="70" x2="110" y2="70" stroke="#44403C" stroke-width="1.6"/>
+          <!-- 분기점 아래쪽 (EDLC로) -->
+          <line x1="100" y1="100" x2="100" y2="140" stroke="#44403C" stroke-width="1.6"/>
+          <line x1="100" y1="140" x2="110" y2="140" stroke="#44403C" stroke-width="1.6"/>
+          <circle cx="100" cy="100" r="2.5" fill="#44403C"/>
+
+          <!-- Detect → Bypass -->
+          <line x1="186" y1="70" x2="220" y2="70" stroke="#44403C" stroke-width="1.6"/>
+          <!-- EDLC → Compensate -->
+          <line x1="186" y1="140" x2="220" y2="140" stroke="#44403C" stroke-width="1.6"/>
+
+          <!-- Bypass 출력 → 합류점 -->
+          <line x1="296" y1="70" x2="320" y2="70" stroke="#44403C" stroke-width="1.6"/>
+          <line x1="320" y1="70" x2="320" y2="100" stroke="#44403C" stroke-width="1.6"/>
+          <!-- Compensate 출력 → 합류점 -->
+          <line x1="296" y1="140" x2="320" y2="140" stroke="#44403C" stroke-width="1.6"/>
+          <line x1="320" y1="140" x2="320" y2="100" stroke="#44403C" stroke-width="1.6"/>
+          <circle cx="320" cy="100" r="2.5" fill="#44403C"/>
+          <!-- 합류점 → OUTPUT -->
+          <line x1="320" y1="100" x2="340" y2="100" stroke="#44403C" stroke-width="1.6"/>
+
+          <!-- Path 라벨 -->
+          <text x="248" y="46" text-anchor="middle" font-size="8" font-weight="600" fill="#5B926D" letter-spacing="0.08em">정상 패스</text>
+          <text x="248" y="178" text-anchor="middle" font-size="8" font-weight="600" fill="#E1431B" letter-spacing="0.08em">보상 패스 (사고 시)</text>
+        </g>
+
+        <!-- 메인 라인 2: TSP → 생산설비 -->
+        <g stroke="#44403C" stroke-width="2" fill="none">
+          <line x1="630" y1="125" x2="710" y2="125"/>
+          <polyline points="702,118 714,125 702,132" stroke-linejoin="round"/>
+        </g>
+
+        <!-- 우: 생산설비 -->
+        <g transform="translate(710, 70)">
+          <rect x="0" y="0" width="160" height="110" rx="4" fill="#FFFFFF" stroke="#44403C" stroke-width="1.2"/>
+          <text x="80" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#44403C" letter-spacing="0.16em">생산설비</text>
+          <text x="80" y="36" text-anchor="middle" font-size="9.5" fill="#78716C" font-family="Inter">LOAD · MCC · PLC</text>
+          <!-- 모터 심볼 -->
+          <g transform="translate(80, 72)">
+            <circle cx="0" cy="0" r="14" fill="none" stroke="#44403C" stroke-width="1.4"/>
+            <text x="0" y="5" text-anchor="middle" font-size="14" font-weight="700" fill="#44403C" font-family="Inter">M</text>
+          </g>
+        </g>
+      </svg>
+
+      <div class="sld-foot">
+        <div class="sld-foot-item sld-foot-normal">
+          <span class="sff-tag">평상시</span>
+          <span class="sff-text">Bypass 직결 — <strong>효율 98%</strong></span>
+        </div>
+        <div class="sld-foot-item sld-foot-event">
+          <span class="sff-tag">사고 시</span>
+          <span class="sff-text">EDLC 에너지 방출 — <strong>2 ms 응답 · 100% 보상</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4씬 모션 시뮬레이션 (펼쳐보기) -->
+    <details class="how-motion-details" data-reveal>
+      <summary class="hmd-summary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 22 12 6 20"/></svg>
+        <span>실시간 4씬 모션 시뮬레이션 보기</span>
+        <svg class="hmd-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+
     <!-- 작동원리 v6.20 — 생산라인 중심 산업 솔루션 톤 -->
     <!-- 작동원리 v6.22 — 사진 기반 미니멀 흐름 (한전 → TSP → 생산라인) -->
     <!-- 작동원리 v6.23 — 매우 단순 3박스 + EDLC 보상 흐름 -->
@@ -557,6 +711,7 @@
         </div>
       </div>
     </div>
+    </details>
 
 
 
@@ -1576,7 +1731,7 @@
     <div class="world-map-wrap" data-reveal>
       <svg class="world-map" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg" aria-label="WESCO 글로벌 네트워크 16개국 지도" preserveAspectRatio="xMidYMid meet">
         <!-- 베이스 세계지도 (Wikipedia Commons · Public Domain) -->
-        <image href="images/world-map.png?v=640" x="0" y="-100" width="1280" height="836" class="wm-base" preserveAspectRatio="xMidYMid meet"/>
+        <image href="images/world-map.png?v=641" x="0" y="-100" width="1280" height="836" class="wm-base" preserveAspectRatio="xMidYMid meet"/>
 
         <!-- 메인 거점 (KR · CN · US · DE) — pulse ring -->
         <g class="wm-mains">
@@ -1813,6 +1968,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=640"></script>
+<script src="script.js?v=641"></script>
 </body>
 </html>

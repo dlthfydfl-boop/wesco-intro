@@ -435,6 +435,82 @@ body.cursor-active .cursor-glow { opacity: 1; }
 /* ============================================================
    03. 작동 원리
    ============================================================ */
+/* SLD 블록다이어그램 (v6.41) */
+.sld-block {
+  background: var(--c-bg);
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+  padding: 22px 26px;
+  margin-bottom: 24px;
+}
+.sld-eyebrow {
+  display: inline-block;
+  font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
+  color: var(--c-head); letter-spacing: 0.2em;
+  padding: 4px 10px; background: var(--c-bg-soft);
+  border-radius: 2px; margin-bottom: 14px;
+}
+.sld-svg {
+  width: 100%; height: auto; display: block;
+  border-radius: 4px;
+}
+.sld-foot {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 14px;
+}
+.sld-foot-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  background: var(--c-bg-soft);
+  border-radius: 4px;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+}
+.sld-foot-normal { border-left-color: #5B926D; }
+.sld-foot-event  { border-left-color: var(--c-red); }
+.sff-tag {
+  font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
+  padding: 3px 9px; border-radius: 2px;
+  letter-spacing: 0.12em;
+  color: var(--c-bg);
+  flex-shrink: 0;
+}
+.sld-foot-normal .sff-tag { background: #5B926D; }
+.sld-foot-event  .sff-tag { background: var(--c-red); }
+.sff-text { color: var(--c-text); }
+.sff-text strong { color: var(--c-head); font-weight: 600; }
+
+@media (max-width: 768px) {
+  .sld-foot { grid-template-columns: 1fr; }
+}
+
+/* 4씬 모션 토글 (v6.41) */
+.how-motion-details {
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.how-motion-details[open] { border-color: var(--c-red); }
+.hmd-summary {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 22px;
+  cursor: pointer; list-style: none; user-select: none;
+  background: var(--c-bg);
+  transition: background 0.25s;
+  font-size: 13.5px; font-weight: 600; color: var(--c-head);
+}
+.hmd-summary::-webkit-details-marker { display: none; }
+.hmd-summary:hover { background: var(--c-bg-soft); }
+.hmd-summary > span { flex: 1; }
+.hmd-summary svg:first-child { color: var(--c-red); flex-shrink: 0; }
+.hmd-chevron {
+  color: var(--c-gray); flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.how-motion-details[open] .hmd-chevron { transform: rotate(180deg); }
+.how-motion-details .how-v2 { padding: 0 22px 24px; }
+
 .how-container { display: grid; grid-template-columns: 0.7fr 1.6fr; gap: 24px; margin-bottom: 20px; }
 
 .product-frame {
