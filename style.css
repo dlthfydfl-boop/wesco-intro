@@ -996,6 +996,72 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .efc-good { color: var(--c-red); font-weight: 700; flex: 1; text-align: right; }
 .ef-compare svg { color: var(--c-gray-lt); flex-shrink: 0; }
 
+/* TSP vs UPS 비교표 (v6.43) */
+.vs-table-wrap {
+  margin-top: 32px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+  padding: 22px 26px 18px;
+}
+.vs-table-eyebrow {
+  font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
+  color: var(--c-red); letter-spacing: 0.16em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.vs-table {
+  display: grid; gap: 1px;
+  background: var(--c-divider);
+  border: 1px solid var(--c-divider);
+  border-radius: 4px; overflow: hidden;
+}
+.vs-row {
+  display: grid; grid-template-columns: 130px 1fr 1fr;
+  background: var(--c-divider);
+  gap: 1px;
+}
+.vs-cell {
+  background: var(--c-bg);
+  padding: 14px 18px;
+  font-size: 13.5px; color: var(--c-text); line-height: 1.5;
+  display: flex; align-items: center;
+}
+.vs-cell strong { color: var(--c-head); font-weight: 600; }
+.vs-cell-label {
+  background: var(--c-bg-soft); font-weight: 700; color: var(--c-head);
+  letter-spacing: 0.02em; font-size: 13px;
+}
+.vs-row-head .vs-cell {
+  background: var(--c-head); color: var(--c-bg);
+  font-weight: 700; letter-spacing: 0.04em;
+  font-size: 12.5px;
+}
+.vs-row-head .vs-cell-tsp { background: var(--c-red); }
+.vs-cell-tsp { border-left: 3px solid var(--c-red); }
+.vs-cell-ups { color: var(--c-sub); }
+.vs-sub { color: var(--c-gray); font-size: 12px; display: block; margin-top: 3px; }
+.vs-em { color: var(--c-red); font-weight: 700; font-size: 15px; font-family: var(--font-en); }
+.vs-em-big {
+  color: var(--c-red); font-weight: 800;
+  font-size: 22px; font-family: var(--font-en); letter-spacing: -0.02em;
+}
+.vs-strike { text-decoration: line-through; color: var(--c-gray-lt); }
+.vs-row-em .vs-cell { background: var(--c-red-lt); }
+.vs-row-em .vs-cell-label { background: color-mix(in srgb, var(--c-red-lt) 70%, var(--c-bg-soft)); }
+.vs-foot {
+  text-align: center; font-size: 13px; color: var(--c-text);
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--c-divider);
+}
+.vs-foot strong { color: var(--c-red); font-weight: 700; }
+
+@media (max-width: 768px) {
+  .vs-row, .vs-row-head { grid-template-columns: 100px 1fr 1fr; }
+  .vs-cell { padding: 10px 12px; font-size: 12.5px; }
+  .vs-em-big { font-size: 18px; }
+}
+
 @media (max-width: 1024px) {
   .edge-sim-grid { grid-template-columns: 1fr; }
   .edge-feats { grid-template-columns: 1fr; }
@@ -1237,6 +1303,49 @@ body.cursor-active .cursor-glow { opacity: 1; }
   margin-left: 6px;
   vertical-align: middle;
   margin-bottom: 3px;
+}
+
+/* 실증 효과 박스 (v6.43 신설) */
+.proof-block {
+  background: var(--c-bg);
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+  padding: 24px 28px 20px;
+  margin: 24px 0;
+}
+.proof-eyebrow {
+  font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
+  color: var(--c-red); letter-spacing: 0.18em;
+  margin-bottom: 18px;
+}
+.proof-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--c-divider);
+  border: 1px solid var(--c-divider); border-radius: 4px;
+  overflow: hidden;
+}
+.proof-item {
+  background: var(--c-bg); padding: 22px 24px;
+  transition: background 0.25s;
+}
+.proof-item:hover { background: var(--c-bg-soft); }
+.proof-item-em { background: var(--c-red-lt); }
+.proof-num {
+  font-family: var(--font-en); font-size: 34px; font-weight: 800;
+  color: var(--c-red); line-height: 1; letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+.proof-unit { font-size: 15px; color: var(--c-head); font-weight: 600; margin-left: 4px; letter-spacing: 0; }
+.proof-label { font-size: 13px; color: var(--c-text); font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+.proof-rate { font-size: 12px; color: var(--c-sub); }
+.proof-rate strong { color: var(--c-head); font-weight: 700; }
+.proof-foot {
+  font-size: 11.5px; color: var(--c-gray-lt); margin-top: 14px;
+  text-align: right; font-style: italic;
+}
+@media (max-width: 768px) {
+  .proof-grid { grid-template-columns: 1fr; }
+  .proof-num { font-size: 28px; }
 }
 
 /* 글로벌 대규모 납품 하이라이트 — 비전옥스 (v6.39) */
@@ -3394,6 +3503,32 @@ img, svg { max-width: 100%; }
   font-weight: 500;
 }
 .need-banner-sub strong { color: var(--c-head); font-weight: 700; }
+
+/* 임팩트 숫자 (v6.43) */
+.need-impact-row {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px; background: var(--c-divider);
+  border: 1px solid var(--c-divider); border-radius: 4px;
+  overflow: hidden; margin-top: 22px;
+}
+.nir-item {
+  background: var(--c-bg); padding: 16px 18px;
+  transition: background 0.25s;
+}
+.nir-item:hover { background: var(--c-bg-soft); }
+.nir-item-em { background: var(--c-red-lt); }
+.nir-num {
+  font-family: var(--font-en); font-size: 28px; font-weight: 800;
+  color: var(--c-red); line-height: 1; letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.nir-num span { font-size: 13px; color: var(--c-head); font-weight: 600; margin-left: 4px; }
+.nir-label { font-size: 12px; color: var(--c-text); line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .need-impact-row { grid-template-columns: 1fr; }
+  .nir-num { font-size: 24px; }
+}
 
 /* 부하 분류 매트릭스 */
 .load-matrix {
