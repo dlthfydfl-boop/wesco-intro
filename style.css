@@ -905,6 +905,15 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .section-viewer .section-title { color: var(--c-bg); }
 .section-viewer .section-sub { color: var(--c-gray-xl); }
 .section-viewer .section-sub strong { color: var(--c-bg); }
+.section-viewer .vh-em {
+  color: var(--c-red);
+  font-weight: 700;
+  position: relative;
+  padding: 2px 10px;
+  background: color-mix(in srgb, var(--c-red) 15%, transparent);
+  border-radius: 3px;
+  letter-spacing: -0.005em;
+}
 
 .viewer-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: stretch; }
 
@@ -1044,25 +1053,40 @@ body.cursor-active .cursor-glow { opacity: 1; }
   margin-bottom: 3px;
 }
 
-.cases-grid-compact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-
-.case-mini {
-  background: var(--c-bg); border: 1px solid var(--c-divider);
-  border-radius: 4px; padding: 14px 16px;
-  transition: all 0.3s;
+/* 글로벌 대규모 납품 하이라이트 — 비전옥스 (v6.39) */
+.case-highlight {
+  background: linear-gradient(135deg, var(--c-bg-warm) 0%, var(--c-bg) 100%);
+  border: 1px solid var(--c-red);
+  border-left: 4px solid var(--c-red);
+  border-radius: 4px;
+  padding: 26px 32px;
+  margin: 28px 0 36px;
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--c-red) 8%, transparent);
 }
-.case-mini:hover { border-color: var(--c-red); transform: translateY(-2px); }
-
-.case-mini-tag {
-  display: inline-block;
-  font-family: var(--font-en); font-size: 9.5px; font-weight: 600;
-  color: var(--c-red); background: var(--c-red-lt);
-  padding: 2px 7px; border-radius: 2px;
-  letter-spacing: 0.06em; margin-bottom: 8px; text-transform: uppercase;
+.ch-eyebrow {
+  font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
+  color: var(--c-red); letter-spacing: 0.2em;
+  margin-bottom: 14px;
 }
+.ch-body {
+  display: grid; grid-template-columns: 180px 1fr; gap: 28px; align-items: center;
+}
+.ch-num {
+  font-family: var(--font-en); font-size: 64px; font-weight: 800;
+  color: var(--c-red); line-height: 0.95; letter-spacing: -0.04em;
+}
+.ch-unit {
+  font-size: 22px; color: var(--c-head); font-weight: 600;
+  margin-left: 4px; letter-spacing: 0;
+}
+.ch-title { font-size: 18px; font-weight: 700; color: var(--c-head); margin-bottom: 10px; line-height: 1.4; }
+.ch-desc { font-size: 14px; color: var(--c-text); line-height: 1.7; }
+.ch-desc strong { color: var(--c-head); font-weight: 600; }
 
-.case-mini h4 { font-size: 13.5px; font-weight: 700; color: var(--c-head); margin-bottom: 5px; }
-.case-mini p { font-size: 12px; line-height: 1.5; color: var(--c-text); }
+@media (max-width: 768px) {
+  .ch-body { grid-template-columns: 1fr; gap: 12px; }
+  .ch-num { font-size: 52px; }
+}
 
 /* ============================================================
    07. 글로벌 네트워크 — 세계지도 + 거점 (v6.37)
@@ -1435,8 +1459,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
     grid-template-columns: 1fr;
   }
   .need-impact { grid-template-columns: 1fr; }
-  .products-photo-grid, .cases-grid-compact { grid-template-columns: 1fr; }
-  .cases-grid-compact { grid-template-columns: repeat(2, 1fr); }
+  .products-photo-grid { grid-template-columns: 1fr; }
 
   .report-meta-grid { grid-template-columns: repeat(2, 1fr); }
   .report-meta-item:nth-child(2n) { border-right: none; }
@@ -1449,7 +1472,6 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .hero-metrics { grid-template-columns: 1fr; gap: 12px; }
   .ind-table { grid-template-columns: repeat(2, 1fr); }
   .ind-col-num { font-size: 17px; }
-  .cases-grid-compact { grid-template-columns: 1fr; }
   .mc-name { font-size: 14px; }
   .mc-name-em { font-size: 18px; }
   .report-header, .report-title-bar, .report-body, .report-footer { padding-left: 18px; padding-right: 18px; }
@@ -1513,50 +1535,42 @@ body.cursor-active .cursor-glow { opacity: 1; }
   padding-top: 8px; border-top: 1px dashed var(--c-divider);
 }
 
-/* WHY — 비용 시각화 */
-.cost-visual {
-  display: grid; grid-template-columns: 1fr 1.3fr 1fr;
-  gap: 14px; margin-bottom: 32px;
+/* FAB 매트릭스 토글 (v6.39) */
+.fab-matrix-details {
+  border: 1px solid var(--c-divider);
+  border-radius: 6px;
+  background: var(--c-bg);
+  margin-top: 28px;
+  overflow: hidden;
+  transition: border-color 0.3s;
 }
-
-.cost-card {
-  background: var(--c-bg); border: 1px solid var(--c-divider);
-  border-radius: 4px; padding: 24px 26px;
-  transition: all 0.3s;
+.fab-matrix-details[open] { border-color: var(--c-red); }
+.fab-matrix-summary {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 24px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background 0.25s;
 }
-.cost-card:hover { border-color: var(--c-red); }
-
-.cost-card-em { background: var(--c-dark); color: var(--c-bg); border-color: var(--c-dark); }
-
-.cost-tag {
+.fab-matrix-summary::-webkit-details-marker { display: none; }
+.fab-matrix-summary:hover { background: var(--c-bg-soft); }
+.fms-eyebrow {
   font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
-  color: var(--c-red); letter-spacing: 0.15em; margin-bottom: 10px;
+  color: var(--c-red); letter-spacing: 0.2em;
 }
-.cost-card-em .cost-tag { color: #fbbf24; }
-
-.cost-num {
-  font-size: 32px; font-weight: 800; color: var(--c-head);
-  line-height: 1.05; margin-bottom: 8px; letter-spacing: -0.025em;
+.fms-title {
+  flex: 1;
+  font-size: 15px; font-weight: 600; color: var(--c-head);
+  letter-spacing: -0.01em;
 }
-.cost-card-em .cost-num { color: var(--c-bg); }
-.cost-num span { font-size: 16px; font-weight: 500; color: var(--c-gray); margin-left: 4px; }
-.cost-card-em .cost-num span { color: var(--c-gray-xl); }
-
-.cost-label { font-size: 13px; color: var(--c-gray); margin-bottom: 12px; line-height: 1.5; }
-.cost-card-em .cost-label { color: var(--c-gray-xl); }
-
-.cost-bar {
-  height: 4px; background: var(--c-bg-soft);
-  border-radius: 2px; overflow: hidden;
+.fms-chevron {
+  color: var(--c-gray);
+  transition: transform 0.3s ease;
 }
-.cost-card-em .cost-bar { background: rgba(255,255,255,0.1); }
-
-.cost-bar-fill {
-  height: 100%; width: 0;
-  background: var(--c-red); border-radius: 2px;
-  transition: width 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.cost-visual.in-view .cost-bar-fill { width: var(--w); }
+.fab-matrix-details[open] .fms-chevron { transform: rotate(180deg); }
+.fab-matrix-details .fab-matrix { padding: 0 24px 22px; }
+.fab-matrix-details .fab-matrix-head { display: none; }
 
 /* PRODUCTS — 인증 마크 강화 */
 .cert-marks-block {
@@ -1741,7 +1755,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
 
 /* 반응형 */
 @media (max-width: 1024px) {
-  .news-grid, .cost-visual { grid-template-columns: 1fr; }
+  .news-grid { grid-template-columns: 1fr; }
   .cert-marks-grid { grid-template-columns: repeat(3, 1fr); }
   .vf-modal-meta { grid-template-columns: 1fr; }
   .vf-modal-actions { flex-direction: column; }
@@ -2718,10 +2732,6 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .hm-num { font-size: 24px; }
   .hm-label { font-size: 11.5px; }
 
-  /* 비용 시각화 */
-  .cost-visual { gap: 14px; }
-  .cv-card { padding: 14px 12px; }
-
   /* 인증 단일 컬럼 */
   .cert-doc-grid, .cert-doc-grid-3, .cert-doc-grid-4, .cert-doc-grid-5 {
     grid-template-columns: 1fr;
@@ -3055,7 +3065,6 @@ img, svg { max-width: 100%; }
 .how-metrics,
 .cause-grid,
 .products-photo-grid,
-.cases-grid-compact,
 .news-grid,
 .seq-timeline,
 .ind-table,
@@ -3072,7 +3081,6 @@ img, svg { max-width: 100%; }
 .how-metrics > *,
 .cause-grid > *,
 .products-photo-grid > *,
-.cases-grid-compact > *,
 .news-grid > *,
 .seq-timeline > *,
 .ind-table > *,

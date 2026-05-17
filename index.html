@@ -17,13 +17,13 @@
 <meta name="twitter:description" content="0.1초의 전압 저하만으로 라인은 멈춥니다. 25년 검증된 TSP 솔루션.">
 <meta name="twitter:image" content="https://dlthfydfl-boop.github.io/wesco-intro/images/company/factory.jpg">
 <link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/">
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=638">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=638">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=638">
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=639">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=639">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=639">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=638">
+<link rel="stylesheet" href="style.css?v=639">
 </head>
 <body>
 
@@ -99,7 +99,7 @@
       </p>
 
       <div class="hero-metrics" data-reveal>
-        <div class="metric"><div class="metric-num"><span data-count="8455">0</span><span class="metric-suffix">대 +</span></div><div class="metric-label">글로벌 적용 실적</div></div>
+        <div class="metric"><div class="metric-num"><span data-count="10000">0</span><span class="metric-suffix">대 +</span></div><div class="metric-label">글로벌 적용 실적</div></div>
         <div class="metric"><div class="metric-num"><span data-count="25">0</span><span class="metric-suffix">년</span></div><div class="metric-label">단일 분야 전문</div></div>
         <div class="metric"><div class="metric-num"><span data-count="2400">0</span><span class="metric-suffix">kVA</span></div><div class="metric-label">최대 보상 용량</div></div>
         <div class="metric"><div class="metric-num"><span data-count="2">0</span><span class="metric-suffix">ms</span></div><div class="metric-label">보상 동작 시간</div></div>
@@ -170,28 +170,6 @@
         <strong>예방 가능한 전기 사고</strong>입니다.
       </div>
       <div class="need-banner-sub">올바른 전압 안정화 솔루션 적용 시 <strong>100% 보호</strong> 가능</div>
-    </div>
-
-    <!-- 손실 비용 시각화 — 시간×손실 -->
-    <div class="cost-visual" data-reveal-stagger>
-      <div class="cost-card">
-        <div class="cost-tag">DOWNTIME</div>
-        <div class="cost-num">2~6 <span>시간</span></div>
-        <div class="cost-label">자동화 라인 평균 재가동 시간</div>
-        <div class="cost-bar"><div class="cost-bar-fill" style="--w:60%"></div></div>
-      </div>
-      <div class="cost-card cost-card-em">
-        <div class="cost-tag">DIRECT LOSS</div>
-        <div class="cost-num">수억원 <span>/ 회</span></div>
-        <div class="cost-label">1회 라인 정지 시 직접 손실</div>
-        <div class="cost-bar"><div class="cost-bar-fill" style="--w:90%"></div></div>
-      </div>
-      <div class="cost-card">
-        <div class="cost-tag">QUALITY</div>
-        <div class="cost-num">불량률 <span>↑</span></div>
-        <div class="cost-label">재가동 후 초기 공정 불량률 상승</div>
-        <div class="cost-bar"><div class="cost-bar-fill" style="--w:45%"></div></div>
-      </div>
     </div>
 
     <div class="need-row">
@@ -336,9 +314,15 @@
       </div>
     </div>
 
-    <!-- FAB 공정별 보상 표준 매트릭스 (v6.33, 텍스트 최소화) -->
-    <div class="fab-matrix" data-reveal>
-      <div class="fab-matrix-head">
+    <!-- FAB 공정별 보상 표준 매트릭스 — 토글 (v6.39 기본 접힘) -->
+    <details class="fab-matrix-details" data-reveal>
+      <summary class="fab-matrix-summary">
+        <span class="fms-eyebrow">SEMI F47-0706</span>
+        <span class="fms-title">반도체 FAB 공정별 보상 표준 매트릭스</span>
+        <svg class="fms-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+    <div class="fab-matrix">
+      <div class="fab-matrix-head" hidden>
         <div class="fab-matrix-eyebrow">SEMI F47-0706</div>
         <h3 class="fab-matrix-title">반도체 FAB 공정별 보상 표준</h3>
       </div>
@@ -399,6 +383,7 @@
         <span>출처 · SEMI F47-0706 기반 WESCO 운영 가이드</span>
       </div>
     </div>
+    </details>
   </section>
 
   <!-- ===== 03. 작동 원리 ===== -->
@@ -814,8 +799,8 @@
   <section class="section section-viewer" id="viewer" data-snap data-dark>
     <div class="section-head">
       <span class="section-no">05</span>
-      <h2 class="section-title">Sag-VIEWER<sup>™</sup></h2>
-      <p class="section-sub">원격 감시 모니터링 — <strong>국내 특허 보유 차별화 기술</strong></p>
+      <h2 class="section-title">Sag-VIEWER<sup>™</sup> · <span class="vh-em">사고 현장의 블랙박스</span></h2>
+      <p class="section-sub">엔지니어가 현장에 가지 않아도 — 사고 시각, 전압강하 폭, ms 단위 지속시간, 보상 결과까지 사무실 PC에서 즉시 확인 · 자동 리포트</p>
     </div>
 
     <div class="viewer-layout">
@@ -1361,13 +1346,13 @@
     <div class="section-head">
       <span class="section-no">08</span>
       <h2 class="section-title">적용 사례 · 산업별 실적</h2>
-      <p class="section-sub">전체 누적 <strong>8,455대 +</strong> · 글로벌 Top-Tier 제조사가 검증한 신뢰성</p>
+      <p class="section-sub">전체 누적 <strong>10,000대 +</strong> · 글로벌 Top-Tier 제조사가 검증한 신뢰성</p>
     </div>
 
     <!-- 메이저 고객사 부각 -->
     <div class="major-customers" data-reveal-stagger>
       <div class="mc-block">
-        <div class="mc-tag">SEMICONDUCTOR · 3,000+ 대</div>
+        <div class="mc-tag">SEMICONDUCTOR · 4,000+ 대</div>
         <div class="mc-list">
           <span class="mc-name">Samsung</span>
           <span class="mc-name">SK Hynix</span>
@@ -1385,7 +1370,7 @@
       </div>
 
       <div class="mc-block">
-        <div class="mc-tag">DISPLAY · 2,400+ 대</div>
+        <div class="mc-tag">DISPLAY · 3,000+ 대</div>
         <div class="mc-list">
           <span class="mc-name">Samsung Display</span>
           <span class="mc-name">LG Display</span>
@@ -1396,12 +1381,27 @@
       </div>
 
       <div class="mc-block">
-        <div class="mc-tag">AUTOMOTIVE · 3,000+ 대</div>
+        <div class="mc-tag">AUTOMOTIVE · 3,500+ 대</div>
         <div class="mc-list">
           <span class="mc-name">Hyundai Motor</span>
           <span class="mc-name">Kia</span>
           <span class="mc-name">Hankook</span>
           <span class="mc-name">Hyundai Kefico</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 글로벌 대규모 납품 하이라이트 — 비전옥스 -->
+    <div class="case-highlight" data-reveal>
+      <div class="ch-eyebrow">GLOBAL FLAGSHIP CASE</div>
+      <div class="ch-body">
+        <div class="ch-num">700<span class="ch-unit">대 +</span></div>
+        <div class="ch-text">
+          <h3 class="ch-title">중국 비전옥스(Visionox) — 신규 OLED 라인 단일 프로젝트</h3>
+          <p class="ch-desc">
+            중국 대형 OLED 디스플레이 제조사 <strong>비전옥스 신규 Fab</strong>에 약 <strong>700대 TSP</strong> 납품·가동.
+            성능 검증 후 <strong>추가 프로젝트 연속 수주</strong> — 글로벌 톱티어 디스플레이 라인의 신뢰성을 확보한 대표 사례입니다.
+          </p>
         </div>
       </div>
     </div>
@@ -1463,13 +1463,6 @@
       </div>
     </div>
 
-    <!-- 적용 사례 카드 -->
-    <div class="cases-grid-compact" data-reveal-stagger>
-      <div class="case-mini"><div class="case-mini-tag">반도체 핵심</div><h4>AMAT EPI 300mm</h4><p>TSP 3상 50 kVA — EMO Line + 제어 TR + Blowers 통합 보상</p></div>
-      <div class="case-mini"><div class="case-mini-tag">디스플레이</div><h4>DISPLAY Panel 변전소</h4><p>디스플레이 Fab 변전소 핵심 부하 일괄 보상</p></div>
-      <div class="case-mini"><div class="case-mini-tag">자동차</div><h4>자동차 조립 로봇</h4><p>조립 라인 로봇 / UT COMP — 라인 정지 방지</p></div>
-      <div class="case-mini"><div class="case-mini-tag">대용량</div><h4>중앙집중 보상</h4><p>3상 대용량 TSP — 전기실 배전반 측, IN-LINE 일괄 보상</p></div>
-    </div>
   </section>
 
   <!-- ===== 07. 글로벌 네트워크 (적용사례 다음으로 이동) ===== -->
@@ -1491,7 +1484,7 @@
     <div class="world-map-wrap" data-reveal>
       <svg class="world-map" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg" aria-label="WESCO 글로벌 네트워크 16개국 지도" preserveAspectRatio="xMidYMid meet">
         <!-- 베이스 세계지도 (Wikipedia Commons · Public Domain) -->
-        <image href="images/world-map.png?v=638" x="0" y="-100" width="1280" height="836" class="wm-base" preserveAspectRatio="xMidYMid meet"/>
+        <image href="images/world-map.png?v=639" x="0" y="-100" width="1280" height="836" class="wm-base" preserveAspectRatio="xMidYMid meet"/>
 
         <!-- 메인 거점 (KR · CN · US · DE) — pulse ring -->
         <g class="wm-mains">
@@ -1624,7 +1617,7 @@
             현장 단선도 / 부하 사양 / 보호 범위만 알려주시면 24시간 내 1차 회신 드립니다.
           </p>
           <div class="cta-trust-line">
-            Since 2001 &nbsp;·&nbsp; 국내·글로벌 16개국 &nbsp;·&nbsp; 8,455+ Units
+            Since 2001 &nbsp;·&nbsp; 국내·글로벌 16개국 &nbsp;·&nbsp; 10,000+ Units
           </div>
         </div>
 
@@ -1728,6 +1721,6 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
-<script src="script.js?v=638"></script>
+<script src="script.js?v=639"></script>
 </body>
 </html>
