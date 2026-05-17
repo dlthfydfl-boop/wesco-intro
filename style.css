@@ -2576,110 +2576,36 @@ body.cursor-active .cursor-glow { opacity: 1; }
   display: block;
 }
 
-/* 핵심 포인트 (체크) */
-.scheme-points {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px;
-}
-
-.scheme-points li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 0;
-  font-size: 14.5px;
+/* 핵심 한 줄 요약 (v6.44 압축) */
+.scheme-summary {
+  margin: 18px 0;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--c-head);
-  line-height: 1.4;
+  line-height: 1.6;
+  padding-left: 14px;
+  border-left: 2px solid var(--c-red);
 }
+.scheme-card-b .scheme-summary { border-left-color: #5B7AA8; }
 
-.sp-check {
-  flex-shrink: 0;
-  color: var(--c-red);
-}
-
-.scheme-card-b .sp-check { color: #5B7AA8; }
-
-/* 적용 예시 chips */
-.scheme-examples {
-  margin-bottom: 22px;
-  padding-top: 20px;
-  border-top: 1px dashed var(--c-divider);
-}
-
-.scheme-examples-label {
-  font-family: var(--font-en);
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--c-gray);
-  letter-spacing: 0.16em;
-  margin-bottom: 10px;
-}
-
-.scheme-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.scheme-chip {
-  display: inline-block;
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--c-text);
-  background: var(--c-bg-soft);
-  border: 1px solid var(--c-divider);
-  padding: 6px 12px;
-  border-radius: 100px;
-  line-height: 1.3;
-}
-
-/* 추천 환경 박스 (하단 고정) */
+/* 추천 환경 박스 */
 .scheme-fit {
-  margin-top: auto; /* 카드 높이 동일화 핵심 */
-  padding: 20px 22px;
-  border-radius: 8px;
+  margin-top: auto;
+  padding: 14px 18px;
+  border-radius: 6px;
   background: var(--c-bg-soft);
   border-left: 3px solid var(--c-red);
 }
-
-.scheme-fit-b {
-  border-left-color: #5B7AA8;
-}
-
+.scheme-fit-b { border-left-color: #5B7AA8; }
 .scheme-fit-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--c-head);
-  margin-bottom: 10px;
-  letter-spacing: -0.005em;
+  font-family: var(--font-en);
+  font-size: 10.5px; font-weight: 700;
+  color: var(--c-gray); letter-spacing: 0.16em;
+  margin-bottom: 6px; text-transform: uppercase;
 }
-
-.scheme-fit-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.scheme-fit-line {
+  font-size: 13px; color: var(--c-text); line-height: 1.5;
 }
-
-.scheme-fit-list li {
-  position: relative;
-  padding: 5px 0 5px 18px;
-  font-size: 13.5px;
-  color: var(--c-text);
-  line-height: 1.5;
-}
-
-.scheme-fit-list li::before {
-  content: "✔";
-  position: absolute;
-  left: 0; top: 5px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--c-red);
-}
-
-.scheme-fit-b .scheme-fit-list li::before { color: #5B7AA8; }
 
 /* === 반응형 === */
 @media (max-width: 1024px) {
