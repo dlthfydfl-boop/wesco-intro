@@ -1094,11 +1094,10 @@ body.cursor-active .cursor-glow { opacity: 1; }
   width: 100%; height: auto; display: block;
   background: var(--c-bg-soft);
   border: 1px solid var(--c-divider); border-radius: 6px;
-  padding: 8px;
-  box-sizing: border-box;
 }
-.wm-continents path {
-  fill: #EAE6DF; stroke: #D6D1C7; stroke-width: 0.6;
+.wm-base {
+  opacity: 0.5;
+  filter: sepia(0.55) hue-rotate(-10deg) saturate(0.7) brightness(1.05);
 }
 .wm-dots circle {
   fill: var(--c-red); opacity: 0.78;
