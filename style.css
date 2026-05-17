@@ -819,7 +819,117 @@ body.cursor-active .cursor-glow { opacity: 1; }
 .hm-label { font-size: 11.5px; color: var(--c-text); }
 
 /* ============================================================
-   04. 제품 라인업
+   04. TSP의 결정적 차이 (v6.40 신설)
+   ============================================================ */
+.section-edge { background: var(--c-bg-soft); }
+
+/* Before / After 시뮬레이션 */
+.edge-sim { margin-bottom: 32px; }
+.edge-sim-eyebrow {
+  display: inline-block;
+  font-family: var(--font-en); font-size: 11px; font-weight: 700;
+  color: var(--c-red); letter-spacing: 0.18em;
+  padding: 6px 14px; background: var(--c-red-lt);
+  border-radius: 2px; margin-bottom: 16px;
+}
+.edge-sim-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.edge-card {
+  background: var(--c-bg); border-radius: 6px;
+  padding: 22px 26px;
+  border: 1px solid var(--c-divider);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.edge-before { border-left: 4px solid var(--c-gray-lt); }
+.edge-after {
+  border-left: 4px solid var(--c-red);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--c-red) 6%, transparent);
+}
+.edge-card-head {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 14px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--c-divider);
+}
+.edge-tag {
+  font-family: var(--font-en); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 4px 10px; border-radius: 2px;
+}
+.edge-tag-before { color: var(--c-gray); background: var(--c-bg-soft); border: 1px solid var(--c-divider); }
+.edge-tag-after { color: var(--c-bg); background: var(--c-red); }
+.edge-state { font-size: 13px; font-weight: 600; color: var(--c-head); }
+.edge-list {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+  padding: 0; margin: 0;
+}
+.edge-list li {
+  font-size: 13.5px; line-height: 1.65; color: var(--c-text);
+  padding-left: 16px; position: relative;
+}
+.edge-list li::before {
+  content: '•'; position: absolute; left: 0;
+  color: var(--c-gray-lt); font-weight: 700;
+}
+.edge-after .edge-list li::before { color: var(--c-red); }
+.edge-list strong { color: var(--c-head); font-weight: 600; }
+.edge-num-em {
+  color: var(--c-red); font-weight: 700;
+  font-family: var(--font-en); font-size: 15px;
+}
+
+/* 핵심 기술 우위 3카드 */
+.edge-feats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.edge-feat {
+  background: var(--c-bg); border: 1px solid var(--c-divider);
+  border-radius: 6px; padding: 22px 24px 20px;
+  transition: all 0.3s;
+  display: flex; flex-direction: column;
+}
+.edge-feat:hover {
+  border-color: var(--c-red);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--c-red) 10%, transparent);
+}
+.edge-feat-em { background: var(--c-red-lt); border-color: var(--c-red); }
+.ef-no {
+  font-family: var(--font-en); font-size: 11px; font-weight: 700;
+  color: var(--c-red); letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}
+.ef-title {
+  font-size: 16px; font-weight: 700; color: var(--c-head);
+  line-height: 1.4; margin-bottom: 10px;
+  letter-spacing: -0.015em;
+  min-height: 44px;
+}
+.ef-desc {
+  font-size: 13px; color: var(--c-text); line-height: 1.7;
+  flex: 1; margin-bottom: 14px;
+}
+.ef-desc strong { color: var(--c-head); font-weight: 600; }
+.ef-compare {
+  display: flex; align-items: center; gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-divider);
+  font-size: 11.5px;
+}
+.efc-bad { color: var(--c-gray-lt); text-decoration: line-through; flex: 1; }
+.efc-good { color: var(--c-red); font-weight: 700; flex: 1; text-align: right; }
+.ef-compare svg { color: var(--c-gray-lt); flex-shrink: 0; }
+
+@media (max-width: 1024px) {
+  .edge-sim-grid { grid-template-columns: 1fr; }
+  .edge-feats { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .ef-title { min-height: 0; }
+}
+
+/* ============================================================
+   05. 제품 라인업
    ============================================================ */
 .products-photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
 
