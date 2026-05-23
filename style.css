@@ -154,6 +154,31 @@ body.cursor-active .cursor-glow { opacity: 1; }
 
 .sidebar-meta { font-family: var(--font-en); font-size: 10px; color: var(--c-gray-lt); text-align: center; }
 
+/* === Language Toggle ============================================== */
+.lang-toggle {
+  display: flex; gap: 2px; margin-bottom: 12px;
+  background: color-mix(in srgb, var(--c-head) 4%, transparent);
+  border: 1px solid var(--c-divider); border-radius: 3px;
+  padding: 2px;
+}
+.lang-toggle button {
+  flex: 1; padding: 5px 0;
+  background: transparent; border: 0; cursor: pointer;
+  font-family: var(--font-en); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.05em; color: var(--c-gray);
+  border-radius: 2px; transition: all 0.18s;
+}
+.lang-toggle button:hover { color: var(--c-head); background: color-mix(in srgb, var(--c-red) 8%, transparent); }
+.lang-toggle button.active { background: var(--c-head); color: var(--c-bg); }
+
+.lang-toggle-mobile {
+  display: none; position: fixed; top: 14px; right: 70px;
+  background: var(--c-bg); border: 1px solid var(--c-divider);
+  z-index: 200; margin-bottom: 0; padding: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.lang-toggle-mobile button { padding: 6px 7px; font-size: 10px; }
+
 .mobile-toggle {
   display: none; position: fixed; top: 14px; right: 14px;
   width: 42px; height: 42px;
@@ -1739,6 +1764,7 @@ body.cursor-active .cursor-glow { opacity: 1; }
   .sidebar.open { transform: translateX(0); }
   .main { margin-left: 0; scroll-snap-type: none; }
   .mobile-toggle { display: flex; }
+  .lang-toggle-mobile { display: flex; }
   .progress-bar { left: 0; }
 
   .section { padding: 56px 28px; min-height: auto; scroll-snap-align: none; }

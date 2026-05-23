@@ -4,3 +4,9 @@ Thumbs.db
 .vscode/
 .idea/
 node_modules/
+
+# i18n build artifacts (input is index.html.bak before injection)
+index.html.bak
+index.html.bak2
+build_i18n.py
+wrap_tails.py
