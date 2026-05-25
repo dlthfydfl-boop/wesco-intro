@@ -3977,6 +3977,18 @@ body.present-mode .section.is-present {
   z-index: 5;
 }
 
+/* Force-reveal IntersectionObserver-driven elements.
+   In present mode .section is position:fixed, so IO never fires
+   and [data-reveal] children stay at opacity:0, transform:translateY(28px). */
+body.present-mode [data-reveal],
+body.present-mode [data-reveal-stagger],
+body.present-mode [data-reveal-stagger] > *,
+body.present-mode .is-reveal,
+body.present-mode .reveal-up {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* Sidebar in present mode — hidden by default, shown by 'M' key toggle */
 body.present-mode .sidebar {
   transform: translateX(-100%);

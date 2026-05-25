@@ -63,11 +63,23 @@
   function next() { showSlide(current + 1); }
   function prev() { showSlide(current - 1); }
 
+  function forceFinalizeCounters() {
+    // [data-count] elements are counted up via IntersectionObserver in script.js.
+    // In present mode IO doesn't fire (position:fixed), so freeze them at the final value.
+    document.querySelectorAll('[data-count]').forEach((el) => {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      if (!isNaN(target)) {
+        el.textContent = target.toLocaleString();
+      }
+    });
+  }
+
   function turnOn() {
     slides = getSlides();
     if (!slides.length) return;
     isOn = true;
     document.body.classList.add('present-mode');
+    forceFinalizeCounters();
     // Pick initial slide from hash or stored
     const initial = indexFromHash();
     showSlide(initial);
