@@ -115,14 +115,16 @@
   }
 
   function onKeyDown(e) {
-    // Ignore typing in inputs
-    if (e.target && e.target.matches('input, textarea, select, [contenteditable]')) return;
+    // Ignore typing in inputs. e.target may be document/window, so check it's an Element first.
+    const t = e.target;
+    const isElement = t && t.nodeType === 1 && typeof t.matches === 'function';
+    if (isElement && t.matches('input, textarea, select, [contenteditable]')) return;
 
     if (!isOn) {
       // Quick enter via 'p' in normal mode
       if (e.key === 'p' || e.key === 'P') {
         // Only if not focused in an interactive element
-        if (!e.target.matches('a, button, input, textarea, select')) {
+        if (!isElement || !t.matches('a, button, input, textarea, select')) {
           e.preventDefault();
           turnOn();
         }
@@ -175,12 +177,14 @@
 
   function onClick(e) {
     if (!isOn) return;
-    // Don't advance on interactive elements
-    if (e.target.closest('a, button, input, select, textarea, label, [data-no-advance]')) return;
-    if (e.target.closest('.sidebar')) return;
-    if (e.target.closest('.present-controls')) return;
-    if (e.target.closest('.lang-toggle')) return;
-    if (e.target.closest('.present-toggle')) return;
+    const t = e.target;
+    if (!t || t.nodeType !== 1 || typeof t.closest !== 'function') return;
+    // Don't advance on interactive elements or controls
+    if (t.closest('a, button, input, select, textarea, label, [data-no-advance]')) return;
+    if (t.closest('.sidebar')) return;
+    if (t.closest('.present-controls')) return;
+    if (t.closest('.lang-toggle')) return;
+    if (t.closest('.present-toggle')) return;
     const x = e.clientX;
     const w = window.innerWidth;
     if (x > w / 2) next(); else prev();
@@ -188,7 +192,9 @@
 
   // Sidebar nav links → jump to slide in present mode
   function onNavClick(e) {
-    const link = e.target.closest('.sidebar-nav .nav-item');
+    const t = e.target;
+    if (!t || t.nodeType !== 1 || typeof t.closest !== 'function') return;
+    const link = t.closest('.sidebar-nav .nav-item');
     if (!link || !isOn) return;
     const href = link.getAttribute('href');
     if (!href || !href.startsWith('#')) return;
