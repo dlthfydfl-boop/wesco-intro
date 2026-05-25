@@ -41,6 +41,9 @@
     }
   }
 
+  // Void elements that cannot have text content
+  const VOID_TAGS = new Set(['br', 'hr', 'img', 'input', 'meta', 'link', 'area', 'base', 'col', 'embed', 'param', 'source', 'track', 'wbr']);
+
   function applyDict(dict, lang) {
     if (!dict) return;
     // Element text + attribute replacement
@@ -51,6 +54,9 @@
       const attrName = el.getAttribute('data-i18n-attr');
       if (attrName) {
         el.setAttribute(attrName, val);
+      } else if (VOID_TAGS.has(el.tagName.toLowerCase())) {
+        // Skip void elements (br, hr, etc.) — they cannot hold text
+        return;
       } else {
         // Preserve child nodes that aren't text? Most data-i18n elements are leaf-like.
         // If element has child elements, only replace the first/last text node.
