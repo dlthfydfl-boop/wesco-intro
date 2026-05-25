@@ -3929,3 +3929,100 @@ img, svg { max-width: 100%; }
     animation: none !important;
   }
 }
+
+/* === Presentation Mode ============================================= */
+.present-toggle {
+  position: fixed; top: 14px; right: 14px; z-index: 250;
+  padding: 8px 14px;
+  background: var(--c-head); color: var(--c-bg);
+  border: 0; border-radius: 3px; cursor: pointer;
+  font-family: var(--font-en); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.2s;
+}
+.present-toggle:hover { background: var(--c-red); transform: translateY(-1px); }
+body.present-mode .present-toggle { background: var(--c-red); }
+
+/* Present mode: hide normal scroll, position sections as overlapping panels */
+body.present-mode { overflow: hidden; height: 100vh; }
+body.present-mode .main {
+  margin-left: 0;
+  scroll-snap-type: none;
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
+}
+body.present-mode .progress-bar { display: none; }
+body.present-mode .cursor-glow { display: none; }
+
+body.present-mode .section {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+  z-index: 1;
+}
+body.present-mode .section.is-present {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0s linear 0s;
+  z-index: 5;
+}
+
+/* Sidebar in present mode — hidden by default, shown by 'M' key toggle */
+body.present-mode .sidebar {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+body.present-mode.present-show-sidebar .sidebar { transform: translateX(0); }
+
+/* Present mode controls — bottom center pill */
+.present-controls {
+  display: none;
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+  z-index: 240;
+  gap: 4px; align-items: center;
+  background: var(--c-bg);
+  border: 1px solid var(--c-divider);
+  border-radius: 999px;
+  padding: 4px 6px 4px 6px;
+  font-family: var(--font-en);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+}
+body.present-mode .present-controls { display: inline-flex; }
+.present-controls button {
+  background: transparent; border: 0; cursor: pointer;
+  padding: 8px 14px;
+  font-size: 14px; font-weight: 600;
+  color: var(--c-head);
+  border-radius: 999px;
+  transition: all 0.15s;
+  min-width: 36px;
+}
+.present-controls button:hover {
+  background: color-mix(in srgb, var(--c-red) 8%, transparent);
+  color: var(--c-red);
+}
+.present-controls .pc-count {
+  font-size: 12px; font-weight: 700;
+  color: var(--c-red);
+  padding: 0 12px;
+  min-width: 60px; text-align: center;
+  letter-spacing: 0.05em;
+}
+.present-controls .pc-exit { color: var(--c-gray); font-size: 13px; }
+
+/* Position present-toggle below mobile-toggle on small screens */
+@media (max-width: 768px) {
+  .present-toggle { top: 14px; right: 134px; }
+  body.present-mode .lang-toggle-mobile { display: none; }
+  body.present-mode .mobile-toggle { display: none; }
+}

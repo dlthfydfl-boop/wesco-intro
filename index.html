@@ -77,6 +77,13 @@
 </aside>
 
 <button class="mobile-toggle" id="mobileToggle" aria-label="메뉴"><span></span><span></span><span></span></button>
+<button class="present-toggle" id="presentToggle" aria-label="발표 모드">PRESENT</button>
+<div class="present-controls" role="group" aria-label="Presentation controls">
+  <button data-action="prev" aria-label="이전">◀</button>
+  <span class="pc-count">1 / 13</span>
+  <button data-action="next" aria-label="다음">▶</button>
+  <button data-action="exit" class="pc-exit" aria-label="종료">✕</button>
+</div>
 <div class="lang-toggle lang-toggle-mobile" role="group" aria-label="Language">
   <button type="button" data-lang-btn="ko">KO</button>
   <button type="button" data-lang-btn="en">EN</button>
@@ -1888,5 +1895,6 @@
 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
 <script src="script.js?v=648"></script>
 <script src="i18n.js?v=1"></script>
+<script src="present.js?v=1"></script>
 </body>
 </html>
