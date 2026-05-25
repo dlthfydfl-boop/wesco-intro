@@ -98,7 +98,10 @@
     if (!isOn) return;
     const active = slides[current];
     if (active) {
-      const scrollable = active.scrollHeight > active.clientHeight + 2;
+      // Only treat as internally-scrollable when content overflows by a clear amount.
+      // Otherwise tiny layout margins (10-50px) would block slide transitions.
+      const SCROLL_THRESHOLD = 100;
+      const scrollable = active.scrollHeight > active.clientHeight + SCROLL_THRESHOLD;
       const atTop = active.scrollTop <= 0;
       const atBottom = active.scrollTop + active.clientHeight >= active.scrollHeight - 2;
       if (scrollable) {
