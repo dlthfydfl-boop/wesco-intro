@@ -74,20 +74,28 @@
     });
   }
 
-  // On mobile, IO/anime.js sometimes stalls and counters stay at 0.
-  // Force counters to their final value once the page is fully loaded.
+  // On mobile, anime.js counter animation may run from negative values
+  // up to the target (briefly showing "-400" etc). Enforce the final
+  // value continuously for 3 seconds — anime.js gets overridden each frame.
   function mobileCounterSafety() {
     if (!isMobile()) return;
+    const targets = new Map();
+    document.querySelectorAll('[data-count]').forEach((el) => {
+      const t = parseInt(el.getAttribute('data-count'), 10);
+      if (!isNaN(t)) targets.set(el, t.toLocaleString());
+    });
+    if (!targets.size) return;
     const apply = () => {
-      document.querySelectorAll('[data-count]').forEach((el) => {
-        if (el.textContent.trim() === '0') {
-          const target = parseInt(el.getAttribute('data-count'), 10);
-          if (!isNaN(target)) el.textContent = target.toLocaleString();
-        }
+      targets.forEach((finalVal, el) => {
+        if (el.textContent !== finalVal) el.textContent = finalVal;
       });
     };
-    // Give the counter animation 2.5 s to finish naturally; freeze leftovers after.
-    window.setTimeout(apply, 2500);
+    apply();
+    let n = 0;
+    const id = setInterval(() => {
+      apply();
+      if (++n > 30) clearInterval(id); // 30 × 100ms = 3s
+    }, 100);
   }
 
   function isMobile() {
