@@ -74,6 +74,22 @@
     });
   }
 
+  // On mobile, IO/anime.js sometimes stalls and counters stay at 0.
+  // Force counters to their final value once the page is fully loaded.
+  function mobileCounterSafety() {
+    if (!isMobile()) return;
+    const apply = () => {
+      document.querySelectorAll('[data-count]').forEach((el) => {
+        if (el.textContent.trim() === '0') {
+          const target = parseInt(el.getAttribute('data-count'), 10);
+          if (!isNaN(target)) el.textContent = target.toLocaleString();
+        }
+      });
+    };
+    // Give the counter animation 2.5 s to finish naturally; freeze leftovers after.
+    window.setTimeout(apply, 2500);
+  }
+
   function isMobile() {
     return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
   }
@@ -273,6 +289,9 @@
     if (params.get('present') === '1' || localStorage.getItem(PRESENT_KEY) === '1') {
       turnOn();
     }
+
+    // Mobile counter safety net
+    mobileCounterSafety();
   }
 
   window.WescoPresent = { on: turnOn, off: turnOff, toggle, next, prev, go: showSlide };

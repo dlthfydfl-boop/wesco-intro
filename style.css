@@ -1768,6 +1768,14 @@ body.cursor-active .cursor-glow { opacity: 1; }
     height: auto;
     overflow-y: visible;
   }
+  /* Mobile: IntersectionObserver/anime.js can stall in narrow viewports.
+     Show content immediately to guarantee visibility. */
+  [data-reveal],
+  [data-reveal-stagger],
+  [data-reveal-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .mobile-toggle { display: flex; }
   .lang-toggle-mobile { display: flex; }
   .progress-bar { left: 0; }
