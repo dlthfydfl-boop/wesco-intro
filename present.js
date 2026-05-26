@@ -74,28 +74,20 @@
     });
   }
 
-  // On mobile, anime.js counter animation may run from negative values
-  // up to the target (briefly showing "-400" etc). Enforce the final
-  // value continuously for 3 seconds — anime.js gets overridden each frame.
+  // On mobile, anime.js can animate counters from negative values
+  // (briefly showing "-400" etc). Replace each counter element with a
+  // clone holding the final value — anime.js retains a reference to the
+  // detached original, so its updates no longer hit the DOM.
   function mobileCounterSafety() {
     if (!isMobile()) return;
-    const targets = new Map();
     document.querySelectorAll('[data-count]').forEach((el) => {
       const t = parseInt(el.getAttribute('data-count'), 10);
-      if (!isNaN(t)) targets.set(el, t.toLocaleString());
+      if (isNaN(t)) return;
+      const clone = el.cloneNode(true);
+      clone.textContent = t.toLocaleString();
+      clone.removeAttribute('data-count');
+      if (el.parentNode) el.parentNode.replaceChild(clone, el);
     });
-    if (!targets.size) return;
-    const apply = () => {
-      targets.forEach((finalVal, el) => {
-        if (el.textContent !== finalVal) el.textContent = finalVal;
-      });
-    };
-    apply();
-    let n = 0;
-    const id = setInterval(() => {
-      apply();
-      if (++n > 30) clearInterval(id); // 30 × 100ms = 3s
-    }, 100);
   }
 
   function isMobile() {
