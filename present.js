@@ -74,7 +74,16 @@
     });
   }
 
+  function isMobile() {
+    return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  }
+
   function turnOn() {
+    // Present mode is desktop-only — mobile uses normal scroll.
+    if (isMobile()) {
+      localStorage.removeItem(PRESENT_KEY);
+      return;
+    }
     slides = getSlides();
     if (!slides.length) return;
     isOn = true;

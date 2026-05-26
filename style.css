@@ -4032,9 +4032,12 @@ body.present-mode .present-controls { display: inline-flex; }
 }
 .present-controls .pc-exit { color: var(--c-gray); font-size: 13px; }
 
-/* Position present-toggle below mobile-toggle on small screens */
+/* Mobile: hide present mode UI entirely (present is for desktop demos).
+   Mobile users see normal scroll + hamburger + language toggle. */
 @media (max-width: 768px) {
-  .present-toggle { top: 14px; right: 134px; }
+  .present-toggle { display: none; }
+  body.present-mode .present-toggle,
+  body.present-mode .present-controls { display: none; }
   body.present-mode .lang-toggle-mobile { display: none; }
   body.present-mode .mobile-toggle { display: none; }
 }
