@@ -4072,3 +4072,15 @@ body.present-mode .present-controls { display: inline-flex; }
 .sag-calc-cta{display:inline-block;color:#C13816;font-weight:700;font-size:15px;text-decoration:none}
 .sag-calc-cta:hover{text-decoration:underline}
 @media(max-width:640px){.sag-calc{padding:24px 20px;margin-top:32px}.sag-calc-inputs{grid-template-columns:1fr}.sag-calc-result-value{font-size:34px}}
+
+/* ===== 볼타 2026 최신 현장검증 콜아웃 (260628) ===== */
+.volta-verify{margin:28px auto 0;max-width:880px;background:#fff;border:1px solid #E7E0D8;border-left:4px solid #C13816;border-radius:14px;padding:24px 30px;box-shadow:0 3px 18px rgba(193,56,22,.06)}
+.volta-verify-tag{display:inline-block;background:#C13816;color:#fff;font-size:12px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:.02em}
+.volta-verify-cust{font-size:19px;font-weight:700;color:#44403C;margin:12px 0 16px}
+.volta-verify-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1px solid #EFE9E2;border-bottom:1px solid #EFE9E2;padding:16px 0}
+.vv-stat{display:flex;flex-direction:column;gap:5px}
+.vv-k{font-size:12px;color:#8a8278;font-weight:600}
+.vv-v{font-size:15px;color:#44403C;font-weight:700;line-height:1.35}
+.vv-v.vv-pass{color:#2E7D32}
+.volta-verify-note{font-size:14px;color:#57534E;margin:14px 0 0;line-height:1.55}
+@media(max-width:640px){.volta-verify{padding:20px 18px}.volta-verify-stats{grid-template-columns:1fr;gap:12px}}

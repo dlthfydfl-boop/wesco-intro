@@ -437,5 +437,14 @@
   "calc.t6": "Calculate",
   "calc.t7": "Estimated annual loss (in your currency)",
   "calc.t8": "WESCO TSP prevents this loss in advance — typically ROI within one year",
-  "calc.t9": "Request a line assessment →"
+  "calc.t9": "Request a line assessment →",
+  "volta.t1": "2026 Latest Field Verification",
+  "volta.t2": "Volta Energy Solutions · Hungary",
+  "volta.t3": "TSP units protected",
+  "volta.t4": "53 (3-phase 400V · 50–450kVA)",
+  "volta.t5": "Monitoring",
+  "volta.t6": "Jun 2024 – Jun 2026 (2 yrs)",
+  "volta.t7": "Annual inspection",
+  "volta.t8": "53 / 53 PASS",
+  "volta.t9": "All voltage sags on plating, production and utility lines fully compensated — zero line downtime confirmed (2026 annual inspection report)"
 }
