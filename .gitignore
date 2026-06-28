@@ -10,3 +10,6 @@ index.html.bak
 index.html.bak2
 build_i18n.py
 wrap_tails.py
+
+.omc/
+*.bak*
