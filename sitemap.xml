@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://dlthfydfl-boop.github.io/wesco-intro/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://dlthfydfl-boop.github.io/wesco-intro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dlthfydfl-boop.github.io/wesco-intro/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://dlthfydfl-boop.github.io/wesco-intro/?lang=cn"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://dlthfydfl-boop.github.io/wesco-intro/?lang=jp"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dlthfydfl-boop.github.io/wesco-intro/?lang=vn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dlthfydfl-boop.github.io/wesco-intro/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
