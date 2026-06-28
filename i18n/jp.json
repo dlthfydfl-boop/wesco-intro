@@ -424,5 +424,18 @@
   "contact-cta.tail5": "安養 IS ビズタワー A 棟 3F-347",
   "contact-cta.tail6": "公式サイト · www.wesco.co.kr",
   "contact-cta.tail7": "YouTube · @WESCOTSP",
-  "contact-cta.tail8": "総合お問い合わせ · wesco@wesco.co.kr"
+  "contact-cta.tail8": "総合お問い合わせ · wesco@wesco.co.kr",
+  "certifications.q1": "品質·環境·企業認証",
+  "certifications.q3": "受賞",
+  "certifications.q4": "1千万ドル輸出の塔 (2018)",
+  "certifications.q2": "ISO 9001 · ISO 14001 · INNO-BIZ",
+  "calc.t1": "瞬時電圧低下、御社ラインの損失は？",
+  "calc.t2": "数値を入力して年間想定損失を確認",
+  "calc.t3": "1時間あたりの生産価値",
+  "calc.t4": "年間の瞬時停電回数",
+  "calc.t5": "1回あたり平均ライン停止 (分)",
+  "calc.t6": "損失を計算",
+  "calc.t7": "年間想定損失 (入力通貨基準)",
+  "calc.t8": "WESCO TSPはこの損失を事前に遮断 — 通常1年以内に投資回収",
+  "calc.t9": "ライン診断を依頼 →"
 }

@@ -424,5 +424,18 @@
   "contact-cta.tail5": "Manan-gu, Anyang-si, Gyeonggi-do, Korea",
   "contact-cta.tail6": "Official Site · www.wesco.co.kr",
   "contact-cta.tail7": "YouTube · @WESCOTSP",
-  "contact-cta.tail8": "General Inquiry · wesco@wesco.co.kr"
+  "contact-cta.tail8": "General Inquiry · wesco@wesco.co.kr",
+  "certifications.q1": "Quality · Environment · Enterprise",
+  "certifications.q3": "Award",
+  "certifications.q4": "Ten Million Dollar Export Tower (2018)",
+  "certifications.q2": "ISO 9001 · ISO 14001 · INNO-BIZ",
+  "calc.t1": "What does a voltage sag cost your line?",
+  "calc.t2": "Enter your numbers to see the estimated annual loss",
+  "calc.t3": "Production value per hour",
+  "calc.t4": "Sag events per year",
+  "calc.t5": "Avg. line stop per event (min)",
+  "calc.t6": "Calculate",
+  "calc.t7": "Estimated annual loss (in your currency)",
+  "calc.t8": "WESCO TSP prevents this loss in advance — typically ROI within one year",
+  "calc.t9": "Request a line assessment →"
 }

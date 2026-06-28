@@ -4054,3 +4054,21 @@ body.present-mode .present-controls { display: inline-flex; }
   body.present-mode .lang-toggle-mobile { display: none; }
   body.present-mode .mobile-toggle { display: none; }
 }
+
+/* ===== 순간정전 손실 계산기 (리드마그넷, 260628) ===== */
+.sag-calc{margin:44px auto 0;max-width:780px;background:linear-gradient(135deg,#FDFCF9,#F6F0E9);border:1px solid #E7E0D8;border-radius:18px;padding:34px 38px;box-shadow:0 4px 24px rgba(193,56,22,.07)}
+.sag-calc-title{font-size:23px;font-weight:700;color:#44403C;margin:0 0 6px;letter-spacing:-.01em}
+.sag-calc-sub{font-size:15px;color:#57534E;margin:0 0 24px}
+.sag-calc-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.sag-calc-field{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#57534E;font-weight:600}
+.sag-calc-field input{padding:12px 14px;border:1px solid #E7E0D8;border-radius:10px;font-size:16px;background:#fff;color:#44403C;width:100%}
+.sag-calc-field input:focus{outline:none;border-color:#C13816}
+.sag-calc-btn{background:#C13816;color:#fff;border:0;border-radius:10px;padding:13px 30px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.sag-calc-btn:hover{background:#A52F12}
+.sag-calc-result{margin-top:24px;padding-top:24px;border-top:1px solid #E7E0D8;text-align:center}
+.sag-calc-result-label{font-size:14px;color:#8a8278}
+.sag-calc-result-value{font-size:42px;font-weight:800;color:#C13816;line-height:1.15;margin:6px 0;font-family:'Barlow Condensed','Inter',sans-serif}
+.sag-calc-note{font-size:14px;color:#57534E;margin:10px 0 16px;line-height:1.5}
+.sag-calc-cta{display:inline-block;color:#C13816;font-weight:700;font-size:15px;text-decoration:none}
+.sag-calc-cta:hover{text-decoration:underline}
+@media(max-width:640px){.sag-calc{padding:24px 20px;margin-top:32px}.sag-calc-inputs{grid-template-columns:1fr}.sag-calc-result-value{font-size:34px}}

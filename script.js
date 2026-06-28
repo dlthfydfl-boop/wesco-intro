@@ -1055,3 +1055,18 @@ console.log('%c WESCO · Power Reliability Solution ', 'background:#C13816;color
   }
   window.HowV2 = { setScene };
 })();
+
+/* 순간정전 손실 계산기 (260628) — 방문자 입력 기반, 데이터 미생성 */
+(function(){
+  var btn=document.getElementById('calc-btn');
+  if(!btn) return;
+  function calc(){
+    var v=parseFloat(document.getElementById('calc-value').value)||0;
+    var e=parseFloat(document.getElementById('calc-events').value)||0;
+    var m=parseFloat(document.getElementById('calc-mins').value)||0;
+    var loss=Math.round(v*(m/60)*e);
+    document.getElementById('calc-out').textContent=loss.toLocaleString();
+    document.getElementById('calc-result').hidden=false;
+  }
+  btn.addEventListener('click',calc);
+})();
