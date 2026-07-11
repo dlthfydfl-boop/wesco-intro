@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>WESCO 인사이트</title><meta name="description" content="전력 품질과 순간전압강하 대응에 관한 WESCO의 기술 인사이트"><link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/"><meta property="og:type" content="article"><meta property="og:title" content="WESCO 인사이트"><meta property="og:description" content="전력 품질과 순간전압강하 대응에 관한 WESCO의 기술 인사이트"><meta property="og:url" content="https://dlthfydfl-boop.github.io/wesco-intro/blog/"><link rel="icon" type="image/x-icon" href="https://dlthfydfl-boop.github.io/wesco-intro/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --c-red:#C13816; --c-red-dk:#9C2C10; --c-red-lt:#FBEEE8;
+  --c-head:#2C2924; --c-text:#4A4641; --c-gray:#78716C; --c-gray-lt:#A8A29E;
+  --c-bg:#FDFCF9; --c-bg-soft:#F7F4EE; --c-divider:#E0DBD3; --c-accent:#4F6886;
+  --font-ko:'Noto Sans KR','맑은 고딕',sans-serif;
+  --font-en:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--c-text);background:var(--c-bg);
+  line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--c-red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* 상단바 */
+.topbar{border-bottom:1px solid var(--c-divider);background:var(--c-bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--font-en);font-weight:800;font-size:20px;color:var(--c-head);letter-spacing:.02em}
+.brand span{color:var(--c-red)}
+.topnav a{color:var(--c-gray);font-size:14px;font-weight:500;margin-left:22px}
+.topnav a:hover{color:var(--c-red);text-decoration:none}
+
+/* 글 헤더 */
+.post-head{padding:56px 0 34px;border-bottom:1px solid var(--c-divider)}
+.post-head .kicker{font-family:var(--font-en);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-red)}
+.post-head h1{font-size:34px;line-height:1.32;color:var(--c-head);
+  font-weight:700;margin:14px 0 12px;letter-spacing:-.01em}
+.post-head .sub{font-size:18px;color:var(--c-gray);font-weight:400;line-height:1.6}
+.post-meta{margin-top:20px;font-size:13px;color:var(--c-gray-lt);
+  font-family:var(--font-en);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags .tag{background:var(--c-bg-soft);color:var(--c-gray);border:1px solid var(--c-divider);
+  border-radius:100px;padding:3px 11px;font-size:12px;font-family:var(--font-ko)}
+
+/* 본문 */
+.post-body{padding:38px 0 10px}
+.post-body h2{font-size:23px;color:var(--c-head);font-weight:700;
+  margin:44px 0 16px;letter-spacing:-.01em;line-height:1.4}
+.post-body h3{font-size:19px;color:var(--c-head);font-weight:700;margin:30px 0 12px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body strong{color:var(--c-head);font-weight:700}
+.post-body em{font-style:normal;color:var(--c-gray)}
+.post-body hr{border:0;border-top:1px solid var(--c-divider);margin:40px 0}
+.post-body blockquote{border-left:3px solid var(--c-red);padding:2px 0 2px 18px;
+  margin:0 0 22px;color:var(--c-gray)}
+.post-body img{max-width:100%;height:auto;border-radius:10px;margin:8px 0 24px}
+
+/* CTA */
+.cta{margin:44px 0 0;background:var(--c-bg-soft);border:1px solid var(--c-divider);
+  border-radius:14px;padding:28px 30px}
+.cta h4{font-size:18px;color:var(--c-head);margin-bottom:8px}
+.cta p{font-size:15px;color:var(--c-gray);margin-bottom:16px}
+.cta a.btn{display:inline-block;background:var(--c-red);color:#fff;font-weight:600;
+  font-size:15px;padding:11px 22px;border-radius:8px}
+.cta a.btn:hover{background:var(--c-red-dk);text-decoration:none}
+
+/* 푸터 */
+.foot{margin-top:64px;border-top:1px solid var(--c-divider);
+  padding:30px 0 60px;color:var(--c-gray-lt);font-size:13px;text-align:center}
+.foot a{color:var(--c-gray)}
+
+/* 목록 */
+.list-head{padding:56px 0 14px}
+.list-head h1{font-size:30px;color:var(--c-head);font-weight:700}
+.list-head p{color:var(--c-gray);margin-top:8px}
+.card{display:block;padding:26px 0;border-bottom:1px solid var(--c-divider)}
+.card:hover{text-decoration:none}
+.card .kicker{font-family:var(--font-en);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--c-red)}
+.card h2{font-size:22px;color:var(--c-head);font-weight:700;margin:8px 0 8px;line-height:1.4}
+.card p{color:var(--c-gray);font-size:15px}
+.card .date{font-family:var(--font-en);font-size:12px;color:var(--c-gray-lt);margin-top:10px}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .post-head h1{font-size:27px}
+  .post-head .sub{font-size:16px}
+  .post-body h2{font-size:20px}
+}
+</style></head><body><header class="topbar"><div class="wrap"><a class="brand" href="https://dlthfydfl-boop.github.io/wesco-intro/">WES<span>CO</span></a><nav class="topnav"><a href="https://dlthfydfl-boop.github.io/wesco-intro/">홈</a><a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/">인사이트</a></nav></div></header><section class="list-head"><div class="wrap"><h1>WESCO 인사이트</h1><p>전력 품질과 순간전압강하 대응에 관한 WESCO의 기술 인사이트</p></div></section><div class="wrap"><a class="card" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/battery-free-voltage-sag/"><div class="kicker">WESCO Insight</div><h2>0.2초의 정전, 반도체 공장을 멈추다</h2><p>정전도 아닌데 라인이 멈춘다. 눈 깜빡임보다 짧은 순간전압강하(Voltage Sag)가 정밀 제조라인을 세우는 이유와, 배터리 없이 이를 보상하는 방법을 정리했다.</p><div class="date">2026-07-11</div></a></div><footer class="foot"><div class="wrap">© WESCO Co., Ltd. · Voltage Sag Protector Manufacturer · <a href="https://www.wesco.co.kr">www.wesco.co.kr</a></div></footer></body></html>
