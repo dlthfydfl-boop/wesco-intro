@@ -46,8 +46,8 @@ a{text-decoration:none;color:inherit}
 /* 상단바 */
 .hero-top{position:relative;z-index:3;display:flex;align-items:center;
   justify-content:space-between;padding:26px 40px}
-.logo{font-family:var(--font-disp);font-weight:800;font-size:28px;letter-spacing:.04em}
-.logo b{color:var(--red)}
+.logo{display:inline-flex;align-items:center}
+.logo img{height:58px;width:auto;display:block}
 .hero-top .tag{font-family:var(--font-en);font-size:11px;letter-spacing:.32em;
   color:var(--gray-lt);text-transform:uppercase}
 .hero-nav{display:flex;gap:30px;font-size:13px;color:#cfc9c4;font-weight:500}
@@ -169,9 +169,9 @@ a{text-decoration:none;color:inherit}
   </div>
 
   <div class="hero-top">
-    <div>
-      <div class="logo">WES<b>CO</b></div>
-    </div>
+    <a href="https://dlthfydfl-boop.github.io/wesco-intro/" class="logo">
+      <img src="images/wesco_logo.png" alt="WESCO 웨스코">
+    </a>
     <nav class="hero-nav">
       <a href="#products">제품</a>
       <a href="#">기술</a>
