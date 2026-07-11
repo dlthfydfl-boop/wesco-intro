@@ -233,10 +233,10 @@ a{text-decoration:none;color:inherit}
 .tm-scr,.tm-inv,.tm-dc,.tm-edlc{fill:#1a2338;stroke:#3a4d6b;stroke-width:1.3;transition:.3s}
 .tm-bolt{fill:none;stroke:#E0533A;stroke-width:5;stroke-linejoin:round;stroke-linecap:round;
   opacity:0;filter:drop-shadow(0 0 6px #E0533A)}
-.tm-led{fill:#4FB07A;filter:drop-shadow(0 0 7px #4FB07A)}
-.tm-charge rect{fill:#4FB07A;transition:.3s}
+.tm-led{fill:#5F8A6E}
+.tm-charge rect{fill:#5F8A6E;transition:.3s}
 .tm-flow{fill:none;stroke-width:4;stroke-linecap:round;opacity:.14}
-.tm-util{stroke:#4B9CE2}.tm-comp{stroke:#F5A623}
+.tm-util{stroke:#6E8BA8}.tm-comp{stroke:#F5A623}
 @keyframes tmflow{to{stroke-dashoffset:-18}}
 .tsp-motion[data-phase="normal"] .tm-util,
 .tsp-motion[data-phase="restore"] .tm-util,
@@ -256,12 +256,11 @@ a{text-decoration:none;color:inherit}
 .tsp-motion-wavebox{margin-top:22px;background:#0a0f18;border:1px solid #1e2a3d;
   border-radius:10px;padding:16px 20px}
 .tm-wlabel{display:flex;justify-content:space-between;font:600 11.5px var(--font-en);margin-bottom:6px}
-.tm-wl-in{color:#5AB0F0}.tm-wl-out{color:#F5A623}
+.tm-wl-in{color:#6E8BA8}.tm-wl-out{color:#F5A623}
 .tsp-motion-wave{width:100%;height:128px;display:block}
 .tm-sagzone{fill:#E0533A;opacity:.09}
 .tm-wbase{stroke:#22304a;stroke-width:1;stroke-dasharray:4 5}
-.tm-wave{fill:none;stroke:#5AB0F0;stroke-width:2.5;filter:drop-shadow(0 0 4px rgba(90,176,240,.55));
-  animation:tmwave 14s linear infinite}
+.tm-wave{fill:none;stroke:#6E8BA8;stroke-width:2.5;animation:tmwave 14s linear infinite}
 @keyframes tmwave{to{stroke-dashoffset:0}}
 .tm-cursor{stroke:#F5A623;stroke-width:2;opacity:.75;animation:tmcursor 14s linear infinite}
 @keyframes tmcursor{from{transform:translateX(0)}to{transform:translateX(1200px)}}
@@ -294,7 +293,7 @@ a{text-decoration:none;color:inherit}
   color:var(--head);letter-spacing:.01em}
 .snode small{font-size:12.5px;color:var(--gray)}
 .snode.tspnode{background:var(--red);border-color:var(--red);color:#fff;
-  box-shadow:0 18px 38px -16px var(--red-glow);transform:scale(1.07);animation:tspbeat 3s ease-in-out infinite}
+  box-shadow:0 14px 30px -14px rgba(0,0,0,.45);transform:scale(1.05)}
 .snode.tspnode .sn-ic,.snode.tspnode b{color:#fff}
 .snode.tspnode small{color:#ffd9cd}
 @keyframes tspbeat{0%,40%,100%{box-shadow:0 18px 38px -16px var(--red-glow)}
