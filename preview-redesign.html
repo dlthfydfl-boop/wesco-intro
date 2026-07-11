@@ -191,6 +191,10 @@ a{text-decoration:none;color:inherit}
 .hm .n i{color:var(--red);font-style:normal}
 .hm .l{margin-top:8px;font-size:14px;color:var(--gray)}
 
+/* 작동원리 GIF */
+.op-gif{display:block;width:100%;max-width:940px;margin:52px auto 0;border-radius:14px;
+  border:1px solid var(--divider);box-shadow:0 24px 56px -26px rgba(28,25,23,.3)}
+.op-cap{text-align:center;margin-top:16px;font-size:13.5px;color:var(--gray-lt)}
 /* SLD 애니메이션 다이어그램 */
 .sld{margin:54px 0 50px}
 .sld-flow{display:flex;align-items:center;justify-content:center;margin-bottom:34px}
@@ -225,9 +229,43 @@ a{text-decoration:none;color:inherit}
 .sag-pulse{fill:var(--red);opacity:0;animation:sagp 3.2s ease-in-out infinite}
 @keyframes sagp{0%,26%{opacity:0;r:0}40%{opacity:.9;r:8}62%,100%{opacity:0;r:8}}
 
+/* EDGE — TSP vs UPS 비교 도식 */
+.compare{margin-top:52px;border:1px solid rgba(255,255,255,.14);border-radius:12px;overflow:hidden}
+.cmp-row{display:grid;grid-template-columns:1fr 1.35fr 1.35fr;align-items:center}
+.cmp-row+.cmp-row{border-top:1px solid rgba(255,255,255,.1)}
+.cmp-row>div{padding:19px 26px;font-size:14.5px}
+.cmp-head>div{font-family:var(--font-en);font-weight:700;font-size:15px;padding:20px 26px}
+.cmp-head .tsp{color:#fff;background:var(--red)}
+.cmp-head .ups{color:#9a928b}
+.cmp-row .lbl{font-weight:600;color:#cbc5bf}
+.cmp-row .tsp{color:#fff;font-weight:600;background:rgba(193,56,22,.12);
+  border-left:2px solid var(--red);border-right:2px solid var(--red)}
+.cmp-row .tsp::before{content:"✓  ";color:var(--red);font-weight:800}
+.cmp-row .ups{color:#8a827b}
+.cmp-row .ups::before{content:"—  ";color:#5c554f}
+
+/* TRACK — 카운터 + 산업별 막대 */
+.stats-big{display:grid;grid-template-columns:repeat(3,1fr);margin:52px 0 50px;
+  border:1px solid var(--divider);border-radius:12px;overflow:hidden;background:var(--bg-soft)}
+.sbig{padding:42px 30px;text-align:center;border-right:1px solid var(--divider)}
+.sbig:last-child{border-right:0}
+.sbig .cnt{font-family:var(--font-disp);font-weight:700;font-size:58px;color:var(--red);
+  line-height:1;letter-spacing:.01em}
+.sbig small{display:block;margin-top:10px;font-size:14.5px;color:var(--gray)}
+.ind-bars{display:flex;flex-direction:column;gap:15px}
+.ibar{display:grid;grid-template-columns:110px 1fr 92px;align-items:center;gap:18px}
+.ibar .in{font-size:14.5px;color:var(--head);font-weight:600}
+.ibar .track{height:14px;background:var(--bg-warm);border-radius:7px;overflow:hidden}
+.ibar .fill{height:100%;background:linear-gradient(90deg,var(--red-dk),var(--red));
+  border-radius:7px;width:0;transition:width 1.5s cubic-bezier(.2,.8,.2,1)}
+.ibar .val{font-family:var(--font-disp);font-weight:700;font-size:19px;color:var(--head);text-align:right}
+
 @media(max-width:900px){
   .sld-flow{flex-wrap:wrap;gap:12px}.snode{width:100%}.swire{width:100%;height:24px;min-width:0}
   .swire i{top:auto;bottom:0;animation:none;left:50%}
+  .cmp-row{grid-template-columns:1fr}.cmp-row .lbl{background:rgba(255,255,255,.05)}
+  .stats-big{grid-template-columns:1fr}.sbig{border-right:0;border-bottom:1px solid var(--divider)}
+  .ibar{grid-template-columns:90px 1fr 70px;gap:10px}
   .impact,.causes,.flow,.how-metrics{grid-template-columns:1fr}
   .impact .cell,.step{border-right:0;border-bottom:1px solid rgba(128,128,128,.15)}
   .cards{grid-template-columns:1fr;gap:20px}
@@ -394,34 +432,8 @@ a{text-decoration:none;color:inherit}
         배터리가 필요 없는 <b>오프라인 보상 방식</b>입니다.</p>
     </div>
 
-    <div class="sld">
-      <div class="sld-flow">
-        <div class="snode">
-          <svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="13 2 4 14 11 14 10 22 20 9 12 9 13 2"/></svg>
-          <b>전력 계통</b><small>불안정 입력</small>
-        </div>
-        <div class="swire"><i></i></div>
-        <div class="snode tspnode">
-          <svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"/></svg>
-          <b>TSP®</b><small>2ms 순간 보상</small>
-        </div>
-        <div class="swire"><i></i></div>
-        <div class="snode">
-          <svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 21h18M5 21V11l6 3.5V11l6 3.5V7l3 1.5V21"/></svg>
-          <b>생산 라인</b><small>안정 출력</small>
-        </div>
-      </div>
-      <div class="wavebox">
-        <div class="wave-head"><span class="in">— 입력 전압 · 순간전압강하 발생</span><span class="out">— TSP 출력 · 100% 보상 유지</span></div>
-        <svg viewBox="0 0 1000 200" class="wave-svg" preserveAspectRatio="none">
-          <rect class="sag-zone" x="440" y="0" width="130" height="200"/>
-          <line class="w-base" x1="0" y1="100" x2="1000" y2="100"/>
-          <path class="w-in" d="M0,100 L400,100 C432,100 442,110 460,152 C476,188 488,188 504,188 C530,188 548,120 582,103 L616,100 L1000,100"/>
-          <path class="w-out" d="M0,100 L1000,100"/>
-          <circle class="sag-pulse" cx="505" cy="100" r="0"/>
-        </svg>
-      </div>
-    </div>
+    <img src="images/tsp_offline_compensation.gif" alt="TSP 오프라인 보상 동작 원리 — 계통·SCR·EDLC·부하 흐름과 사인파 보상" class="op-gif">
+    <div class="op-cap">평상시 계통 직결 감시 → 순간전압강하 감지 → EDLC 방전 보상 → 정상 복귀 (자동 반복)</div>
 
     <div class="how-metrics">
       <div class="hm"><div class="n">2<i>ms</i></div><div class="l">보상 응답 속도</div></div>
