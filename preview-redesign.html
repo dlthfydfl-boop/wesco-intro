@@ -99,8 +99,9 @@ a{text-decoration:none;color:inherit}
 .sec-head{max-width:720px;margin-bottom:64px}
 .sec-kicker{font-family:var(--font-en);font-size:12px;font-weight:700;letter-spacing:.2em;
   text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:12px}
-.sec-kicker::before{content:"05";font-family:var(--font-disp);font-size:15px;
+.sec-kicker span{font-family:var(--font-disp);font-size:15px;
   color:var(--gray-lt);letter-spacing:0}
+.section.dark .sec-kicker span{color:#6b6560}
 .sec-head h2{font-family:var(--font-disp);font-weight:800;font-size:clamp(38px,5vw,62px);
   line-height:1.02;color:var(--head);margin:18px 0 16px;text-transform:uppercase;letter-spacing:-.01em}
 .sec-head p{font-size:18px;color:var(--gray);line-height:1.7}
@@ -149,7 +150,50 @@ a{text-decoration:none;color:inherit}
 .lineup-img{height:100%;min-height:340px;background:#100e0d}
 .lineup-img img{width:100%;height:100%;object-fit:cover;object-position:center}
 
+/* ============ 공통 섹션 ============ */
+.section{padding:120px 0}
+.section.dark{background:var(--ink);color:#fff}
+.section.dark .sec-head h2{color:#fff}
+.section.dark .sec-head p{color:#b8b2ac}
+.section.dark .sec-kicker::before{color:#6b6560}
+
+/* WHY — 임팩트 지표 */
+.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:56px 0 0;
+  border:1px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.impact .cell{padding:40px 34px;border-right:1px solid rgba(255,255,255,.12)}
+.impact .cell:last-child{border-right:0}
+.impact .cell .big{font-family:var(--font-disp);font-weight:700;font-size:54px;
+  color:var(--red);line-height:1}
+.impact .cell .big small{font-family:var(--font-ko);font-size:18px;color:#fff;font-weight:400}
+.impact .cell .cap{margin-top:12px;font-size:15px;color:#b8b2ac;line-height:1.55}
+/* 원인 */
+.causes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
+.cause{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:4px;padding:26px 22px}
+.cause .cno{font-family:var(--font-disp);font-weight:700;font-size:15px;color:var(--red)}
+.cause h4{font-size:17px;color:#fff;margin:10px 0 7px;font-weight:600}
+.cause p{font-size:13.5px;color:#a8a29e;line-height:1.55}
+.def-line{margin-top:14px;font-size:20px;line-height:1.7;color:#e7e2dc;max-width:760px;font-weight:300}
+.def-line b{color:#fff;font-weight:600}
+
+/* HOW — 스텝 플로우 */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:56px 0 44px;
+  border:1px solid var(--divider);border-radius:4px;overflow:hidden;background:var(--bg-soft)}
+.step{padding:34px 28px;border-right:1px solid var(--divider);position:relative}
+.step:last-child{border-right:0}
+.step .sno{font-family:var(--font-disp);font-weight:700;font-size:34px;color:var(--gray-lt);line-height:1}
+.step.on .sno{color:var(--red)}
+.step h4{font-size:17px;color:var(--head);margin:14px 0 8px;font-weight:700}
+.step p{font-size:13.5px;color:var(--gray);line-height:1.55}
+.how-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.hm{text-align:left;padding:24px 0;border-top:2px solid var(--red)}
+.hm .n{font-family:var(--font-disp);font-weight:700;font-size:40px;color:var(--head);line-height:1}
+.hm .n i{color:var(--red);font-style:normal}
+.hm .l{margin-top:8px;font-size:14px;color:var(--gray)}
+
 @media(max-width:900px){
+  .impact,.causes,.flow,.how-metrics{grid-template-columns:1fr}
+  .impact .cell,.step{border-right:0;border-bottom:1px solid rgba(128,128,128,.15)}
   .cards{grid-template-columns:1fr;gap:20px}
   .lineup{grid-template-columns:1fr}
   .datastrip .wrap{grid-template-columns:repeat(2,1fr)}
@@ -208,7 +252,7 @@ a{text-decoration:none;color:inherit}
 <section class="products" id="products">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker">Product Lineup</div>
+      <div class="sec-kicker"><span>04</span> Product Lineup</div>
       <h2>단상 0.5kVA부터<br>대용량 2,400kVA까지</h2>
       <p>모든 부하 규모를 <b>단일 라인업</b>으로 커버하는 국내 유일의 순간전압보상장치.
          현장 조건에 맞춰 단상·중소 삼상·대용량까지 정밀하게 선정합니다.</p>
@@ -270,6 +314,62 @@ a{text-decoration:none;color:inherit}
         <div class="badge">단상·삼상 <i>0.5 – 2,400</i> kVA</div>
       </div>
       <div class="lineup-img"><img src="images/product/lineup_all.png" alt="TSP 전체 라인업"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="section dark" id="need">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker"><span>02</span> Why It Matters</div>
+      <h2>정전이 아니어도<br>라인은 멈춥니다</h2>
+      <p class="def-line"><b>순간전압강하(Voltage Sag)</b>는 완전한 정전이 아닙니다.
+        0.1초에서 1초 남짓, 전압이 정격 아래로 <b>떨어졌다 회복</b>되는 짧은 순간 —
+        사람은 알아채지 못하지만 정밀 장비는 정확히 반응해 라인을 세웁니다.</p>
+    </div>
+
+    <div class="impact">
+      <div class="cell"><div class="big">연 20<small>회</small></div>
+        <div class="cap">한 사업장에서 겪는 연평균 순간전압강하 발생 횟수</div></div>
+      <div class="cell"><div class="big">5.2<small>억원</small></div>
+        <div class="cap">대형 FAB 기준, 1회 라인 정지가 유발하는 평균 손실</div></div>
+      <div class="cell"><div class="big">80<small>%</small></div>
+        <div class="cap">설비 비정상 정지의 원인이 순간전압강하에 기인</div></div>
+    </div>
+
+    <div class="causes">
+      <div class="cause"><div class="cno">01</div><h4>낙뢰</h4><p>여름철 계통에 떨어진 벼락 한 번이 광역 전압 강하를 유발합니다.</p></div>
+      <div class="cause"><div class="cno">02</div><h4>집중호우·강풍</h4><p>기상 악화로 인한 송배전 설비 사고가 순간 전압을 끌어내립니다.</p></div>
+      <div class="cause"><div class="cno">03</div><h4>수목 접촉</h4><p>선로에 닿은 수목이 순간적인 지락·단락을 일으킵니다.</p></div>
+      <div class="cause"><div class="cno">04</div><h4>계통 지락사고</h4><p>인근 대형 부하나 설비 고장이 우리 라인까지 전파됩니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker"><span>03</span> How It Works</div>
+      <h2>어떻게 그 1초를<br>지키는가</h2>
+      <p>평상시에는 <b>Bypass로 직결</b>돼 손실 없이 전력을 통과시키고,
+        순간전압강하가 감지되면 <b>2밀리초 이내</b>에 울트라커패시터의 에너지로 부족분을 채웁니다.
+        배터리가 필요 없는 <b>오프라인 보상 방식</b>입니다.</p>
+    </div>
+
+    <div class="flow">
+      <div class="step"><div class="sno">01</div><h4>평상시 감시</h4><p>Bypass 직결로 98% 효율 통전하며 전압을 실시간 감시합니다.</p></div>
+      <div class="step on"><div class="sno">02</div><h4>강하 감지</h4><p>전압이 기준 아래로 떨어지는 순간을 밀리초 단위로 포착합니다.</p></div>
+      <div class="step on"><div class="sno">03</div><h4>TSP 보상</h4><p>울트라커패시터 에너지를 인버터로 주입해 부족분을 채웁니다.</p></div>
+      <div class="step"><div class="sno">04</div><h4>정상 복귀</h4><p>전압이 회복되면 다시 Bypass 직결 상태로 무손실 전환합니다.</p></div>
+    </div>
+
+    <div class="how-metrics">
+      <div class="hm"><div class="n">2<i>ms</i></div><div class="l">보상 응답 속도</div></div>
+      <div class="hm"><div class="n">10<i>년+</i></div><div class="l">무점검 에너지저장 수명</div></div>
+      <div class="hm"><div class="n">98<i>%</i></div><div class="l">평상시 통전 효율</div></div>
+      <div class="hm"><div class="n">100<i>%</i></div><div class="l">1초 표준 보상률</div></div>
     </div>
   </div>
 </section>
