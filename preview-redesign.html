@@ -71,6 +71,8 @@ a{text-decoration:none;color:inherit}
 .hero-sub{margin-top:30px;max-width:540px;font-size:19px;line-height:1.7;
   color:#d8d2cc;font-weight:300;opacity:0;animation:rise .9s .8s forwards}
 .hero-sub b{color:#fff;font-weight:600}
+.hero-tag{display:block;margin-top:16px;font-family:var(--font-en);font-size:13px;
+  letter-spacing:.16em;color:var(--gray-lt);font-weight:500;text-transform:uppercase}
 .hero-cta{margin-top:38px;display:flex;gap:16px;opacity:0;animation:rise .9s 1s forwards}
 .btn{font-family:var(--font-ko);font-weight:600;font-size:15px;padding:15px 30px;
   border-radius:2px;transition:.25s;letter-spacing:.01em}
@@ -410,8 +412,8 @@ a{text-decoration:none;color:inherit}
     <div class="wrap">
       <div class="eyebrow">WESCO · Voltage Sag Protection Since 2001</div>
       <h1><span>1초의 전압 저하가</span><span class="em">공장 전체를 멈춥니다</span></h1>
-      <p class="hero-sub">WESCO는 <b>순간전압강하</b>로부터 <b>생산의 연속성</b>을 지킵니다.
-        TSP® Voltage Sag Protection · EDLC Technology · Monitoring &amp; Lifecycle Support.</p>
+      <p class="hero-sub">순간전압강하로부터 <b>생산의 연속성</b>을 지킵니다.
+        <span class="hero-tag">Protecting Production Continuity · TSP® · EDLC Technology</span></p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#products">제품 라인업 보기</a>
         <a class="btn btn-ghost" href="#">도입 문의</a>
@@ -421,10 +423,10 @@ a{text-decoration:none;color:inherit}
 
   <div class="datastrip">
     <div class="wrap">
-      <div class="stat"><div class="num">150,000<i>+</i></div><div class="lbl">누적 설치 (대)</div></div>
-      <div class="stat"><div class="num">16<i></i></div><div class="lbl">공급 국가</div></div>
-      <div class="stat"><div class="num">900<i>+</i></div><div class="lbl">고객사</div></div>
-      <div class="stat"><div class="num">25<i></i></div><div class="lbl">단일 분야 전문 (년)</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="150000">0</span><i>+</i></div><div class="lbl">누적 설치 (대)</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="16">0</span></div><div class="lbl">공급 국가</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="900">0</span><i>+</i></div><div class="lbl">고객사</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="25">0</span></div><div class="lbl">단일 분야 전문 (년)</div></div>
     </div>
   </div>
 </header>
@@ -695,6 +697,16 @@ a{text-decoration:none;color:inherit}
     new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?start():stop();});},
       {threshold:.3}).observe(m);
   }else{start();}
+})();
+(function(){
+  var els=document.querySelectorAll('.count');if(!els.length)return;
+  function run(el){var to=+el.dataset.to,s=null;
+    function tick(t){if(!s)s=t;var p=Math.min((t-s)/1500,1);
+      el.textContent=Math.floor(p*to).toLocaleString();if(p<1)requestAnimationFrame(tick);}
+    requestAnimationFrame(tick);}
+  if('IntersectionObserver'in window){var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){run(e.target);io.unobserve(e.target);}});},{threshold:.5});
+    els.forEach(function(el){io.observe(el);});}else{els.forEach(run);}
 })();
 </script>
 </body>
