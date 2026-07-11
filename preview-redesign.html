@@ -175,6 +175,20 @@ a{text-decoration:none;color:inherit}
 .cause p{font-size:13.5px;color:#c4beb8;line-height:1.55}
 .def-line{margin-top:14px;font-size:20px;line-height:1.7;color:#e7e2dc;max-width:760px;font-weight:300}
 .def-line b{color:#fff;font-weight:600}
+/* 정전 vs Sag vs 순간정전 비교 */
+.vs-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:44px 0 8px}
+.vs-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:22px}
+.vs-card.hot{border-color:var(--red);background:rgba(193,56,22,.09)}
+.vs-t{font:600 12.5px var(--font-en);color:#8a93a3;margin-bottom:8px}
+.vs-t b{display:block;font-family:var(--font-ko);font-size:17px;color:#fff;font-weight:700;margin-bottom:2px}
+.vs-wave{width:100%;height:78px;display:block;margin:4px 0 14px}
+.vs-wave .vb{stroke:rgba(255,255,255,.13);stroke-width:1;stroke-dasharray:3 4}
+.vs-wave .vp{fill:none;stroke:#7d8aa0;stroke-width:2}
+.vs-card.hot .vs-wave .vp{stroke:var(--red);stroke-width:2.6;filter:drop-shadow(0 0 4px var(--red-glow))}
+.vs-card p{font-size:13px;color:#aeb6c2;line-height:1.55}
+.vs-card.hot p{color:#e6d6ce}
+@media(max-width:760px){.vs-compare{grid-template-columns:1fr}}
 
 /* HOW — 스텝 플로우 */
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:56px 0 44px;
@@ -456,11 +470,38 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="need">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>02</span> Why It Matters</div>
+      <div class="sec-kicker"><span>02</span> What is Voltage Sag</div>
       <h2>정전이 아니어도<br>라인은 멈춥니다</h2>
       <p class="def-line"><b>순간전압강하(Voltage Sag)</b>는 완전한 정전이 아닙니다.
         0.1초에서 1초 남짓, 전압이 정격 아래로 <b>떨어졌다 회복</b>되는 짧은 순간 —
         사람은 알아채지 못하지만 정밀 장비는 정확히 반응해 라인을 세웁니다.</p>
+    </div>
+
+    <div class="vs-compare">
+      <div class="vs-card">
+        <div class="vs-t"><b>정전</b>Blackout</div>
+        <svg class="vs-wave" viewBox="0 0 320 120" preserveAspectRatio="none">
+          <line class="vb" x1="0" y1="60" x2="320" y2="60"/>
+          <path class="vp" d="M0,60.0 L2,51.1 L4,42.7 L6,35.3 L8,29.3 L10,24.9 L12,22.5 L14,22.1 L16,23.9 L18,27.6 L20,33.1 L22,40.1 L24,48.3 L26,57.0 L28,65.9 L30,74.5 L32,82.3 L34,88.9 L36,93.9 L38,97.0 L40,98.0 L42,97.0 L44,93.9 L46,88.9 L48,82.3 L50,74.5 L52,65.9 L54,57.0 L56,48.3 L58,40.1 L60,33.1 L62,27.6 L64,23.9 L66,22.1 L68,22.5 L70,24.9 L72,29.3 L74,35.3 L76,42.7 L78,51.1 L80,60.0 L82,68.9 L84,77.3 L86,84.7 L88,90.7 L90,95.1 L92,97.5 L94,97.9 L96,96.1 L98,92.4 L100,86.9 L102,79.9 L104,71.7 L106,63.0 L108,54.1 L110,45.5 L112,37.7 L114,31.1 L116,26.1 L118,23.0 L120,22.0 L122,23.0 L124,26.1 L126,31.1 L128,60.0 L320,60.0"/>
+        </svg>
+        <p>전압이 완전히 끊겨 지속됩니다. 누구나 인지하고 발전기·UPS로 대비하는 영역입니다.</p>
+      </div>
+      <div class="vs-card hot">
+        <div class="vs-t"><b>순간전압강하</b>Voltage Sag</div>
+        <svg class="vs-wave" viewBox="0 0 320 120" preserveAspectRatio="none">
+          <line class="vb" x1="0" y1="60" x2="320" y2="60"/>
+          <path class="vp" d="M0,60.0 L2,51.1 L4,42.7 L6,35.3 L8,29.3 L10,24.9 L12,22.5 L14,22.1 L16,23.9 L18,27.6 L20,33.1 L22,40.1 L24,48.3 L26,57.0 L28,65.9 L30,74.5 L32,82.3 L34,88.9 L36,93.9 L38,97.0 L40,98.0 L42,97.0 L44,93.9 L46,88.9 L48,82.3 L50,74.5 L52,65.9 L54,57.0 L56,48.3 L58,40.1 L60,33.1 L62,27.6 L64,23.9 L66,22.1 L68,22.5 L70,24.9 L72,29.3 L74,35.3 L76,42.7 L78,51.1 L80,60.0 L82,68.9 L84,77.3 L86,84.7 L88,90.7 L90,95.1 L92,97.5 L94,97.9 L96,96.1 L98,92.4 L100,86.9 L102,79.9 L104,71.7 L106,63.0 L108,54.1 L110,45.5 L112,37.7 L114,32.7 L116,30.0 L118,29.3 L120,30.6 L122,33.5 L124,37.6 L126,42.5 L128,47.7 L130,52.8 L132,57.4 L134,61.1 L136,64.3 L138,67.3 L140,69.9 L142,71.9 L144,73.3 L146,74.0 L148,73.8 L150,72.9 L152,71.3 L154,69.1 L156,66.4 L158,63.3 L160,60.0 L162,56.7 L164,53.6 L166,50.9 L168,48.7 L170,47.1 L172,46.2 L174,46.0 L176,46.7 L178,48.1 L180,50.1 L182,52.7 L184,55.7 L186,58.9 L188,62.2 L190,65.4 L192,68.2 L194,70.6 L196,73.2 L198,76.5 L200,79.1 L202,80.7 L204,80.9 L206,79.4 L208,76.3 L210,71.4 L212,65.0 L214,57.3 L216,48.8 L218,40.1 L220,33.1 L222,27.6 L224,23.9 L226,22.1 L228,22.5 L230,24.9 L232,29.3 L234,35.3 L236,42.7 L238,51.1 L240,60.0 L242,68.9 L244,77.3 L246,84.7 L248,90.7 L250,95.1 L252,97.5 L254,97.9 L256,96.1 L258,92.4 L260,86.9 L262,79.9 L264,71.7 L266,63.0 L268,54.1 L270,45.5 L272,37.7 L274,31.1 L276,26.1 L278,23.0 L280,22.0 L282,23.0 L284,26.1 L286,31.1 L288,37.7 L290,45.5 L292,54.1 L294,63.0 L296,71.7 L298,79.9 L300,86.9 L302,92.4 L304,96.1 L306,97.9 L308,97.5 L310,95.1 L312,90.7 L314,84.7 L316,77.3 L318,68.9 L320,60.0"/>
+        </svg>
+        <p>전압이 짧게 낮아졌다 회복됩니다. 사람 눈엔 안 보여도 정밀 장비는 즉시 정지 — <b>TSP가 지키는 영역</b>입니다.</p>
+      </div>
+      <div class="vs-card">
+        <div class="vs-t"><b>순간정전</b>Momentary Interruption</div>
+        <svg class="vs-wave" viewBox="0 0 320 120" preserveAspectRatio="none">
+          <line class="vb" x1="0" y1="60" x2="320" y2="60"/>
+          <path class="vp" d="M0,60.0 L2,51.1 L4,42.7 L6,35.3 L8,29.3 L10,24.9 L12,22.5 L14,22.1 L16,23.9 L18,27.6 L20,33.1 L22,40.1 L24,48.3 L26,57.0 L28,65.9 L30,74.5 L32,82.3 L34,88.9 L36,93.9 L38,97.0 L40,98.0 L42,97.0 L44,93.9 L46,88.9 L48,82.3 L50,74.5 L52,65.9 L54,57.0 L56,48.3 L58,40.1 L60,33.1 L62,27.6 L64,23.9 L66,22.1 L68,22.5 L70,24.9 L72,29.3 L74,35.3 L76,42.7 L78,51.1 L80,60.0 L82,68.9 L84,77.3 L86,84.7 L88,90.7 L90,95.1 L92,97.5 L94,97.9 L96,96.1 L98,92.4 L100,86.9 L102,79.9 L104,71.7 L106,63.0 L108,54.1 L110,45.5 L112,37.7 L114,31.1 L116,26.1 L118,23.0 L120,22.0 L122,23.0 L124,26.1 L126,31.1 L128,60.0 L172,60.0 L174,22.1 L176,23.9 L178,27.6 L180,33.1 L182,40.1 L184,48.3 L186,57.0 L188,65.9 L190,74.5 L192,82.3 L194,88.9 L196,93.9 L198,97.0 L200,98.0 L202,97.0 L204,93.9 L206,88.9 L208,82.3 L210,74.5 L212,65.9 L214,57.0 L216,48.3 L218,40.1 L220,33.1 L222,27.6 L224,23.9 L226,22.1 L228,22.5 L230,24.9 L232,29.3 L234,35.3 L236,42.7 L238,51.1 L240,60.0 L242,68.9 L244,77.3 L246,84.7 L248,90.7 L250,95.1 L252,97.5 L254,97.9 L256,96.1 L258,92.4 L260,86.9 L262,79.9 L264,71.7 L266,63.0 L268,54.1 L270,45.5 L272,37.7 L274,31.1 L276,26.1 L278,23.0 L280,22.0 L282,23.0 L284,26.1 L286,31.1 L288,37.7 L290,45.5 L292,54.1 L294,63.0 L296,71.7 L298,79.9 L300,86.9 L302,92.4 L304,96.1 L306,97.9 L308,97.5 L310,95.1 L312,90.7 L314,84.7 L316,77.3 L318,68.9 L320,60.0"/>
+        </svg>
+        <p>아주 짧게 끊겼다 회복됩니다. 사이클 단위의 정전으로, 역시 라인 정지를 유발합니다.</p>
+      </div>
     </div>
 
     <div class="impact">
