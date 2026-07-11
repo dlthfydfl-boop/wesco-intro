@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WESCO 리디자인 프로토타입</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#C13816; --red-dk:#9C2C10; --red-lt:#FBEEE8; --red-glow:rgba(193,56,22,.5);
+  --ink:#1C1917; --ink-2:#2E2826; --head:#2C2924; --text:#4A4641;
+  --gray:#78716C; --gray-lt:#A8A29E;
+  --bg:#FDFCF9; --bg-soft:#F7F4EE; --bg-warm:#F0EBE3; --divider:#E0DBD3;
+  --font-disp:'Barlow Condensed',sans-serif;
+  --font-ko:'Noto Sans KR',sans-serif;
+  --font-en:'Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--text);background:var(--bg);
+  line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+a{text-decoration:none;color:inherit}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;background:var(--ink);color:#fff;
+  display:flex;flex-direction:column;overflow:hidden}
+/* 그레인 + 그라디언트 분위기 */
+.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 78% 30%, rgba(193,56,22,.22), transparent 60%),
+             radial-gradient(ellipse 50% 50% at 10% 90%, rgba(193,56,22,.10), transparent 60%);
+  z-index:0}
+.hero::after{content:"";position:absolute;inset:0;opacity:.05;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* sag 파형 */
+.sagline{position:absolute;left:0;right:0;top:52%;height:220px;z-index:0;opacity:.6}
+.sagline svg{width:100%;height:100%}
+.sag-path{fill:none;stroke:var(--red);stroke-width:2;
+  filter:drop-shadow(0 0 8px var(--red-glow));
+  stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 2.6s .3s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* 상단바 */
+.hero-top{position:relative;z-index:3;display:flex;align-items:center;
+  justify-content:space-between;padding:26px 40px}
+.logo{font-family:var(--font-disp);font-weight:800;font-size:28px;letter-spacing:.04em}
+.logo b{color:var(--red)}
+.hero-top .tag{font-family:var(--font-en);font-size:11px;letter-spacing:.32em;
+  color:var(--gray-lt);text-transform:uppercase}
+.hero-nav{display:flex;gap:30px;font-size:13px;color:#cfc9c4;font-weight:500}
+.hero-nav a:hover{color:#fff}
+
+/* 히어로 본문 */
+.hero-body{position:relative;z-index:2;flex:1;display:flex;align-items:center}
+.hero-body .wrap{width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-en);
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);
+  font-weight:700;margin-bottom:26px;
+  opacity:0;animation:rise .8s .2s forwards}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--red)}
+.hero h1{font-family:var(--font-disp);font-weight:800;
+  font-size:clamp(48px,8vw,104px);line-height:.98;letter-spacing:-.01em;color:#fff;
+  text-transform:uppercase}
+.hero h1 .em{color:var(--red);display:block}
+.hero h1 span{display:block;opacity:0;animation:rise .9s forwards}
+.hero h1 span:nth-child(1){animation-delay:.35s}
+.hero h1 span:nth-child(2){animation-delay:.5s}
+.hero-sub{margin-top:30px;max-width:540px;font-size:19px;line-height:1.7;
+  color:#d8d2cc;font-weight:300;opacity:0;animation:rise .9s .8s forwards}
+.hero-sub b{color:#fff;font-weight:600}
+.hero-cta{margin-top:38px;display:flex;gap:16px;opacity:0;animation:rise .9s 1s forwards}
+.btn{font-family:var(--font-ko);font-weight:600;font-size:15px;padding:15px 30px;
+  border-radius:2px;transition:.25s;letter-spacing:.01em}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--red-dk);transform:translateY(-2px)}
+.btn-ghost{border:1px solid rgba(255,255,255,.25);color:#fff}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* 데이터 스트립 */
+.datastrip{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.1);
+  background:rgba(0,0,0,.2);backdrop-filter:blur(4px)}
+.datastrip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{padding:30px 0;border-right:1px solid rgba(255,255,255,.08);
+  opacity:0;animation:rise .8s forwards}
+.stat:last-child{border-right:0}
+.stat:nth-child(1){animation-delay:1.15s}.stat:nth-child(2){animation-delay:1.25s}
+.stat:nth-child(3){animation-delay:1.35s}.stat:nth-child(4){animation-delay:1.45s}
+.stat .num{font-family:var(--font-disp);font-weight:700;font-size:44px;color:#fff;
+  line-height:1;letter-spacing:.01em}
+.stat .num i{color:var(--red);font-style:normal}
+.stat .lbl{margin-top:8px;font-size:13px;color:var(--gray-lt);font-weight:400}
+
+/* ============ PRODUCTS ============ */
+.products{padding:120px 0 130px;background:var(--bg);position:relative}
+.sec-head{max-width:720px;margin-bottom:64px}
+.sec-kicker{font-family:var(--font-en);font-size:12px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:12px}
+.sec-kicker::before{content:"05";font-family:var(--font-disp);font-size:15px;
+  color:var(--gray-lt);letter-spacing:0}
+.sec-head h2{font-family:var(--font-disp);font-weight:800;font-size:clamp(38px,5vw,62px);
+  line-height:1.02;color:var(--head);margin:18px 0 16px;text-transform:uppercase;letter-spacing:-.01em}
+.sec-head p{font-size:18px;color:var(--gray);line-height:1.7}
+.sec-head p b{color:var(--head);font-weight:600}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{position:relative;background:var(--bg-soft);border:1px solid var(--divider);
+  border-radius:4px;overflow:hidden;transition:.35s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 50px -20px rgba(28,25,23,.28);
+  border-color:var(--red-lt)}
+.card-img{height:300px;background:var(--bg-warm);display:flex;align-items:center;
+  justify-content:center;overflow:hidden;position:relative}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover .card-img img{transform:scale(1.05)}
+.card-tag{position:absolute;top:16px;left:16px;background:var(--ink);color:#fff;
+  font-family:var(--font-en);font-size:11px;font-weight:600;letter-spacing:.1em;
+  padding:6px 12px;border-radius:2px;text-transform:uppercase}
+.card-body{padding:28px 26px 30px;flex:1;display:flex;flex-direction:column}
+.card-body h3{font-family:var(--font-disp);font-weight:700;font-size:26px;color:var(--head);
+  text-transform:uppercase;letter-spacing:.01em}
+.card-cap{font-family:var(--font-disp);font-weight:700;font-size:34px;color:var(--red);
+  line-height:1;margin:12px 0 4px}
+.card-cap small{font-family:var(--font-ko);font-size:15px;color:var(--gray);
+  font-weight:400;letter-spacing:0}
+.card-desc{margin-top:16px;font-size:14.5px;color:var(--text);line-height:1.65;flex:1}
+.card-feats{margin-top:20px;padding-top:18px;border-top:1px solid var(--divider);
+  display:flex;flex-direction:column;gap:9px}
+.card-feats li{list-style:none;font-size:13.5px;color:var(--gray);
+  display:flex;align-items:center;gap:9px}
+.card-feats li::before{content:"";width:5px;height:5px;background:var(--red);
+  border-radius:50%;flex-shrink:0}
+
+/* lineup 밴드 */
+.lineup{margin-top:26px;background:var(--ink);border-radius:4px;overflow:hidden;
+  display:grid;grid-template-columns:1.1fr 1fr;align-items:center}
+.lineup-txt{padding:52px 50px;color:#fff}
+.lineup-txt .k{font-family:var(--font-en);font-size:12px;letter-spacing:.2em;
+  color:var(--red);font-weight:700;text-transform:uppercase}
+.lineup-txt h3{font-family:var(--font-disp);font-weight:700;font-size:34px;
+  margin:14px 0 12px;text-transform:uppercase;line-height:1.05}
+.lineup-txt p{color:#c9c3bd;font-size:15.5px;font-weight:300;max-width:420px}
+.lineup-txt .badge{display:inline-block;margin-top:20px;font-family:var(--font-disp);
+  font-weight:700;font-size:19px;color:#fff;border:1px solid rgba(255,255,255,.25);
+  padding:9px 20px;border-radius:2px}
+.lineup-txt .badge i{color:var(--red);font-style:normal}
+.lineup-img{height:100%;min-height:340px;background:#100e0d}
+.lineup-img img{width:100%;height:100%;object-fit:cover;object-position:center}
+
+@media(max-width:900px){
+  .cards{grid-template-columns:1fr;gap:20px}
+  .lineup{grid-template-columns:1fr}
+  .datastrip .wrap{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .hero-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="sagline" aria-hidden="true">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <path class="sag-path" d="M0,110 L560,110 C600,110 610,112 630,150 C645,178 655,196 675,196 C700,196 712,150 740,120 C760,110 780,110 820,110 L1440,110"/>
+    </svg>
+  </div>
+
+  <div class="hero-top">
+    <div>
+      <div class="logo">WES<b>CO</b></div>
+    </div>
+    <nav class="hero-nav">
+      <a href="#products">제품</a>
+      <a href="#">기술</a>
+      <a href="#">실적</a>
+      <a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/">인사이트</a>
+      <a href="#">문의</a>
+    </nav>
+  </div>
+
+  <div class="hero-body">
+    <div class="wrap">
+      <div class="eyebrow">Battery-Free Voltage Sag Protection</div>
+      <h1><span>0.2초의 정전이</span><span class="em">라인을 멈춥니다</span></h1>
+      <p class="hero-sub">눈에 보이지 않는 <b>순간전압강하</b>가 반도체·자동차·배터리 라인을 세웁니다.
+        WESCO는 <b>배터리 없이</b>, 그 0.2초를 지키는 순간전압보상장치 <b>TSP®</b>를 25년간 만들어 왔습니다.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#products">제품 라인업 보기</a>
+        <a class="btn btn-ghost" href="#">도입 문의</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="datastrip">
+    <div class="wrap">
+      <div class="stat"><div class="num">150,000<i>+</i></div><div class="lbl">누적 설치 (대)</div></div>
+      <div class="stat"><div class="num">16<i></i></div><div class="lbl">공급 국가</div></div>
+      <div class="stat"><div class="num">2<i>ms</i></div><div class="lbl">보상 응답속도</div></div>
+      <div class="stat"><div class="num">25<i></i></div><div class="lbl">단일 분야 전문 (년)</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Product Lineup</div>
+      <h2>단상 0.5kVA부터<br>대용량 2,400kVA까지</h2>
+      <p>모든 부하 규모를 <b>단일 라인업</b>으로 커버하는 국내 유일의 순간전압보상장치.
+         현장 조건에 맞춰 단상·중소 삼상·대용량까지 정밀하게 선정합니다.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="card-img"><span class="card-tag">Single Phase</span>
+          <img src="images/product/single_phase_v2.png" alt="단상 TSP"></div>
+        <div class="card-body">
+          <h3>단상</h3>
+          <div class="card-cap">0.5–20<small> kVA</small></div>
+          <p class="card-desc">소규모 정밀 장비·계측기·개별 설비를 위한 컴팩트 라인. 벽걸이·스탠드형으로 협소 공간에도 설치.</p>
+          <ul class="card-feats">
+            <li>2ms 이내 순간 보상</li>
+            <li>배터리 없는 EDLC 저장</li>
+            <li>개별 설비 분산 설치</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img"><span class="card-tag">Three Phase</span>
+          <img src="images/product/three_phase_main.png" alt="삼상 TSP"></div>
+        <div class="card-body">
+          <h3>중소 삼상</h3>
+          <div class="card-cap">5–200<small> kVA</small></div>
+          <p class="card-desc">생산 셀·개별 라인 단위 보호에 최적. 반도체·디스플레이 공정 장비의 표준 선택.</p>
+          <ul class="card-feats">
+            <li>100% · 1초 표준 보상</li>
+            <li>SEMI F47 대응</li>
+            <li>10년+ 무점검 수명</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img"><span class="card-tag">Large Scale</span>
+          <img src="images/product/large_100k.png" alt="대용량 TSP"></div>
+        <div class="card-body">
+          <h3>대용량</h3>
+          <div class="card-cap">300–2,400<small> kVA</small></div>
+          <p class="card-desc">수전반 직하 중앙 집중 보호. 라인 전체를 한 대로 지키는 국내 유일 대용량 대응.</p>
+          <ul class="card-feats">
+            <li>수전단 중앙 1대 보호</li>
+            <li>98% 평상시 효율(Bypass)</li>
+            <li>대규모 FAB 검증</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <div class="lineup">
+      <div class="lineup-txt">
+        <div class="k">One Full Lineup</div>
+        <h3>가장 넓은 보상 범위</h3>
+        <p>0.5kVA 소형 장비부터 2,400kVA 수전반까지, 하나의 검증된 기술로 커버합니다.
+           용량이 커져도 응답속도와 신뢰성은 동일합니다.</p>
+        <div class="badge">단상·삼상 <i>0.5 – 2,400</i> kVA</div>
+      </div>
+      <div class="lineup-img"><img src="images/product/lineup_all.png" alt="TSP 전체 라인업"></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
