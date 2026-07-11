@@ -238,18 +238,33 @@ a{text-decoration:none;color:inherit}
 .tm-flow{fill:none;stroke-width:4;stroke-linecap:round;opacity:.14}
 .tm-util{stroke:#6E8BA8}.tm-comp{stroke:#F5A623}
 @keyframes tmflow{to{stroke-dashoffset:-18}}
+/* 부하에 계통 공급: normal, bypass */
 .tsp-motion[data-phase="normal"] .tm-util,
-.tsp-motion[data-phase="restore"] .tm-util,
-.tsp-motion[data-phase="continuous"] .tm-util{opacity:1;stroke-dasharray:9 9;animation:tmflow .85s linear infinite}
-.tsp-motion[data-phase="compensate"] .tm-comp{opacity:1;stroke-dasharray:9 9;animation:tmflow .7s linear infinite}
+.tsp-motion[data-phase="bypass"] .tm-util{opacity:1;stroke-dasharray:9 9;animation:tmflow .95s linear infinite}
+/* 계통 차단(SCR Open): disconnect~sync — 계통 흐름 끊김 */
+.tsp-motion[data-phase="disconnect"] .tm-util,
+.tsp-motion[data-phase="compensate"] .tm-util,
+.tsp-motion[data-phase="restored"] .tm-util,
+.tsp-motion[data-phase="sync"] .tm-util{opacity:.16}
+.tsp-motion[data-phase="disconnect"] .tm-scr,
+.tsp-motion[data-phase="compensate"] .tm-scr,
+.tsp-motion[data-phase="restored"] .tm-scr,
+.tsp-motion[data-phase="sync"] .tm-scr{stroke:#A8402C;stroke-dasharray:4 3}
+/* EDLC 보상 흐름: compensate~sync */
+.tsp-motion[data-phase="compensate"] .tm-comp,
+.tsp-motion[data-phase="restored"] .tm-comp,
+.tsp-motion[data-phase="sync"] .tm-comp{opacity:1;stroke-dasharray:9 9;animation:tmflow .8s linear infinite}
 .tsp-motion[data-phase="compensate"] .tm-inv,
 .tsp-motion[data-phase="compensate"] .tm-dc,
-.tsp-motion[data-phase="compensate"] .tm-edlc{stroke:#F5A623;fill:#2a2213}
-.tsp-motion[data-phase="compensate"] .tm-charge rect{fill:#F5A623}
-.tsp-motion[data-phase="compensate"] .tm-util{opacity:.3}
+.tsp-motion[data-phase="compensate"] .tm-edlc,
+.tsp-motion[data-phase="restored"] .tm-edlc,
+.tsp-motion[data-phase="sync"] .tm-edlc{stroke:#D19A3E;fill:#2a2213}
+.tsp-motion[data-phase="compensate"] .tm-charge rect,
+.tsp-motion[data-phase="restored"] .tm-charge rect,
+.tsp-motion[data-phase="sync"] .tm-charge rect{fill:#D19A3E}
 .tsp-motion[data-phase="sag"] .tm-bolt{opacity:1;animation:tmbolt .45s ease-in-out infinite}
 @keyframes tmbolt{0%,100%{opacity:.25}50%{opacity:1}}
-.tsp-motion[data-phase="sag"] .tm-util{opacity:.35;stroke:#E0533A}
+.tsp-motion[data-phase="sag"] .tm-util{opacity:.5;stroke:#A8402C}
 .tsp-motion[data-phase="sag"] .tm-scr{stroke:#E0533A}
 .tsp-motion[data-phase="sag"] .tm-led{animation:tmled .4s ease-in-out 3}
 @keyframes tmled{50%{opacity:.45}}
@@ -634,11 +649,13 @@ a{text-decoration:none;color:inherit}
   if(wave&&wave.getTotalLength){var len=Math.ceil(wave.getTotalLength());
     wave.style.strokeDasharray=len;wave.style.strokeDashoffset=len;}
   var phases=[
-    {p:'normal',d:3000,s:'01 / 05',l:'Normal Operation',t:'상용전원이 부하에 직접 공급됩니다 · TSP는 계통을 감시합니다'},
-    {p:'sag',d:2000,s:'02 / 05',l:'Voltage Sag Detected',t:'낙뢰·계통 이상으로 순간전압강하 발생 · TSP가 즉시 감지합니다'},
-    {p:'compensate',d:3200,s:'03 / 05',l:'EDLC Energy Release → Compensation',t:'EDLC → DC Link → Inverter → Load · 저장 에너지를 방출해 부하에 즉시 보상'},
-    {p:'restore',d:3000,s:'04 / 05',l:'Utility Power Restored',t:'상용전원이 정상 복귀하고 EDLC는 재충전됩니다'},
-    {p:'continuous',d:3000,s:'05 / 05',l:'Continuous Production',t:'설비는 멈추지 않고 계속 운전됩니다 · Without Shutdown'}
+    {p:'normal',d:2400,s:'01 / 07',l:'Normal Operation',t:'Utility → TSP → Load 직렬 · 계통전원이 부하에 직접 공급됩니다'},
+    {p:'sag',d:1700,s:'02 / 07',l:'Voltage Sag Detected',t:'낙뢰·계통 이상 발생 · TSP가 2ms 이내 감지합니다'},
+    {p:'disconnect',d:1700,s:'03 / 07',l:'Utility Disconnect',t:'TSP가 계통전원을 순간 차단합니다 (SCR Open)'},
+    {p:'compensate',d:2600,s:'04 / 07',l:'EDLC Compensation',t:'EDLC → DC Link → Inverter → Load · 저장 에너지로 부하에 보상'},
+    {p:'restored',d:1800,s:'05 / 07',l:'Utility Restored',t:'상용전원이 정상 범위로 복전됩니다'},
+    {p:'sync',d:1800,s:'06 / 07',l:'Synchronization',t:'계통전원과 위상을 정밀 동기화합니다'},
+    {p:'bypass',d:2400,s:'07 / 07',l:'Bypass Return',t:'Bypass 복귀 · 설비는 Sag를 인지조차 못합니다'}
   ];
   var i=0,timer=null,running=false;
   function render(){var ph=phases[i];m.setAttribute('data-phase',ph.p);
