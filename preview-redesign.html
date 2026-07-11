@@ -221,7 +221,7 @@ a{text-decoration:none;color:inherit}
 .op-cap{text-align:center;margin-top:16px;font-size:13.5px;color:var(--gray-lt)}
 
 /* ===== TSP 오프라인 보상 모션그래픽 ===== */
-.tsp-motion{margin:52px auto 0;max-width:1000px;background:#0F1521;border:1px solid #1e2a3d;
+.tsp-motion{margin:52px auto 0;max-width:1000px;background:#172532;border:1px solid #1e2a3d;
   border-radius:16px;padding:30px 34px 26px;box-shadow:0 30px 72px -30px rgba(0,0,0,.55)}
 .tsp-motion-svg{width:100%;height:auto;display:block}
 .tm-grid rect,.tm-load rect{fill:#141d2e;stroke:#2c3a52;stroke-width:1.5}
@@ -231,12 +231,12 @@ a{text-decoration:none;color:inherit}
 .tm-title{fill:#fff;font:800 16px var(--font-en);text-anchor:middle}
 .tm-t2{fill:#c3ccdb;font:600 13px var(--font-ko);text-anchor:middle}
 .tm-scr,.tm-inv,.tm-dc,.tm-edlc{fill:#1a2338;stroke:#3a4d6b;stroke-width:1.3;transition:.3s}
-.tm-bolt{fill:none;stroke:#E0533A;stroke-width:5;stroke-linejoin:round;stroke-linecap:round;
-  opacity:0;filter:drop-shadow(0 0 6px #E0533A)}
-.tm-led{fill:#5F8A6E}
-.tm-charge rect{fill:#5F8A6E;transition:.3s}
+.tm-bolt{fill:none;stroke:#8E4646;stroke-width:5;stroke-linejoin:round;stroke-linecap:round;
+  opacity:0;filter:drop-shadow(0 0 6px #8E4646)}
+.tm-led{fill:#6E8B74}
+.tm-charge rect{fill:#6E8B74;transition:.3s}
 .tm-flow{fill:none;stroke-width:4;stroke-linecap:round;opacity:.14}
-.tm-util{stroke:#6E8BA8}.tm-comp{stroke:#F5A623}
+.tm-util{stroke:#4F7187}.tm-comp{stroke:#C88B3A}
 @keyframes tmflow{to{stroke-dashoffset:-18}}
 /* 부하에 계통 공급: normal, bypass */
 .tsp-motion[data-phase="normal"] .tm-util,
@@ -249,7 +249,7 @@ a{text-decoration:none;color:inherit}
 .tsp-motion[data-phase="disconnect"] .tm-scr,
 .tsp-motion[data-phase="compensate"] .tm-scr,
 .tsp-motion[data-phase="restored"] .tm-scr,
-.tsp-motion[data-phase="sync"] .tm-scr{stroke:#A8402C;stroke-dasharray:4 3}
+.tsp-motion[data-phase="sync"] .tm-scr{stroke:#8E4646;stroke-dasharray:4 3}
 /* EDLC 보상 흐름: compensate~sync */
 .tsp-motion[data-phase="compensate"] .tm-comp,
 .tsp-motion[data-phase="restored"] .tm-comp,
@@ -258,29 +258,29 @@ a{text-decoration:none;color:inherit}
 .tsp-motion[data-phase="compensate"] .tm-dc,
 .tsp-motion[data-phase="compensate"] .tm-edlc,
 .tsp-motion[data-phase="restored"] .tm-edlc,
-.tsp-motion[data-phase="sync"] .tm-edlc{stroke:#D19A3E;fill:#2a2213}
+.tsp-motion[data-phase="sync"] .tm-edlc{stroke:#C88B3A;fill:#2a2213}
 .tsp-motion[data-phase="compensate"] .tm-charge rect,
 .tsp-motion[data-phase="restored"] .tm-charge rect,
-.tsp-motion[data-phase="sync"] .tm-charge rect{fill:#D19A3E}
+.tsp-motion[data-phase="sync"] .tm-charge rect{fill:#C88B3A}
 .tsp-motion[data-phase="sag"] .tm-bolt{opacity:1;animation:tmbolt .45s ease-in-out infinite}
 @keyframes tmbolt{0%,100%{opacity:.25}50%{opacity:1}}
-.tsp-motion[data-phase="sag"] .tm-util{opacity:.5;stroke:#A8402C}
-.tsp-motion[data-phase="sag"] .tm-scr{stroke:#E0533A}
+.tsp-motion[data-phase="sag"] .tm-util{opacity:.5;stroke:#8E4646}
+.tsp-motion[data-phase="sag"] .tm-scr{stroke:#8E4646}
 .tsp-motion[data-phase="sag"] .tm-led{animation:tmled .4s ease-in-out 3}
 @keyframes tmled{50%{opacity:.45}}
-.tsp-motion-wavebox{margin-top:22px;background:#0a0f18;border:1px solid #1e2a3d;
+.tsp-motion-wavebox{margin-top:22px;background:#12181F;border:1px solid #1e2a3d;
   border-radius:10px;padding:16px 20px}
 .tm-wlabel{display:flex;justify-content:space-between;font:600 11.5px var(--font-en);margin-bottom:6px}
-.tm-wl-in{color:#6E8BA8}.tm-wl-out{color:#F5A623}
+.tm-wl-in{color:#4F7187}.tm-wl-out{color:#C88B3A}
 .tsp-motion-wave{width:100%;height:128px;display:block}
-.tm-sagzone{fill:#E0533A;opacity:.09}
+.tm-sagzone{fill:#8E4646;opacity:.09}
 .tm-wbase{stroke:#22304a;stroke-width:1;stroke-dasharray:4 5}
-.tm-wave{fill:none;stroke:#6E8BA8;stroke-width:2.5;animation:tmwave 14s linear infinite}
+.tm-wave{fill:none;stroke:#4F7187;stroke-width:2.5;animation:tmwave 14s linear infinite}
 @keyframes tmwave{to{stroke-dashoffset:0}}
-.tm-cursor{stroke:#F5A623;stroke-width:2;opacity:.75;animation:tmcursor 14s linear infinite}
+.tm-cursor{stroke:#C88B3A;stroke-width:2;opacity:.75;animation:tmcursor 14s linear infinite}
 @keyframes tmcursor{from{transform:translateX(0)}to{transform:translateX(1200px)}}
 .tsp-motion-caption{text-align:center;margin-top:22px}
-.tm-step{display:block;font:700 12px var(--font-en);color:#F5A623;letter-spacing:.14em}
+.tm-step{display:block;font:700 12px var(--font-en);color:#C88B3A;letter-spacing:.14em}
 .tm-label{display:block;font:800 24px var(--font-en);color:#fff;margin:7px 0 5px}
 .tm-sub{display:block;font-size:14px;color:#9aa7ba}
 .tsp-motion-head{text-align:center;margin-bottom:24px}
@@ -404,10 +404,10 @@ a{text-decoration:none;color:inherit}
 
   <div class="hero-body">
     <div class="wrap">
-      <div class="eyebrow">Battery-Free Voltage Sag Protection</div>
-      <h1><span>1초의 순간정전이</span><span class="em">라인을 멈춥니다</span></h1>
-      <p class="hero-sub">눈에 보이지 않는 <b>순간전압강하</b>가 반도체·자동차·배터리 라인을 세웁니다.
-        WESCO <b>TSP®</b>는 그 <b>1초</b>를, 배터리 없이 <b>100% 보상</b>합니다.</p>
+      <div class="eyebrow">WESCO · Voltage Sag Protection Since 2001</div>
+      <h1><span>1초의 전압 저하가</span><span class="em">공장 전체를 멈춥니다</span></h1>
+      <p class="hero-sub">WESCO는 <b>순간전압강하</b>로부터 <b>생산의 연속성</b>을 지킵니다.
+        TSP® Voltage Sag Protection · EDLC Technology · Monitoring &amp; Lifecycle Support.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#products">제품 라인업 보기</a>
         <a class="btn btn-ghost" href="#">도입 문의</a>
@@ -419,7 +419,7 @@ a{text-decoration:none;color:inherit}
     <div class="wrap">
       <div class="stat"><div class="num">150,000<i>+</i></div><div class="lbl">누적 설치 (대)</div></div>
       <div class="stat"><div class="num">16<i></i></div><div class="lbl">공급 국가</div></div>
-      <div class="stat"><div class="num">2<i>ms</i></div><div class="lbl">보상 응답속도</div></div>
+      <div class="stat"><div class="num">900<i>+</i></div><div class="lbl">고객사</div></div>
       <div class="stat"><div class="num">25<i></i></div><div class="lbl">단일 분야 전문 (년)</div></div>
     </div>
   </div>
