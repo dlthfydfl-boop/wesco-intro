@@ -173,6 +173,16 @@ a{text-decoration:none;color:inherit}
 .cause .cno{font-family:var(--font-disp);font-weight:700;font-size:15px;color:var(--red)}
 .cause h4{font-size:17px;color:#fff;margin:10px 0 7px;font-weight:600}
 .cause p{font-size:13.5px;color:#c4beb8;line-height:1.55}
+.cause .cico{width:32px;height:32px;margin-bottom:14px;display:block;stroke:var(--red);fill:none;stroke-width:2}
+.cause .cn-en{display:block;font:600 10.5px var(--font-en);color:#8a93a3;margin-top:3px;letter-spacing:.05em}
+.tsp-flash{animation:tspflash 1.7s ease-in-out infinite}
+@keyframes tspflash{0%,100%{opacity:.4}14%,24%{opacity:1}}
+.tsp-spin{transform-origin:12px 12px;animation:tspspin 2.6s linear infinite}
+@keyframes tspspin{to{transform:rotate(360deg)}}
+.tsp-blink{animation:tspblink 1.5s ease-in-out infinite}
+@keyframes tspblink{0%,100%{opacity:.3}50%{opacity:1}}
+.tsp-slide{animation:tspslide 1.9s ease-in-out infinite}
+@keyframes tspslide{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 .def-line{margin-top:14px;font-size:20px;line-height:1.7;color:#e7e2dc;max-width:760px;font-weight:300}
 .def-line b{color:#fff;font-weight:600}
 /* 정전 vs Sag vs 순간정전 비교 */
@@ -259,6 +269,11 @@ a{text-decoration:none;color:inherit}
 .tm-step{display:block;font:700 12px var(--font-en);color:#F5A623;letter-spacing:.14em}
 .tm-label{display:block;font:800 24px var(--font-en);color:#fff;margin:7px 0 5px}
 .tm-sub{display:block;font-size:14px;color:#9aa7ba}
+.tsp-motion-head{text-align:center;margin-bottom:24px}
+.tsp-motion-head b{display:block;font:800 22px var(--font-en);color:#fff;letter-spacing:.02em}
+.tsp-motion-head span{display:block;margin-top:5px;font:500 12.5px var(--font-en);color:#8a93a3;letter-spacing:.06em}
+.tsp-motion-final{text-align:center;margin-top:22px;padding-top:20px;border-top:1px solid #1e2a3d;
+  font:600 13.5px var(--font-en);color:#c3ccdb;letter-spacing:.02em;line-height:1.5}
 .tsp-motion.tm-paused .tm-flow,.tsp-motion.tm-paused .tm-wave,
 .tsp-motion.tm-paused .tm-cursor,.tsp-motion.tm-paused .tm-bolt{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){
@@ -514,10 +529,26 @@ a{text-decoration:none;color:inherit}
     </div>
 
     <div class="causes">
-      <div class="cause"><div class="cno">01</div><h4>낙뢰</h4><p>여름철 계통에 떨어진 벼락 한 번이 광역 전압 강하를 유발합니다.</p></div>
-      <div class="cause"><div class="cno">02</div><h4>집중호우·강풍</h4><p>기상 악화로 인한 송배전 설비 사고가 순간 전압을 끌어내립니다.</p></div>
-      <div class="cause"><div class="cno">03</div><h4>수목 접촉</h4><p>선로에 닿은 수목이 순간적인 지락·단락을 일으킵니다.</p></div>
-      <div class="cause"><div class="cno">04</div><h4>계통 지락사고</h4><p>인근 대형 부하나 설비 고장이 우리 라인까지 전파됩니다.</p></div>
+      <div class="cause">
+        <svg class="cico" viewBox="0 0 24 24"><polygon class="tsp-flash" points="13,2 5,13 11,13 9,22 17,10 12,10 13,2" fill="var(--red)" stroke="none"/></svg>
+        <h4>낙뢰<span class="cn-en">Lightning</span></h4>
+        <p>계통에 떨어진 벼락이 광역 순간전압강하를 유발합니다.</p>
+      </div>
+      <div class="cause">
+        <svg class="cico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><g class="tsp-spin"><path d="M12 4v16M4 12h16" stroke-width="1.6"/></g><circle cx="12" cy="12" r="2.4" fill="var(--red)" stroke="none"/></svg>
+        <h4>대형 모터 기동<span class="cn-en">Large Motor Starting</span></h4>
+        <p>인근 대형 부하가 기동하는 순간, 큰 돌입전류가 전압을 끌어내립니다.</p>
+      </div>
+      <div class="cause">
+        <svg class="cico" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z"/><line class="tsp-blink" x1="12" y1="10" x2="12" y2="15" stroke-width="2.4"/><circle class="tsp-blink" cx="12" cy="18" r="1" fill="var(--red)" stroke="none"/></svg>
+        <h4>계통 사고<span class="cn-en">Grid Fault</span></h4>
+        <p>송배전 설비의 지락·단락 사고가 순간전압강하로 전파됩니다.</p>
+      </div>
+      <div class="cause">
+        <svg class="cico" viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="8" rx="4"/><circle class="tsp-slide" cx="8" cy="12" r="3" fill="var(--red)" stroke="none"/></svg>
+        <h4>전력 스위칭<span class="cn-en">Power Switching</span></h4>
+        <p>계통 개폐·부하 절체 시 순간적인 전압 변동이 발생합니다.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -534,6 +565,10 @@ a{text-decoration:none;color:inherit}
     </div>
 
     <div class="tsp-motion" data-phase="normal" aria-label="TSP 오프라인 보상 동작 모션그래픽">
+      <div class="tsp-motion-head">
+        <b>WESCO TSP®</b>
+        <span>Voltage Sag Protection for Continuous Production</span>
+      </div>
       <svg class="tsp-motion-svg" viewBox="0 0 1200 380" preserveAspectRatio="xMidYMid meet">
         <path class="tm-bolt" d="M120,26 L98,118 L126,118 L104,205"/>
         <g class="tm-grid">
@@ -579,6 +614,7 @@ a{text-decoration:none;color:inherit}
         <span class="tm-label">Normal Operation</span>
         <span class="tm-sub">상용전원이 부하에 직접 공급됩니다 · TSP는 계통을 감시합니다</span>
       </div>
+      <div class="tsp-motion-final">Protecting Critical Equipment from Voltage Sag and Short Power Interruptions</div>
     </div>
 
     <div class="how-metrics">
@@ -601,7 +637,7 @@ a{text-decoration:none;color:inherit}
   var phases=[
     {p:'normal',d:3000,s:'01 / 05',l:'Normal Operation',t:'상용전원이 부하에 직접 공급됩니다 · TSP는 계통을 감시합니다'},
     {p:'sag',d:2000,s:'02 / 05',l:'Voltage Sag Detected',t:'낙뢰·계통 이상으로 순간전압강하 발생 · TSP가 즉시 감지합니다'},
-    {p:'compensate',d:3000,s:'03 / 05',l:'Instant Compensation',t:'EDLC → DC Link → Inverter → Load · 부하에 부족분을 즉시 보상'},
+    {p:'compensate',d:3200,s:'03 / 05',l:'EDLC Energy Release → Compensation',t:'EDLC → DC Link → Inverter → Load · 저장 에너지를 방출해 부하에 즉시 보상'},
     {p:'restore',d:3000,s:'04 / 05',l:'Utility Power Restored',t:'상용전원이 정상 복귀하고 EDLC는 재충전됩니다'},
     {p:'continuous',d:3000,s:'05 / 05',l:'Continuous Production',t:'설비는 멈추지 않고 계속 운전됩니다 · Without Shutdown'}
   ];
