@@ -92,7 +92,7 @@ a{text-decoration:none;color:inherit}
 .stat .num{font-family:var(--font-disp);font-weight:700;font-size:44px;color:#fff;
   line-height:1;letter-spacing:.01em}
 .stat .num i{color:var(--red);font-style:normal}
-.stat .lbl{margin-top:8px;font-size:13px;color:var(--gray-lt);font-weight:400}
+.stat .lbl{margin-top:8px;font-size:13px;color:#cbc5bf;font-weight:400}
 
 /* ============ PRODUCTS ============ */
 .products{padding:120px 0 130px;background:var(--bg);position:relative}
@@ -154,7 +154,7 @@ a{text-decoration:none;color:inherit}
 .section{padding:120px 0}
 .section.dark{background:var(--ink);color:#fff}
 .section.dark .sec-head h2{color:#fff}
-.section.dark .sec-head p{color:#b8b2ac}
+.section.dark .sec-head p{color:#d4cec8}
 .section.dark .sec-kicker::before{color:#6b6560}
 
 /* WHY — 임팩트 지표 */
@@ -165,14 +165,14 @@ a{text-decoration:none;color:inherit}
 .impact .cell .big{font-family:var(--font-disp);font-weight:700;font-size:54px;
   color:var(--red);line-height:1}
 .impact .cell .big small{font-family:var(--font-ko);font-size:18px;color:#fff;font-weight:400}
-.impact .cell .cap{margin-top:12px;font-size:15px;color:#b8b2ac;line-height:1.55}
+.impact .cell .cap{margin-top:12px;font-size:15px;color:#d4cec8;line-height:1.55}
 /* 원인 */
 .causes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
 .cause{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
   border-radius:4px;padding:26px 22px}
 .cause .cno{font-family:var(--font-disp);font-weight:700;font-size:15px;color:var(--red)}
 .cause h4{font-size:17px;color:#fff;margin:10px 0 7px;font-weight:600}
-.cause p{font-size:13.5px;color:#a8a29e;line-height:1.55}
+.cause p{font-size:13.5px;color:#c4beb8;line-height:1.55}
 .def-line{margin-top:14px;font-size:20px;line-height:1.7;color:#e7e2dc;max-width:760px;font-weight:300}
 .def-line b{color:#fff;font-weight:600}
 
@@ -191,7 +191,43 @@ a{text-decoration:none;color:inherit}
 .hm .n i{color:var(--red);font-style:normal}
 .hm .l{margin-top:8px;font-size:14px;color:var(--gray)}
 
+/* SLD 애니메이션 다이어그램 */
+.sld{margin:54px 0 50px}
+.sld-flow{display:flex;align-items:center;justify-content:center;margin-bottom:34px}
+.snode{width:210px;background:#fff;border:1.5px solid var(--divider);border-radius:12px;
+  padding:26px 18px;text-align:center;flex:0 0 auto}
+.snode .sn-ic{width:36px;height:36px;margin:0 auto 12px;display:block;color:var(--gray)}
+.snode b{display:block;font-family:var(--font-disp);font-weight:700;font-size:21px;
+  color:var(--head);letter-spacing:.01em}
+.snode small{font-size:12.5px;color:var(--gray)}
+.snode.tspnode{background:var(--red);border-color:var(--red);color:#fff;
+  box-shadow:0 18px 38px -16px var(--red-glow);transform:scale(1.07);animation:tspbeat 3s ease-in-out infinite}
+.snode.tspnode .sn-ic,.snode.tspnode b{color:#fff}
+.snode.tspnode small{color:#ffd9cd}
+@keyframes tspbeat{0%,40%,100%{box-shadow:0 18px 38px -16px var(--red-glow)}
+  55%{box-shadow:0 18px 50px -10px var(--red-glow),0 0 0 6px rgba(193,56,22,.18)}}
+.swire{flex:1;height:2px;background:var(--divider);position:relative;min-width:36px}
+.swire i{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:var(--red);
+  margin-top:-4.5px;box-shadow:0 0 9px var(--red);animation:travel 1.8s linear infinite}
+@keyframes travel{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:100%;opacity:0}}
+.wavebox{background:var(--ink);border-radius:14px;padding:24px 32px 28px}
+.wave-head{display:flex;gap:26px;margin-bottom:10px;font-size:12.5px;
+  font-family:var(--font-en);font-weight:600}
+.wave-head .in{color:#8a827b}.wave-head .out{color:var(--red)}
+.wave-svg{width:100%;height:180px;display:block}
+.w-base{stroke:rgba(255,255,255,.14);stroke-width:1;stroke-dasharray:5 5}
+.w-in{fill:none;stroke:#7d746c;stroke-width:2.5;stroke-dasharray:4 5}
+.w-out{fill:none;stroke:var(--red);stroke-width:3.5;
+  filter:drop-shadow(0 0 7px var(--red-glow));
+  stroke-dasharray:1050;stroke-dashoffset:1050;animation:draw 3.2s ease-in-out infinite}
+@keyframes draw{0%{stroke-dashoffset:1050}42%,100%{stroke-dashoffset:0}}
+.sag-zone{fill:var(--red);opacity:.09}
+.sag-pulse{fill:var(--red);opacity:0;animation:sagp 3.2s ease-in-out infinite}
+@keyframes sagp{0%,26%{opacity:0;r:0}40%{opacity:.9;r:8}62%,100%{opacity:0;r:8}}
+
 @media(max-width:900px){
+  .sld-flow{flex-wrap:wrap;gap:12px}.snode{width:100%}.swire{width:100%;height:24px;min-width:0}
+  .swire i{top:auto;bottom:0;animation:none;left:50%}
   .impact,.causes,.flow,.how-metrics{grid-template-columns:1fr}
   .impact .cell,.step{border-right:0;border-bottom:1px solid rgba(128,128,128,.15)}
   .cards{grid-template-columns:1fr;gap:20px}
@@ -358,11 +394,33 @@ a{text-decoration:none;color:inherit}
         배터리가 필요 없는 <b>오프라인 보상 방식</b>입니다.</p>
     </div>
 
-    <div class="flow">
-      <div class="step"><div class="sno">01</div><h4>평상시 감시</h4><p>Bypass 직결로 98% 효율 통전하며 전압을 실시간 감시합니다.</p></div>
-      <div class="step on"><div class="sno">02</div><h4>강하 감지</h4><p>전압이 기준 아래로 떨어지는 순간을 밀리초 단위로 포착합니다.</p></div>
-      <div class="step on"><div class="sno">03</div><h4>TSP 보상</h4><p>울트라커패시터 에너지를 인버터로 주입해 부족분을 채웁니다.</p></div>
-      <div class="step"><div class="sno">04</div><h4>정상 복귀</h4><p>전압이 회복되면 다시 Bypass 직결 상태로 무손실 전환합니다.</p></div>
+    <div class="sld">
+      <div class="sld-flow">
+        <div class="snode">
+          <svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="13 2 4 14 11 14 10 22 20 9 12 9 13 2"/></svg>
+          <b>전력 계통</b><small>불안정 입력</small>
+        </div>
+        <div class="swire"><i></i></div>
+        <div class="snode tspnode">
+          <svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"/></svg>
+          <b>TSP®</b><small>2ms 순간 보상</small>
+        </div>
+        <div class="swire"><i></i></div>
+        <div class="snode">
+          <svg class="sn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 21h18M5 21V11l6 3.5V11l6 3.5V7l3 1.5V21"/></svg>
+          <b>생산 라인</b><small>안정 출력</small>
+        </div>
+      </div>
+      <div class="wavebox">
+        <div class="wave-head"><span class="in">— 입력 전압 · 순간전압강하 발생</span><span class="out">— TSP 출력 · 100% 보상 유지</span></div>
+        <svg viewBox="0 0 1000 200" class="wave-svg" preserveAspectRatio="none">
+          <rect class="sag-zone" x="440" y="0" width="130" height="200"/>
+          <line class="w-base" x1="0" y1="100" x2="1000" y2="100"/>
+          <path class="w-in" d="M0,100 L400,100 C432,100 442,110 460,152 C476,188 488,188 504,188 C530,188 548,120 582,103 L616,100 L1000,100"/>
+          <path class="w-out" d="M0,100 L1000,100"/>
+          <circle class="sag-pulse" cx="505" cy="100" r="0"/>
+        </svg>
+      </div>
     </div>
 
     <div class="how-metrics">
