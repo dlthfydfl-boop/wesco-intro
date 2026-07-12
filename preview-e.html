@@ -149,6 +149,16 @@ a{color:inherit;text-decoration:none}
 .photo .cap span{font-size:12.5px;opacity:.85}
 .photos-note{text-align:center;margin-top:16px;font-size:12.5px;color:var(--sub)}
 @media(max-width:760px){.photos{grid-template-columns:1fr}}
+/* Reference customers */
+.refs{margin-top:clamp(38px,5vw,58px);text-align:left}
+.ref-group{border-top:1px solid var(--hair);padding:24px 0;display:grid;grid-template-columns:200px 1fr;gap:20px 28px}
+.refs .ref-group:last-child{border-bottom:1px solid var(--hair)}
+.ref-group .cat{font-size:14px;font-weight:700;color:var(--ink)}
+.ref-group .cat small{display:block;font-weight:500;color:var(--sub);font-size:12px;margin-top:4px}
+.ref-group .names{display:flex;flex-wrap:wrap;gap:9px 20px;align-items:baseline}
+.ref-group .names span{font-size:15.5px;font-weight:500;color:#3a3a3d}
+.ref-note{text-align:center;margin-top:22px;font-size:12.5px;color:var(--sub)}
+@media(max-width:640px){.ref-group{grid-template-columns:1fr;gap:10px}}
 </style>
 </head>
 <body>
@@ -307,6 +317,39 @@ a{color:inherit;text-decoration:none}
         <figcaption class="cap"><b>화학 · 배터리 소재</b><span>유틸리티·PLC 전원 보호</span></figcaption></figure>
     </div>
     <p class="photos-note rv">실제 WESCO 설치 현장 (대표 사례)</p>
+  </div>
+</section>
+
+<!-- 03c REFERENCE CUSTOMERS -->
+<section class="section" id="customers">
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">Reference Customers</p>
+    <h2 class="h2 rv" style="max-width:22ch;margin:0 auto">세계가 신뢰하는 이름들과<br>함께합니다.</h2>
+  </div>
+  <div class="wrap">
+    <div class="refs rv">
+      <div class="ref-group">
+        <div class="cat">반도체<small>Semiconductor</small></div>
+        <div class="names"><span>Samsung</span><span>SK hynix</span><span>TSMC</span><span>Sony</span><span>Western Digital</span><span>NXP</span><span>onsemi</span><span>UMC</span><span>SK Siltron</span><span>X-FAB</span><span>ASE</span><span>DB HiTek</span><span>Nanya</span><span>HanaMicron</span></div>
+      </div>
+      <div class="ref-group">
+        <div class="cat">디스플레이<small>Display</small></div>
+        <div class="names"><span>Samsung Display</span><span>LG Display</span><span>BOE</span><span>Innolux</span><span>VISIONOX</span><span>CSOT (TCL)</span><span>TIANMA</span><span>Corning</span><span>AGC</span></div>
+      </div>
+      <div class="ref-group">
+        <div class="cat">자동차<small>Automotive</small></div>
+        <div class="names"><span>Hyundai Motor</span><span>Kia</span><span>Hyundai Kefico</span><span>Renault Korea</span><span>Mando</span><span>Nexen Tire</span></div>
+      </div>
+      <div class="ref-group">
+        <div class="cat">이차전지·화학·철강<small>Battery · Chemical · Steel</small></div>
+        <div class="names"><span>SK on</span><span>Samsung SDI</span><span>LG Energy Solution</span><span>LG Chem</span><span>POSCO</span><span>LOTTE Chemical</span><span>Hankook Tire</span></div>
+      </div>
+      <div class="ref-group">
+        <div class="cat">PCB·전자부품<small>PCB · Components</small></div>
+        <div class="names"><span>Samsung Electro-Mechanics</span><span>LG Innotek</span><span>Daeduck Electronics</span><span>Haesung DS</span></div>
+      </div>
+    </div>
+    <p class="ref-note rv">대표 고객사 (일부) · 총 900+ 고객사 · 16개국 · 누적 150,000+ 대</p>
   </div>
 </section>
 
