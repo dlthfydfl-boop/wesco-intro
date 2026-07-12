@@ -476,6 +476,34 @@ a{text-decoration:none;color:inherit}
 }
 a:focus-visible,button:focus-visible,.arch-tab:focus-visible,.tm-trigger:focus-visible,.nav-toggle:focus-visible{
   outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+
+/* ============ Lifecycle Care ============ */
+.life-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.life-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:22px 18px}
+.life-step .ls-n{font:700 12px var(--font-en);color:var(--red);letter-spacing:.08em}
+.life-step b{display:block;margin:9px 0 5px;font-size:15px;color:#fff;font-weight:600}
+.life-step span{font-size:12.5px;color:#a8a29e;line-height:1.5}
+.life-note{margin-top:24px;font-size:13.5px;color:#c4beb8;line-height:1.65}
+.life-note b{color:#fff;font-weight:600}
+@media(max-width:900px){.life-steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.life-steps{grid-template-columns:1fr}}
+
+/* ============ Why WESCO ============ */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 44px;margin-top:8px;list-style:none;padding:0}
+.why-grid li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--text);
+  padding:13px 0;border-bottom:1px solid var(--divider)}
+.why-grid li::before{content:"";flex:0 0 auto;width:8px;height:8px;margin-top:7px;border-radius:2px;background:var(--red)}
+.why-grid li b{color:var(--head);font-weight:600}
+.why-certs{margin-top:26px;font-size:13px;color:var(--gray);line-height:1.7}
+.why-certs b{color:var(--head);font-weight:600}
+@media(max-width:760px){.why-grid{grid-template-columns:1fr}}
+
+/* ============ Final Brand Message ============ */
+.finalmsg{background:var(--ink);text-align:center;padding:104px 24px}
+.finalmsg h2{font-family:var(--font-disp);font-weight:800;font-size:clamp(30px,4.6vw,54px);
+  color:#fff;line-height:1.12;text-transform:uppercase;letter-spacing:-.01em}
+.finalmsg h2 em{color:var(--red);font-style:normal}
+.finalmsg p{margin-top:18px;font-size:13px;color:#8a827b;font-family:var(--font-en);letter-spacing:.18em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -965,11 +993,64 @@ a:focus-visible,button:focus-visible,.arch-tab:focus-visible,.tm-trigger:focus-v
   </div>
 </section>
 
+<!-- ============ LIFECYCLE CARE ============ -->
+<section class="section dark" id="lifecycle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker"><span>09</span> Lifecycle Care</div>
+      <h2>보호는 설치에서<br>끝나지 않습니다</h2>
+      <p>설치 이후에도 상시 모니터링·정기 점검·진단·예방 정비로 보호 성능을 지속 관리합니다.</p>
+    </div>
+    <div class="life-steps">
+      <div class="life-step"><span class="ls-n">01</span><b>Installation</b><span>현장 설치 · 계통 직렬 연결</span></div>
+      <div class="life-step"><span class="ls-n">02</span><b>Commissioning</b><span>시운전 · 동작 검증</span></div>
+      <div class="life-step"><span class="ls-n">03</span><b>Monitoring</b><span>상시 이벤트 계측</span></div>
+      <div class="life-step"><span class="ls-n">04</span><b>Periodic Inspection</b><span>정기 점검</span></div>
+      <div class="life-step"><span class="ls-n">05</span><b>Diagnosis</b><span>상태 진단</span></div>
+      <div class="life-step"><span class="ls-n">06</span><b>Upgrade</b><span>펌웨어·기능 업그레이드</span></div>
+      <div class="life-step"><span class="ls-n">07</span><b>Preventive Maintenance</b><span>예방 정비</span></div>
+      <div class="life-step"><span class="ls-n">08</span><b>Replacement</b><span>수명 도래 시 교체 권고</span></div>
+    </div>
+    <p class="life-note"><b>장수명 EDLC</b>로 정기 배터리 교체가 없고 유지보수 부담이 낮지만,
+      WESCO는 설치 이후에도 정기 점검·진단·예방 정비로 <b>장기 보호 성능</b>을 함께 관리합니다.</p>
+  </div>
+</section>
+
+<!-- ============ WHY WESCO ============ -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker"><span>10</span> Why WESCO</div>
+      <h2>자랑이 아니라,<br>증거로 말합니다</h2>
+    </div>
+    <ul class="why-grid">
+      <li><span><b>Since 2001</b> · 순간전압강하 전담 25년</span></li>
+      <li><span><b>EDLC 기반</b> 오프라인 보상 기술</span></li>
+      <li><span><b>0.5–2,400 kVA</b> 전 용량 대응</span></li>
+      <li><span>반도체·디스플레이·자동차·2차전지 <b>적용 경험</b></span></li>
+      <li><span>개별·중앙·하이브리드 <b>보호 설계</b></span></li>
+      <li><span><b>Sag-VIEWER</b> 실시간 이벤트 계측</span></li>
+      <li><span>실측 기반 <b>Performance Report</b></span></li>
+      <li><span>설치 후 <b>Lifecycle Care</b></span></li>
+      <li><span><b>국내외 프로젝트</b> 대응</span></li>
+      <li><span><b>엔지니어링</b> 기술 지원</span></li>
+    </ul>
+    <p class="why-certs"><b>Product</b> KC · CE · NRTL &nbsp;|&nbsp; <b>Test/Compliance</b> SEMI F47 · SEMI S2
+      &nbsp;|&nbsp; <b>Company</b> ISO 9001 · 14001 · INNO-BIZ &nbsp;|&nbsp; <b>Achievement</b> 천만불 수출의 탑(2018)</p>
+  </div>
+</section>
+
+<!-- ============ FINAL BRAND MESSAGE ============ -->
+<section class="finalmsg">
+  <h2>Protecting Production.<br><em>Not Just Equipment.</em></h2>
+  <p>WESCO · Voltage Sag Solutions</p>
+</section>
+
 <!-- ============ CONTACT ============ -->
 <section class="section dark" id="contact" style="padding-bottom:70px">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:44px">
-      <div class="sec-kicker"><span>10</span> Contact</div>
+      <div class="sec-kicker"><span>11</span> Contact</div>
     </div>
     <div class="contact contact-wrap">
       <div>
