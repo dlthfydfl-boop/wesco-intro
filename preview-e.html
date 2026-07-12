@@ -3,112 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WESCO — Direction E (Apple / IR Minimal)</title>
+<title>WESCO — Voltage Sag Protection</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 :root{
   --bg:#FBFBFD; --panel:#F5F5F7; --ink:#1D1D1F; --sub:#6E6E73; --hair:#D2D2D7; --red:#C13816;
   --font:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  --pad:clamp(72px,11vw,168px); --wrap:1040px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--ink);
-  -webkit-font-smoothing:antialiased;line-height:1.6;letter-spacing:-.01em;overflow-x:hidden}
+  -webkit-font-smoothing:antialiased;line-height:1.6;letter-spacing:-.015em;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-
 .proto{background:#1D1D1F;color:#d9d9de;text-align:center;font-size:12px;letter-spacing:.05em;padding:9px}
 .proto b{color:#fff}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
 
-/* Apple식 얇은 네비 */
-.nav{position:sticky;top:0;z-index:20;background:rgba(251,251,253,.8);backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid rgba(0,0,0,.06)}
-.nav__in{max-width:1000px;margin:0 auto;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:20;background:rgba(251,251,253,.8);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
+.nav__in{max-width:var(--wrap);margin:0 auto;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
 .nav__in img{height:30px;display:block;opacity:.9}
-.nav__menu{display:flex;gap:34px;font-size:13px;font-weight:500;color:#333}
-.nav__menu a{opacity:.85;transition:opacity .2s}
-.nav__menu a:hover{opacity:1}
-@media(max-width:720px){.nav__menu{gap:20px;font-size:12px}}
+.nav__menu{display:flex;gap:32px;font-size:13px;font-weight:500;color:#333}
+.nav__menu a{opacity:.85;transition:opacity .2s}.nav__menu a:hover{opacity:1;color:var(--red)}
+@media(max-width:720px){.nav__menu{gap:18px;font-size:12px}}
 
-/* HERO — 중앙 정렬, 광활한 여백, 대형 제품 */
-.hero{text-align:center;padding:clamp(56px,9vw,120px) 22px 0}
-.eyebrow{font-size:clamp(15px,1.4vw,19px);font-weight:600;color:var(--red);letter-spacing:0;margin-bottom:14px;
-  opacity:0;animation:fade .8s .05s forwards}
-.hero h1{font-size:clamp(38px,6.6vw,88px);font-weight:600;line-height:1.06;letter-spacing:-.035em;color:var(--ink);
-  max-width:16ch;margin:0 auto;word-break:keep-all;opacity:0;animation:rise 1s .12s cubic-bezier(.19,1,.22,1) forwards}
-.hero .sub{margin:26px auto 0;max-width:40ch;font-size:clamp(17px,1.7vw,22px);line-height:1.5;color:var(--sub);
-  font-weight:400;opacity:0;animation:rise 1s .28s cubic-bezier(.19,1,.22,1) forwards}
-.hero .links{margin-top:26px;display:flex;gap:30px;justify-content:center;flex-wrap:wrap;
-  opacity:0;animation:fade 1s .44s forwards}
-.hero .links a{font-size:clamp(15px,1.5vw,19px);font-weight:500;color:var(--red);display:inline-flex;align-items:center;gap:5px}
-.hero .links a .c{transition:transform .2s}
-.hero .links a:hover .c{transform:translateX(4px)}
-.hero .links a.muted{color:var(--ink)}
+/* 공통 타이포/섹션 */
+.eyebrow{font-size:clamp(14px,1.3vw,17px);font-weight:600;color:var(--red);margin-bottom:14px}
+.h2{font-size:clamp(30px,4.6vw,58px);font-weight:600;line-height:1.1;letter-spacing:-.035em;color:var(--ink);word-break:keep-all}
+.h2 em{font-style:normal;color:var(--red)}
+.lead{margin-top:22px;font-size:clamp(16px,1.7vw,21px);line-height:1.55;color:var(--sub);font-weight:400;word-break:keep-all}
+.section{padding:var(--pad) 0}
+.section.alt{background:var(--panel)}
+.tlink{font-size:clamp(15px,1.5vw,18px);font-weight:500;color:var(--red);display:inline-flex;align-items:center;gap:5px}
+.tlink .c{transition:transform .2s}.tlink:hover .c{transform:translateX(4px)}
+.tlink.dark{color:var(--ink)}
 
-/* 대형 제품 이미지 */
-.hero__stage{margin:clamp(30px,5vw,58px) auto 0;max-width:1000px;
-  opacity:0;animation:reveal 1.3s .5s cubic-bezier(.19,1,.22,1) forwards}
-.hero__stage img{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;
-  filter:drop-shadow(0 40px 60px rgba(29,29,31,.12))}
-@keyframes fade{to{opacity:1}}
-@keyframes rise{to{opacity:1;transform:none}}
-.hero h1,.hero .sub{transform:translateY(20px)}
-@keyframes reveal{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:none}}
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1)}
+.rv.in{opacity:1;transform:none}
 
-/* 얇은 스펙 스트립 (IR식 절제된 지표) */
-.spec{max-width:1000px;margin:clamp(44px,7vw,80px) auto 0;padding:0 22px}
-.spec__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);
-  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
-.spec__cell{background:var(--bg);padding:34px 18px;text-align:center}
-.spec__n{font-size:clamp(26px,3vw,40px);font-weight:600;letter-spacing:-.03em;color:var(--ink);line-height:1}
-.spec__n i{font-style:normal;color:var(--red)}
-.spec__k{margin-top:10px;font-size:13px;color:var(--sub);font-weight:500}
-@media(max-width:640px){.spec__grid{grid-template-columns:1fr 1fr}
-  .spec__cell:nth-child(-n+2){border-bottom:1px solid var(--hair)}}
+/* HERO */
+.hero{text-align:center;padding:clamp(52px,8vw,104px) 22px 0}
+.hero .eyebrow{margin-bottom:14px}
+.hero h1{font-size:clamp(38px,6.6vw,88px);font-weight:600;line-height:1.06;letter-spacing:-.04em;max-width:16ch;margin:0 auto;word-break:keep-all}
+.hero .sub{margin:24px auto 0;max-width:40ch;font-size:clamp(17px,1.7vw,22px);line-height:1.5;color:var(--sub)}
+.hero .links{margin-top:26px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+.hero__stage{margin:clamp(28px,5vw,56px) auto 0;max-width:1000px}
+.hero__stage img{width:100%;max-width:540px;height:auto;display:block;margin:0 auto;filter:drop-shadow(0 40px 60px rgba(29,29,31,.12))}
 
-.tail{text-align:center;padding:clamp(50px,8vw,90px) 22px}
-.tail p{font-size:clamp(20px,2.4vw,30px);font-weight:600;letter-spacing:-.02em;color:var(--ink);max-width:20ch;margin:0 auto;line-height:1.3}
-.tail p em{font-style:normal;color:var(--red)}
+/* 01 THREAT — centered feature + waveform */
+.threat{text-align:center}
+.threat .h2{max-width:18ch;margin:0 auto}.threat .lead{max-width:52ch;margin-left:auto;margin-right:auto}
+.wavefig{margin:clamp(36px,6vw,72px) auto 0;max-width:820px}
+.wavefig svg{width:100%;height:auto;display:block}
+.wf-base{stroke:var(--hair);stroke-width:1;stroke-dasharray:2 6}
+.wf-path{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round}
+.wf-lab{fill:var(--sub);font:600 12px var(--font);letter-spacing:.1em;text-transform:uppercase}
+.wf-dot{fill:var(--red)}
 
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important}
-  .eyebrow,.hero h1,.hero .sub,.hero .links,.hero__stage{opacity:1}
-  .hero h1,.hero .sub{transform:none}
-}
+/* 02 TSP — alternating 2col */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.two__media{background:linear-gradient(155deg,#fff,#EFEFF2);border-radius:14px;padding:44px;display:flex;justify-content:center}
+.two__media img{width:100%;max-width:360px;height:auto;object-fit:contain}
+.feat{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:16px}
+.feat li{display:flex;gap:13px;font-size:16px;color:var(--ink);align-items:flex-start}
+.feat li::before{content:"";flex:0 0 auto;width:20px;height:20px;margin-top:2px;border-radius:50%;
+  background:var(--red);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/16px no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/16px no-repeat}
+.feat li b{font-weight:600}.feat li span{color:var(--sub)}
+@media(max-width:820px){.two{grid-template-columns:1fr;gap:36px}.two__media{order:-1}}
+
+/* 03 SCALE — number grid */
+.scale{text-align:center}
+.bignum{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:clamp(36px,5vw,60px)}
+.bignum .c{background:var(--bg);padding:38px 16px}
+.bignum .n{font-size:clamp(30px,3.6vw,50px);font-weight:600;letter-spacing:-.03em;line-height:1}
+.bignum .n i{font-style:normal;color:var(--red)}
+.bignum .k{margin-top:10px;font-size:13px;color:var(--sub);font-weight:500}
+.industry{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;margin-top:34px}
+.industry .chip{font-size:14.5px;color:var(--ink);background:var(--panel);border:1px solid var(--hair);border-radius:100px;padding:9px 18px}
+.industry .chip b{color:var(--red);font-weight:600;font-variant-numeric:tabular-nums}
+@media(max-width:640px){.bignum{grid-template-columns:1fr 1fr}.bignum .c:nth-child(-n+2){border-bottom:1px solid var(--hair)}}
+
+/* 04 PROOF — showcase */
+.proof{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.proof__img{border-radius:14px;overflow:hidden;border:1px solid var(--hair);box-shadow:0 30px 60px -40px rgba(29,29,31,.35)}
+.proof__img img{width:100%;height:auto;display:block}
+.spec-list{list-style:none;margin-top:26px;border-top:1px solid var(--hair)}
+.spec-list li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--hair);font-size:15px}
+.spec-list li .k{color:var(--sub)}.spec-list li .v{font-weight:600;font-variant-numeric:tabular-nums}
+.tagline{margin-top:20px;font-size:13px;color:var(--sub)}
+@media(max-width:820px){.proof{grid-template-columns:1fr;gap:30px}}
+
+/* 05 CERT — 4 group */
+.cert{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:clamp(36px,5vw,56px)}
+.cert .g .t{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);padding-bottom:12px;border-bottom:1px solid var(--hair)}
+.cert .g ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.cert .g li{font-size:15px;font-weight:500;color:var(--ink)}
+@media(max-width:820px){.cert{grid-template-columns:1fr 1fr;gap:26px 24px}}
+@media(max-width:460px){.cert{grid-template-columns:1fr}}
+
+/* 06 CONTACT */
+.contact{text-align:center}
+.contact .h2{max-width:18ch;margin:0 auto}
+.contact .links{margin-top:30px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+.foot{border-top:1px solid var(--hair);margin-top:var(--pad);padding:34px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot img{height:26px;opacity:.7}
+.foot small{font-size:12px;color:var(--sub)}
+
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
-<div class="proto">방향 E 프로토타입 — <b>Apple / 삼성반도체 IR 톤</b> · 쿨 화이트·대형 제품·광활한 여백</div>
+<div class="proto">방향 E — <b>Apple / 삼성반도체 IR 톤</b> · 전체 구성 (Gemini 기획 · Claude 구현 · Codex QA 예정)</div>
 
 <nav class="nav"><div class="nav__in">
-  <a href="#"><img src="images/wesco_logo.png" alt="WESCO"></a>
-  <div class="nav__menu"><a href="#">회사</a><a href="#">기술</a><a href="#">제품</a><a href="#">실적</a><a href="#">문의</a></div>
+  <a href="#top"><img src="images/wesco_logo.png" alt="WESCO"></a>
+  <div class="nav__menu"><a href="#tsp">기술</a><a href="#scale">실적</a><a href="#proof">검증</a><a href="#cert">인증</a><a href="#contact">문의</a></div>
 </div></nav>
 
-<section class="hero">
+<!-- HERO -->
+<section class="hero" id="top">
   <p class="eyebrow">WESCO TSP</p>
   <h1>생산의 연속성을 지킵니다.</h1>
   <p class="sub">눈에 보이지 않는 순간전압강하로부터 반도체·디스플레이 생산 라인을 지켜 온 25년.</p>
   <div class="links">
-    <a href="#how">기술 알아보기 <span class="c">›</span></a>
-    <a class="muted" href="#contact">도입 문의 <span class="c">›</span></a>
+    <a class="tlink" href="#tsp">기술 알아보기 <span class="c">›</span></a>
+    <a class="tlink dark" href="#contact">도입 문의 <span class="c">›</span></a>
   </div>
-  <div class="hero__stage">
-    <img src="images/product/three_phase_main.png" alt="WESCO TSP 순간전압보상장치">
+  <div class="hero__stage"><img src="images/product/three_phase_main.png" alt="WESCO TSP 순간전압보상장치"></div>
+</section>
+
+<!-- 01 THREAT -->
+<section class="section threat" id="threat">
+  <div class="wrap">
+    <p class="eyebrow rv">The Invisible Threat</p>
+    <h2 class="h2 rv">단 1초의 흔들림이,<br>거대한 공정을 <em>멈춥니다.</em></h2>
+    <p class="lead rv">순간전압강하(Voltage Sag)는 완전한 정전이 아닙니다. 0.1초 남짓 전압이 정격 아래로 떨어졌다 회복되는 짧은 순간 —
+      사람은 알아채지 못해도 정밀 장비는 즉시 반응해 라인을 세웁니다.</p>
+    <figure class="wavefig rv">
+      <svg viewBox="0 0 900 200" preserveAspectRatio="none" aria-label="순간전압강하 파형">
+        <line class="wf-base" x1="0" y1="100" x2="900" y2="100"/>
+        <path class="wf-path" d="M0,100 L300,100 C340,100 346,104 372,158 C392,196 408,200 426,200 C454,200 464,140 494,110 C514,92 540,100 590,100 L900,100"/>
+        <circle class="wf-dot" cx="426" cy="200" r="5"/>
+        <text class="wf-lab" x="0" y="30">Utility</text>
+        <text class="wf-lab" x="900" y="30" text-anchor="end">Voltage Sag</text>
+      </svg>
+    </figure>
   </div>
 </section>
 
-<div class="spec">
-  <div class="spec__grid">
-    <div class="spec__cell"><div class="spec__n">150,000<i>+</i></div><div class="spec__k">누적 설치 (대)</div></div>
-    <div class="spec__cell"><div class="spec__n">16</div><div class="spec__k">공급 국가</div></div>
-    <div class="spec__cell"><div class="spec__n">900<i>+</i></div><div class="spec__k">고객사</div></div>
-    <div class="spec__cell"><div class="spec__n">25</div><div class="spec__k">단일 분야 전문 (년)</div></div>
+<!-- 02 TSP INNOVATION -->
+<section class="section alt" id="tsp">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow rv">The TSP Innovation</p>
+      <h2 class="h2 rv">배터리 없이,<br>더 오래.</h2>
+      <p class="lead rv">TSP는 울트라커패시터(EDLC)에 에너지를 저장합니다. 평상시엔 계통과 직결(Bypass)돼 손실 없이 전력을 통과시키고,
+        순간전압강하가 감지되면 즉시 저장 에너지로 부족분을 채웁니다.</p>
+      <ul class="feat rv">
+        <li><span><b>배터리 없는 EDLC</b> — 정기 배터리 교체가 필요 없는 장수명 에너지 저장.</span></li>
+        <li><span><b>평상시 Bypass 직결</b> — 고효율 통전, 필요한 순간에만 보상.</span></li>
+        <li><span><b>Utility → TSP → Load 직렬</b> — 1초 표준 보상으로 설비 무중단.</span></li>
+      </ul>
+    </div>
+    <div class="two__media rv"><img src="images/product/single_phase.png" alt="WESCO TSP 제품"></div>
   </div>
-</div>
-
-<section class="tail">
-  <p>제조사가 아니라, <em>Voltage Sag 솔루션</em> 전문기업입니다.</p>
 </section>
 
+<!-- 03 SCALE -->
+<section class="section scale" id="scale">
+  <div class="wrap">
+    <p class="eyebrow rv">Scale & Reach</p>
+    <h2 class="h2 rv">데이터가 증명하는<br>25년의 신뢰.</h2>
+    <div class="bignum rv">
+      <div class="c"><div class="n">150,000<i>+</i></div><div class="k">누적 설치 (대)</div></div>
+      <div class="c"><div class="n">16</div><div class="k">공급 국가</div></div>
+      <div class="c"><div class="n">900<i>+</i></div><div class="k">고객사</div></div>
+      <div class="c"><div class="n">25</div><div class="k">단일 분야 전문 (년)</div></div>
+    </div>
+    <div class="industry rv">
+      <span class="chip">자동차 <b>46,000+</b></span>
+      <span class="chip">반도체 <b>37,000+</b></span>
+      <span class="chip">디스플레이 <b>34,000+</b></span>
+      <span class="chip">PCB·전자부품 <b>21,000+</b></span>
+      <span class="chip">이차전지 <b>12,000+</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PROOF -->
+<section class="section alt" id="proof">
+  <div class="wrap proof">
+    <div class="proof__img rv"><img src="images/proof/hmi_event.png" alt="Sag-VIEWER 실측 순간전압강하 이벤트"></div>
+    <div>
+      <p class="eyebrow rv">Field-Proven</p>
+      <h2 class="h2 rv">기록된 모든 찰나가,<br>방어의 증거입니다.</h2>
+      <ul class="spec-list rv">
+        <li><span class="k">실측 이벤트</span><span class="v">2024.02.06</span></li>
+        <li><span class="k">잔여 전압</span><span class="v">68.7 % · 157 V</span></li>
+        <li><span class="k">지속 시간</span><span class="v">0.065 s</span></li>
+        <li><span class="k">보상 결과</span><span class="v">설비 무중단</span></li>
+      </ul>
+      <p class="tagline rv">대표 장기 운영 실적: 헝가리 Volta Energy 53대 · 2024–2026 연간점검 정상.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 CERT -->
+<section class="section scale" id="cert">
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">Certified &amp; Verified</p>
+    <h2 class="h2 rv" style="max-width:20ch;margin:0 auto">가장 까다로운 기준이,<br>우리의 표준입니다.</h2>
+  </div>
+  <div class="wrap">
+    <div class="cert rv">
+      <div class="g"><div class="t">Product</div><ul><li>KC</li><li>CE</li><li>NRTL</li></ul></div>
+      <div class="g"><div class="t">Test / Compliance</div><ul><li>SEMI F47</li><li>SEMI S2</li></ul></div>
+      <div class="g"><div class="t">Company</div><ul><li>ISO 9001</li><li>ISO 14001</li><li>INNO-BIZ</li></ul></div>
+      <div class="g"><div class="t">Achievement</div><ul><li>천만불 수출의 탑 (2018)</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 CONTACT -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow rv">Contact</p>
+    <h2 class="h2 rv">생산의 연속성,<br>지금 상담하세요.</h2>
+    <p class="lead rv" style="max-width:44ch;margin-left:auto;margin-right:auto">도입 검토·용량 선정·현장 실사까지, WESCO 기술영업이 직접 지원합니다.</p>
+    <div class="links rv">
+      <a class="tlink" href="mailto:sh.han@wesco.co.kr?subject=WESCO%20TSP%20도입%20문의">도입 문의하기 <span class="c">›</span></a>
+      <a class="tlink dark" href="https://www.wesco.co.kr" target="_blank" rel="noopener">www.wesco.co.kr <span class="c">›</span></a>
+    </div>
+    <div class="foot">
+      <img src="images/wesco_logo.png" alt="WESCO">
+      <small>© WESCO · Voltage Sag Protection since 2001 · TSP® is a registered trademark</small>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));if(!els.length)return;
+  if(!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+</script>
 </body>
 </html>
