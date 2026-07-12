@@ -478,6 +478,30 @@ a{text-decoration:none;color:inherit}
 .pa-tt{fill:#E0A75C;font:700 12px var(--font-en);text-anchor:middle}
 .pa-dim{fill:#8a93a3;font:500 9px var(--font-en);text-anchor:middle}
 @media(max-width:900px){.arch-panel.on{grid-template-columns:1fr;gap:24px}.arch-tabs{max-width:100%}}
+
+/* ============ Company Overview 캐패빌리티 리본 ============ */
+.cap-ribbon{display:flex;flex-wrap:wrap;align-items:center;gap:9px 10px;margin-top:38px}
+.cap-ribbon span{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
+  border-radius:6px;padding:12px 17px;font-size:14.5px;font-weight:600;color:#e7e2dc;white-space:nowrap}
+.cap-ribbon span.key{background:rgba(193,56,22,.14);border-color:var(--red);color:#fff}
+.cap-ribbon i{color:var(--red);font-style:normal;font-weight:700;font-size:15px}
+@media(max-width:640px){.cap-ribbon i{display:none}.cap-ribbon span{flex:1;text-align:center}}
+
+/* ============ 모바일 네비게이션 드로어 ============ */
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;z-index:6}
+.nav-toggle span{display:block;width:24px;height:2px;background:#fff;margin:5px 0;transition:.25s}
+.hero.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hero.nav-open .nav-toggle span:nth-child(2){opacity:0}
+.hero.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){
+  .nav-toggle{display:block}
+  .hero-nav{display:flex;position:fixed;inset:0 0 0 auto;width:min(78vw,300px);
+    flex-direction:column;gap:0;background:var(--ink-2);padding:88px 28px 28px;
+    transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);
+    z-index:5;box-shadow:-20px 0 60px rgba(0,0,0,.5)}
+  .hero.nav-open .hero-nav{transform:translateX(0)}
+  .hero-nav a{padding:16px 4px;border-bottom:1px solid rgba(255,255,255,.08);font-size:16px;color:#e7e2dc}
+}
 </style>
 </head>
 <body>
@@ -501,6 +525,7 @@ a{text-decoration:none;color:inherit}
       <a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/">인사이트</a>
       <a href="#contact">문의</a>
     </nav>
+    <button class="nav-toggle" aria-label="메뉴" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 
   <div class="hero-body">
@@ -539,11 +564,28 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
+<!-- ============ COMPANY OVERVIEW ============ -->
+<section class="section dark" id="company">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker"><span>01</span> Company Overview</div>
+      <h2>제조사가 아니라,<br>Voltage Sag 솔루션 전문기업</h2>
+      <p class="def-line">WESCO는 2001년부터 순간전압강하(Voltage Sag) 보호에 집중해 왔습니다.
+        단순히 TSP를 <b>만드는</b> 회사가 아니라 — 문제를 <b>진단</b>하고, 보호 시스템을 <b>설계</b>하며,
+        제품 공급·설치·모니터링·분석·유지관리까지 수행하는 <b>Power Quality 전문기업</b>입니다.</p>
+    </div>
+    <div class="cap-ribbon">
+      <span>진단</span><i>→</i><span>설계</span><i>→</i><span class="key">제조·공급</span><i>→</i><span>설치</span><i>→</i><span>모니터링</span><i>→</i><span>분석·리포트</span><i>→</i><span>Lifecycle Care</span>
+    </div>
+    <p class="proof-note" style="margin-top:18px">Since 2001 · EDLC 기반 TSP® · 소용량 단상 ~ 대용량 삼상 · 반도체·디스플레이·자동차·2차전지 · 국내외 프로젝트 대응</p>
+  </div>
+</section>
+
 <!-- ============ PRODUCTS ============ -->
 <section class="products" id="products">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>01</span> Product Lineup</div>
+      <div class="sec-kicker"><span>02</span> Product Lineup</div>
       <h2>단상 0.5kVA부터<br>대용량 2,400kVA까지</h2>
       <p>모든 부하 규모를 <b>단일 라인업</b>으로 커버하는 순간전압보상장치.
          현장 조건에 맞춰 단상·중소 삼상·대용량까지 정밀하게 선정합니다.</p>
@@ -575,7 +617,7 @@ a{text-decoration:none;color:inherit}
           <ul class="card-feats">
             <li>100% · 1초 표준 보상</li>
             <li>SEMI F47 대응</li>
-            <li>10년+ 무점검 수명</li>
+            <li>10년+ 장수명 EDLC</li>
           </ul>
         </div>
       </article>
@@ -613,7 +655,7 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="need">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>02</span> What is Voltage Sag</div>
+      <div class="sec-kicker"><span>03</span> What is Voltage Sag</div>
       <h2>정전이 아니어도<br>라인은 멈춥니다</h2>
       <p class="def-line"><b>순간전압강하(Voltage Sag)</b>는 완전한 정전이 아닙니다.
         0.1초에서 1초 남짓, 전압이 정격 아래로 <b>떨어졌다 회복</b>되는 짧은 순간 —
@@ -647,15 +689,9 @@ a{text-decoration:none;color:inherit}
       </div>
     </div>
 
-    <div class="impact">
-      <div class="cell"><div class="big">연 20<small>회</small></div>
-        <div class="cap">한 사업장에서 겪는 연평균 순간전압강하 발생 횟수</div></div>
-      <div class="cell"><div class="big">5.2<small>억원</small></div>
-        <div class="cap">대형 FAB 기준, 1회 라인 정지가 유발하는 평균 손실</div></div>
-      <div class="cell"><div class="big">80<small>%</small></div>
-        <div class="cap">설비 비정상 정지의 원인이 순간전압강하에 기인</div></div>
-    </div>
-    <p class="impact-note">* 위 수치는 전력품질 업계의 일반 참고치이며, WESCO 실측 기준 데이터는 <b>[DATA TO BE CONFIRMED]</b> 상태입니다.</p>
+    <p class="def-line" style="margin-top:40px">단 몇 사이클의 전압 저하만으로도
+      <b>PLC · 인버터 · 로봇 · 반도체 생산설비</b>가 정지하고, 재가동·복구·수율 손실로 이어집니다.
+      순간전압강하는 <b>정전보다 훨씬 자주</b> 발생하지만, 대부분 인지되지 못한 채 라인을 세웁니다.</p>
 
     <div class="causes">
       <div class="cause">
@@ -686,7 +722,7 @@ a{text-decoration:none;color:inherit}
 <section class="section" id="how">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>03</span> How It Works</div>
+      <div class="sec-kicker"><span>04</span> How It Works</div>
       <h2>어떻게 그 1초를<br>지키는가</h2>
       <p>평상시에는 <b>Bypass로 직결</b>돼 고효율로 전력을 통과시키고,
         순간전압강하가 감지되면 <b>즉시</b> 울트라커패시터의 에너지로 부족분을 채웁니다.
@@ -754,7 +790,7 @@ a{text-decoration:none;color:inherit}
     <div class="how-metrics">
       <div class="hm"><div class="n">0<i>회</i></div><div class="l">보상 성공 시 설비 라인 정지</div></div>
       <div class="hm"><div class="n">100<i>%</i></div><div class="l">1초 표준 보상률</div></div>
-      <div class="hm"><div class="n">10<i>년+</i></div><div class="l">무점검 에너지저장 수명</div></div>
+      <div class="hm"><div class="n">10<i>년+</i></div><div class="l">장수명 EDLC · 정기 배터리 교체 없음</div></div>
       <div class="hm"><div class="n">98<i>%</i></div><div class="l">평상시 통전 효율(Bypass)</div></div>
     </div>
   </div>
@@ -763,7 +799,7 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="edge">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>04</span> Why EDLC</div>
+      <div class="sec-kicker"><span>05</span> Why EDLC</div>
       <h2>배터리를 버렸더니<br>10년이 가벼워졌습니다</h2>
       <p>UPS가 배터리로 정전 전체를 감당한다면, TSP는 울트라커패시터(EDLC)로 순간전압강하만 정밀하게 —
         더 빠르고, 더 오래, 관리 없이.</p>
@@ -772,7 +808,7 @@ a{text-decoration:none;color:inherit}
       <div class="cmp-row cmp-head"><div></div><div class="tsp">WESCO TSP · EDLC</div><div class="ups">배터리 UPS</div></div>
       <div class="cmp-row"><div class="lbl">보상 응답</div><div class="tsp">고속 · 즉시 응답</div><div class="ups">상대적으로 느림</div></div>
       <div class="cmp-row"><div class="lbl">수명</div><div class="tsp">10년+ · 수백만 사이클</div><div class="ups">3~5년마다 배터리 교체</div></div>
-      <div class="cmp-row"><div class="lbl">유지보수</div><div class="tsp">Maintenance Free · 냉각팬 없음</div><div class="ups">정기 점검 · 교체 필요</div></div>
+      <div class="cmp-row"><div class="lbl">유지보수</div><div class="tsp">정기 배터리 교체 불필요 · 유지보수 부담 ↓</div><div class="ups">정기 점검 · 배터리 교체 필요</div></div>
       <div class="cmp-row"><div class="lbl">환경</div><div class="tsp">유해물질 없음 · 친환경</div><div class="ups">폐배터리 처리 부담</div></div>
       <div class="cmp-row"><div class="lbl">설치 공간</div><div class="tsp">컴팩트</div><div class="ups">배터리실 별도 필요</div></div>
     </div>
@@ -783,7 +819,7 @@ a{text-decoration:none;color:inherit}
 <section class="section" id="architecture">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>05</span> Protection Architecture</div>
+      <div class="sec-kicker"><span>06</span> Protection Architecture</div>
       <h2>현장에 맞게<br>설계합니다</h2>
       <p>모든 구성은 <b>Utility → TSP → Load 직렬</b> 원칙을 유지합니다.
         보호 대상과 계통 조건에 따라 세 가지 방식으로 설계합니다.</p>
@@ -878,7 +914,7 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="proof">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>06</span> Industries &amp; Installations</div>
+      <div class="sec-kicker"><span>07</span> Industries &amp; Installations</div>
       <h2>150,000대 이상이<br>현장을 지키고 있습니다</h2>
       <p>미세한 전압 저하도 라인 정지로 이어지는 <b>미션 크리티컬 산업</b>에서 검증됐습니다.
         반도체·자동차·디스플레이·이차전지 현장에 설치·운영 중입니다.</p>
@@ -907,7 +943,7 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="viewer">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>07</span> Sag-VIEWER™</div>
+      <div class="sec-kicker"><span>08</span> Sag-VIEWER™</div>
       <h2>순간전압강하를<br>눈으로 확인합니다</h2>
       <p>모든 TSP는 발생한 순간전압강하 이벤트를 <b>실시간 계측·기록</b>합니다.
         아래는 실제 설치 현장에서 포착된 이벤트 화면입니다.</p>
@@ -932,7 +968,7 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="report">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker"><span>08</span> Performance Report</div>
+      <div class="sec-kicker"><span>09</span> Performance Report</div>
       <h2>현장에서, 실측으로<br>증명합니다</h2>
     </div>
     <div class="showcase">
@@ -957,7 +993,7 @@ a{text-decoration:none;color:inherit}
 <section class="section dark" id="contact" style="padding-bottom:70px">
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:44px">
-      <div class="sec-kicker"><span>09</span> Contact</div>
+      <div class="sec-kicker"><span>10</span> Contact</div>
     </div>
     <div class="contact contact-wrap">
       <div>
@@ -1050,6 +1086,13 @@ a{text-decoration:none;color:inherit}
     tabs.forEach(function(x){x.classList.toggle('on',x===t);});
     document.querySelectorAll('.arch-panel').forEach(function(p){p.classList.toggle('on',p.dataset.arch===k);});
   });});
+})();
+(function(){
+  var hero=document.querySelector('.hero'),btn=document.querySelector('.nav-toggle');if(!hero||!btn)return;
+  var nav=hero.querySelector('.hero-nav');
+  function set(open){hero.classList.toggle('nav-open',open);btn.setAttribute('aria-expanded',open?'true':'false');}
+  btn.addEventListener('click',function(){set(!hero.classList.contains('nav-open'));});
+  if(nav)nav.addEventListener('click',function(e){if(e.target.tagName==='A')set(false);});
 })();
 </script>
 </body>
