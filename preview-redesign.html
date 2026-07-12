@@ -1078,9 +1078,11 @@ a:focus-visible,button:focus-visible,.arch-tab:focus-visible,.tm-trigger:focus-v
   var hero=document.querySelector('.hero'),btn=document.querySelector('.nav-toggle');if(!hero||!btn)return;
   var nav=document.getElementById('hero-nav');if(!nav)return;
   var mq=window.matchMedia('(max-width:900px)');
+  var main=document.querySelector('main');
   function apply(){var open=hero.classList.contains('nav-open');
     if(mq.matches&&!open){nav.setAttribute('inert','');nav.setAttribute('aria-hidden','true');}
-    else{nav.removeAttribute('inert');nav.removeAttribute('aria-hidden');}}
+    else{nav.removeAttribute('inert');nav.removeAttribute('aria-hidden');}
+    if(main){if(mq.matches&&open)main.setAttribute('inert','');else main.removeAttribute('inert');}}
   function set(open){hero.classList.toggle('nav-open',open);
     btn.setAttribute('aria-expanded',open?'true':'false');apply();
     if(mq.matches){if(open){var a=nav.querySelector('a');if(a)a.focus();}else{btn.focus();}}}
