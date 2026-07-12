@@ -192,6 +192,24 @@ a{color:inherit;text-decoration:none}
 .timeline li b{color:var(--red);font-weight:600}
 @media(max-width:820px){.timeline{grid-template-columns:1fr;border-top:0}
   .timeline .ph{border-top:2px solid var(--ink);padding:24px 0 0}}
+/* R&D · Manufacturing */
+.facilities{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:clamp(34px,5vw,52px);text-align:left}
+.facilities .fac{padding:28px;border:1px solid var(--hair);border-radius:14px;background:#fff}
+.facilities .fac .loc{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.facilities .fac h3{margin-top:11px;font-size:18px;font-weight:600;color:var(--ink)}
+.facilities .fac p{margin-top:8px;font-size:14px;color:var(--sub);line-height:1.6}
+.rd-infra{margin-top:28px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px}
+.rd-infra .chip{font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--hair);border-radius:100px;padding:9px 18px}
+.rd-infra-note{text-align:center;margin-top:14px;font-size:12.5px;color:var(--sub)}
+@media(max-width:820px){.facilities{grid-template-columns:1fr}}
+/* Why WESCO 5 */
+.why5{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:clamp(36px,5vw,56px);text-align:left}
+.why5 .w{background:var(--panel);padding:30px 20px}
+.why5 .n{font-size:13px;font-weight:700;color:var(--red)}
+.why5 b{display:block;margin-top:12px;font-size:16px;font-weight:600;color:var(--ink)}
+.why5 span{display:block;margin-top:7px;font-size:13px;color:var(--sub);line-height:1.55}
+@media(max-width:900px){.why5{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.why5{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -372,6 +390,29 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- 02d R&D · MANUFACTURING -->
+<section class="section rnd" id="rnd">
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">R&amp;D &amp; Manufacturing</p>
+    <h2 class="h2 rv" style="max-width:20ch;margin:0 auto">설계부터 양산까지,<br>직접.</h2>
+    <p class="lead rv" style="max-width:52ch;margin:22px auto 0">자체 연구조직이 설계하고, 자사 EMS 공장에서 양산하며, 국내외 기술 거점으로 대응합니다.</p>
+  </div>
+  <div class="wrap">
+    <div class="facilities rv">
+      <div class="fac"><div class="loc">Anyang · Korea</div><h3>R&amp;D 본사</h3><p>연구개발·영업 본사. 하드웨어·소프트웨어 전담 연구조직(평균 10년+ 경력).</p></div>
+      <div class="fac"><div class="loc">Icheon · Korea</div><h3>EMS 제조공장</h3><p>제품 양산·조립. 설계부터 생산까지 일관 체계로 품질을 관리합니다.</p></div>
+      <div class="fac"><div class="loc">Shanghai · China</div><h3>기술 지원 센터</h3><p>해외 고객 현장 기술 대응 거점.</p></div>
+    </div>
+    <div class="rd-infra rv">
+      <span class="chip">420kW Load Test BED</span>
+      <span class="chip">AC Grid Simulator</span>
+      <span class="chip">Sag Immunity Test BED</span>
+      <span class="chip">Lecroy 오실로스코프</span>
+    </div>
+    <p class="rd-infra-note rv">자체 전압강하 시험·검증 인프라</p>
+  </div>
+</section>
+
 <!-- 03 SCALE -->
 <section class="section scale" id="scale">
   <div class="wrap">
@@ -495,6 +536,23 @@ a{color:inherit;text-decoration:none}
       <div class="g"><div class="t">Test / Compliance</div><ul><li>SEMI F47</li><li>SEMI S2</li></ul></div>
       <div class="g"><div class="t">Company</div><ul><li>ISO 9001</li><li>ISO 14001</li><li>INNO-BIZ</li></ul></div>
       <div class="g"><div class="t">Achievement</div><ul><li>천만불 수출의 탑 (2018)</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05b WHY WESCO -->
+<section class="section alt whywesco" id="whywesco">
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">Why WESCO</p>
+    <h2 class="h2 rv" style="max-width:22ch;margin:0 auto">Top-Tier가 선택한<br>다섯 가지 이유.</h2>
+  </div>
+  <div class="wrap">
+    <div class="why5 rv">
+      <div class="w"><div class="n">01</div><b>Battery-Free</b><span>EDLC 기반, 10년+ 무유지보수</span></div>
+      <div class="w"><div class="n">02</div><b>Full Lineup</b><span>0.5–2,400kVA 국내 유일 통합 공급</span></div>
+      <div class="w"><div class="n">03</div><b>Track Record</b><span>150,000+ 설치 · 900+ 고객 · 16개국</span></div>
+      <div class="w"><div class="n">04</div><b>Ultra-Fast</b><span>초고속 응답 · 1초 100% 보상</span></div>
+      <div class="w"><div class="n">05</div><b>Smart Monitoring</b><span>Sag-VIEWER™ 실시간 원격 감시</span></div>
     </div>
   </div>
 </section>
