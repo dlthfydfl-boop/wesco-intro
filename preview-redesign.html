@@ -315,40 +315,6 @@ a{text-decoration:none;color:inherit}
   .tsp-motion.tm-playing .tm-util,.tsp-motion.tm-playing .tm-comp{animation:none} /* 모바일 경량: dash 정지, 상태색만 */
   .tm-ctl{flex-direction:column;gap:12px}.tm-progress{max-width:100%;width:100%}
 }
-/* SLD 애니메이션 다이어그램 */
-.sld{margin:54px 0 50px}
-.sld-flow{display:flex;align-items:center;justify-content:center;margin-bottom:34px}
-.snode{width:210px;background:#fff;border:1.5px solid var(--divider);border-radius:12px;
-  padding:26px 18px;text-align:center;flex:0 0 auto}
-.snode .sn-ic{width:36px;height:36px;margin:0 auto 12px;display:block;color:var(--gray)}
-.snode b{display:block;font-family:var(--font-disp);font-weight:700;font-size:21px;
-  color:var(--head);letter-spacing:.01em}
-.snode small{font-size:12.5px;color:var(--gray)}
-.snode.tspnode{background:var(--red);border-color:var(--red);color:#fff;
-  box-shadow:0 14px 30px -14px rgba(0,0,0,.45);transform:scale(1.05)}
-.snode.tspnode .sn-ic,.snode.tspnode b{color:#fff}
-.snode.tspnode small{color:#ffd9cd}
-@keyframes tspbeat{0%,40%,100%{box-shadow:0 18px 38px -16px var(--red-glow)}
-  55%{box-shadow:0 18px 50px -10px var(--red-glow),0 0 0 6px rgba(193,56,22,.18)}}
-.swire{flex:1;height:2px;background:var(--divider);position:relative;min-width:36px}
-.swire i{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:var(--red);
-  margin-top:-4.5px;box-shadow:0 0 9px var(--red);animation:travel 1.8s linear infinite}
-@keyframes travel{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:100%;opacity:0}}
-.wavebox{background:var(--ink);border-radius:14px;padding:24px 32px 28px}
-.wave-head{display:flex;gap:26px;margin-bottom:10px;font-size:12.5px;
-  font-family:var(--font-en);font-weight:600}
-.wave-head .in{color:#8a827b}.wave-head .out{color:var(--red)}
-.wave-svg{width:100%;height:180px;display:block}
-.w-base{stroke:rgba(255,255,255,.14);stroke-width:1;stroke-dasharray:5 5}
-.w-in{fill:none;stroke:#7d746c;stroke-width:2.5;stroke-dasharray:4 5}
-.w-out{fill:none;stroke:var(--red);stroke-width:3.5;
-  filter:drop-shadow(0 0 7px var(--red-glow));
-  stroke-dasharray:1050;stroke-dashoffset:1050;animation:draw 3.2s ease-in-out infinite}
-@keyframes draw{0%{stroke-dashoffset:1050}42%,100%{stroke-dashoffset:0}}
-.sag-zone{fill:var(--red);opacity:.09}
-.sag-pulse{fill:var(--red);opacity:0;animation:sagp 3.2s ease-in-out infinite}
-@keyframes sagp{0%,26%{opacity:0;r:0}40%{opacity:.9;r:8}62%,100%{opacity:0;r:8}}
-
 /* EDGE — TSP vs UPS 비교 도식 */
 .compare{margin-top:52px;border:1px solid rgba(255,255,255,.14);border-radius:12px;overflow:hidden}
 .cmp-row{display:grid;grid-template-columns:1fr 1.35fr 1.35fr;align-items:center}
@@ -502,6 +468,14 @@ a{text-decoration:none;color:inherit}
   .hero.nav-open .hero-nav{transform:translateX(0)}
   .hero-nav a{padding:16px 4px;border-bottom:1px solid rgba(255,255,255,.08);font-size:16px;color:#e7e2dc}
 }
+
+/* ============ 접근성 ============ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+a:focus-visible,button:focus-visible,.arch-tab:focus-visible,.tm-trigger:focus-visible,.nav-toggle:focus-visible{
+  outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
 </style>
 </head>
 <body>
@@ -515,17 +489,17 @@ a{text-decoration:none;color:inherit}
   </div>
 
   <div class="hero-top">
-    <a href="https://dlthfydfl-boop.github.io/wesco-intro/" class="logo">
+    <a href="./" class="logo">
       <img src="images/wesco_logo.png" alt="WESCO 웨스코">
     </a>
-    <nav class="hero-nav">
+    <nav class="hero-nav" id="hero-nav" aria-label="주요 메뉴">
       <a href="#products">제품</a>
       <a href="#how">기술</a>
       <a href="#proof">실적</a>
-      <a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/">인사이트</a>
+      <a href="blog/">인사이트</a>
       <a href="#contact">문의</a>
     </nav>
-    <button class="nav-toggle" aria-label="메뉴" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="메뉴" aria-controls="hero-nav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 
   <div class="hero-body">
@@ -550,6 +524,8 @@ a{text-decoration:none;color:inherit}
     </div>
   </div>
 </header>
+
+<main>
 
 <!-- ============ 크레디빌리티 밴드 ============ -->
 <div class="credband">
@@ -824,13 +800,13 @@ a{text-decoration:none;color:inherit}
       <p>모든 구성은 <b>Utility → TSP → Load 직렬</b> 원칙을 유지합니다.
         보호 대상과 계통 조건에 따라 세 가지 방식으로 설계합니다.</p>
     </div>
-    <div class="arch-tabs" role="tablist">
-      <button class="arch-tab on" data-arch="ind" role="tab">개별 보상</button>
-      <button class="arch-tab" data-arch="cen" role="tab">중앙 보상</button>
-      <button class="arch-tab" data-arch="hyb" role="tab">하이브리드</button>
+    <div class="arch-tabs" role="tablist" aria-label="보호 방식">
+      <button class="arch-tab on" data-arch="ind" role="tab" id="tab-ind" aria-controls="panel-ind" aria-selected="true">개별 보상</button>
+      <button class="arch-tab" data-arch="cen" role="tab" id="tab-cen" aria-controls="panel-cen" aria-selected="false" tabindex="-1">중앙 보상</button>
+      <button class="arch-tab" data-arch="hyb" role="tab" id="tab-hyb" aria-controls="panel-hyb" aria-selected="false" tabindex="-1">하이브리드</button>
     </div>
 
-    <div class="arch-panel on" data-arch="ind">
+    <div class="arch-panel on" data-arch="ind" id="panel-ind" role="tabpanel" aria-labelledby="tab-ind">
       <div class="arch-sld">
         <svg viewBox="0 0 480 210" aria-label="개별 보상 단선 개념도">
           <rect class="pa-box" x="6" y="86" width="60" height="42" rx="6"/>
@@ -857,7 +833,7 @@ a{text-decoration:none;color:inherit}
       </div>
     </div>
 
-    <div class="arch-panel" data-arch="cen">
+    <div class="arch-panel" data-arch="cen" id="panel-cen" role="tabpanel" aria-labelledby="tab-cen">
       <div class="arch-sld">
         <svg viewBox="0 0 480 210" aria-label="중앙 보상 단선 개념도">
           <rect class="pa-box" x="6" y="86" width="56" height="42" rx="6"/>
@@ -881,7 +857,7 @@ a{text-decoration:none;color:inherit}
       </div>
     </div>
 
-    <div class="arch-panel" data-arch="hyb">
+    <div class="arch-panel" data-arch="hyb" id="panel-hyb" role="tabpanel" aria-labelledby="tab-hyb">
       <div class="arch-sld">
         <svg viewBox="0 0 480 210" aria-label="하이브리드 보상 단선 개념도">
           <rect class="pa-box" x="6" y="86" width="52" height="42" rx="6"/>
@@ -1014,6 +990,8 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
+</main>
+
 <script>
 (function(){
   var m=document.querySelector('.tsp-motion');if(!m)return;
@@ -1051,8 +1029,8 @@ a{text-decoration:none;color:inherit}
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){i=4;paint();return;}
   // 탭 비활성화: 일시정지 / 복귀: 이어감
   document.addEventListener('visibilitychange',function(){
-    if(document.hidden){if(playing)clear();}
-    else{if(playing&&!timer)timer=setTimeout(step,300);}});
+    if(document.hidden){if(playing){clear();m.classList.remove('tm-playing');}}
+    else{if(playing&&!timer){m.classList.add('tm-playing');timer=setTimeout(step,300);}}});
   // 진입 시 1회 자동 재생, 화면 밖: 완전 정지+초기화
   var autoPlayed=false;
   if('IntersectionObserver'in window){
@@ -1080,19 +1058,37 @@ a{text-decoration:none;color:inherit}
     bars.forEach(function(b){io.observe(b);});}else{bars.forEach(fill);}
 })();
 (function(){
-  var tabs=document.querySelectorAll('.arch-tab');if(!tabs.length)return;
-  tabs.forEach(function(t){t.addEventListener('click',function(){
-    var k=t.dataset.arch;
-    tabs.forEach(function(x){x.classList.toggle('on',x===t);});
-    document.querySelectorAll('.arch-panel').forEach(function(p){p.classList.toggle('on',p.dataset.arch===k);});
-  });});
+  var tabs=[].slice.call(document.querySelectorAll('.arch-tab'));if(!tabs.length)return;
+  var panels=[].slice.call(document.querySelectorAll('.arch-panel'));
+  function activate(t,focus){var k=t.dataset.arch;
+    tabs.forEach(function(x){var on=x===t;x.classList.toggle('on',on);
+      x.setAttribute('aria-selected',on?'true':'false');x.tabIndex=on?0:-1;});
+    panels.forEach(function(p){p.classList.toggle('on',p.dataset.arch===k);});
+    if(focus)t.focus();}
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){activate(t);});
+    t.addEventListener('keydown',function(e){var n=null;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown')n=tabs[(i+1)%tabs.length];
+      else if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=tabs[(i-1+tabs.length)%tabs.length];
+      else if(e.key==='Home')n=tabs[0];else if(e.key==='End')n=tabs[tabs.length-1];
+      if(n){e.preventDefault();activate(n,true);}});
+  });
 })();
 (function(){
   var hero=document.querySelector('.hero'),btn=document.querySelector('.nav-toggle');if(!hero||!btn)return;
-  var nav=hero.querySelector('.hero-nav');
-  function set(open){hero.classList.toggle('nav-open',open);btn.setAttribute('aria-expanded',open?'true':'false');}
+  var nav=document.getElementById('hero-nav');if(!nav)return;
+  var mq=window.matchMedia('(max-width:900px)');
+  function apply(){var open=hero.classList.contains('nav-open');
+    if(mq.matches&&!open){nav.setAttribute('inert','');nav.setAttribute('aria-hidden','true');}
+    else{nav.removeAttribute('inert');nav.removeAttribute('aria-hidden');}}
+  function set(open){hero.classList.toggle('nav-open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');apply();
+    if(mq.matches){if(open){var a=nav.querySelector('a');if(a)a.focus();}else{btn.focus();}}}
   btn.addEventListener('click',function(){set(!hero.classList.contains('nav-open'));});
-  if(nav)nav.addEventListener('click',function(e){if(e.target.tagName==='A')set(false);});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A')set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hero.classList.contains('nav-open'))set(false);});
+  if(mq.addEventListener)mq.addEventListener('change',apply);
+  apply();
 })();
 </script>
 </body>
