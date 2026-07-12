@@ -182,6 +182,16 @@ a{color:inherit;text-decoration:none}
 .esg .item h3{margin-top:12px;font-size:15px;font-weight:600;color:var(--ink)}
 .esg .item p{margin-top:7px;font-size:14px;color:var(--sub);line-height:1.6}
 @media(max-width:760px){.esg{grid-template-columns:1fr;gap:20px}}
+/* History timeline */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(40px,5vw,60px);border-top:2px solid var(--ink);text-align:left}
+.timeline .ph{padding:26px 26px 0 0;position:relative}
+.timeline .ph::before{content:"";position:absolute;top:-7px;left:0;width:11px;height:11px;border-radius:50%;background:var(--red)}
+.timeline .yr{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.timeline ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.timeline li{font-size:13.5px;color:var(--sub);line-height:1.5}
+.timeline li b{color:var(--red);font-weight:600}
+@media(max-width:820px){.timeline{grid-template-columns:1fr;border-top:0}
+  .timeline .ph{border-top:2px solid var(--ink);padding:24px 0 0}}
 </style>
 </head>
 <body>
@@ -211,7 +221,8 @@ a{color:inherit;text-decoration:none}
   <div class="wrap" style="text-align:center">
     <p class="eyebrow rv">Company</p>
     <h2 class="h2 rv" style="max-width:22ch;margin:0 auto">제조사가 아니라,<br><em>Voltage Sag 솔루션</em> 전문기업입니다.</h2>
-    <p class="lead rv" style="max-width:54ch;margin:22px auto 0">2001년부터 순간전압강하 하나에 집중해 왔습니다. 문제를 진단하고, 보호 시스템을 설계하며,
+    <p class="lead rv" style="max-width:56ch;margin:22px auto 0">2001년, 국내 최초로 순간전압강하 보호 솔루션을 개발하고 특허를 등록했습니다.
+      이후 25년간 이 분야 하나에 집중 — 문제를 진단하고, 보호 시스템을 설계하며,
       제품 공급·설치 이후 모니터링·분석·유지관리까지 전 주기를 함께합니다.</p>
     <div class="chain rv">
       <span>진단</span><i>·</i><span>설계</span><i>·</i><span class="key">제조·공급</span><i>·</i><span>설치</span><i>·</i><span>모니터링</span><i>·</i><span>분석</span><i>·</i><span>유지관리</span>
@@ -378,6 +389,26 @@ a{color:inherit;text-decoration:none}
       <span class="chip">디스플레이 <b>34,000+</b></span>
       <span class="chip">PCB·전자부품 <b>21,000+</b></span>
       <span class="chip">이차전지 <b>12,000+</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- 03a HISTORY -->
+<section class="section alt history" id="history">
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">History</p>
+    <h2 class="h2 rv" style="max-width:20ch;margin:0 auto">2001년부터,<br>흔들림 없는 25년.</h2>
+  </div>
+  <div class="wrap">
+    <div class="timeline rv">
+      <div class="ph"><div class="yr">2001–2010</div>
+        <ul><li><b>국내 최초</b> 순간전압강하 보호 솔루션 개발·법인 설립</li><li>ISO 9001 · 14001 · INNO-BIZ</li><li>현대제철·동부하이텍 공급</li></ul></div>
+      <div class="ph"><div class="yr">2011–2017</div>
+        <ul><li>기업부설 연구소 · TSP® 상표 · CE · S-마크</li><li>현대·기아·LG디스플레이 공급</li><li>일본 SONY 수출</li></ul></div>
+      <div class="ph"><div class="yr">2018–2022</div>
+        <ul><li><b>천만불 수출의 탑 (2018)</b></li><li>TSMC·NXP·X-FAB·BOE 수출</li><li>헝가리 Volta Energy 수출</li></ul></div>
+      <div class="ph"><div class="yr">2023–2026</div>
+        <ul><li><b>미국 NRTL 인증</b> 취득</li><li>현대·기아 3년 독점 공급</li><li>창립 25주년 · 누적 <b>150,000+ 대</b></li></ul></div>
     </div>
   </div>
 </section>
