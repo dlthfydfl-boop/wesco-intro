@@ -210,6 +210,25 @@ a{color:inherit;text-decoration:none}
 .why5 span{display:block;margin-top:7px;font-size:13px;color:var(--sub);line-height:1.55}
 @media(max-width:900px){.why5{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.why5{grid-template-columns:1fr}}
+/* Protection Architecture diagrams */
+.arch-diagrams{margin-top:clamp(34px,5vw,52px);display:flex;flex-direction:column;gap:22px}
+.arch-diagrams figure{border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 24px 50px -40px rgba(29,29,31,.25)}
+.arch-diagrams img{width:100%;height:auto;display:block}
+.arch-note{text-align:center;margin-top:20px;font-size:13px;color:var(--sub)}
+/* Sag-VIEWER monitoring */
+.viewer-wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(30px,5vw,60px);align-items:center;margin-top:clamp(30px,4vw,48px)}
+.viewer-wrap .shot{border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:#0d1420;box-shadow:0 28px 56px -40px rgba(29,29,31,.4)}
+.viewer-wrap .shot img{width:100%;height:auto;display:block}
+.vmods{list-style:none;margin-top:8px}
+.vmods li{padding:16px 0;border-bottom:1px solid var(--hair)}
+.vmods li:first-child{border-top:1px solid var(--hair)}
+.vmods li b{font-size:15.5px;font-weight:600;color:var(--ink)}
+.vmods li span{display:block;margin-top:3px;font-size:13.5px;color:var(--sub)}
+.vcallout{margin-top:22px;border-left:3px solid var(--red);padding:4px 18px}
+.vcallout .r{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--hair);font-size:13.5px}
+.vcallout .r:last-child{border-bottom:0}
+.vcallout .r .k{color:var(--sub)}.vcallout .r .v{font-weight:600;font-variant-numeric:tabular-nums}
+@media(max-width:860px){.viewer-wrap{grid-template-columns:1fr;gap:26px}}
 </style>
 </head>
 <body>
@@ -272,16 +291,17 @@ a{color:inherit;text-decoration:none}
   <div class="wrap" style="text-align:center">
     <p class="eyebrow rv">How It Works</p>
     <h2 class="h2 rv" style="max-width:20ch;margin:0 auto">평상시엔 직결, 필요한 1초엔 보상.</h2>
-    <p class="lead rv" style="max-width:56ch;margin:22px auto 0">TSP는 계통과 부하 사이에 <b style="color:var(--ink);font-weight:600">직렬</b>로 설치됩니다.
-      순간전압강하가 감지되면 계통을 분리하고 저장 에너지로 부하를 지킨 뒤, 복전을 확인·동기화해 무중단으로 되돌립니다.</p>
+    <p class="lead rv" style="max-width:58ch;margin:22px auto 0">TSP는 계통과 부하 사이에 <b style="color:var(--ink);font-weight:600">직렬</b>로 설치돼,
+      평상시엔 계통에 개입하지 않고 대기(Off-Line)합니다. 순간전압강하를 감지하면 계통을 분리하고 EDLC 에너지로 부하를 지킨 뒤,
+      복전을 확인·동기화해 <b style="color:var(--ink);font-weight:600">무순단</b>으로 되돌립니다. 인버터는 N+1 다중화로 안정성을 확보합니다.</p>
     <ol class="steps rv">
-      <li><span class="sn">01</span><b>감지</b><em>전압 저하를 즉시 감지</em></li>
-      <li><span class="sn">02</span><b>계통 분리</b><em>SCR로 계통 차단</em></li>
-      <li><span class="sn">03</span><b>EDLC 보상</b><em>저장 에너지로 부하 유지</em></li>
-      <li><span class="sn">04</span><b>복전 확인·동기화</b><em>전압·주파수·위상 정렬</em></li>
-      <li><span class="sn">05</span><b>Bypass 복귀</b><em>무중단 절체 · EDLC 재충전</em></li>
+      <li><span class="sn">01</span><b>감지</b><em>전압 저하를 2ms 이내 감지 (Off-Line 상시 대기)</em></li>
+      <li><span class="sn">02</span><b>계통 분리</b><em>SCR로 계통 순시 차단</em></li>
+      <li><span class="sn">03</span><b>EDLC 보상</b><em>EDLC → DC Link → Inverter → Load · 1초 100% 보상</em></li>
+      <li><span class="sn">04</span><b>복전 · 동기화</b><em>정상 복전 확인 후 전압·주파수·위상 정렬</em></li>
+      <li><span class="sn">05</span><b>Bypass 복귀</b><em>무순단 절체 → Bypass 복귀 · EDLC 재충전</em></li>
     </ol>
-    <p class="tagline rv" style="text-align:center;margin-top:20px">Utility → TSP → Load 직렬 · 설비는 순간전압강하를 인지하지 못합니다.</p>
+    <p class="tagline rv" style="text-align:center;margin-top:20px">계통은 순간전압강하를 겪지만, <b style="color:var(--ink)">설비는 그것을 인지조차 하지 못합니다.</b></p>
   </div>
 </section>
 
@@ -364,6 +384,23 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- 02b2 PROTECTION ARCHITECTURE -->
+<section class="section arch" id="architecture">
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">Protection Architecture</p>
+    <h2 class="h2 rv" style="max-width:22ch;margin:0 auto">현장에 맞게 —<br>개별 · 중앙 · 하이브리드.</h2>
+    <p class="lead rv" style="max-width:54ch;margin:22px auto 0">보호가 필요한 설비마다 <b>개별 보상</b>, 배전반 전체를 한 대로 지키는 <b>중앙 보상</b>,
+      그리고 둘을 결합한 <b>하이브리드</b> — 현장 조건에 맞춰 설계합니다.</p>
+  </div>
+  <div class="wrap">
+    <div class="arch-diagrams rv">
+      <figure><img src="images/proof/arch_individual.png" alt="개별 보상 방식 단선도 — 설비마다 TSP 1대 직렬 설치"></figure>
+      <figure><img src="images/proof/arch_central.png" alt="중앙 보상 방식 단선도 — 배전반 전체를 대용량 TSP 1대가 보호"></figure>
+    </div>
+    <p class="arch-note rv">모든 구성은 Utility → TSP → Load 직렬 원칙을 유지합니다.</p>
+  </div>
+</section>
+
 <!-- 02c SPECIFICATIONS -->
 <section class="section alt spec-sec" id="spec">
   <div class="wrap" style="text-align:center">
@@ -420,7 +457,7 @@ a{color:inherit;text-decoration:none}
     <h2 class="h2 rv">데이터가 증명하는<br>25년의 신뢰.</h2>
     <div class="bignum rv">
       <div class="c"><div class="n">150,000<i>+</i></div><div class="k">누적 설치 (대)</div></div>
-      <div class="c"><div class="n">16</div><div class="k">공급 국가</div></div>
+      <div class="c"><div class="n">16<i>+</i></div><div class="k">공급 국가</div></div>
       <div class="c"><div class="n">900<i>+</i></div><div class="k">고객사</div></div>
       <div class="c"><div class="n">25</div><div class="k">단일 분야 전문 (년)</div></div>
     </div>
@@ -502,24 +539,34 @@ a{color:inherit;text-decoration:none}
         <div class="names"><span>Samsung Electro-Mechanics</span><span>LG Innotek</span><span>Daeduck Electronics</span><span>Haesung DS</span></div>
       </div>
     </div>
-    <p class="ref-note rv">대표 고객사 (일부) · 총 900+ 고객사 · 16개국 · 누적 150,000+ 대</p>
+    <p class="ref-note rv">대표 고객사 (일부) · 총 900+ 고객사 · 16+개국 · 누적 150,000+ 대</p>
   </div>
 </section>
 
 <!-- 04 PROOF -->
 <section class="section alt" id="proof">
-  <div class="wrap proof">
-    <div class="proof__img rv"><img src="images/proof/hmi_event.png" alt="Sag-VIEWER 실측 순간전압강하 이벤트"></div>
-    <div>
-      <p class="eyebrow rv">Field-Proven</p>
-      <h2 class="h2 rv">기록된 모든 찰나가,<br>방어의 증거입니다.</h2>
-      <ul class="spec-list rv">
-        <li><span class="k">실측 이벤트</span><span class="v">2024.02.06</span></li>
-        <li><span class="k">잔여 전압</span><span class="v">68.7 % · 157 V</span></li>
-        <li><span class="k">지속 시간</span><span class="v">0.065 s</span></li>
-        <li><span class="k">보상 결과</span><span class="v">설비 무중단</span></li>
-      </ul>
-      <p class="tagline rv">대표 장기 운영 실적: 헝가리 Volta Energy 53대 · 2024–2026 연간점검 정상.</p>
+  <div class="wrap" style="text-align:center">
+    <p class="eyebrow rv">Sag-VIEWER™ · Smart Monitoring</p>
+    <h2 class="h2 rv" style="max-width:22ch;margin:0 auto">모든 순간전압강하를,<br>눈으로 확인합니다.</h2>
+    <p class="lead rv" style="max-width:56ch;margin:22px auto 0">설치된 모든 TSP는 발생한 순간전압강하 이벤트를 자동으로 계측·기록하고 원격으로 감시합니다.
+      언제·얼마나 깊은 Sag가 있었는지, 설비가 정상 운전했는지 한눈에 확인합니다.</p>
+  </div>
+  <div class="wrap">
+    <div class="viewer-wrap">
+      <div class="shot rv"><img src="images/hmi/sagviewer.png" alt="Sag-VIEWER 실시간 감시 화면"></div>
+      <div class="rv">
+        <ul class="vmods">
+          <li><b>실시간 상태</b><span>각 TSP의 현재 상태와 전압을 실시간 표시</span></li>
+          <li><b>통합 원격 감시</b><span>전 사이트의 TSP를 한 화면에서 통합 모니터링</span></li>
+          <li><b>이벤트 로그 · History DB</b><span>모든 Sag 이벤트를 자동 기록하고 조회</span></li>
+        </ul>
+        <div class="vcallout">
+          <div class="r"><span class="k">실측 이벤트</span><span class="v">2024.02.06</span></div>
+          <div class="r"><span class="k">잔여 전압 · 지속</span><span class="v">68.7 % · 0.065 s</span></div>
+          <div class="r"><span class="k">보상 결과</span><span class="v">설비 무중단</span></div>
+        </div>
+        <p class="tagline" style="margin-top:16px;font-size:13px;color:var(--sub)">대표 장기 실적 · 헝가리 Volta Energy 53대 · 2024–2026 연간점검 정상</p>
+      </div>
     </div>
   </div>
 </section>
@@ -550,8 +597,8 @@ a{color:inherit;text-decoration:none}
     <div class="why5 rv">
       <div class="w"><div class="n">01</div><b>Battery-Free</b><span>EDLC 기반, 10년+ 무유지보수</span></div>
       <div class="w"><div class="n">02</div><b>Full Lineup</b><span>0.5–2,400kVA 국내 유일 통합 공급</span></div>
-      <div class="w"><div class="n">03</div><b>Track Record</b><span>150,000+ 설치 · 900+ 고객 · 16개국</span></div>
-      <div class="w"><div class="n">04</div><b>Ultra-Fast</b><span>초고속 응답 · 1초 100% 보상</span></div>
+      <div class="w"><div class="n">03</div><b>Track Record</b><span>150,000+ 설치 · 900+ 고객 · 16+개국</span></div>
+      <div class="w"><div class="n">04</div><b>Ultra-Fast</b><span>2ms 이내 초고속 응답 · 1초 100% 보상</span></div>
       <div class="w"><div class="n">05</div><b>Smart Monitoring</b><span>Sag-VIEWER™ 실시간 원격 감시</span></div>
     </div>
   </div>
