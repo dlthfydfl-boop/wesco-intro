@@ -36,8 +36,10 @@ window.addEventListener('load', updateActiveSection);
 
 navItems.forEach(a => {
   a.addEventListener('click', (e) => {
+    const href = a.getAttribute('href');
+    if (!href.startsWith('#')) return; // 외부 링크(블로그 등)는 기본 이동
     e.preventDefault();
-    const id = a.getAttribute('href').slice(1);
+    const id = href.slice(1);
     const target = document.getElementById(id);
     if (!target) return;
     main.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
