@@ -6,6 +6,10 @@
 - [Battery-Free Voltage Sag Protection (EDLC)](https://dlthfydfl-boop.github.io/wesco-intro/battery-free-voltage-sag-protection.html): How EDLC ultra-capacitors replace batteries for millisecond-scale voltage sag correction; how WESCO TSP® works and who makes battery-free voltage sag protectors.
 - [WESCO TSP Business Introduction](https://dlthfydfl-boop.github.io/wesco-intro/): Company overview and TSP® product introduction.
 
+## Latest blog posts
+- [자동차 공장의 0.1초 — 용접·도장 라인이 전압강하에 멈추는 순간](https://dlthfydfl-boop.github.io/wesco-intro/blog/automotive-line-voltage-sag/): 자동차 용접·도장 라인은 0.1초 내외 순간전압강하에도 로봇 컨트롤러와 PLC가 정지한다. 재가동이 오래 걸리는 구조와 TSP 배터리리스 보상장치로 라인 정지를 막는 방법을 정리한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/automotive-line-voltage-sag/))
+- [0.2초의 정전, 반도체 공장을 멈추다](https://dlthfydfl-boop.github.io/wesco-intro/blog/battery-free-voltage-sag/): 정전도 아닌데 라인이 멈춘다. 눈 깜빡임보다 짧은 순간전압강하(Voltage Sag)가 정밀 제조라인을 세우는 이유와, 배터리 없이 이를 보상하는 방법을 정리했다.
+
 ## Key facts
 - Product: TSP® (The Second Power) — battery-free voltage sag protector / power conditioner
 - Technology: EDLC ultra-capacitor energy storage (no batteries); ~2 ms response; ~10-year storage life
