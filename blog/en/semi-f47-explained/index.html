@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>SEMI F47 Explained: The Voltage Sag Ride-Through Standard for Fab Equipment</title><meta name="description" content="SEMI F47 sets the minimum voltage sag conditions fab equipment must ride through without tripping. Here is what the ride-through points mean and how to cover sags beyond them."><link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semi-f47-explained/"><link rel="alternate" hreflang="ko" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/semi-f47-explained/"><link rel="alternate" hreflang="en" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semi-f47-explained/"><link rel="alternate" hreflang="x-default" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/semi-f47-explained/"><meta property="og:type" content="article"><meta property="og:title" content="SEMI F47 Explained: The Voltage Sag Ride-Through Standard for Fab Equipment"><meta property="og:description" content="SEMI F47 sets the minimum voltage sag conditions fab equipment must ride through without tripping. Here is what the ride-through points mean and how to cover sags beyond them."><meta property="og:url" content="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semi-f47-explained/"><link rel="icon" type="image/x-icon" href="https://dlthfydfl-boop.github.io/wesco-intro/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --c-red:#C13816; --c-red-dk:#9C2C10; --c-red-lt:#FBEEE8;
+  --c-head:#2C2924; --c-text:#4A4641; --c-gray:#78716C; --c-gray-lt:#A8A29E;
+  --c-bg:#FDFCF9; --c-bg-soft:#F7F4EE; --c-divider:#E0DBD3; --c-accent:#4F6886;
+  --font-ko:'Noto Sans KR','맑은 고딕',sans-serif;
+  --font-en:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--c-text);background:var(--c-bg);
+  line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--c-red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* 상단바 */
+.topbar{border-bottom:1px solid var(--c-divider);background:var(--c-bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--font-en);font-weight:800;font-size:20px;color:var(--c-head);letter-spacing:.02em}
+.brand span{color:var(--c-red)}
+.topnav a{color:var(--c-gray);font-size:14px;font-weight:500;margin-left:22px}
+.topnav a:hover{color:var(--c-red);text-decoration:none}
+
+/* 글 헤더 */
+.post-head{padding:56px 0 34px;border-bottom:1px solid var(--c-divider)}
+.post-head .kicker{font-family:var(--font-en);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-red)}
+.post-head h1{font-size:34px;line-height:1.32;color:var(--c-head);
+  font-weight:700;margin:14px 0 12px;letter-spacing:-.01em}
+.post-head .sub{font-size:18px;color:var(--c-gray);font-weight:400;line-height:1.6}
+.post-meta{margin-top:20px;font-size:13px;color:var(--c-gray-lt);
+  font-family:var(--font-en);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.post-meta .lang-toggle{border:1px solid var(--c-divider);border-radius:100px;
+  padding:3px 12px;font-weight:600;color:var(--c-gray)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags .tag{background:var(--c-bg-soft);color:var(--c-gray);border:1px solid var(--c-divider);
+  border-radius:100px;padding:3px 11px;font-size:12px;font-family:var(--font-ko)}
+
+/* 본문 */
+.post-body{padding:38px 0 10px}
+.post-body h2{font-size:23px;color:var(--c-head);font-weight:700;
+  margin:44px 0 16px;letter-spacing:-.01em;line-height:1.4}
+.post-body h3{font-size:19px;color:var(--c-head);font-weight:700;margin:30px 0 12px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body strong{color:var(--c-head);font-weight:700}
+.post-body em{font-style:normal;color:var(--c-gray)}
+.post-body hr{border:0;border-top:1px solid var(--c-divider);margin:40px 0}
+.post-body blockquote{border-left:3px solid var(--c-red);padding:2px 0 2px 18px;
+  margin:0 0 22px;color:var(--c-gray)}
+.post-body img{max-width:100%;height:auto;border-radius:10px;margin:8px 0 24px}
+
+/* FAQ */
+.faq{margin-top:8px}
+.faq dt{font-weight:700;color:var(--c-head);margin:22px 0 8px}
+.faq dd{margin:0 0 8px;color:var(--c-text)}
+
+/* CTA */
+.cta{margin:44px 0 0;background:var(--c-bg-soft);border:1px solid var(--c-divider);
+  border-radius:14px;padding:28px 30px}
+.cta h4{font-size:18px;color:var(--c-head);margin-bottom:8px}
+.cta p{font-size:15px;color:var(--c-gray);margin-bottom:16px}
+.cta a.btn{display:inline-block;background:var(--c-red);color:#fff;font-weight:600;
+  font-size:15px;padding:11px 22px;border-radius:8px}
+.cta a.btn:hover{background:var(--c-red-dk);text-decoration:none}
+
+/* 푸터 */
+.foot{margin-top:64px;border-top:1px solid var(--c-divider);
+  padding:30px 0 60px;color:var(--c-gray-lt);font-size:13px;text-align:center}
+.foot a{color:var(--c-gray)}
+
+/* 목록 */
+.list-head{padding:56px 0 14px}
+.list-head h1{font-size:30px;color:var(--c-head);font-weight:700}
+.list-head p{color:var(--c-gray);margin-top:8px}
+.list-head .lang-toggle{display:inline-block;margin-top:14px;border:1px solid var(--c-divider);
+  border-radius:100px;padding:4px 14px;font-size:13px;font-weight:600;color:var(--c-gray)}
+.card{display:block;padding:26px 0;border-bottom:1px solid var(--c-divider)}
+.card:hover{text-decoration:none}
+.card .kicker{font-family:var(--font-en);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--c-red)}
+.card h2{font-size:22px;color:var(--c-head);font-weight:700;margin:8px 0 8px;line-height:1.4}
+.card p{color:var(--c-gray);font-size:15px}
+.card .date{font-family:var(--font-en);font-size:12px;color:var(--c-gray-lt);margin-top:10px}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .post-head h1{font-size:27px}
+  .post-head .sub{font-size:16px}
+  .post-body h2{font-size:20px}
+}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "SEMI F47 Explained: The Voltage Sag Ride-Through Standard for Fab Equipment", "description": "SEMI F47 sets the minimum voltage sag conditions fab equipment must ride through without tripping. Here is what the ride-through points mean and how to cover sags beyond them.", "datePublished": "2026-08-11", "dateModified": "2026-08-11", "inLanguage": "en", "mainEntityOfPage": "https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semi-f47-explained/", "author": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}, "publisher": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is SEMI F47?", "acceptedAnswer": {"@type": "Answer", "text": "SEMI F47 is an industry standard that defines the minimum voltage sag conditions semiconductor manufacturing equipment must ride through without tripping. It requires equipment to withstand a drop to 80% of nominal voltage for up to 1 second, 70% for up to 0.5 seconds, and 50% for up to 0.2 seconds."}}, {"@type": "Question", "name": "Does meeting SEMI F47 solve the voltage sag problem entirely?", "acceptedAnswer": {"@type": "Answer", "text": "No. F47 only defines the minimum condition equipment must withstand. Sags deeper or longer than its envelope can still trip F47-compliant equipment, so a device that compensates for the sag at the power feed is still needed."}}, {"@type": "Question", "name": "How does SEMI F47 differ from the ITIC curve?", "acceptedAnswer": {"@type": "Answer", "text": "The ITIC (CBEMA) curve is a published voltage-time tolerance envelope for general information technology equipment. SEMI F47 is a stricter, semiconductor-specific standard that demands longer ride-through at each voltage level than ITIC does."}}]}</script></head><body><header class="topbar"><div class="wrap"><a class="brand" href="https://dlthfydfl-boop.github.io/wesco-intro/">WES<span>CO</span></a><nav class="topnav"><a href="https://dlthfydfl-boop.github.io/wesco-intro/">Home</a><a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/">Insights</a></nav></div></header><section class="post-head"><div class="wrap"><div class="kicker">WESCO Insight</div><h1>SEMI F47 Explained: The Voltage Sag Ride-Through Standard for Fab Equipment</h1><p class="sub">What the 80%/1s, 70%/0.5s, 50%/0.2s ride-through points mean, and how to cover sags beyond them</p><div class="post-meta"><span>2026-08-11</span><div class="tags"><span class="tag">SEMI F47</span><span class="tag">Semiconductor</span><span class="tag">Voltage Sag</span><span class="tag">Ride-Through Standard</span><span class="tag">Battery-Free UPS</span></div><a class="lang-toggle" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/semi-f47-explained/">한국어</a></div></div></section><article class="post-body"><div class="wrap"><p>SEMI F47 is an industry standard that defines the minimum voltage sag conditions semiconductor manufacturing equipment must ride through without tripping. It requires equipment to keep operating through a voltage drop to 80% of nominal for up to 1 second, to 70% for up to 0.5 seconds, and to 50% for up to 0.2 seconds. Equipment that falls short of these thresholds remains exposed to the routine voltage sags every fab experiences.</p>
+<p>It is not unusual for several tools in a fab to trip at once during what wasn&rsquo;t even a power outage — just a brief voltage dip. Trace the cause and it is often external: a lightning strike near a substation, a line fault, or a short circuit elsewhere on the grid, lasting anywhere from tens to a few hundred milliseconds. Even so, the downstream effect can be a full line stoppage. SEMI F47 exists to define exactly how far a piece of equipment must be able to withstand that kind of disturbance before it counts as compliant.</p>
+<h2>What the Three Ride-Through Points Mean</h2>
+<p>SEMI F47 specifies three points on its ride-through curve:</p>
+<ul>
+<li>Voltage drop to 80% of nominal, sustained for up to 1 second</li>
+<li>Voltage drop to 70% of nominal, sustained for up to 0.5 seconds</li>
+<li>Voltage drop to 50% of nominal, sustained for up to 0.2 seconds</li>
+</ul>
+<p>The pattern is deliberate: shallow sags must be tolerated longer, deep sags only briefly. This reflects both the statistical distribution of real-world grid disturbances and the physical limits of the equipment&rsquo;s internal power supplies and control electronics. The area under the curve connecting these three points is the ride-through envelope SEMI F47 requires — equipment tripping on a sag outside that envelope is not a standard violation.</p>
+<h2>SEMI F47 vs. the ITIC Curve</h2>
+<p>Beyond SEMI F47, the power electronics industry also references the ITIC (formerly CBEMA) curve, a widely used voltage-time tolerance envelope for general information technology equipment. The ITIC curve is more permissive than SEMI F47. In effect, SEMI F47 is a semiconductor-specific standard that demands stricter ride-through than ITIC at nearly every point. Both curves, however, only set a floor for what equipment must withstand — neither one covers sags that fall outside its envelope.</p>
+<h2>Why SEMI F47 Compliance Isn&rsquo;t Enough</h2>
+<p>The problem is that real-world voltage sags don&rsquo;t stay inside the F47 envelope. IEEE studies report roughly 60-70 voltage sags per year at a typical industrial site, and a meaningful share of these fall outside F47&rsquo;s duration or depth limits. Sags caused by lightning strikes, grid faults, or large load switching can drop voltage lower than 50% or last longer than 0.2 seconds — conditions under which even fully F47-compliant equipment can still trip.</p>
+<p>Equipment ride-through alone, in other words, cannot eliminate a fab&rsquo;s voltage sag risk. Something at the power feed itself needs to compensate for the sag before it reaches the equipment.</p>
+<h2>Covering Sags Beyond the F47 Envelope</h2>
+<p>This is where a voltage sag compensator like WESCO TSP (The Second Power) fits in. TSP is a battery-free voltage sag protector built around EDLC ultra-capacitors as its energy source, and it compensates for sags on low-voltage (≤1kV) systems within 2ms for small-to-medium capacity units and 4ms for large-capacity units. That response speed is an order of magnitude faster than the 0.2-1 second ride-through windows SEMI F47 defines, letting it cover sags both inside and outside the F47 curve in practice.</p>
+<p>Unlike lead-acid or lithium battery-based UPS systems, EDLC storage carries a 10-year design life, removing the need for periodic battery replacement and reducing the maintenance burden for fab operations teams. Built on 25 years of power quality engineering, WESCO TSP has been installed in more than 150,000 units across sag-sensitive industries — semiconductor, display, automotive, battery, and data center facilities — and shipped to more than 15 countries.</p>
+<h2>Key takeaways</h2>
+<ul>
+<li>SEMI F47 requires semiconductor equipment to ride through voltage sags to 80% for 1s, 70% for 0.5s, and 50% for 0.2s without tripping.</li>
+<li>The three ride-through points are a minimum requirement — they do not cover sags that fall outside that envelope.</li>
+<li>SEMI F47 is stricter than the ITIC (CBEMA) curve, which governs general IT equipment.</li>
+<li>IEEE studies report 60-70 voltage sags per year at a typical industrial site, and some exceed F47&rsquo;s thresholds.</li>
+<li>Battery-free compensators like WESCO TSP respond within 2-4ms, covering sags both inside and outside the F47 envelope to reduce line-stoppage risk.</li>
+</ul><h2>Frequently Asked Questions</h2><dl class="faq"><dt>Q. What is SEMI F47?</dt><dd>SEMI F47 is an industry standard that defines the minimum voltage sag conditions semiconductor manufacturing equipment must ride through without tripping. It requires equipment to withstand a drop to 80% of nominal voltage for up to 1 second, 70% for up to 0.5 seconds, and 50% for up to 0.2 seconds.</dd><dt>Q. Does meeting SEMI F47 solve the voltage sag problem entirely?</dt><dd>No. F47 only defines the minimum condition equipment must withstand. Sags deeper or longer than its envelope can still trip F47-compliant equipment, so a device that compensates for the sag at the power feed is still needed.</dd><dt>Q. How does SEMI F47 differ from the ITIC curve?</dt><dd>The ITIC (CBEMA) curve is a published voltage-time tolerance envelope for general information technology equipment. SEMI F47 is a stricter, semiconductor-specific standard that demands longer ride-through at each voltage level than ITIC does.</dd></dl><div class="cta"><h4>Need protection against voltage sags?</h4><p>WESCO has manufactured battery-free voltage sag protectors (TSP&reg;) for 25 years. We can help you size and deploy the right unit for your line.</p><a class="btn" href="mailto:sh.han@wesco.co.kr">Contact us</a></div></div></article><footer class="foot"><div class="wrap">© WESCO Co., Ltd. · Voltage Sag Protector Manufacturer · <a href="https://www.wesco.co.kr">www.wesco.co.kr</a></div></footer></body></html>
