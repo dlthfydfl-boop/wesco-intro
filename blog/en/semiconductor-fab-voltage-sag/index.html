@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Voltage Sags in Semiconductor Fabs: Why Chipmaking Is the Most Sensitive Industry</title><meta name="description" content="Why semiconductor fabs are unusually exposed to voltage sags, what IEEE, SEMI F47, and ITIC data show, and how a battery-free EDLC compensator like TSP addresses it."><link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semiconductor-fab-voltage-sag/"><link rel="alternate" hreflang="ko" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/semiconductor-fab-voltage-sag/"><link rel="alternate" hreflang="en" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semiconductor-fab-voltage-sag/"><link rel="alternate" hreflang="x-default" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/semiconductor-fab-voltage-sag/"><meta property="og:type" content="article"><meta property="og:title" content="Voltage Sags in Semiconductor Fabs: Why Chipmaking Is the Most Sensitive Industry"><meta property="og:description" content="Why semiconductor fabs are unusually exposed to voltage sags, what IEEE, SEMI F47, and ITIC data show, and how a battery-free EDLC compensator like TSP addresses it."><meta property="og:url" content="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semiconductor-fab-voltage-sag/"><link rel="icon" type="image/x-icon" href="https://dlthfydfl-boop.github.io/wesco-intro/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --c-red:#C13816; --c-red-dk:#9C2C10; --c-red-lt:#FBEEE8;
+  --c-head:#2C2924; --c-text:#4A4641; --c-gray:#78716C; --c-gray-lt:#A8A29E;
+  --c-bg:#FDFCF9; --c-bg-soft:#F7F4EE; --c-divider:#E0DBD3; --c-accent:#4F6886;
+  --font-ko:'Noto Sans KR','맑은 고딕',sans-serif;
+  --font-en:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--c-text);background:var(--c-bg);
+  line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--c-red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* 상단바 */
+.topbar{border-bottom:1px solid var(--c-divider);background:var(--c-bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--font-en);font-weight:800;font-size:20px;color:var(--c-head);letter-spacing:.02em}
+.brand span{color:var(--c-red)}
+.topnav a{color:var(--c-gray);font-size:14px;font-weight:500;margin-left:22px}
+.topnav a:hover{color:var(--c-red);text-decoration:none}
+
+/* 글 헤더 */
+.post-head{padding:56px 0 34px;border-bottom:1px solid var(--c-divider)}
+.post-head .kicker{font-family:var(--font-en);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-red)}
+.post-head h1{font-size:34px;line-height:1.32;color:var(--c-head);
+  font-weight:700;margin:14px 0 12px;letter-spacing:-.01em}
+.post-head .sub{font-size:18px;color:var(--c-gray);font-weight:400;line-height:1.6}
+.post-meta{margin-top:20px;font-size:13px;color:var(--c-gray-lt);
+  font-family:var(--font-en);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.post-meta .lang-toggle{border:1px solid var(--c-divider);border-radius:100px;
+  padding:3px 12px;font-weight:600;color:var(--c-gray)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags .tag{background:var(--c-bg-soft);color:var(--c-gray);border:1px solid var(--c-divider);
+  border-radius:100px;padding:3px 11px;font-size:12px;font-family:var(--font-ko)}
+
+/* 본문 */
+.post-body{padding:38px 0 10px}
+.post-body h2{font-size:23px;color:var(--c-head);font-weight:700;
+  margin:44px 0 16px;letter-spacing:-.01em;line-height:1.4}
+.post-body h3{font-size:19px;color:var(--c-head);font-weight:700;margin:30px 0 12px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body strong{color:var(--c-head);font-weight:700}
+.post-body em{font-style:normal;color:var(--c-gray)}
+.post-body hr{border:0;border-top:1px solid var(--c-divider);margin:40px 0}
+.post-body blockquote{border-left:3px solid var(--c-red);padding:2px 0 2px 18px;
+  margin:0 0 22px;color:var(--c-gray)}
+.post-body img{max-width:100%;height:auto;border-radius:10px;margin:8px 0 24px}
+
+/* FAQ */
+.faq{margin-top:8px}
+.faq dt{font-weight:700;color:var(--c-head);margin:22px 0 8px}
+.faq dd{margin:0 0 8px;color:var(--c-text)}
+
+/* CTA */
+.cta{margin:44px 0 0;background:var(--c-bg-soft);border:1px solid var(--c-divider);
+  border-radius:14px;padding:28px 30px}
+.cta h4{font-size:18px;color:var(--c-head);margin-bottom:8px}
+.cta p{font-size:15px;color:var(--c-gray);margin-bottom:16px}
+.cta a.btn{display:inline-block;background:var(--c-red);color:#fff;font-weight:600;
+  font-size:15px;padding:11px 22px;border-radius:8px}
+.cta a.btn:hover{background:var(--c-red-dk);text-decoration:none}
+
+/* 푸터 */
+.foot{margin-top:64px;border-top:1px solid var(--c-divider);
+  padding:30px 0 60px;color:var(--c-gray-lt);font-size:13px;text-align:center}
+.foot a{color:var(--c-gray)}
+
+/* 목록 */
+.list-head{padding:56px 0 14px}
+.list-head h1{font-size:30px;color:var(--c-head);font-weight:700}
+.list-head p{color:var(--c-gray);margin-top:8px}
+.list-head .lang-toggle{display:inline-block;margin-top:14px;border:1px solid var(--c-divider);
+  border-radius:100px;padding:4px 14px;font-size:13px;font-weight:600;color:var(--c-gray)}
+.card{display:block;padding:26px 0;border-bottom:1px solid var(--c-divider)}
+.card:hover{text-decoration:none}
+.card .kicker{font-family:var(--font-en);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--c-red)}
+.card h2{font-size:22px;color:var(--c-head);font-weight:700;margin:8px 0 8px;line-height:1.4}
+.card p{color:var(--c-gray);font-size:15px}
+.card .date{font-family:var(--font-en);font-size:12px;color:var(--c-gray-lt);margin-top:10px}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .post-head h1{font-size:27px}
+  .post-head .sub{font-size:16px}
+  .post-body h2{font-size:20px}
+}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Voltage Sags in Semiconductor Fabs: Why Chipmaking Is the Most Sensitive Industry", "description": "Why semiconductor fabs are unusually exposed to voltage sags, what IEEE, SEMI F47, and ITIC data show, and how a battery-free EDLC compensator like TSP addresses it.", "datePublished": "2026-08-14", "dateModified": "2026-08-14", "inLanguage": "en", "mainEntityOfPage": "https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semiconductor-fab-voltage-sag/", "author": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}, "publisher": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What exactly is a voltage sag?", "acceptedAnswer": {"@type": "Answer", "text": "A voltage sag is a short drop in supply voltage below a defined threshold, lasting anywhere from a few milliseconds to roughly one or two seconds. Unlike a full outage, power never fully disappears, but sensitive equipment can still misbehave or trip from the brief dip."}}, {"@type": "Question", "name": "Why are semiconductor fabs especially exposed to voltage sags?", "acceptedAnswer": {"@type": "Answer", "text": "Most precision tools — lithography, ion implantation, CVD — are built with self-protection logic that trips the tool the moment it detects even a minor voltage anomaly. Because fab processes run as a continuous, interlinked sequence, one tripped tool can cascade into a broader line stop."}}, {"@type": "Question", "name": "How is a battery-free compensator like TSP different from a standard UPS?", "acceptedAnswer": {"@type": "Answer", "text": "TSP (The Second Power) stores energy in EDLC ultra-capacitors instead of lead-acid or lithium batteries, giving it a 10-year design life with no periodic battery replacement, and it compensates voltage sags within 2ms for small/mid-capacity units and 4ms for large-capacity units."}}]}</script></head><body><header class="topbar"><div class="wrap"><a class="brand" href="https://dlthfydfl-boop.github.io/wesco-intro/">WES<span>CO</span></a><nav class="topnav"><a href="https://dlthfydfl-boop.github.io/wesco-intro/">Home</a><a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/">Insights</a></nav></div></header><section class="post-head"><div class="wrap"><div class="kicker">WESCO Insight</div><h1>Voltage Sags in Semiconductor Fabs: Why Chipmaking Is the Most Sensitive Industry</h1><p class="sub">How long, continuous processes and equipment self-protection turn a short sag into a cascading line stop</p><div class="post-meta"><span>2026-08-14</span><div class="tags"><span class="tag">Semiconductor</span><span class="tag">Voltage Sag</span><span class="tag">Power Quality</span><span class="tag">TSP</span><span class="tag">EDLC</span></div><a class="lang-toggle" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/semiconductor-fab-voltage-sag/">한국어</a></div></div></section><article class="post-body"><div class="wrap"><p>A voltage sag is a brief dip in supply voltage — typically lasting from a few milliseconds up to about a second or two — that falls below a defined threshold without cutting power entirely. In a semiconductor fab, that brief dip is rarely harmless: most precision tools carry self-protection logic that trips the moment it senses a voltage anomaly, so a sag other industries would never notice can scrap an in-process wafer lot.</p>
+<p>Picture a single lithography tool tripping on a 0.1–0.2 second sag. Interlocks often pull down the transport and metrology tools linked to it as well, and the lot in progress may fall out of spec entirely. The line doesn&rsquo;t just pause — it has to restart, and the lost material doesn&rsquo;t come back. Framing this as a &ldquo;brief power flicker&rdquo; understates what actually happens on the floor.</p>
+<h2>Why fab equipment is unusually sensitive</h2>
+<p>Semiconductor process tools operate at nanometer-scale tolerances, so manufacturers design them to shut down immediately at the first sign of voltage instability rather than risk contaminating process data.</p>
+<ul>
+<li>Lithography and ion implantation tools trip on interlock the instant an anomaly is detected.</li>
+<li>Vacuum and gas-control systems lose valve and pump timing when supply voltage wavers, pushing the process out of spec.</li>
+<li>Automated material handling (OHT/AGV) systems stop and require a full restart sequence even for a sag that resembles a momentary outage.</li>
+</ul>
+<p>This self-protection behavior is by design — it&rsquo;s meant to protect the tool itself — but the side effect is that one short sag can propagate into simultaneous stops across multiple tools.</p>
+<h2>How often voltage sags actually occur</h2>
+<p>Voltage sags aren&rsquo;t rare events. IEEE studies report roughly 60 to 70 voltage sags per year at a typical industrial site, driven by lightning, grid faults, and large motor or load starts. For a fab running continuously around the clock, that frequency translates into steady, recurring exposure rather than an occasional anomaly.</p>
+<h2>What SEMI F47 and the ITIC curve define</h2>
+<p>The semiconductor industry has formalized this problem into standards. SEMI F47 defines minimum voltage ride-through levels for semiconductor manufacturing equipment: tools must tolerate 80% of rated voltage for 1 second, 70% for 0.5 seconds, and 50% for 0.2 seconds. Separately, the ITIC (CBEMA) curve is a widely referenced published envelope describing the voltage-and-duration range general electronic equipment is expected to tolerate.</p>
+<p>Both standards make the same point: the actual tolerance window for precision equipment is narrower than intuition suggests. Knowing the standard is one thing; having equipment on-site that actually filters sags outside that window is a separate problem.</p>
+<h2>Why a cascading stop is a structural risk, not an incident</h2>
+<p>Fabs aren&rsquo;t collections of independent tools — they&rsquo;re designed as a continuous process flow. A stop at one stage creates backlog or idle time at the stages before and after it, and if material handling stops too, the whole line ends up going through a restart procedure. That&rsquo;s why a single short voltage sag doesn&rsquo;t stay contained to one tripped tool; it scales into line-level and, at worst, fab-level loss.</p>
+<h2>Why a battery-free compensator fits this environment</h2>
+<p>In a facility that runs continuously, the compensation equipment&rsquo;s own maintenance becomes part of the risk. Lead-acid or lithium battery-based UPS systems need periodic battery replacement, and a missed replacement window or battery degradation can quietly create a protection gap exactly where it&rsquo;s least tolerable.</p>
+<p>WESCO&rsquo;s TSP® (The Second Power) addresses this with a battery-free architecture. It stores energy in EDLC ultra-capacitors, giving it a 10-year design life with no scheduled battery swaps, and it compensates voltage sags within 2ms for small/mid-capacity units and within 4ms for large-capacity units. Under normal operation, its SCR stays in a conducting state, so power flows to the load with no added loss, and compensation engages only when a sag is detected. TSP is scoped to low-voltage systems (1kV and below) and has been deployed in more than 150,000 units across 15+ countries, in industries with heavy continuous-process exposure including semiconductor, display, automotive, secondary battery, and data center facilities.</p>
+<h2>Key takeaways</h2>
+<ul>
+<li>A voltage sag isn&rsquo;t an outage, but equipment self-protection logic means even a short sag can trip a fab tool.</li>
+<li>Because fab processes run as a continuous flow, one tripped tool can cascade into a line-wide stop.</li>
+<li>IEEE data puts typical sag frequency at 60–70 events per year, and SEMI F47 and the ITIC curve define the exact tolerance windows equipment is expected to survive.</li>
+<li>Battery-based UPS systems require periodic replacement, which adds a maintenance-driven risk window in continuous-process environments.</li>
+<li>TSP uses an EDLC-based, battery-free design with a 10-year life and sub-4ms response (2ms for small/mid capacity) to compensate for sags without that maintenance burden.</li>
+</ul><h2>Frequently Asked Questions</h2><dl class="faq"><dt>Q. What exactly is a voltage sag?</dt><dd>A voltage sag is a short drop in supply voltage below a defined threshold, lasting anywhere from a few milliseconds to roughly one or two seconds. Unlike a full outage, power never fully disappears, but sensitive equipment can still misbehave or trip from the brief dip.</dd><dt>Q. Why are semiconductor fabs especially exposed to voltage sags?</dt><dd>Most precision tools — lithography, ion implantation, CVD — are built with self-protection logic that trips the tool the moment it detects even a minor voltage anomaly. Because fab processes run as a continuous, interlinked sequence, one tripped tool can cascade into a broader line stop.</dd><dt>Q. How is a battery-free compensator like TSP different from a standard UPS?</dt><dd>TSP (The Second Power) stores energy in EDLC ultra-capacitors instead of lead-acid or lithium batteries, giving it a 10-year design life with no periodic battery replacement, and it compensates voltage sags within 2ms for small/mid-capacity units and 4ms for large-capacity units.</dd></dl><div class="cta"><h4>Need protection against voltage sags?</h4><p>WESCO has manufactured battery-free voltage sag protectors (TSP&reg;) for 25 years. We can help you size and deploy the right unit for your line.</p><a class="btn" href="mailto:sh.han@wesco.co.kr">Contact us</a></div></div></article><footer class="foot"><div class="wrap">© WESCO Co., Ltd. · Voltage Sag Protector Manufacturer · <a href="https://www.wesco.co.kr">www.wesco.co.kr</a></div></footer></body></html>
