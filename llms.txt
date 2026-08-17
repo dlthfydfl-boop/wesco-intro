@@ -7,6 +7,7 @@
 - [WESCO TSP Business Introduction](https://dlthfydfl-boop.github.io/wesco-intro/): Company overview and TSP® product introduction.
 
 ## Latest blog posts
+- [순간전압보상장치 용량 선정, 부하 조사에서 시작한다](https://dlthfydfl-boop.github.io/wesco-intro/blog/selecting-sag-protector-capacity/): TSP 용량은 수전용량이 아니라 보호가 필요한 부하 기준으로 정한다. 부하 조사→용량 산정→설치 위치 결정 순서와 과대·과소 선정의 문제를 정리한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/selecting-sag-protector-capacity/))
 - [반도체 팹의 순간전압강하, 왜 가장 민감한 산업인가](https://dlthfydfl-boop.github.io/wesco-intro/blog/semiconductor-fab-voltage-sag/): 반도체 팹이 순간전압강하에 유독 취약한 구조적 이유와 SEMI F47·ITIC 기준, 배터리리스 EDLC 방식 TSP 보상장치의 역할을 정리한 글. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semiconductor-fab-voltage-sag/))
 - [SEMI F47 완전 정리 — 반도체 장비가 견뎌야 하는 전압강하 기준](https://dlthfydfl-boop.github.io/wesco-intro/blog/semi-f47-explained/): SEMI F47은 반도체 장비가 순간전압강하에서도 정지하지 않고 버텨야 하는 최소 조건을 정한 산업 표준이다. 라이드스루 포인트의 의미와 기준 밖 대응법을 정리한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semi-f47-explained/))
 - [자동차 공장의 0.1초 — 용접·도장 라인이 전압강하에 멈추는 순간](https://dlthfydfl-boop.github.io/wesco-intro/blog/automotive-line-voltage-sag/): 자동차 용접·도장 라인은 0.1초 내외 순간전압강하에도 로봇 컨트롤러와 PLC가 정지한다. 재가동이 오래 걸리는 구조와 TSP 배터리리스 보상장치로 라인 정지를 막는 방법을 정리한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/automotive-line-voltage-sag/))
