@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>The Three Layers of Voltage Sag Losses: Restart, Scrap, and Schedule</title><meta name="description" content="A voltage sag compounds into restart downtime, scrapped WIP, and delivery delay. Here is the loss structure, and how battery-free TSP compensation breaks it."><link rel="canonical" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/voltage-sag-cost-structure/"><link rel="alternate" hreflang="ko" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/voltage-sag-cost-structure/"><link rel="alternate" hreflang="en" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/voltage-sag-cost-structure/"><link rel="alternate" hreflang="x-default" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/voltage-sag-cost-structure/"><meta property="og:type" content="article"><meta property="og:title" content="The Three Layers of Voltage Sag Losses: Restart, Scrap, and Schedule"><meta property="og:description" content="A voltage sag compounds into restart downtime, scrapped WIP, and delivery delay. Here is the loss structure, and how battery-free TSP compensation breaks it."><meta property="og:url" content="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/voltage-sag-cost-structure/"><link rel="icon" type="image/x-icon" href="https://dlthfydfl-boop.github.io/wesco-intro/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --c-red:#C13816; --c-red-dk:#9C2C10; --c-red-lt:#FBEEE8;
+  --c-head:#2C2924; --c-text:#4A4641; --c-gray:#78716C; --c-gray-lt:#A8A29E;
+  --c-bg:#FDFCF9; --c-bg-soft:#F7F4EE; --c-divider:#E0DBD3; --c-accent:#4F6886;
+  --font-ko:'Noto Sans KR','맑은 고딕',sans-serif;
+  --font-en:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--c-text);background:var(--c-bg);
+  line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--c-red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* 상단바 */
+.topbar{border-bottom:1px solid var(--c-divider);background:var(--c-bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--font-en);font-weight:800;font-size:20px;color:var(--c-head);letter-spacing:.02em}
+.brand span{color:var(--c-red)}
+.topnav a{color:var(--c-gray);font-size:14px;font-weight:500;margin-left:22px}
+.topnav a:hover{color:var(--c-red);text-decoration:none}
+
+/* 글 헤더 */
+.post-head{padding:56px 0 34px;border-bottom:1px solid var(--c-divider)}
+.post-head .kicker{font-family:var(--font-en);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-red)}
+.post-head h1{font-size:34px;line-height:1.32;color:var(--c-head);
+  font-weight:700;margin:14px 0 12px;letter-spacing:-.01em}
+.post-head .sub{font-size:18px;color:var(--c-gray);font-weight:400;line-height:1.6}
+.post-meta{margin-top:20px;font-size:13px;color:var(--c-gray-lt);
+  font-family:var(--font-en);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.post-meta .lang-toggle{border:1px solid var(--c-divider);border-radius:100px;
+  padding:3px 12px;font-weight:600;color:var(--c-gray)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags .tag{background:var(--c-bg-soft);color:var(--c-gray);border:1px solid var(--c-divider);
+  border-radius:100px;padding:3px 11px;font-size:12px;font-family:var(--font-ko)}
+
+/* 본문 */
+.post-body{padding:38px 0 10px}
+.post-body h2{font-size:23px;color:var(--c-head);font-weight:700;
+  margin:44px 0 16px;letter-spacing:-.01em;line-height:1.4}
+.post-body h3{font-size:19px;color:var(--c-head);font-weight:700;margin:30px 0 12px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body strong{color:var(--c-head);font-weight:700}
+.post-body em{font-style:normal;color:var(--c-gray)}
+.post-body hr{border:0;border-top:1px solid var(--c-divider);margin:40px 0}
+.post-body blockquote{border-left:3px solid var(--c-red);padding:2px 0 2px 18px;
+  margin:0 0 22px;color:var(--c-gray)}
+.post-body img{max-width:100%;height:auto;border-radius:10px;margin:8px 0 24px}
+
+/* FAQ */
+.faq{margin-top:8px}
+.faq dt{font-weight:700;color:var(--c-head);margin:22px 0 8px}
+.faq dd{margin:0 0 8px;color:var(--c-text)}
+
+/* CTA */
+.cta{margin:44px 0 0;background:var(--c-bg-soft);border:1px solid var(--c-divider);
+  border-radius:14px;padding:28px 30px}
+.cta h4{font-size:18px;color:var(--c-head);margin-bottom:8px}
+.cta p{font-size:15px;color:var(--c-gray);margin-bottom:16px}
+.cta a.btn{display:inline-block;background:var(--c-red);color:#fff;font-weight:600;
+  font-size:15px;padding:11px 22px;border-radius:8px}
+.cta a.btn:hover{background:var(--c-red-dk);text-decoration:none}
+
+/* 푸터 */
+.foot{margin-top:64px;border-top:1px solid var(--c-divider);
+  padding:30px 0 60px;color:var(--c-gray-lt);font-size:13px;text-align:center}
+.foot a{color:var(--c-gray)}
+
+/* 목록 */
+.list-head{padding:56px 0 14px}
+.list-head h1{font-size:30px;color:var(--c-head);font-weight:700}
+.list-head p{color:var(--c-gray);margin-top:8px}
+.list-head .lang-toggle{display:inline-block;margin-top:14px;border:1px solid var(--c-divider);
+  border-radius:100px;padding:4px 14px;font-size:13px;font-weight:600;color:var(--c-gray)}
+.card{display:block;padding:26px 0;border-bottom:1px solid var(--c-divider)}
+.card:hover{text-decoration:none}
+.card .kicker{font-family:var(--font-en);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--c-red)}
+.card h2{font-size:22px;color:var(--c-head);font-weight:700;margin:8px 0 8px;line-height:1.4}
+.card p{color:var(--c-gray);font-size:15px}
+.card .date{font-family:var(--font-en);font-size:12px;color:var(--c-gray-lt);margin-top:10px}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .post-head h1{font-size:27px}
+  .post-head .sub{font-size:16px}
+  .post-body h2{font-size:20px}
+}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The Three Layers of Voltage Sag Losses: Restart, Scrap, and Schedule", "description": "A voltage sag compounds into restart downtime, scrapped WIP, and delivery delay. Here is the loss structure, and how battery-free TSP compensation breaks it.", "datePublished": "2026-08-25", "dateModified": "2026-08-25", "inLanguage": "en", "mainEntityOfPage": "https://dlthfydfl-boop.github.io/wesco-intro/blog/en/voltage-sag-cost-structure/", "author": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}, "publisher": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does it mean that voltage sag losses come in three layers?", "acceptedAnswer": {"@type": "Answer", "text": "It means restart time, scrapped work-in-process, and delivery delay stack in sequence, with each layer's loss determining the size of the next. The three are not independent events — they form a single causal chain."}}, {"@type": "Question", "name": "If equipment meets SEMI F47, is it free from this loss structure?", "acceptedAnswer": {"@type": "Answer", "text": "SEMI F47 only requires ride-through to 80% of nominal voltage for 1 second, 70% for 0.5 seconds, and 50% for 0.2 seconds. Sags beyond that envelope, or equipment that falls short of the standard, remain exposed to the restart-WIP-schedule chain."}}, {"@type": "Question", "name": "How is TSP different from a conventional UPS?", "acceptedAnswer": {"@type": "Answer", "text": "TSP (The Second Power) is a battery-free, low-voltage (up to 1kV) voltage sag protector built on EDLC ultra-capacitors. Unlike conventional UPS systems that rely on lead-acid or lithium batteries, its energy storage is designed for a 10-year service life, so it runs without periodic battery replacement."}}]}</script></head><body><header class="topbar"><div class="wrap"><a class="brand" href="https://dlthfydfl-boop.github.io/wesco-intro/">WES<span>CO</span></a><nav class="topnav"><a href="https://dlthfydfl-boop.github.io/wesco-intro/">Home</a><a href="https://dlthfydfl-boop.github.io/wesco-intro/blog/en/">Insights</a></nav></div></header><section class="post-head"><div class="wrap"><div class="kicker">WESCO Insight</div><h1>The Three Layers of Voltage Sag Losses: Restart, Scrap, and Schedule</h1><p class="sub">Why a single voltage sag compounds into downtime, work-in-process loss, and delivery delay</p><div class="post-meta"><span>2026-08-25</span><div class="tags"><span class="tag">Loss Structure</span><span class="tag">Voltage Sag</span><span class="tag">Manufacturing</span><span class="tag">Power Quality</span><span class="tag">TSP</span></div><a class="lang-toggle" href="https://dlthfydfl-boop.github.io/wesco-intro/blog/voltage-sag-cost-structure/">한국어</a></div></div></section><article class="post-body"><div class="wrap"><p>A single voltage sag event rarely ends when the voltage recovers. The damage compounds in three layers, in sequence: the restart time it takes equipment to return to normal operation, the work-in-process (WIP) that gets scrapped while the line is down, and the delivery delays that ripple outward once the production schedule slips. Understanding this structure reframes the real question — not how often sags happen, but how far a single event actually spreads.</p>
+<p>Electrically, a voltage sag is over in tens or hundreds of milliseconds. But the moment that brief event trips a piece of equipment, the aftermath moves onto an entirely different timescale: the process timescale. Restart, WIP, and schedule are not three independent losses — they form a causal chain, where each layer determines the size of the next.</p>
+<h2>Layer One: Restart Time</h2>
+<p>Once equipment trips, returning to normal production takes far longer than the sag itself. Purging, re-stabilizing vacuum, temperature, or pressure, reloading recipes, and re-verifying initial quality are steps that vary by tool and process, but they routinely run several to tens of times longer than the sag&rsquo;s own duration. During this window, the line produces nothing while labor and utilities remain committed.</p>
+<h2>Layer Two: Scrapped Work-in-Process</h2>
+<p>While restart is underway, the WIP that was mid-process at the moment of the trip often falls out of spec and is scrapped or reworked. In industries with a high share of continuous processing — semiconductor, display, and battery manufacturing among them — an interrupted process step can damage the entire lot, so this loss is often locked in before the restart even finishes.</p>
+<h2>Layer Three: Schedule and Delivery Delays</h2>
+<p>Restart time and WIP loss together push the line&rsquo;s production schedule backward. The problem is that this delay doesn&rsquo;t stay contained to one line. Downstream processes wait on input that never arrives on time, other lines sharing the same equipment slip in sequence, and multiple customer delivery dates can end up shifting at once. This third layer surfaces last, but it spreads the widest.</p>
+<h2>Why Most Equipment Is Exposed to This Structure</h2>
+<p>Per IEEE research, a typical industrial site experiences roughly 60 to 70 voltage sags per year. SEMI F47 requires semiconductor manufacturing equipment to ride through sags to 80% of nominal voltage for 1 second, 70% for 0.5 seconds, and 50% for 0.2 seconds without tripping — but equipment that falls short of this standard, or that operates in industries where no such ride-through requirement exists at all, is left exposed to the full three-layer loss structure every time a sag occurs. The ITIC (CBEMA) curve is another widely cited reference defining the voltage-and-duration envelope equipment is expected to tolerate. Both standards define how far equipment can hold on — anything beyond that threshold still flows into the same restart-WIP-schedule chain.</p>
+<h2>Where Voltage Sag Compensation Breaks the Chain</h2>
+<p>The most reliable point to break this three-layer structure is before the first layer even begins — before the sag reaches the equipment at all. WESCO&rsquo;s TSP (The Second Power) is a battery-free, low-voltage (up to 1kV) voltage sag protector built on EDLC ultra-capacitors. It compensates within 2ms for small-to-mid capacity and within 4ms for large capacity, preventing the equipment trip that would otherwise start the chain. No trip means no restart window, no restart window means no WIP loss, and no WIP loss means the schedule never slips in the first place.</p>
+<p>Unlike conventional UPS systems built on lead-acid or lithium batteries, TSP&rsquo;s energy storage is designed for a 10-year service life, so it operates without periodic battery replacement. That matters because the value isn&rsquo;t a one-time save — it&rsquo;s breaking this same loss structure every time a sag recurs, not just once.</p>
+<h2>Key takeaways</h2>
+<ul>
+<li>Voltage sag losses compound in three sequential layers: restart, WIP, and schedule</li>
+<li>Restart time exceeds the sag duration itself, and the steps involved vary by equipment and process</li>
+<li>WIP loss is often locked in before restart even finishes, especially in continuous-process industries</li>
+<li>Schedule delays spread beyond the affected line into downstream processes and other equipment</li>
+<li>Battery-free compensation like TSP prevents the equipment trip that starts the chain, rather than managing the fallout after it</li>
+</ul><h2>Frequently Asked Questions</h2><dl class="faq"><dt>Q. What does it mean that voltage sag losses come in three layers?</dt><dd>It means restart time, scrapped work-in-process, and delivery delay stack in sequence, with each layer&#x27;s loss determining the size of the next. The three are not independent events — they form a single causal chain.</dd><dt>Q. If equipment meets SEMI F47, is it free from this loss structure?</dt><dd>SEMI F47 only requires ride-through to 80% of nominal voltage for 1 second, 70% for 0.5 seconds, and 50% for 0.2 seconds. Sags beyond that envelope, or equipment that falls short of the standard, remain exposed to the restart-WIP-schedule chain.</dd><dt>Q. How is TSP different from a conventional UPS?</dt><dd>TSP (The Second Power) is a battery-free, low-voltage (up to 1kV) voltage sag protector built on EDLC ultra-capacitors. Unlike conventional UPS systems that rely on lead-acid or lithium batteries, its energy storage is designed for a 10-year service life, so it runs without periodic battery replacement.</dd></dl><div class="cta"><h4>Need protection against voltage sags?</h4><p>WESCO has manufactured battery-free voltage sag protectors (TSP&reg;) for 25 years. We can help you size and deploy the right unit for your line.</p><a class="btn" href="mailto:sh.han@wesco.co.kr">Contact us</a></div></div></article><footer class="foot"><div class="wrap">© WESCO Co., Ltd. · Voltage Sag Protector Manufacturer · <a href="https://www.wesco.co.kr">www.wesco.co.kr</a></div></footer></body></html>

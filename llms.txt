@@ -7,6 +7,7 @@
 - [WESCO TSP Business Introduction](https://dlthfydfl-boop.github.io/wesco-intro/): Company overview and TSP® product introduction.
 
 ## Latest blog posts
+- [순간전압강하 손실은 세 겹으로 쌓인다 — 재가동·재공품·납기](https://dlthfydfl-boop.github.io/wesco-intro/blog/voltage-sag-cost-structure/): 순간전압강하 한 번이 재가동 지연, 재공품 폐기, 납기 지연으로 번지는 손실의 구조를 분석하고, 배터리 없는 EDLC 기반 TSP 보상 방식이 이 연쇄를 어떻게 끊어내는지 짚어본다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/voltage-sag-cost-structure/))
 - [15개국, 15만 대 — 순간전압강하 보상장치가 세계 공장에 놓인 이유](https://dlthfydfl-boop.github.io/wesco-intro/blog/global-track-record/): WESCO TSP는 25년간 15개국 이상에 15만 대 넘게 공급됐다. 순간전압강하가 산업별로 반복되는 이유와 배터리리스 보상 방식을 정리했다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/global-track-record/))
 - [순간전압보상장치 용량 선정, 부하 조사에서 시작한다](https://dlthfydfl-boop.github.io/wesco-intro/blog/selecting-sag-protector-capacity/): TSP 용량은 수전용량이 아니라 보호가 필요한 부하 기준으로 정한다. 부하 조사→용량 산정→설치 위치 결정 순서와 과대·과소 선정의 문제를 정리한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/selecting-sag-protector-capacity/))
 - [반도체 팹의 순간전압강하, 왜 가장 민감한 산업인가](https://dlthfydfl-boop.github.io/wesco-intro/blog/semiconductor-fab-voltage-sag/): 반도체 팹이 순간전압강하에 유독 취약한 구조적 이유와 SEMI F47·ITIC 기준, 배터리리스 EDLC 방식 TSP 보상장치의 역할을 정리한 글. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/semiconductor-fab-voltage-sag/))
