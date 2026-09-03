@@ -7,6 +7,7 @@
 - [WESCO TSP Business Introduction](https://dlthfydfl-boop.github.io/wesco-intro/): Company overview and TSP® product introduction.
 
 ## Latest blog posts
+- [자동화될수록 취약해진다 — 스마트팩토리와 전력품질의 역설](https://dlthfydfl-boop.github.io/wesco-intro/blog/smart-factory-power-quality/): 스마트팩토리는 로봇과 서보모터, PLC가 촘촘히 연결될수록 순간전압강하 한 번에도 전체 라인이 멈출 위험이 커진다. 배터리 없는 TSP 보상장치로 자동화 투자와 전력품질 투자의 균형을 맞추는 방법을 정리한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/smart-factory-power-quality/))
 - [저압(LV) 전용이라는 것 — 순간전압보상장치는 어디에 설치하는가](https://dlthfydfl-boop.github.io/wesco-intro/blog/lv-scope-explained/): TSP는 1kV 이하 저압 전용 순간전압강하 보상장치로, 수전단이 아닌 전압강하에 민감한 부하 바로 앞단에 설치해 해당 설비를 직접 보호한다. 저압 전용 설치 위치의 원리를 설명한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/lv-scope-explained/))
 - [10년 무교체의 계산 — 에너지저장부 설계수명이 TCO를 바꾼다](https://dlthfydfl-boop.github.io/wesco-intro/blog/10-year-maintenance-free/): 배터리 기반 순간정전 보상장치는 정기 교체가 필요하지만, EDLC 울트라커패시터 기반 WESCO TSP는 설계수명 10년으로 유지보수 구조 자체가 다르다. TCO 관점에서 두 방식의 차이를 비교한다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/10-year-maintenance-free/))
 - [순간전압강하 손실은 세 겹으로 쌓인다 — 재가동·재공품·납기](https://dlthfydfl-boop.github.io/wesco-intro/blog/voltage-sag-cost-structure/): 순간전압강하 한 번이 재가동 지연, 재공품 폐기, 납기 지연으로 번지는 손실의 구조를 분석하고, 배터리 없는 EDLC 기반 TSP 보상 방식이 이 연쇄를 어떻게 끊어내는지 짚어본다. ([English](https://dlthfydfl-boop.github.io/wesco-intro/blog/en/voltage-sag-cost-structure/))
