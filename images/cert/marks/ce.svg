@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 64">
-  <g fill="#000">
-    <path d="M 32 4 A 28 28 0 1 0 32 60 A 24 24 0 0 1 32 4 Z M 32 16 A 16 16 0 1 1 32 48 A 16 16 0 0 0 32 16 Z" fill-rule="evenodd"/>
-    <path d="M 80 4 A 28 28 0 1 0 80 60 A 24 24 0 0 1 80 4 Z M 80 16 A 16 16 0 1 1 80 48 A 16 16 0 0 0 80 16 Z" fill-rule="evenodd"/>
-    <rect x="62" y="28" width="14" height="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 64">
+  <!-- CE 마크. EU 가 규정한 공개 도형이라 재현이 정당하다.
+       ★fill + evenodd 로 그린 이전 판은 브라우저에서 호가 사라지고 가운데 막대만
+         남았다. stroke 로 그리면 그런 일이 없다. -->
+  <g fill="none" stroke="#000" stroke-width="11">
+    <path d="M40 18 A20 20 0 1 0 40 46"/>
+    <path d="M88 18 A20 20 0 1 0 88 46"/>
   </g>
+  <rect x="70" y="27" width="18" height="10" fill="#000"/>
 </svg>
