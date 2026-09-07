@@ -7,6 +7,7 @@
 - [WESCO TSP Business Introduction](https://intro.wesco.works/): Company overview and TSP® product introduction.
 
 ## Latest blog posts
+- [디스플레이 라인과 전력품질 — 24시간 공정이 전압 흔들림을 못 견디는 이유](https://intro.wesco.works/blog/display-fab-power-quality/): OLED·TFT-LCD 라인은 24시간 연속공정이라 수 밀리초의 순간전압강하도 설비 트립과 재공품 손실로 이어진다. 배터리리스 보상 기술이 필요한 이유를 정리한다. ([English](https://intro.wesco.works/blog/en/display-fab-power-quality/))
 - [자동화될수록 취약해진다 — 스마트팩토리와 전력품질의 역설](https://intro.wesco.works/blog/smart-factory-power-quality/): 스마트팩토리는 로봇과 서보모터, PLC가 촘촘히 연결될수록 순간전압강하 한 번에도 전체 라인이 멈출 위험이 커진다. 배터리 없는 TSP 보상장치로 자동화 투자와 전력품질 투자의 균형을 맞추는 방법을 정리한다. ([English](https://intro.wesco.works/blog/en/smart-factory-power-quality/))
 - [저압(LV) 전용이라는 것 — 순간전압보상장치는 어디에 설치하는가](https://intro.wesco.works/blog/lv-scope-explained/): TSP는 1kV 이하 저압 전용 순간전압강하 보상장치로, 수전단이 아닌 전압강하에 민감한 부하 바로 앞단에 설치해 해당 설비를 직접 보호한다. 저압 전용 설치 위치의 원리를 설명한다. ([English](https://intro.wesco.works/blog/en/lv-scope-explained/))
 - [10년 무교체의 계산 — 에너지저장부 설계수명이 TCO를 바꾼다](https://intro.wesco.works/blog/10-year-maintenance-free/): 배터리 기반 순간정전 보상장치는 정기 교체가 필요하지만, EDLC 울트라커패시터 기반 WESCO TSP는 설계수명 10년으로 유지보수 구조 자체가 다르다. TCO 관점에서 두 방식의 차이를 비교한다. ([English](https://intro.wesco.works/blog/en/10-year-maintenance-free/))
@@ -16,7 +17,6 @@
 - [반도체 팹의 순간전압강하, 왜 가장 민감한 산업인가](https://intro.wesco.works/blog/semiconductor-fab-voltage-sag/): 반도체 팹이 순간전압강하에 유독 취약한 구조적 이유와 SEMI F47·ITIC 기준, 배터리리스 EDLC 방식 TSP 보상장치의 역할을 정리한 글. ([English](https://intro.wesco.works/blog/en/semiconductor-fab-voltage-sag/))
 - [SEMI F47 완전 정리 — 반도체 장비가 견뎌야 하는 전압강하 기준](https://intro.wesco.works/blog/semi-f47-explained/): SEMI F47은 반도체 장비가 순간전압강하에서도 정지하지 않고 버텨야 하는 최소 조건을 정한 산업 표준이다. 라이드스루 포인트의 의미와 기준 밖 대응법을 정리한다. ([English](https://intro.wesco.works/blog/en/semi-f47-explained/))
 - [자동차 공장의 0.1초 — 용접·도장 라인이 전압강하에 멈추는 순간](https://intro.wesco.works/blog/automotive-line-voltage-sag/): 자동차 용접·도장 라인은 0.1초 내외 순간전압강하에도 로봇 컨트롤러와 PLC가 정지한다. 재가동이 오래 걸리는 구조와 TSP 배터리리스 보상장치로 라인 정지를 막는 방법을 정리한다. ([English](https://intro.wesco.works/blog/en/automotive-line-voltage-sag/))
-- [0.2초의 정전, 반도체 공장을 멈추다](https://intro.wesco.works/blog/battery-free-voltage-sag/): 정전도 아닌데 라인이 멈춘다. 눈 깜빡임보다 짧은 순간전압강하(Voltage Sag)가 정밀 제조라인을 세우는 이유와, 배터리 없이 이를 보상하는 방법을 정리했다.
 
 ## Key facts
 - Product: TSP® (The Second Power) — battery-free voltage sag protector / power conditioner

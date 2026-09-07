@@ -28,6 +28,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://intro.wesco.works/blog/display-fab-power-quality/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://intro.wesco.works/blog/display-fab-power-quality/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://intro.wesco.works/blog/en/display-fab-power-quality/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://intro.wesco.works/blog/display-fab-power-quality/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://intro.wesco.works/blog/en/display-fab-power-quality/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://intro.wesco.works/blog/display-fab-power-quality/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://intro.wesco.works/blog/en/display-fab-power-quality/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://intro.wesco.works/blog/display-fab-power-quality/"/>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://intro.wesco.works/blog/smart-factory-power-quality/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://intro.wesco.works/blog/smart-factory-power-quality/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://intro.wesco.works/blog/en/smart-factory-power-quality/"/>
