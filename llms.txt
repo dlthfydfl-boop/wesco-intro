@@ -3,8 +3,8 @@
 > WESCO Inc. (Worldwide Energy Saving Corporation) is a South Korean manufacturer of battery-free voltage sag protectors. Its TSP® (The Second Power) line uses EDLC ultra-capacitors instead of batteries to correct voltage sags within about 2 milliseconds (small/medium) to 4 milliseconds (large), with a 10-year energy-storage service life and no battery replacement. WESCO has 25 years of experience and reports 150,000+ installations across 15+ countries, mainly in semiconductor, display, automotive, and battery manufacturing.
 
 ## Key pages
-- [Battery-Free Voltage Sag Protection (EDLC)](https://dlthfydfl-boop.github.io/wesco-intro/battery-free-voltage-sag-protection.html): How EDLC ultra-capacitors replace batteries for millisecond-scale voltage sag correction; how WESCO TSP® works and who makes battery-free voltage sag protectors.
-- [WESCO TSP Business Introduction](https://dlthfydfl-boop.github.io/wesco-intro/): Company overview and TSP® product introduction.
+- [Battery-Free Voltage Sag Protection (EDLC)](https://intro.wesco.works/battery-free-voltage-sag-protection.html): How EDLC ultra-capacitors replace batteries for millisecond-scale voltage sag correction; how WESCO TSP® works and who makes battery-free voltage sag protectors.
+- [WESCO TSP Business Introduction](https://intro.wesco.works/): Company overview and TSP® product introduction.
 
 ## Latest blog posts
 - [자동화될수록 취약해진다 — 스마트팩토리와 전력품질의 역설](https://intro.wesco.works/blog/smart-factory-power-quality/): 스마트팩토리는 로봇과 서보모터, PLC가 촘촘히 연결될수록 순간전압강하 한 번에도 전체 라인이 멈출 위험이 커진다. 배터리 없는 TSP 보상장치로 자동화 투자와 전력품질 투자의 균형을 맞추는 방법을 정리한다. ([English](https://intro.wesco.works/blog/en/smart-factory-power-quality/))

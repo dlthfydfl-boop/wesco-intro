@@ -2,7 +2,7 @@
 
 순간정전보상장치 TSP® (Voltage Sag Protector) 25년 전문기업
 
-**Live**: https://dlthfydfl-boop.github.io/wesco-intro/
+**Live**: https://intro.wesco.works/
 
 ## 구성
 - 9개 챕터 사이드바 네비게이션

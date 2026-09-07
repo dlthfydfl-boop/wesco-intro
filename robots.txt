@@ -1,4 +1,4 @@
-# WESCO TSP — https://dlthfydfl-boop.github.io/wesco-intro/
+# WESCO TSP — https://intro.wesco.works/
 User-agent: *
 Allow: /
 
@@ -14,4 +14,4 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-Sitemap: https://dlthfydfl-boop.github.io/wesco-intro/sitemap.xml
+Sitemap: https://intro.wesco.works/sitemap.xml
