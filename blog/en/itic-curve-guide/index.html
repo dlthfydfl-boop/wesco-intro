@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>How to Read the ITIC Curve: Knowing the Voltage Envelope Your Equipment Tolerates</title><meta name="description" content="A practical guide to reading the ITIC (CBEMA) curve&#x27;s axes and three regions, so you can check whether your equipment&#x27;s voltage tolerance calls for a voltage sag compensator."><link rel="canonical" href="https://intro.wesco.works/blog/en/itic-curve-guide/"><link rel="alternate" hreflang="ko" href="https://intro.wesco.works/blog/itic-curve-guide/"><link rel="alternate" hreflang="en" href="https://intro.wesco.works/blog/en/itic-curve-guide/"><link rel="alternate" hreflang="x-default" href="https://intro.wesco.works/blog/itic-curve-guide/"><meta property="og:type" content="article"><meta property="og:title" content="How to Read the ITIC Curve: Knowing the Voltage Envelope Your Equipment Tolerates"><meta property="og:description" content="A practical guide to reading the ITIC (CBEMA) curve&#x27;s axes and three regions, so you can check whether your equipment&#x27;s voltage tolerance calls for a voltage sag compensator."><meta property="og:url" content="https://intro.wesco.works/blog/en/itic-curve-guide/"><link rel="icon" type="image/x-icon" href="https://intro.wesco.works/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --c-red:#C13816; --c-red-dk:#9C2C10; --c-red-lt:#FBEEE8;
+  --c-head:#2C2924; --c-text:#4A4641; --c-gray:#78716C; --c-gray-lt:#A8A29E;
+  --c-bg:#FDFCF9; --c-bg-soft:#F7F4EE; --c-divider:#E0DBD3; --c-accent:#4F6886;
+  --font-ko:'Noto Sans KR','맑은 고딕',sans-serif;
+  --font-en:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--c-text);background:var(--c-bg);
+  line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--c-red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* 상단바 */
+.topbar{border-bottom:1px solid var(--c-divider);background:var(--c-bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--font-en);font-weight:800;font-size:20px;color:var(--c-head);letter-spacing:.02em}
+.brand span{color:var(--c-red)}
+.topnav a{color:var(--c-gray);font-size:14px;font-weight:500;margin-left:22px}
+.topnav a:hover{color:var(--c-red);text-decoration:none}
+
+/* 글 헤더 */
+.post-head{padding:56px 0 34px;border-bottom:1px solid var(--c-divider)}
+.post-head .kicker{font-family:var(--font-en);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-red)}
+.post-head h1{font-size:34px;line-height:1.32;color:var(--c-head);
+  font-weight:700;margin:14px 0 12px;letter-spacing:-.01em}
+.post-head .sub{font-size:18px;color:var(--c-gray);font-weight:400;line-height:1.6}
+.post-meta{margin-top:20px;font-size:13px;color:var(--c-gray-lt);
+  font-family:var(--font-en);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.post-meta .lang-toggle{border:1px solid var(--c-divider);border-radius:100px;
+  padding:3px 12px;font-weight:600;color:var(--c-gray)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags .tag{background:var(--c-bg-soft);color:var(--c-gray);border:1px solid var(--c-divider);
+  border-radius:100px;padding:3px 11px;font-size:12px;font-family:var(--font-ko)}
+
+/* 본문 */
+.post-body{padding:38px 0 10px}
+.post-body h2{font-size:23px;color:var(--c-head);font-weight:700;
+  margin:44px 0 16px;letter-spacing:-.01em;line-height:1.4}
+.post-body h3{font-size:19px;color:var(--c-head);font-weight:700;margin:30px 0 12px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body strong{color:var(--c-head);font-weight:700}
+.post-body em{font-style:normal;color:var(--c-gray)}
+.post-body hr{border:0;border-top:1px solid var(--c-divider);margin:40px 0}
+.post-body blockquote{border-left:3px solid var(--c-red);padding:2px 0 2px 18px;
+  margin:0 0 22px;color:var(--c-gray)}
+.post-body img{max-width:100%;height:auto;border-radius:10px;margin:8px 0 24px}
+
+/* FAQ */
+.faq{margin-top:8px}
+.faq dt{font-weight:700;color:var(--c-head);margin:22px 0 8px}
+.faq dd{margin:0 0 8px;color:var(--c-text)}
+
+/* CTA */
+.cta{margin:44px 0 0;background:var(--c-bg-soft);border:1px solid var(--c-divider);
+  border-radius:14px;padding:28px 30px}
+.cta h4{font-size:18px;color:var(--c-head);margin-bottom:8px}
+.cta p{font-size:15px;color:var(--c-gray);margin-bottom:16px}
+.cta a.btn{display:inline-block;background:var(--c-red);color:#fff;font-weight:600;
+  font-size:15px;padding:11px 22px;border-radius:8px}
+.cta a.btn:hover{background:var(--c-red-dk);text-decoration:none}
+.cta a.btn-ghost{background:transparent;color:var(--c-red);border:1px solid var(--c-red);margin-left:8px}
+.cta a.btn-ghost:hover{background:var(--c-red);color:#fff}
+
+/* 푸터 */
+.foot{margin-top:64px;border-top:1px solid var(--c-divider);
+  padding:30px 0 60px;color:var(--c-gray-lt);font-size:13px;text-align:center}
+.foot a{color:var(--c-gray)}
+
+/* 목록 */
+.list-head{padding:56px 0 14px}
+.list-head h1{font-size:30px;color:var(--c-head);font-weight:700}
+.list-head p{color:var(--c-gray);margin-top:8px}
+.list-head .lang-toggle{display:inline-block;margin-top:14px;border:1px solid var(--c-divider);
+  border-radius:100px;padding:4px 14px;font-size:13px;font-weight:600;color:var(--c-gray)}
+.card{display:block;padding:26px 0;border-bottom:1px solid var(--c-divider)}
+.card:hover{text-decoration:none}
+.card .kicker{font-family:var(--font-en);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--c-red)}
+.card h2{font-size:22px;color:var(--c-head);font-weight:700;margin:8px 0 8px;line-height:1.4}
+.card p{color:var(--c-gray);font-size:15px}
+.card .date{font-family:var(--font-en);font-size:12px;color:var(--c-gray-lt);margin-top:10px}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .post-head h1{font-size:27px}
+  .post-head .sub{font-size:16px}
+  .post-body h2{font-size:20px}
+}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Read the ITIC Curve: Knowing the Voltage Envelope Your Equipment Tolerates", "description": "A practical guide to reading the ITIC (CBEMA) curve's axes and three regions, so you can check whether your equipment's voltage tolerance calls for a voltage sag compensator.", "datePublished": "2026-09-11", "dateModified": "2026-09-11", "inLanguage": "en", "mainEntityOfPage": "https://intro.wesco.works/blog/en/itic-curve-guide/", "author": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}, "publisher": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Are the ITIC curve and the CBEMA curve the same thing?", "acceptedAnswer": {"@type": "Answer", "text": "The ITIC curve is the updated version of the CBEMA curve, published by the Information Technology Industry Council. Because they serve the same purpose, the two names are often used interchangeably in practice."}}, {"@type": "Question", "name": "Does an event outside the ITIC curve always mean equipment failure?", "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily, but it does mean a higher risk of malfunction or unplanned stops. Actual tolerance varies by equipment, so the curve should be used as a reference benchmark rather than an absolute guarantee."}}, {"@type": "Question", "name": "How is SEMI F47 different from the ITIC curve?", "acceptedAnswer": {"@type": "Answer", "text": "The ITIC curve is a general-purpose benchmark for information technology equipment, while SEMI F47 is a ride-through requirement specific to semiconductor manufacturing equipment. Both address voltage sag tolerance, but they apply to different equipment and different reference points."}}]}</script></head><body><header class="topbar"><div class="wrap"><a class="brand" href="https://intro.wesco.works/">WES<span>CO</span></a><nav class="topnav"><a href="https://intro.wesco.works/">Home</a><a href="https://intro.wesco.works/blog/en/">Insights</a></nav></div></header><section class="post-head"><div class="wrap"><div class="kicker">WESCO Insight</div><h1>How to Read the ITIC Curve: Knowing the Voltage Envelope Your Equipment Tolerates</h1><p class="sub">Reading the axes and regions of the ITIC (CBEMA) curve to decide when a compensator is needed</p><div class="post-meta"><span>2026-09-11</span><div class="tags"><span class="tag">ITIC curve</span><span class="tag">CBEMA</span><span class="tag">power quality</span><span class="tag">voltage sag</span><span class="tag">SEMI F47</span></div><a class="lang-toggle" href="https://intro.wesco.works/blog/itic-curve-guide/">한국어</a></div></div></section><article class="post-body"><div class="wrap"><p>The ITIC curve, successor to the CBEMA curve, is a published standard graph that defines the voltage range information technology equipment must tolerate without malfunctioning. Its horizontal axis plots the duration of a voltage deviation (milliseconds to seconds) and its vertical axis plots voltage as a percentage of nominal; any sag or surge that falls inside the curve&rsquo;s envelope is expected to leave equipment operating normally. Overlaying real measurement data on this curve is often enough to tell you, at a glance, whether a given event was severe enough to put your equipment at risk.</p>
+<p>A common scenario looks like this: a production line stops for no obvious reason, there was no full power outage, and the voltage meter shows nothing dramatic. Plotting the recorded sag against the ITIC curve frequently reveals that a brief, shallow dip — one that seemed harmless — actually fell outside the equipment&rsquo;s tolerance envelope. Voltage sags are easy to miss but remain one of the more common causes of unplanned equipment stops.</p>
+<h2>Three regions to read</h2>
+<p>The ITIC curve is built from three regions.</p>
+<ul>
+<li><strong>Prohibited region</strong>: above the curve, covering overvoltage and surge conditions. Events here risk equipment damage and must be suppressed.</li>
+<li><strong>Acceptable (tolerance) region</strong>: inside the curve. Equipment is expected to keep operating normally even when voltage dips or rises briefly — this is the region that matters most when deciding whether a compensator is needed.</li>
+<li><strong>No damage region</strong>: below the curve, covering deep sags and brief interruptions. Equipment may stop, but in principle should not be damaged — though in practice this often still means line stops and scrap.</li>
+</ul>
+<p>The key pattern is that the shorter the duration, the deeper a sag the curve still classifies as tolerable. In other words, the curve&rsquo;s underlying assumption is that equipment should be designed to ride through brief dips.</p>
+<h2>Checking whether your equipment fits inside the curve</h2>
+<ol>
+<li>Check the equipment&rsquo;s power specification sheet for its input voltage tolerance and ride-through time.</li>
+<li>Collect power quality measurement data on-site — sag magnitude and duration.</li>
+<li>Plot each recorded event on the ITIC curve to see whether it lands inside the acceptable region or crosses into the no-damage/damage region.</li>
+<li>If events repeatedly land in the damage region, evaluate adding a voltage sag compensator upstream of that equipment.</li>
+</ol>
+<p>This is a diagnostic you can run with nothing more than power quality meter data and the curve itself — a natural first step before commissioning new equipment or investigating recurring stoppages.</p>
+<h2>Reading it alongside SEMI F47</h2>
+<p>For semiconductor and display fabs, the ITIC curve should be read together with SEMI F47. SEMI F47 sets ride-through requirements for semiconductor manufacturing equipment: equipment must ride through 1 second at 80% voltage, 0.5 seconds at 70%, and 0.2 seconds at 50% (per SEMI F47). Where the ITIC curve is a general benchmark for information technology equipment broadly, SEMI F47 is a stricter, process-specific reference point for fab equipment. Comparing your data against both makes it much clearer how much margin — or how little — your equipment actually has.</p>
+<h2>How often do out-of-envelope events really happen</h2>
+<p>IEEE studies report that a typical industrial site experiences roughly 60 to 70 voltage sags per year. Not every one of these causes a full outage, but if a meaningful share of them sit near or beyond the ITIC curve&rsquo;s tolerance boundary, equipment is being repeatedly exposed to malfunction risk. In industries where a single unplanned stop is costly — semiconductor, display, automotive, battery, and data center facilities — checking this curve periodically is worth building into routine power quality reviews.</p>
+<h2>Addressing out-of-envelope events with TSP</h2>
+<p>When measurements show repeated events landing in the damage region, the practical fix is to add a voltage sag compensator upstream so those events are pulled back inside the tolerance envelope. WESCO&rsquo;s TSP (The Second Power) is a battery-free voltage sag protector built on EDLC ultra-capacitors, compensating within 2ms for small-to-mid capacity units and within 4ms for large-capacity units — fast enough to cover the ride-through windows required by both the ITIC curve and SEMI F47. Unlike conventional UPS systems that rely on lead-acid or lithium batteries, its energy storage stage has a 10-year design life, removing the recurring burden of battery replacement. TSP is scoped to low-voltage (LV, ≤1kV) equipment and is currently installed in more than 150,000 units across 15+ countries.</p>
+<h2>Key takeaways</h2>
+<ul>
+<li>The ITIC curve defines a voltage tolerance envelope for IT equipment using duration (x-axis) and voltage percentage (y-axis).</li>
+<li>Reading it as three regions — prohibited, acceptable, no-damage — lets you classify where a real event falls.</li>
+<li>Semiconductor and display equipment should be checked against both the ITIC curve and SEMI F47 ride-through points (80%/1s, 70%/0.5s, 50%/0.2s).</li>
+<li>IEEE studies report roughly 60-70 voltage sags per year at a typical industrial site, so out-of-envelope events are not rare.</li>
+<li>When events repeatedly fall in the damage region, a battery-free voltage sag protector like TSP can keep equipment inside the curve&rsquo;s tolerance envelope.</li>
+</ul><h2>Frequently Asked Questions</h2><dl class="faq"><dt>Q. Are the ITIC curve and the CBEMA curve the same thing?</dt><dd>The ITIC curve is the updated version of the CBEMA curve, published by the Information Technology Industry Council. Because they serve the same purpose, the two names are often used interchangeably in practice.</dd><dt>Q. Does an event outside the ITIC curve always mean equipment failure?</dt><dd>Not necessarily, but it does mean a higher risk of malfunction or unplanned stops. Actual tolerance varies by equipment, so the curve should be used as a reference benchmark rather than an absolute guarantee.</dd><dt>Q. How is SEMI F47 different from the ITIC curve?</dt><dd>The ITIC curve is a general-purpose benchmark for information technology equipment, while SEMI F47 is a ride-through requirement specific to semiconductor manufacturing equipment. Both address voltage sag tolerance, but they apply to different equipment and different reference points.</dd></dl><div class="cta"><h4>Need protection against voltage sags?</h4><p>WESCO has manufactured battery-free voltage sag protectors (TSP&reg;) for 25 years. We can help you size and deploy the right unit for your line.</p><a class="btn" href="https://tsp.wesco.works/en/?s=blog-itic-curve-guide">Request a quote</a><a class="btn btn-ghost" href="mailto:wesco@wesco.co.kr?subject=%5Bblog%3Aitic-curve-guide%5D%20TSP%20inquiry">Email us</a></div></div></article><footer class="foot"><div class="wrap">© WESCO Co., Ltd. · Voltage Sag Protector Manufacturer · <a href="https://www.wesco.co.kr">www.wesco.co.kr</a></div></footer></body></html>

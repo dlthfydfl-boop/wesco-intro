@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ITIC 커브 읽는 법: 우리 장비가 견디는 전압 범위 확인하기</title><meta name="description" content="ITIC(CBEMA) 커브의 가로축·세로축과 세 가지 영역을 읽는 법을 정리하고, 우리 설비가 견디는 전압 범위를 확인해 순간전압강하 보상장치 적용 여부를 판단하는 기준을 설명한다."><link rel="canonical" href="https://intro.wesco.works/blog/itic-curve-guide/"><link rel="alternate" hreflang="ko" href="https://intro.wesco.works/blog/itic-curve-guide/"><link rel="alternate" hreflang="en" href="https://intro.wesco.works/blog/en/itic-curve-guide/"><link rel="alternate" hreflang="x-default" href="https://intro.wesco.works/blog/itic-curve-guide/"><meta property="og:type" content="article"><meta property="og:title" content="ITIC 커브 읽는 법: 우리 장비가 견디는 전압 범위 확인하기"><meta property="og:description" content="ITIC(CBEMA) 커브의 가로축·세로축과 세 가지 영역을 읽는 법을 정리하고, 우리 설비가 견디는 전압 범위를 확인해 순간전압강하 보상장치 적용 여부를 판단하는 기준을 설명한다."><meta property="og:url" content="https://intro.wesco.works/blog/itic-curve-guide/"><link rel="icon" type="image/x-icon" href="https://intro.wesco.works/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"><style>
+:root{
+  --c-red:#C13816; --c-red-dk:#9C2C10; --c-red-lt:#FBEEE8;
+  --c-head:#2C2924; --c-text:#4A4641; --c-gray:#78716C; --c-gray-lt:#A8A29E;
+  --c-bg:#FDFCF9; --c-bg-soft:#F7F4EE; --c-divider:#E0DBD3; --c-accent:#4F6886;
+  --font-ko:'Noto Sans KR','맑은 고딕',sans-serif;
+  --font-en:'Inter',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ko);color:var(--c-text);background:var(--c-bg);
+  line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:var(--c-red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+
+/* 상단바 */
+.topbar{border-bottom:1px solid var(--c-divider);background:var(--c-bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--font-en);font-weight:800;font-size:20px;color:var(--c-head);letter-spacing:.02em}
+.brand span{color:var(--c-red)}
+.topnav a{color:var(--c-gray);font-size:14px;font-weight:500;margin-left:22px}
+.topnav a:hover{color:var(--c-red);text-decoration:none}
+
+/* 글 헤더 */
+.post-head{padding:56px 0 34px;border-bottom:1px solid var(--c-divider)}
+.post-head .kicker{font-family:var(--font-en);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-red)}
+.post-head h1{font-size:34px;line-height:1.32;color:var(--c-head);
+  font-weight:700;margin:14px 0 12px;letter-spacing:-.01em}
+.post-head .sub{font-size:18px;color:var(--c-gray);font-weight:400;line-height:1.6}
+.post-meta{margin-top:20px;font-size:13px;color:var(--c-gray-lt);
+  font-family:var(--font-en);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.post-meta .lang-toggle{border:1px solid var(--c-divider);border-radius:100px;
+  padding:3px 12px;font-weight:600;color:var(--c-gray)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags .tag{background:var(--c-bg-soft);color:var(--c-gray);border:1px solid var(--c-divider);
+  border-radius:100px;padding:3px 11px;font-size:12px;font-family:var(--font-ko)}
+
+/* 본문 */
+.post-body{padding:38px 0 10px}
+.post-body h2{font-size:23px;color:var(--c-head);font-weight:700;
+  margin:44px 0 16px;letter-spacing:-.01em;line-height:1.4}
+.post-body h3{font-size:19px;color:var(--c-head);font-weight:700;margin:30px 0 12px}
+.post-body p{margin:0 0 20px}
+.post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+.post-body li{margin:0 0 9px}
+.post-body strong{color:var(--c-head);font-weight:700}
+.post-body em{font-style:normal;color:var(--c-gray)}
+.post-body hr{border:0;border-top:1px solid var(--c-divider);margin:40px 0}
+.post-body blockquote{border-left:3px solid var(--c-red);padding:2px 0 2px 18px;
+  margin:0 0 22px;color:var(--c-gray)}
+.post-body img{max-width:100%;height:auto;border-radius:10px;margin:8px 0 24px}
+
+/* FAQ */
+.faq{margin-top:8px}
+.faq dt{font-weight:700;color:var(--c-head);margin:22px 0 8px}
+.faq dd{margin:0 0 8px;color:var(--c-text)}
+
+/* CTA */
+.cta{margin:44px 0 0;background:var(--c-bg-soft);border:1px solid var(--c-divider);
+  border-radius:14px;padding:28px 30px}
+.cta h4{font-size:18px;color:var(--c-head);margin-bottom:8px}
+.cta p{font-size:15px;color:var(--c-gray);margin-bottom:16px}
+.cta a.btn{display:inline-block;background:var(--c-red);color:#fff;font-weight:600;
+  font-size:15px;padding:11px 22px;border-radius:8px}
+.cta a.btn:hover{background:var(--c-red-dk);text-decoration:none}
+.cta a.btn-ghost{background:transparent;color:var(--c-red);border:1px solid var(--c-red);margin-left:8px}
+.cta a.btn-ghost:hover{background:var(--c-red);color:#fff}
+
+/* 푸터 */
+.foot{margin-top:64px;border-top:1px solid var(--c-divider);
+  padding:30px 0 60px;color:var(--c-gray-lt);font-size:13px;text-align:center}
+.foot a{color:var(--c-gray)}
+
+/* 목록 */
+.list-head{padding:56px 0 14px}
+.list-head h1{font-size:30px;color:var(--c-head);font-weight:700}
+.list-head p{color:var(--c-gray);margin-top:8px}
+.list-head .lang-toggle{display:inline-block;margin-top:14px;border:1px solid var(--c-divider);
+  border-radius:100px;padding:4px 14px;font-size:13px;font-weight:600;color:var(--c-gray)}
+.card{display:block;padding:26px 0;border-bottom:1px solid var(--c-divider)}
+.card:hover{text-decoration:none}
+.card .kicker{font-family:var(--font-en);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--c-red)}
+.card h2{font-size:22px;color:var(--c-head);font-weight:700;margin:8px 0 8px;line-height:1.4}
+.card p{color:var(--c-gray);font-size:15px}
+.card .date{font-family:var(--font-en);font-size:12px;color:var(--c-gray-lt);margin-top:10px}
+
+@media(max-width:600px){
+  body{font-size:16px}
+  .post-head h1{font-size:27px}
+  .post-head .sub{font-size:16px}
+  .post-body h2{font-size:20px}
+}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ITIC 커브 읽는 법: 우리 장비가 견디는 전압 범위 확인하기", "description": "ITIC(CBEMA) 커브의 가로축·세로축과 세 가지 영역을 읽는 법을 정리하고, 우리 설비가 견디는 전압 범위를 확인해 순간전압강하 보상장치 적용 여부를 판단하는 기준을 설명한다.", "datePublished": "2026-09-11", "dateModified": "2026-09-11", "inLanguage": "ko", "mainEntityOfPage": "https://intro.wesco.works/blog/itic-curve-guide/", "author": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}, "publisher": {"@type": "Organization", "name": "WESCO Inc.", "url": "https://www.wesco.co.kr"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "ITIC 커브와 CBEMA 커브는 같은 것인가?", "acceptedAnswer": {"@type": "Answer", "text": "ITIC 커브는 CBEMA 커브를 계승해 정보기술산업협의회(ITIC)가 업데이트한 곡선으로, 같은 목적으로 쓰이다 보니 실무에서는 흔히 같은 의미로 통용된다."}}, {"@type": "Question", "name": "ITIC 커브의 영역을 벗어나면 장비가 무조건 고장 나는가?", "acceptedAnswer": {"@type": "Answer", "text": "곡선 밖 이벤트가 반드시 고장으로 이어지진 않지만 오동작이나 정지 위험이 커진다는 뜻이다. 실제 내성은 장비마다 달라 곡선은 참고 기준으로 활용해야 한다."}}, {"@type": "Question", "name": "SEMI F47과 ITIC 커브는 어떻게 다른가?", "acceptedAnswer": {"@type": "Answer", "text": "ITIC 커브는 일반 정보기술장비를 위한 범용 기준이고, SEMI F47은 반도체 제조장비를 위한 라이드스루 기준이다. 둘 다 순간전압강하 대응 능력을 요구하지만 적용 대상과 기준점이 다르다."}}]}</script></head><body><header class="topbar"><div class="wrap"><a class="brand" href="https://intro.wesco.works/">WES<span>CO</span></a><nav class="topnav"><a href="https://intro.wesco.works/">홈</a><a href="https://intro.wesco.works/blog/">인사이트</a></nav></div></header><section class="post-head"><div class="wrap"><div class="kicker">WESCO Insight</div><h1>ITIC 커브 읽는 법: 우리 장비가 견디는 전압 범위 확인하기</h1><p class="sub">CBEMA 커브의 축과 영역을 해석해 보상장치 적용 여부를 판단하는 기준</p><div class="post-meta"><span>2026-09-11</span><div class="tags"><span class="tag">ITIC 커브</span><span class="tag">CBEMA</span><span class="tag">전력품질</span><span class="tag">순간전압강하</span><span class="tag">SEMI F47</span></div><a class="lang-toggle" href="https://intro.wesco.works/blog/en/itic-curve-guide/">English</a></div></div></section><article class="post-body"><div class="wrap"><p>ITIC 커브(구 CBEMA 커브)는 정보기술장비(ITE)가 전압 변동에 견뎌야 하는 범위를 그래프로 정의한 표준 곡선이다. 가로축은 전압 이상이 지속되는 시간(ms~s), 세로축은 정격전압 대비 백분율(%)로 표시하며, 이 범위 안에 들어오는 전압강하나 서지는 장비가 정상 동작을 유지해야 한다고 규정한다. 설비 담당자는 실제 계측 데이터를 이 곡선 위에 겹쳐 보는 것만으로 어떤 이벤트가 장비 오동작을 일으킬 위험이 있는지 바로 판단할 수 있다.</p>
+<p>현장에서는 흔히 이런 상황이 벌어진다. 생산라인이 알 수 없는 이유로 멈췄는데, 정전은 아니었고 전압계에도 큰 이상이 안 보인다. 이럴 때 계측기에 남은 전압강하 기록을 ITIC 커브에 대입해 보면, 몇 사이클 동안 전압이 살짝 떨어졌을 뿐인데도 장비 내성 곡선을 벗어난 이벤트였다는 것이 드러나는 경우가 많다. 순간전압강하는 눈에 잘 띄지 않지만 설비 정지의 흔한 원인 중 하나다.</p>
+<h2>세 개 영역으로 나눠 읽는다</h2>
+<p>ITIC 커브는 크게 세 영역으로 구성된다.</p>
+<ul>
+<li><strong>금지 영역(Prohibited Region)</strong>: 곡선 위쪽, 정격전압을 초과하는 과전압·서지 구간. 이 영역에 해당하는 이벤트는 장비에 손상을 줄 수 있어 억제되어야 한다.</li>
+<li><strong>허용 영역(Acceptable/Tolerance Region)</strong>: 곡선 안쪽. 전압이 일시적으로 낮아지거나 높아져도 장비가 정상 동작을 유지해야 하는 구간이다. 순간전압강하 보상 여부를 판단할 때 실질적으로 가장 중요하게 보는 영역이다.</li>
+<li><strong>손상 영역(No Damage Region)</strong>: 곡선 아래쪽. 전압이 크게 떨어지거나 짧은 순간정전이 발생하는 구간으로, 장비가 정지하더라도 손상은 없어야 한다는 것이 기준이지만 실제로는 라인 정지·불량 발생으로 이어지는 경우가 많다.</li>
+</ul>
+<p>핵심은 지속시간이 짧을수록 더 깊은 전압강하까지 허용 영역으로 인정된다는 점이다. 즉 순간적인 전압강하는 어느 정도 견디도록 설계하라는 것이 곡선의 기본 전제다.</p>
+<h2>우리 장비가 곡선 안에 있는지 확인하는 절차</h2>
+<ol>
+<li>대상 설비의 전원 사양서에서 입력전압 허용범위와 순간정전 내성 시간을 확인한다.</li>
+<li>현장 전력품질 계측 데이터(전압강하 크기·지속시간)를 수집한다.</li>
+<li>계측된 이벤트 좌표를 ITIC 커브 위에 표시해 허용 영역 안에 있는지, 손상 영역으로 넘어가는지 확인한다.</li>
+<li>손상 영역에 걸리는 이벤트가 반복된다면 해당 설비 전단에 순간전압강하 보상장치 적용을 검토한다.</li>
+</ol>
+<p>이 절차는 특별한 장비 없이도 전력품질 계측기 데이터와 커브 한 장만으로 수행할 수 있어, 설비 신규 도입이나 잦은 정지 원인 분석 단계에서 먼저 해보는 진단에 가깝다.</p>
+<h2>SEMI F47과 함께 보면 더 정확하다</h2>
+<p>반도체·디스플레이 설비라면 ITIC 커브와 함께 SEMI F47 기준도 함께 봐야 한다. SEMI F47은 반도체 제조장비의 라이드스루(ride-through) 요구조건으로, 정격전압의 80%에서 1초, 70%에서 0.5초, 50%에서 0.2초 동안은 장비가 정지 없이 버텨야 한다고 규정한다(per SEMI F47). ITIC 커브가 일반 정보기술장비를 위한 범용 기준이라면, SEMI F47은 반도체·디스플레이 공정 장비에 특화된 더 엄격한 기준점이라고 이해하면 된다. 두 기준을 함께 놓고 보면 우리 설비가 실제로 얼마나 여유 있게, 혹은 아슬아슬하게 버티고 있는지 훨씬 명확해진다.</p>
+<h2>실제 현장에서 곡선 밖 이벤트는 얼마나 자주 일어나나</h2>
+<p>IEEE 조사에 따르면 일반적인 산업 현장에서는 연간 60~70회 수준의 순간전압강하가 발생한다. 매번 정전으로 이어지지는 않지만, 이 중 상당수가 ITIC 커브의 허용 영역 경계 근처이거나 그 밖에 위치한다면 설비는 반복적으로 오동작 위험에 노출되는 셈이다. 반도체·디스플레이·자동차·2차전지·데이터센터처럼 순간정지 한 번의 영향이 큰 산업일수록 이 곡선을 정기적으로 점검할 필요가 있다.</p>
+<h2>TSP로 곡선 밖 이벤트에 대응하는 법</h2>
+<p>계측 결과 손상 영역에 걸리는 이벤트가 반복된다면, 설비 앞단에 순간전압강하 보상장치를 적용해 곡선 안쪽으로 끌어들이는 것이 실질적인 해법이다. WESCO의 TSP(The Second Power)는 EDLC 울트라커패시터 기반의 배터리리스 구조로, 중소용량은 2ms 이내, 대용량은 4ms 이내에 전압을 보상해 ITIC 커브와 SEMI F47이 요구하는 라이드스루 구간을 안정적으로 커버한다. 납축·리튬 배터리를 쓰는 일반 UPS와 달리 에너지저장부 설계수명이 10년이라 주기적인 배터리 교체 부담도 없다. 저압(LV, 1kV 이하) 설비를 대상으로 하며, 현재 15개국 이상에 150,000대 이상 설치되어 있다.</p>
+<h2>정리</h2>
+<ul>
+<li>ITIC 커브는 가로축(지속시간)·세로축(전압 %)으로 정보기술장비의 전압 내성 범위를 정의한 표준 곡선이다.</li>
+<li>금지 영역·허용 영역·손상 영역 세 구간으로 나눠 읽으면 실제 이벤트가 어디에 해당하는지 판단할 수 있다.</li>
+<li>반도체·디스플레이 설비는 ITIC 커브와 함께 SEMI F47 라이드스루 기준(80%/1s, 70%/0.5s, 50%/0.2s)도 함께 봐야 한다.</li>
+<li>IEEE 조사에 따르면 연간 60~70회 수준의 순간전압강하가 발생하므로, 곡선 밖 이벤트는 드문 일이 아니다.</li>
+<li>손상 영역에 걸리는 이벤트가 반복된다면 TSP와 같은 순간전압강하 보상장치로 설비를 곡선 안쪽 허용 영역에 묶어두는 방법을 검토한다.</li>
+</ul><h2>자주 묻는 질문 (FAQ)</h2><dl class="faq"><dt>Q. ITIC 커브와 CBEMA 커브는 같은 것인가?</dt><dd>ITIC 커브는 CBEMA 커브를 계승해 정보기술산업협의회(ITIC)가 업데이트한 곡선으로, 같은 목적으로 쓰이다 보니 실무에서는 흔히 같은 의미로 통용된다.</dd><dt>Q. ITIC 커브의 영역을 벗어나면 장비가 무조건 고장 나는가?</dt><dd>곡선 밖 이벤트가 반드시 고장으로 이어지진 않지만 오동작이나 정지 위험이 커진다는 뜻이다. 실제 내성은 장비마다 달라 곡선은 참고 기준으로 활용해야 한다.</dd><dt>Q. SEMI F47과 ITIC 커브는 어떻게 다른가?</dt><dd>ITIC 커브는 일반 정보기술장비를 위한 범용 기준이고, SEMI F47은 반도체 제조장비를 위한 라이드스루 기준이다. 둘 다 순간전압강하 대응 능력을 요구하지만 적용 대상과 기준점이 다르다.</dd></dl><div class="cta"><h4>순간전압강하 대응이 필요하신가요?</h4><p>WESCO는 25년간 전력 품질 분야에서 순간전압보상장치(TSP)를 제조해 왔습니다. 라인 환경에 맞는 용량 선정과 도입을 상담해 드립니다.</p><a class="btn" href="https://tsp.wesco.works/ko/?s=blog-itic-curve-guide">도입 문의하기</a><a class="btn btn-ghost" href="mailto:wesco@wesco.co.kr?subject=%5Bblog%3Aitic-curve-guide%5D%20TSP%20%EB%8F%84%EC%9E%85%20%EB%AC%B8%EC%9D%98">메일로 문의</a></div></div></article><footer class="foot"><div class="wrap">© WESCO Co., Ltd. · Voltage Sag Protector Manufacturer · <a href="https://www.wesco.co.kr">www.wesco.co.kr</a></div></footer></body></html>
